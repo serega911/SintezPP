@@ -46,13 +46,22 @@ int Element::getSerialNumber() const
 
 bool NS_CORE operator<( const Element& elem1, const Element& elem2 )
 {
-	return elem1.getGearSetN() < elem2.getGearSetN() ? true :
-		elem1.getGearSetN() == elem2.getGearSetN() ? elem1.getElemN() < elem2.getElemN() : false;
+	if ( elem1 == elem2 )
+		return false;
+	return elem1.getElemN() < elem2.getElemN() ? true :
+		elem1.getElemN() == elem2.getElemN() ? elem1.getGearSetN() < elem2.getGearSetN() : false;
 }
 
 bool NS_CORE operator==( const Element& elem1, const Element& elem2 )
 {
-	return elem1.getGearSetN() == elem2.getGearSetN() && elem1.getElemN() == elem2.getElemN();
+	bool res;
+	if ( elem1.getElemN() == eMainElement::BRAKE && elem2.getElemN() == eMainElement::BRAKE && 
+		( elem1.getGearSetN() == GearSetNumber( 0 ) || elem2.getGearSetN() == GearSetNumber( 0 ) ) )
+			res = true;
+	else
+		res = elem1.getGearSetN() == elem2.getGearSetN() && elem1.getElemN() == elem2.getElemN();
+
+	return res;
 }
 
 bool NS_CORE operator!=( const Element& elem1, const Element& elem2 )

@@ -161,7 +161,7 @@ void Generate::generateBrakes( const GearBox & gearBox )
 		NS_CORE TLinkArray vect_brakes;	//	Вектор тормозов
 		//	Заполняем вектор тормозов с учетом сгенерированного сочетания
 		for ( size_t i = 0; i < vect_combi_brakes.size(); i++ )
-			vect_brakes.push_back( NS_CORE Link( vect_all_FB[vect_combi_brakes[i]], NS_CORE Element::BRAKE ) );
+			vect_brakes.push_back( NS_CORE Link( vect_all_FB[vect_combi_brakes[i]], NS_CORE Element(NS_CORE eMainElement::BRAKE, NS_CORE GearSetNumber(i+1)) ) );
 		gearBoxWithBrakes.setBrakesToCode( vect_brakes );
 		//C.print();
 		if ( gearBoxWithBrakes.checkFree() )
