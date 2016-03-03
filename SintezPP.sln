@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPGenerate", "SintezPPGenerate\SintezPPGenerate.vcxproj", "{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPDefK", "SintezPPDefK\SintezPPDefK.vcxproj", "{C4E3655B-F856-408B-9780-96DCA92D0059}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}.Debug|Win32.Build.0 = Debug|Win32
+		{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}.Release|Win32.ActiveCfg = Release|Win32
+		{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}.Release|Win32.Build.0 = Release|Win32
+		{C4E3655B-F856-408B-9780-96DCA92D0059}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C4E3655B-F856-408B-9780-96DCA92D0059}.Debug|Win32.Build.0 = Debug|Win32
+		{C4E3655B-F856-408B-9780-96DCA92D0059}.Release|Win32.ActiveCfg = Release|Win32
+		{C4E3655B-F856-408B-9780-96DCA92D0059}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

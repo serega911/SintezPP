@@ -1,0 +1,28 @@
+﻿  main.cpp
+d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(73): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(101): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(102): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(111): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(121): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(178): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(204): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(211): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\func_lib.h(37): warning C4018: '<' : signed/unsigned mismatch
+          d:\serega\aspirant\sintezplanetarygears\sintezpp\sintezppgenerate\main.cpp(251) : see reference to function template instantiation 'bool pss::del_repetition<int>(std::vector<int,std::allocator<_Ty>> &)' being compiled
+          with
+          [
+              _Ty=int
+          ]
+  TI.cpp
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\ti.cpp(12): warning C4305: 'argument' : truncation from 'double' to 'float'
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\ti.cpp(46): warning C4018: '<=' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\ti.cpp(61): warning C4018: '>' : signed/unsigned mismatch
+  TCode.cpp
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\tcode.cpp(66): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\tcode.cpp(88): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\tcode.cpp(110): warning C4018: '<' : signed/unsigned mismatch
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\tcode.cpp(225): warning C4018: '<' : signed/unsigned mismatch
+  func_lib.cpp
+  Generating Code...
+d:\serega\aspirant\sintezplanetarygears\sintezpp\libraries\ti.cpp(76): warning C4715: 'pss::TI::operator==' : not all control paths return a value
+  SintezPPGenerate.vcxproj -> D:\Serega\Aspirant\SintezPlanetaryGears\SintezPP\Debug\SintezPPGenerate.exe
