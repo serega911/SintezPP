@@ -26,8 +26,11 @@
 *.exe
 *.out
 *.app
-<<<<<<< HEAD
-Status API Training Shop Blog About Pricing
-© 2016 GitHub, Inc. Term
-=======
->>>>>>> 9ff6ee74f67221d111057eb77508afb1497a3b8a
+
+# Solution files
+*.sdf
+*.opensdf
+
+#Status API Training Shop Blog About Pricing
+#© 2016 GitHub, Inc. Term
+
