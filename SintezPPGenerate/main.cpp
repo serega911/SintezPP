@@ -31,12 +31,12 @@ int main()
 	std::cout << "Количество тормозов:	";
 	std::cin >> Count_B;
 
-	_mkdir("Results");
-	file_out.open("Results\\pkp_db.pkp", std::ofstream::out);
-	file_fail_0.open("Results\\failed_0.pkp", std::ofstream::out);
-	file_fail_N.open("Results\\failed_N.pkp", std::ofstream::out);
-	fail_free.open("Results\\failed_free.pkp", std::ofstream::out);
-	fail_chains.open("Results\\fail_chains.pkp", std::ofstream::out);
+	_mkdir("..\\Results");
+	file_out.open("..\\Results\\pkp_db.pkp", std::ofstream::out);
+	file_fail_0.open("..\\Results\\failed_0.pkp", std::ofstream::out);
+	file_fail_N.open("..\\Results\\failed_N.pkp", std::ofstream::out);
+	fail_free.open("..\\Results\\failed_free.pkp", std::ofstream::out);
+	fail_chains.open("..\\Results\\fail_chains.pkp", std::ofstream::out);
 
 	file_out << W << ' ' << N << ' ' << Count_L << ' ' << Count_F << ' ' << Count_B << '\n';
 	file_fail_0 << W << ' ' << N << ' ' << Count_L << ' ' << 0 << ' ' << 0 << '\n';
