@@ -13,16 +13,16 @@ namespace pss{
 		bool									setIn(int);								//	Установка звена, связанного со входом
 		bool									setOut(int);							//	Установка звена, связанного со выходом
 		bool									setLinks(std::vector<int>);				//	Установка связей
-		bool									setFrict(std::vector<int>);				//	Установка фрикционов
+		bool									setFrictions(std::vector<int>);				//	Установка фрикционов
 		bool									setBrakes(std::vector<int>);			//	Установка тормозов
 		void									print() const;							//	Вывод объекта на экран
 		void									clear();
 		int										size() const;
-		int										getN() const;
+		int										getNumberOfPlanetaryGears() const;
 		int										getW() const;
-		int										getCountL() const;
-		int										getCountF() const;
-		int										getCountB() const;
+		int										getNumberOfLinks() const;
+		int										getNumberOfFrictions() const;
+		int										getNumberOfBrakes() const;
 		void									writeCodeToFile(std::ofstream&) const;
 		void									writeParametersToFile(std::ofstream&) const;
 		void									loadCodeFromFile(std::ifstream&);

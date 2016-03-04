@@ -80,7 +80,7 @@ int main()
 						if (chains_all[i] == chains)
 						{
 							tmp.clear();
-							C.setFrict(tmp);
+							C.setFrictions(tmp);
 							C.setBrakes(tmp);
 							C.writeCodeToFile(fail_chains);
 							flag = true;
@@ -110,7 +110,7 @@ int main()
 							vect_frict.clear();
 							for (int i = 0; i < vect_combi_frict.size(); i++)
 								vect_frict.push_back(vect_all_frict[vect_combi_frict[i]]);
-							C.setFrict(vect_frict);
+							C.setFrictions(vect_frict);
 							std::vector<int> vect_combi_brakes;		//	¬ектор сочетаний тормозов
 							//	—оздаем первое сочетание тормозов из всех возможных по Count_B
 							for (int i = 0; i < Count_B; i++)
@@ -134,14 +134,14 @@ int main()
 						if (vect_all_FB.size() != 0)
 						{
 							tmp.clear();
-							C.setFrict(tmp);
+							C.setFrictions(tmp);
 							C.setBrakes(tmp);
 							C.writeCodeToFile(file_fail_N);
 						}
 						else
 						{
 							tmp.clear();
-							C.setFrict(tmp);
+							C.setFrictions(tmp);
 							C.setBrakes(tmp);
 							C.writeCodeToFile(file_fail_0);
 						}
@@ -160,7 +160,7 @@ int main()
 
 std::vector<int> create_Vect_BF(std::vector<std::vector<int>> Chains, int N)
 {
-	size_t b;
+	size_t b = 0;
 	std::vector<int> brakes;
 	//проверки корректности кода
 	for (size_t i = 0; i < Chains.size(); i++)

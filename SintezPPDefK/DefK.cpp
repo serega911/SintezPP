@@ -31,9 +31,9 @@ pss::TK pss::DefK::Run(const pss::TCode& Code, pss::TK K)
 
 bool pss::DefK::PodModul(const pss::TCode & Code, const pss::TK &k)
 {
-	m_matrix.resize(3 * Code.getN());
+	m_matrix.resize(3 * Code.getNumberOfPlanetaryGears());
 	for (auto& it : m_matrix)
-		it.resize(3 * Code.getN() + 1);
+		it.resize(3 * Code.getNumberOfPlanetaryGears() + 1);
 	//в первые N строк записываем уравнения Виллиса. 
 	//Эти строки никогда не очищаем так как все значения всегда пишутся на одни и те же позиции
 	for (int i = 0; i < k.size(); i++){
@@ -44,17 +44,17 @@ bool pss::DefK::PodModul(const pss::TCode & Code, const pss::TK &k)
 ;
 		//system("pause");
 		//очищаем уравнения
-	for (int i = Code.getN(); i < Code.getN() + Code.getCountL() + 1; i++)
-		for (int j = 0; j < 3 * Code.getN() + 1; j++)
+	for (int i = Code.getNumberOfPlanetaryGears(); i < Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks() + 1; i++)
+		for (int j = 0; j < 3 * Code.getNumberOfPlanetaryGears() + 1; j++)
 				m_matrix[i][j] = 0;
 		//в следующие countSV строк записываем связи
-	for (int i = Code.getN(), j = 2; i < Code.getN() + Code.getCountL(); i++, j++){
+	for (int i = Code.getNumberOfPlanetaryGears(), j = 2; i < Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks(); i++, j++){
 			m_matrix[i][pss::code_2_pos(Code[j] / 100)] = 1;
 			m_matrix[i][pss::code_2_pos(Code[j] % 100)] = -1;
 		}
 		//уравнение для звена, связанного с ведущим валом
-	m_matrix[Code.getN() + Code.getCountL()][pss::code_2_pos(Code[0] / 100)] = 1;
-	m_matrix[Code.getN() + Code.getCountL()][Code.getN() * 3] = 1;
+	m_matrix[Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks()][pss::code_2_pos(Code[0] / 100)] = 1;
+	m_matrix[Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks()][Code.getNumberOfPlanetaryGears() * 3] = 1;
 			
 	//print(Matrix, "11	21	31	12	22	32	13	23	33	RP \n___________________________________________________________________________");
 	
@@ -69,14 +69,14 @@ bool pss::DefK::PodModul(const pss::TCode & Code, const pss::TK &k)
 		//записываем в матрицу уравнения с элементами управления
 		for (int i = 0; i < vect_combi_drive.size(); i++)
 		{
-			int driver = Code[2 + Code.getCountL() + vect_combi_drive[i]];
+			int driver = Code[2 + Code.getNumberOfLinks() + vect_combi_drive[i]];
 			//std::cout << "driver: " << driver << std::endl;
 			if (driver%100 == 66)	//driver - тормоз
-				m_matrix[Code.getN() + Code.getCountL() + 1 + i][pss::code_2_pos(driver / 100)] = 1;
+				m_matrix[Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks() + 1 + i][pss::code_2_pos(driver / 100)] = 1;
 			else	//driver - фрикцион
 			{
-				m_matrix[Code.getN() + Code.getCountL() + 1 + i][pss::code_2_pos(driver / 100)] = 1;
-				m_matrix[Code.getN() + Code.getCountL() + 1 + i][pss::code_2_pos(driver % 100)] = -1;
+				m_matrix[Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks() + 1 + i][pss::code_2_pos(driver / 100)] = 1;
+				m_matrix[Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks() + 1 + i][pss::code_2_pos(driver % 100)] = -1;
 			}
 		}
 		//print(Matrix, "11	21	31	12	22	32	13	23	33	RP\n___________________________________________________________________________");
@@ -88,10 +88,10 @@ bool pss::DefK::PodModul(const pss::TCode & Code, const pss::TK &k)
 		else
 			return false;
 		//очищаем уравнения с элементами управления
-		for (int i = Code.getN() + Code.getCountL() + 1; i < Code.getN() + Code.getCountL() + Code.getW(); i++)
-			for (int j = 0; j < 3 * Code.getN() + 1; j++)
+		for (int i = Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks() + 1; i < Code.getNumberOfPlanetaryGears() + Code.getNumberOfLinks() + Code.getW(); i++)
+			for (int j = 0; j < 3 * Code.getNumberOfPlanetaryGears() + 1; j++)
 				m_matrix[i][j] = 0;
-	} while (pss::next_combination(vect_combi_drive, Code.getCountF() + Code.getCountB() - 1));
+	} while (pss::next_combination(vect_combi_drive, Code.getNumberOfFrictions() + Code.getNumberOfBrakes() - 1));
 			//сравниваем полученные передаточные отношения с искомыми
 	if (m_iTarget == tmpI)
 	{

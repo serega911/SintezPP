@@ -28,7 +28,7 @@ int main(float eps, float dk, float beginNegative, float endNegative, float begi
 	pss::TI i({ 5.75, 33.0625 }, 0.05f);
 	pss::TCode code(0,0);
 	code.loadParametersFromFile(f_in);
-	pss::TK K(code.getN(), beginNegative, endNegative, beginPositive, endPositive, dk);
+	pss::TK K(code.getNumberOfPlanetaryGears(), beginNegative, endNegative, beginPositive, endPositive, dk);
 	pss::DefK DK(i);
 	while (!f_in.eof()){		
 		code.loadCodeFromFile(f_in);

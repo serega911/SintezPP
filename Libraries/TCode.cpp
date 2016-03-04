@@ -79,7 +79,7 @@ bool TCode::setLinks(std::vector<int> links)
 	return true;
 }
 
-bool TCode::setFrict(std::vector<int> frict)
+bool TCode::setFrictions(std::vector<int> frict)
 {
 	for (int i = 0; i < frict.size(); i++)
 		if (frict[i] / 1000>3 || frict[i] / 100 % 10 > m_numberOfPlanetaryGears || frict[i] % 100 / 10>3 || frict[i] % 10 > m_numberOfPlanetaryGears)
@@ -163,7 +163,7 @@ int TCode::size() const
 	return m_codeSize;
 }
 
-int TCode::getN() const
+int TCode::getNumberOfPlanetaryGears() const
 {
 	return m_numberOfPlanetaryGears;
 }
@@ -173,17 +173,17 @@ int TCode::getW() const
 	return m_w;
 }
 
-int TCode::getCountL() const
+int TCode::getNumberOfLinks() const
 {
 	return m_numberOfLinks;
 }
 
-int TCode::getCountF() const
+int TCode::getNumberOfFrictions() const
 {
 	return m_numberOfFrictions;
 }
 
-int TCode::getCountB() const
+int TCode::getNumberOfBrakes() const
 {
 	return m_numberOfBrakes;
 }
