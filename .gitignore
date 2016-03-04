@@ -34,7 +34,6 @@
 
 # My files
 *.pkp
-/.gitignore
 
 # My folders
 [Dd]ebug/
