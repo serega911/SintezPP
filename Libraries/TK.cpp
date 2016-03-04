@@ -3,6 +3,14 @@
 #include <iostream>
 
 
+pss::TK::TK(int countOfPlanetaryGears, float beginNegative, float endNegative, float beginPositive, float endPositive, float dK) :
+m_beginNegative(beginNegative), m_endNegative(endNegative), m_beginPositive(beginPositive), m_endPositive(endPositive), m_dK(dK), m_isFinded(false)
+{
+	m_K.resize(countOfPlanetaryGears);
+	for (auto& it : m_K)
+		it = beginNegative;
+}
+
 const float pss::TK::operator[](int i) const
 {
 	return m_K.at(i);
@@ -57,11 +65,5 @@ void pss::TK::writeToFile(std::ofstream& file) const
 	file << std::endl;
 }
 
-pss::TK::TK(int countOfPlanetaryGears, float beginNegative, float endNegative, float beginPositive, float endPositive, float dK) :
-m_beginNegative(beginNegative), m_endNegative(endNegative), m_beginPositive(beginPositive), m_endPositive(endPositive), m_dK(dK), m_isFinded(false)
-{
-	m_K.resize(countOfPlanetaryGears);
-	for (auto& it : m_K)
-		it = beginNegative;
-}
+
 

@@ -6,8 +6,8 @@ namespace pss{
 	class TCode
 	{
 	public:
-		TCode();
 		TCode(int, int);
+		TCode() = delete;
 		~TCode(void);
 		int										operator[](int i) const;				//	Оператор получения элемента вектора кода
 		bool									setIn(int);								//	Установка звена, связанного со входом
