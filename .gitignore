@@ -30,6 +30,7 @@
 # Solution files
 *.sdf
 *.opensdf
+*.suo
 
 # My files
 *.pkp

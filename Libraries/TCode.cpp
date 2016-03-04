@@ -17,10 +17,6 @@ TCode::TCode(int w, int n)
 	m_code.push_back(0);
 }
 
-TCode::TCode() : TCode(0, 0)
-{
-}
-
 TCode::~TCode(void)
 {
 }

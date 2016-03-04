@@ -1,14 +1,15 @@
 #include "../Libraries/TI.h"
 #include <iostream>
 
+float pss::TI::m_eps = 0.05;
+
 pss::TI::TI(const std::vector<float>& i, float eps)
 {
 	m_i = i;
 	m_eps = eps;
 }
 
-pss::TI::TI():
-TI({},0.01)
+pss::TI::TI()
 {
 }
 

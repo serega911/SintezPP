@@ -16,6 +16,7 @@ namespace pss
 		std::vector<float>						m_K;
 
 	public:
+		TK() = delete;
 		TK(int countOfPlanetaryGears, float beginNegative, float endNegative, float beginPositive, float endPositive, float dK);
 		const float								operator[](int i) const;
 		bool									next();

@@ -7,7 +7,7 @@ namespace pss
 	{
 	private:
 		std::vector<float>						m_i;
-		float									m_eps;
+		static float							m_eps;
 	public:
 		TI();
 		TI(const std::vector<float>& i, float eps);
