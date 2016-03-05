@@ -33,11 +33,12 @@
 *.suo
 
 # My files
-*.pkp
+*.pkp.log
 
 # My folders
 [Dd]ebug/
 [Rr]elease/
+[Rr]esults/
 
 #Status API Training Shop Blog About Pricing
 #© 2016 GitHub, Inc. Term
