@@ -10,33 +10,64 @@ std::vector<std::vector<int>> create_Chains(int, int, const std::vector<int> &, 
 
 int main()
 {
+
 	std::ofstream file_out, file_fail_0, file_fail_N, fail_free, fail_chains;
 	setlocale(LC_ALL, "Russian");
 	std::cout << "======  Синтез планетарных передач с тремя степенями свободы.  ======\n\n";
 	//	Исходные данные
-	int W = 3;
-	int N = 3;
-	int Count_L = 3;
-	int Count_F = 2;
-	int Count_B = 2;
+	int W;
+	int N;
+	int Count_L;
+	int Count_F;
+	int Count_B;
 
 	std::cout << "\t\t\tИсходные данные." << std::endl << "Число степеней свободы:	";
 	std::cin >> W;
 	std::cout << "Количество ПМ:		";
 	std::cin >> N;
-	std::cout << "Количество связей:	";
-	std::cin >> Count_L;
-	std::cout << "Количество фрикционов:	";
-	std::cin >> Count_F;
-	std::cout << "Количество тормозов:	";
-	std::cin >> Count_B;
 
-	_mkdir("Results");
-	file_out.open("Results\\pkp_db.pkp", std::ofstream::out);
-	file_fail_0.open("Results\\failed_0.pkp", std::ofstream::out);
-	file_fail_N.open("Results\\failed_N.pkp", std::ofstream::out);
-	fail_free.open("Results\\failed_free.pkp", std::ofstream::out);
-	fail_chains.open("Results\\fail_chains.pkp", std::ofstream::out);
+	switch (W)
+	{
+	case 2:
+	{
+			  Count_B = N;
+			  Count_F = 0;	// для двухстепенных блокировочный фрикцион не считаем
+			  Count_L = 2 * N - W;
+	}
+		break;
+	case 3:
+	{
+			  if (N == 1)
+			  {
+				  std::cout << "Ошибка: Один планетарный ряд при трех степенях свободы!\n";
+				  system("pause");
+				  return 0;
+			  }
+			  Count_B = N - 1;
+			  Count_F = 2;
+			  Count_L = 2 * N - W;
+	}
+		break;
+	default:
+	{
+			   std::cout << "Ошибка: Некорректное количество степеней свободы!\n";
+			   system("pause");
+			   return 0;
+	}
+		break;
+	}
+	std::cout << "Количество связей:	" << Count_L << std::endl;
+	std::cout << "Количество фрикционов:	" << Count_F << std::endl;
+	std::cout << "Количество тормозов:	" << Count_B << std::endl;
+
+
+
+	_mkdir("..\\Results");
+	file_out.open("..\\Results\\pkp_db.pkp", std::ofstream::out);
+	file_fail_0.open("..\\Results\\failed_0.pkp.log", std::ofstream::out);
+	file_fail_N.open("..\\Results\\failed_N.pkp.log", std::ofstream::out);
+	fail_free.open("..\\Results\\failed_free.pkp.log", std::ofstream::out);
+	fail_chains.open("..\\Results\\fail_chains.pkp.log", std::ofstream::out);
 
 	file_out << W << ' ' << N << ' ' << Count_L << ' ' << Count_F << ' ' << Count_B << '\n';
 	file_fail_0 << W << ' ' << N << ' ' << Count_L << ' ' << 0 << ' ' << 0 << '\n';
@@ -80,10 +111,11 @@ int main()
 						if (chains_all[i] == chains)
 						{
 							tmp.clear();
-							C.setFrict(tmp);
+							C.setFrictions(tmp);
 							C.setBrakes(tmp);
 							C.writeCodeToFile(fail_chains);
 							flag = true;
+							break;
 						}
 					if (flag == true)
 						continue;
@@ -110,7 +142,7 @@ int main()
 							vect_frict.clear();
 							for (int i = 0; i < vect_combi_frict.size(); i++)
 								vect_frict.push_back(vect_all_frict[vect_combi_frict[i]]);
-							C.setFrict(vect_frict);
+							C.setFrictions(vect_frict);
 							std::vector<int> vect_combi_brakes;		//	Вектор сочетаний тормозов
 							//	Создаем первое сочетание тормозов из всех возможных по Count_B
 							for (int i = 0; i < Count_B; i++)
@@ -134,14 +166,14 @@ int main()
 						if (vect_all_FB.size() != 0)
 						{
 							tmp.clear();
-							C.setFrict(tmp);
+							C.setFrictions(tmp);
 							C.setBrakes(tmp);
 							C.writeCodeToFile(file_fail_N);
 						}
 						else
 						{
 							tmp.clear();
-							C.setFrict(tmp);
+							C.setFrictions(tmp);
 							C.setBrakes(tmp);
 							C.writeCodeToFile(file_fail_0);
 						}
@@ -160,7 +192,7 @@ int main()
 
 std::vector<int> create_Vect_BF(std::vector<std::vector<int>> Chains, int N)
 {
-	size_t b;
+	size_t b = 0;
 	std::vector<int> brakes;
 	//проверки корректности кода
 	for (size_t i = 0; i < Chains.size(); i++)
