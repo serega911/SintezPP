@@ -16,6 +16,9 @@
     <ClCompile Include="..\Libraries\TI.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\TSingletons.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -25,6 +28,9 @@
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TI.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TSingletons.h">
       <Filter>Lib</Filter>
     </ClInclude>
   </ItemGroup>
