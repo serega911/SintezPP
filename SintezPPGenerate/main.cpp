@@ -4,13 +4,13 @@
 #include <direct.h>
 #include "../Libraries/func_lib.h"
 #include "../Libraries/TCode.h"
+#include "../Libraries/TSingletons.h"
 
 std::vector<int> create_Vect_BF(std::vector<std::vector<int>>, int);
 std::vector<std::vector<int>> create_Chains(int, int, const std::vector<int> &, int);
 
 int main()
 {
-
 	std::ofstream file_out, file_fail_0, file_fail_N, fail_free, fail_chains;
 	setlocale(LC_ALL, "Russian");
 	std::cout << "======  Синтез планетарных передач с тремя степенями свободы.  ======\n\n";

@@ -3,6 +3,7 @@
 
 pss::TSingletons::TSingletons()
 {
+	init();
 }
 
 pss::TSingletons* pss::TSingletons::getInstance()
@@ -15,7 +16,12 @@ pss::TSingletons::~TSingletons()
 {
 }
 
+pss::TIOFileManager* pss::TSingletons::getIOFileManager()
+{
+	return pss::TIOFileManager::getInstance();
+}
+
 void pss::TSingletons::init()
 {
-
+	getIOFileManager()->init();
 }

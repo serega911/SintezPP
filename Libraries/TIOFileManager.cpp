@@ -6,10 +6,15 @@ pss::TIOFileManager::TIOFileManager()
 
 pss::TIOFileManager* pss::TIOFileManager::getInstance()
 {
-	pss::TIOFileManager ioFileManager;
+	static pss::TIOFileManager ioFileManager;
 	return &ioFileManager;
 }
 
 pss::TIOFileManager::~TIOFileManager()
 {
+}
+
+void pss::TIOFileManager::init()
+{
+
 }
