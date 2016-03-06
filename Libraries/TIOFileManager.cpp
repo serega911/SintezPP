@@ -1,5 +1,12 @@
 #include "../Libraries/TIOFileManager.h"
 
+const std::string						pss::TIOFileManager::s_folder = "../results";
+
+std::string pss::TIOFileManager::getFolder()
+{
+	return s_folder;
+}
+
 pss::TIOFileManager::TIOFileManager()
 {
 }

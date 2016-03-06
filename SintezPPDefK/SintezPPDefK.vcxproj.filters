@@ -17,6 +17,9 @@
     <ClInclude Include="..\Libraries\TSingletons.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\TIOFileManager.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
@@ -34,6 +37,9 @@
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TSingletons.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
   </ItemGroup>
