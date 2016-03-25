@@ -16,6 +16,8 @@ namespace pss
 		int										getNumberOfFrictions() const;
 		int										getNumberOfBrakes() const;
 
+		void									setGlobalParameters(int w, int n);
+
 	private:
 												TSingletons();
 												TSingletons(const TSingletons&) = delete;

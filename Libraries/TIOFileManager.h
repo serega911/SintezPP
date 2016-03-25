@@ -28,15 +28,18 @@ namespace pss
 		std::string								getFolder();
 
 		void									writeToFile(eOutputFileType type, const TCode & code);
-
+		
+		void									writeInitialData();
 	private:
+		
 		std::map<eOutputFileType, std::string>	m_fileNames;
 
 												TIOFileManager();
 												TIOFileManager(const TIOFileManager&) = delete;
 		TIOFileManager&							operator=(TIOFileManager&) = delete;
 
-		static const std::string				s_folder;
+		static const std::string				s_globalFolder;
+		std::string								m_containingFolder;
 		std::map<eOutputFileType, std::ofstream*> m_oFiles;
 
 		

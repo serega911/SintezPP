@@ -83,7 +83,44 @@ int pss::TSingletons::getNumberOfBrakes() const
 	return m_numberOfBrakes;
 }
 
+void pss::TSingletons::setGlobalParameters(int w, int n)
+{
+	m_w = w;
+	m_numberOfPlanetaryGears = n;
+
+	switch (m_w)
+	{
+	case 2:
+	{
+			  m_numberOfBrakes = m_numberOfPlanetaryGears;
+			  m_numberOfFrictions = 0;	// для двухстепенных блокировочный фрикцион не считаем
+			  m_numberOfLinks = 2 * m_numberOfPlanetaryGears - m_w;
+	}
+		break;
+	case 3:
+	{
+			  if (m_numberOfPlanetaryGears == 1)
+			  {
+				  std::cout << "Ошибка: Один планетарный ряд при трех степенях свободы!\n";
+				  system("pause");
+				  exit(0);
+			  }
+			  m_numberOfBrakes = m_numberOfPlanetaryGears - 1;
+			  m_numberOfFrictions = 2;
+			  m_numberOfLinks = 2 * m_numberOfPlanetaryGears - m_w;
+	}
+		break;
+	default:
+	{
+			   std::cout << "Ошибка: Некорректное количество степеней свободы!\n";
+			   system("pause");
+			   exit(0);
+	}
+		break;
+	}
+	getIOFileManager()->writeInitialData();
+}
+
 void pss::TSingletons::init()
 {
-	getIOFileManager()->init();
 }
