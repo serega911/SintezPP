@@ -1,12 +1,13 @@
 #include "../Libraries/TK.h"
 #include "../Libraries/func_lib.h"
+#include "../Libraries/TSingletons.h"
 #include <iostream>
 
 
-pss::TK::TK(int countOfPlanetaryGears, float beginNegative, float endNegative, float beginPositive, float endPositive, float dK) :
+pss::TK::TK(float beginNegative, float endNegative, float beginPositive, float endPositive, float dK) :
 m_beginNegative(beginNegative), m_endNegative(endNegative), m_beginPositive(beginPositive), m_endPositive(endPositive), m_dK(dK), m_isFinded(false)
 {
-	m_K.resize(countOfPlanetaryGears);
+	m_K.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
 	for (auto& it : m_K)
 		it = beginNegative;
 }
@@ -65,5 +66,9 @@ void pss::TK::writeToFile(std::ofstream& file) const
 	file << std::endl;
 }
 
+void pss::TK::loadFromFile(std::ifstream&)
+{
+
+}
 
 

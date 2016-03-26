@@ -4,76 +4,27 @@
 #include <direct.h>
 #include "../Libraries/func_lib.h"
 #include "../Libraries/TCode.h"
+#include "../Libraries/TSingletons.h"
 
 std::vector<int> create_Vect_BF(std::vector<std::vector<int>>, int);
 std::vector<std::vector<int>> create_Chains(int, int, const std::vector<int> &, int);
 
 int main()
 {
-
-	std::ofstream file_out, file_fail_0, file_fail_N, fail_free, fail_chains;
 	setlocale(LC_ALL, "Russian");
 	std::cout << "======  Синтез планетарных передач с тремя степенями свободы.  ======\n\n";
 	//	Исходные данные
 	int W;
 	int N;
-	int Count_L;
-	int Count_F;
-	int Count_B;
-
 	std::cout << "\t\t\tИсходные данные." << std::endl << "Число степеней свободы:	";
 	std::cin >> W;
 	std::cout << "Количество ПМ:		";
 	std::cin >> N;
+	pss::TSingletons::getInstance()->setGlobalParameters(W, N);
+	std::cout << "Количество связей:	" << pss::TSingletons::getInstance()->getNumberOfLinks() << std::endl;
+	std::cout << "Количество фрикционов:	" << pss::TSingletons::getInstance()->getNumberOfFrictions() << std::endl;
+	std::cout << "Количество тормозов:	" << pss::TSingletons::getInstance()->getNumberOfBrakes() << std::endl;
 
-	switch (W)
-	{
-	case 2:
-	{
-			  Count_B = N;
-			  Count_F = 0;	// для двухстепенных блокировочный фрикцион не считаем
-			  Count_L = 2 * N - W;
-	}
-		break;
-	case 3:
-	{
-			  if (N == 1)
-			  {
-				  std::cout << "Ошибка: Один планетарный ряд при трех степенях свободы!\n";
-				  system("pause");
-				  return 0;
-			  }
-			  Count_B = N - 1;
-			  Count_F = 2;
-			  Count_L = 2 * N - W;
-	}
-		break;
-	default:
-	{
-			   std::cout << "Ошибка: Некорректное количество степеней свободы!\n";
-			   system("pause");
-			   return 0;
-	}
-		break;
-	}
-	std::cout << "Количество связей:	" << Count_L << std::endl;
-	std::cout << "Количество фрикционов:	" << Count_F << std::endl;
-	std::cout << "Количество тормозов:	" << Count_B << std::endl;
-
-
-
-	_mkdir("..\\Results");
-	file_out.open("..\\Results\\pkp_db.pkp", std::ofstream::out);
-	file_fail_0.open("..\\Results\\failed_0.pkp.log", std::ofstream::out);
-	file_fail_N.open("..\\Results\\failed_N.pkp.log", std::ofstream::out);
-	fail_free.open("..\\Results\\failed_free.pkp.log", std::ofstream::out);
-	fail_chains.open("..\\Results\\fail_chains.pkp.log", std::ofstream::out);
-
-	file_out << W << ' ' << N << ' ' << Count_L << ' ' << Count_F << ' ' << Count_B << '\n';
-	file_fail_0 << W << ' ' << N << ' ' << Count_L << ' ' << 0 << ' ' << 0 << '\n';
-	file_fail_N << W << ' ' << N << ' ' << Count_L << ' ' << 0 << ' ' << 0 << '\n';
-	fail_chains << W << ' ' << N << ' ' << Count_L << ' ' << 0 << ' ' << 0 << '\n';
-	fail_free << W << ' ' << N << ' ' << Count_L << ' ' << Count_F << ' ' << Count_B << '\n';
 	//	Генерация всех возможных связей
 	std::vector<int> tmp;
 	std::vector<int> vect_all_links;		//	Вектор всех возможных связей
@@ -82,7 +33,7 @@ int main()
 		for (int j = (i / 3 + 1) * 3; j < 3 * N; j++)
 			vect_all_links.push_back(pss::pos_2_code(i) * 100 + pss::pos_2_code(j));
 	//	Генерация кодов
-	pss::TCode C(W, N);
+	pss::TCode C;
 	std::vector<std::vector<std::vector<int>>> chains_all;	//	Все цепочки связей
 	for (int in = 0; in < 3 * N; in++)				//	Вход на все звенья
 		for (int out = 0; out < 3 * N; out++)			//	Выход на все звенья
@@ -95,7 +46,7 @@ int main()
 				std::vector<int> vect_links;			//	Вектор связей
 				std::vector<int> vect_combi_links;		//	Вектор сочетаний связей
 				//	Создаем первое сочетание связей из всех возможных связей по Count_L+Count_F (количество связей + количество фрикционов) без повторений: 0,1,2,3...
-				for (int i = 0; i < Count_L; i++)
+				for (int i = 0; i < pss::TSingletons::getInstance()->getNumberOfLinks(); i++)
 					vect_combi_links.push_back(i);
 				//	В цикле генерируем все возможные сочетания связей
 				do{
@@ -113,7 +64,7 @@ int main()
 							tmp.clear();
 							C.setFrictions(tmp);
 							C.setBrakes(tmp);
-							C.writeCodeToFile(fail_chains);
+							pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_REPETTION, C);
 							flag = true;
 							break;
 						}
@@ -125,7 +76,7 @@ int main()
 					tmp = vect_all_FB;
 					tmp.push_back(pss::pos_2_code(in));
 					tmp.push_back(pss::pos_2_code(out));
-					if (vect_all_FB.size() == Count_B + Count_F)
+					if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions())
 					{
 						std::vector<int> vect_all_frict;		//	Вектор всех возможных фрикционов
 						std::vector<int> vect_combi_frict;		//	Вектор сочетаний фрикционов
@@ -134,7 +85,7 @@ int main()
 							for (int j = i + 1; j < tmp.size(); j++)
 								vect_all_frict.push_back(tmp[i] * 100 + tmp[j]);
 						//	Создаем первое сочетание фрикционов из связей по Count_F (количество фрикционов) без повторений: 0,1...
-						for (int i = 0; i < Count_F; i++)
+							for (int i = 0; i < pss::TSingletons::getInstance()->getNumberOfFrictions(); i++)
 							vect_combi_frict.push_back(i);
 						//	В цикле генерируем все возможные сочетания фрикционов
 						do{
@@ -145,7 +96,7 @@ int main()
 							C.setFrictions(vect_frict);
 							std::vector<int> vect_combi_brakes;		//	Вектор сочетаний тормозов
 							//	Создаем первое сочетание тормозов из всех возможных по Count_B
-							for (int i = 0; i < Count_B; i++)
+							for (int i = 0; i < pss::TSingletons::getInstance()->getNumberOfBrakes(); i++)
 								vect_combi_brakes.push_back(i);
 							do{
 								std::vector<int> vect_brakes;	//	Вектор тормозов
@@ -155,9 +106,9 @@ int main()
 								C.setBrakes(vect_brakes);
 								//C.print();
 								if (C.check())
-									C.writeCodeToFile(file_out);
+									pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::DONE, C);
 								else
-									C.writeCodeToFile(fail_free);
+									pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_FREE, C);
 							} while (pss::next_combination(vect_combi_brakes, vect_all_FB.size() - 1));
 						} while (pss::next_combination(vect_combi_frict, vect_all_frict.size() - 1));
 					}
@@ -168,24 +119,19 @@ int main()
 							tmp.clear();
 							C.setFrictions(tmp);
 							C.setBrakes(tmp);
-							C.writeCodeToFile(file_fail_N);
+							pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_N, C);
 						}
 						else
 						{
 							tmp.clear();
 							C.setFrictions(tmp);
 							C.setBrakes(tmp);
-							C.writeCodeToFile(file_fail_0);
+							pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_0, C);
 						}
 					}
 				} while (pss::next_combination(vect_combi_links, vect_all_links.size() - 1));
 			}
 		}
-	file_out.close();
-	file_fail_0.close();
-	file_fail_N.close();
-	fail_free.close();
-	fail_chains.close();
 	system("pause");
 	return 0;
 }

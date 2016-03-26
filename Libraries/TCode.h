@@ -2,12 +2,13 @@
 #include <vector>
 #include <fstream>
 
+#include "../Libraries/IContainer.h"
+
 namespace pss{
-	class TCode
+	class TCode: public pss::IContainer
 	{
 	public:
-		TCode(int, int);
-		TCode() = delete;
+		TCode();
 		~TCode(void);
 		int										operator[](int i) const;				//	Оператор получения элемента вектора кода
 		bool									setIn(int);								//	Установка звена, связанного со входом
@@ -15,28 +16,21 @@ namespace pss{
 		bool									setLinks(std::vector<int>);				//	Установка связей
 		bool									setFrictions(std::vector<int>);			//	Установка фрикционов
 		bool									setBrakes(std::vector<int>);			//	Установка тормозов
-		int										getNumberOfPlanetaryGears() const;
-		int										getW() const;
-		int										getNumberOfLinks() const;
-		int										getNumberOfFrictions() const;
-		int										getNumberOfBrakes() const;
+
 		const std::vector<int>&					getCode() const;
-		void									writeCodeToFile(std::ofstream&) const;
-		void									writeParametersToFile(std::ofstream&) const;
-		void									loadCodeFromFile(std::ifstream&);
-		void									loadParametersFromFile(std::ifstream&);
+		void									writeToFile(std::ofstream&) const override;
+		void									loadFromFile(std::ifstream&) override;
 		bool									check() const;
 		void									print() const;							//	Вывод объекта на экран
 		void									clear();
-		int										size() const;
+		int										size() const override;
 	private:
 		std::vector<int>						m_code;									//	Вектор кода
-		int										m_w;									//	число степеней свободы
-		int										m_numberOfPlanetaryGears;				//	Количество планетарных рядов
-		int										m_numberOfBrakes;						//	Количество тормозов
-		int										m_numberOfFrictions;					//	Количество фрикционов
-		int										m_numberOfLinks;						//	Количество связей
 		int										m_codeSize;								//	Размер вектора кода
+
+		int										m_links;
+		int										m_frictions;
+		int										m_brekes;
 	};
 
 }
