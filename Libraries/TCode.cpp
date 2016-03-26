@@ -186,3 +186,13 @@ const std::vector<int>& TCode::getCode() const
 {
 	return m_code;
 }
+
+int pss::TCode::getIn() const
+{
+	return m_code[0];
+}
+
+int pss::TCode::getOut() const
+{
+	return m_code[1];
+}

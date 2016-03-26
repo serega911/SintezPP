@@ -25,6 +25,7 @@
     <ClCompile Include="..\Libraries\TK.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
+    <ClCompile Include="TGenerate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -46,5 +47,6 @@
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\IContainer.h" />
+    <ClInclude Include="TGenerate.h" />
   </ItemGroup>
 </Project>

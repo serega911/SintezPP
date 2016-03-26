@@ -18,6 +18,8 @@ namespace pss{
 		bool									setBrakes(std::vector<int>);			//	Установка тормозов
 
 		const std::vector<int>&					getCode() const;
+		int										getIn() const;
+		int										getOut() const;
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
 		bool									check() const;
