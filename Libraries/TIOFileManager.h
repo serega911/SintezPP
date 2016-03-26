@@ -4,7 +4,7 @@
 #include <fstream>
 #include <map>
 
-#include "../Libraries/TCode.h"
+#include "../Libraries/IContainer.h"
 
 namespace pss
 {
@@ -16,6 +16,7 @@ namespace pss
 		{
 			INITIAL_DATA,	// initial data - W N Count_L Count_F Count_B
 			DONE,			// done
+			DONE_K,			// done K
 			FAIL_N,			// wrong number of elements for brakes and frictions
 			FAIL_0,			// links from in to out or between elements of one planetary mechanism
 			FAIL_FREE,		// after setting frictions and brakes there are free elements
@@ -27,7 +28,8 @@ namespace pss
 		void									init();
 		std::string								getFolder();
 
-		void									writeToFile(eOutputFileType type, const TCode & code);
+		void									writeToFile(eOutputFileType type, const IContainer & container);
+		bool									loadFromFile(eOutputFileType type, IContainer & container);
 		
 		void									writeInitialData();
 	private:
@@ -40,8 +42,10 @@ namespace pss
 
 		static const std::string				s_globalFolder;
 		std::string								m_containingFolder;
+		
 		std::map<eOutputFileType, std::ofstream*> m_oFiles;
 
+		std::map<eOutputFileType, std::ifstream*> m_iFiles;
 		
 	};
 

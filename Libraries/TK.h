@@ -2,9 +2,11 @@
 #include <vector>
 #include <fstream>
 
+#include "../Libraries/IContainer.h"
+
 namespace pss
 {
-	class TK
+	class TK: public IContainer
 	{
 	private:
 		float									m_beginNegative;
@@ -17,13 +19,14 @@ namespace pss
 
 	public:
 		TK() = delete;
-		TK(int countOfPlanetaryGears, float beginNegative, float endNegative, float beginPositive, float endPositive, float dK);
+		TK(float beginNegative, float endNegative, float beginPositive, float endPositive, float dK);
 		const float								operator[](int i) const;
 		bool									next();
 		void									print() const;
-		int										size() const;
+		int										size() const override;
 		void									setFinded();
 		bool									getFinded();
-		void									writeToFile(std::ofstream& file) const;
+		void									writeToFile(std::ofstream& file) const override;
+		void									loadFromFile(std::ifstream&) override;
 	};
 }

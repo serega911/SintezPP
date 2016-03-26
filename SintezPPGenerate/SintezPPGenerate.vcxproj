@@ -70,14 +70,17 @@
     <ClCompile Include="..\Libraries\TCode.cpp" />
     <ClCompile Include="..\Libraries\TI.cpp" />
     <ClCompile Include="..\Libraries\TIOFileManager.cpp" />
+    <ClCompile Include="..\Libraries\TK.cpp" />
     <ClCompile Include="..\Libraries\TSingletons.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h" />
+    <ClInclude Include="..\Libraries\IContainer.h" />
     <ClInclude Include="..\Libraries\TCode.h" />
     <ClInclude Include="..\Libraries\TI.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
+    <ClInclude Include="..\Libraries\TK.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

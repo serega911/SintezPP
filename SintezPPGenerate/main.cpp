@@ -33,7 +33,7 @@ int main()
 		for (int j = (i / 3 + 1) * 3; j < 3 * N; j++)
 			vect_all_links.push_back(pss::pos_2_code(i) * 100 + pss::pos_2_code(j));
 	//	Генерация кодов
-	pss::TCode C(W, N);
+	pss::TCode C;
 	std::vector<std::vector<std::vector<int>>> chains_all;	//	Все цепочки связей
 	for (int in = 0; in < 3 * N; in++)				//	Вход на все звенья
 		for (int out = 0; out < 3 * N; out++)			//	Выход на все звенья

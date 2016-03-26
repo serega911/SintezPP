@@ -22,6 +22,9 @@
     <ClCompile Include="..\Libraries\TIOFileManager.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\TK.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -39,5 +42,9 @@
     <ClInclude Include="..\Libraries\TIOFileManager.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\TK.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IContainer.h" />
   </ItemGroup>
 </Project>

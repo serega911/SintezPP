@@ -9,12 +9,12 @@ std::string pss::TIOFileManager::getFolder()
 	return s_globalFolder;
 }
 
-void pss::TIOFileManager::writeToFile(eOutputFileType type, const TCode & code)
+void pss::TIOFileManager::writeToFile(eOutputFileType type, const IContainer & container)
 {
 	auto file = m_oFiles.find(type);
 	if (file != m_oFiles.end())
 	{
-		code.writeCodeToFile(*(file->second));
+		container.writeToFile(*(file->second));
 	}
 	else
 	{
@@ -22,8 +22,41 @@ void pss::TIOFileManager::writeToFile(eOutputFileType type, const TCode & code)
 		std::string fullName = m_containingFolder + "\\" + m_fileNames.at(type);
 		out->open(fullName.c_str(), std::ofstream::out);
 		m_oFiles.insert({type, out});
-		code.writeCodeToFile(*out);
+		container.writeToFile(*out);
 	}
+}
+
+
+bool pss::TIOFileManager::loadFromFile(eOutputFileType type, IContainer & container)
+{
+	auto file = m_iFiles.find(type);
+	if (file != m_iFiles.end())
+	{
+		if (!file->second->eof())
+		{
+			container.loadFromFile(*(file->second));
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{	
+		std::string fullName = m_containingFolder + "\\" + m_fileNames.at(type);
+		std::ifstream* in = new std::ifstream(fullName.c_str());
+		m_iFiles.insert({ type, in });
+		if ((!in->eof()) && !in->fail())
+		{
+			container.loadFromFile(*in);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	} 
 }
 
 void pss::TIOFileManager::writeInitialData()
@@ -64,10 +97,11 @@ void pss::TIOFileManager::init()
 	m_fileNames[eOutputFileType::FAIL_REPETTION] = "failed_repetition.log";
 	m_fileNames[eOutputFileType::INITIAL_DATA] = "initial_data.init";
 	m_fileNames[eOutputFileType::DONE] = "done.pkp";
+	m_fileNames[eOutputFileType::DONE_K] = "done_K.pkp";
 
 	auto folder = "w" + std::to_string(TSingletons::getInstance()->getW()) + "n" + std::to_string(TSingletons::getInstance()->getNumberOfPlanetaryGears());
 
-	m_containingFolder = s_globalFolder + "//" + folder;
+	m_containingFolder = s_globalFolder + "\\" + folder;
 
 	_mkdir(s_globalFolder.c_str());
 	_mkdir(m_containingFolder.c_str());
