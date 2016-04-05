@@ -68,9 +68,11 @@
   <ItemGroup>
     <ClCompile Include="..\Libraries\func_lib.cpp" />
     <ClCompile Include="..\Libraries\TCode.cpp" />
+    <ClCompile Include="..\Libraries\TCodeContainer.cpp" />
     <ClCompile Include="..\Libraries\TI.cpp" />
     <ClCompile Include="..\Libraries\TIOFileManager.cpp" />
     <ClCompile Include="..\Libraries\TK.cpp" />
+    <ClCompile Include="..\Libraries\TReplace.cpp" />
     <ClCompile Include="..\Libraries\TSingletons.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TGenerate.cpp" />
@@ -79,9 +81,11 @@
     <ClInclude Include="..\Libraries\func_lib.h" />
     <ClInclude Include="..\Libraries\IContainer.h" />
     <ClInclude Include="..\Libraries\TCode.h" />
+    <ClInclude Include="..\Libraries\TCodeContainer.h" />
     <ClInclude Include="..\Libraries\TI.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
     <ClInclude Include="..\Libraries\TK.h" />
+    <ClInclude Include="..\Libraries\TReplace.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
     <ClInclude Include="TGenerate.h" />
   </ItemGroup>

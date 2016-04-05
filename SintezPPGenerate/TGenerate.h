@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include "../Libraries/TCode.h"
+
 
 namespace pss
 {
@@ -8,7 +10,6 @@ namespace pss
 	{
 	private:
 		std::vector<int>						m_allLinks;
-		std::vector<std::vector<std::vector<int>>> m_existingSchemes;	//	Все цепочки связей
 
 		void									generateInOut();
 		bool									generateLinks(pss::TCode & code);

@@ -7,6 +7,18 @@
 namespace pss{
 	class TCode: public pss::IContainer
 	{
+	private:
+		std::vector<int>						m_code;									//	Вектор кода
+		int										m_codeSize;								//	Размер вектора кода
+
+		std::vector<std::vector<int>>			m_chains;
+
+		int										m_links;
+		int										m_frictions;
+		int										m_brekes;
+
+		void									createChains();
+
 	public:
 		TCode();
 		~TCode(void);
@@ -20,19 +32,16 @@ namespace pss{
 		const std::vector<int>&					getCode() const;
 		int										getIn() const;
 		int										getOut() const;
+		const std::vector<std::vector<int>>&	getChains();
+		const std::vector<int>					getOneElemFromOneChain();
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
+		bool									checkFree() const;
 		bool									check() const;
 		void									print() const;							//	Вывод объекта на экран
 		void									clear();
 		int										size() const override;
-	private:
-		std::vector<int>						m_code;									//	Вектор кода
-		int										m_codeSize;								//	Размер вектора кода
-
-		int										m_links;
-		int										m_frictions;
-		int										m_brekes;
+	
 	};
 
 }
