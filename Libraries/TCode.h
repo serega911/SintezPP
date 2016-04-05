@@ -17,6 +17,8 @@ namespace pss{
 		int										m_frictions;
 		int										m_brekes;
 
+		bool									m_needToUpdateChains;
+
 		void									createChains();
 
 	public:
@@ -37,7 +39,7 @@ namespace pss{
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
 		bool									checkFree() const;
-		bool									check() const;
+		bool									check();
 		void									print() const;							//	Вывод объекта на экран
 		void									clear();
 		int										size() const override;

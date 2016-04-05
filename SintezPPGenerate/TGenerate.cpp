@@ -67,8 +67,12 @@ bool pss::TGenerate::generateLinks(pss::TCode & code)
 			continue;
 		}	
 		existingSchemes.add(code);
-		generateFrictions(code);
-	} while (linksCombi.nextReplace());
+		if (code.check())
+			generateFrictions(code);
+		else
+			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_0, code);
+
+	} while (linksCombi.nextReplace(m_allLinks.size()-1));
 	return true;
 }
 
@@ -94,14 +98,11 @@ bool pss::TGenerate::generateFrictions(pss::TCode & code)
 				vect_frict.push_back(vect_all_frict[vect_combi_frict[i]]);
 			code.setFrictions(vect_frict);
 			generateBrakes(code);
-		} while (vect_combi_frict.nextReplace());
+		} while (vect_combi_frict.nextReplace(vect_all_FB.size()-1));
 	}
 	else
 	{
-		if (vect_all_FB.size() != 0)
-			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_N, code);
-		else
-			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_0, code);
+		pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_N, code);
 	}
 	return true;
 }
@@ -123,6 +124,6 @@ bool pss::TGenerate::generateBrakes(pss::TCode & code)
 			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::DONE, code);
 		else
 			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_FREE, code);
-	} while (vect_combi_brakes.nextReplace());
+	} while (vect_combi_brakes.nextReplace(vect_all_FB.size() - 1));
 	return true;
 }

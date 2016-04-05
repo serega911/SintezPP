@@ -70,6 +70,7 @@ bool TCode::setLinks(std::vector<int> links)
 	m_code.insert(m_code.begin()+2,links.begin(), links.end());
 	m_codeSize = m_code.size();
 	m_links = links.size();
+	m_needToUpdateChains = true;
 	return true;
 }
 
@@ -147,6 +148,7 @@ void TCode::clear()
 	m_links = 0;
 	m_frictions = 0;
 	m_brekes = 0;
+	m_needToUpdateChains = true;
 }
 
 int TCode::size() const
@@ -201,7 +203,7 @@ int pss::TCode::getOut() const
 
 const std::vector<std::vector<int>>& pss::TCode::getChains()
 {
-	if (m_chains.size() == 0)
+	if (m_needToUpdateChains)
 		createChains();
 	return m_chains;
 }
@@ -210,7 +212,7 @@ void pss::TCode::createChains()
 {
 	//Создаем начальные цепочки (каждая связь делается цепочкой)
 	m_chains.clear();
-	m_chains.resize(m_code.size());
+	m_chains.resize(pss::TSingletons::getInstance()->getNumberOfLinks() + 2);
 
 	for (int i = 0; i < m_chains.size(); i++){
 		m_chains[i].push_back(m_code[i] / 100);
@@ -264,10 +266,13 @@ void pss::TCode::createChains()
 	for (size_t i = 0; i < m_chains.size(); i++){
 		pss::del_repetition(m_chains[i]);
 	}
+	m_needToUpdateChains = false;
 }
 
-bool pss::TCode::check() const
+bool pss::TCode::check()
 {
+	if (m_needToUpdateChains)
+		createChains();
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
 	size_t b = 0;
 	//проверки корректности кода
@@ -298,7 +303,7 @@ bool pss::TCode::check() const
 
 const std::vector<int> pss::TCode::getOneElemFromOneChain()
 {
-	if (m_chains.size() == 0)
+	if (m_needToUpdateChains)
 		createChains();
 	std::vector<int> vect;
 	for (int i = 0; i < m_chains.size(); i++)
