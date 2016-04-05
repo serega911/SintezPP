@@ -81,7 +81,9 @@ bool pss::TGenerate::generateFrictions(pss::TCode & code)
 {
 	//	Определяем элементы, на которых будет установлен фрикцион или тормоз
 	std::vector<int> vect_all_FB = code.getOneElemFromOneChain();
-	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions())
+	vect_all_FB.push_back(code.getIn());
+	vect_all_FB.push_back(code.getOut());
+	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions()+2)
 	{
 		std::vector<int> vect_all_frict;		//	Вектор всех возможных фрикционов
 		pss::TReplace vect_combi_frict;		//	Вектор сочетаний фрикционов
