@@ -2,7 +2,6 @@
 #include "../Libraries/func_lib.h"
 #include "../Libraries/TSingletons.h"
 #include "../Libraries/TReplace.h"
-#include "../Libraries/TCodeContainer.h"
 #include <iostream>
 
 #include <algorithm>
@@ -52,7 +51,6 @@ void pss::TGenerate::generateInOut()
 
 bool pss::TGenerate::generateLinks(pss::TCode & code)
 {
-	pss::TCodeContainer existingSchemes;
 	pss::TReplace linksCombi;		//	Вектор сочетаний связей
 	linksCombi.init(pss::TSingletons::getInstance()->getNumberOfLinks());
 	do{
@@ -61,17 +59,20 @@ bool pss::TGenerate::generateLinks(pss::TCode & code)
 		for (int i = 0; i < linksCombi.size(); i++)
 			links.push_back(m_allLinks[linksCombi[i]]);
 		code.setLinks(links);
-		if (existingSchemes.findIn(code))
+		if (m_existingSchemes.findIn(code))
 		{
 			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_REPETTION, code);
 			continue;
 		}	
-		existingSchemes.add(code);
+		m_existingSchemes.add(code);
 		if (code.check())
+		{
 			generateFrictions(code);
+		}
 		else
+		{
 			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_0, code);
-
+		}
 	} while (linksCombi.nextReplace(m_allLinks.size()-1));
 	return true;
 }
@@ -98,7 +99,7 @@ bool pss::TGenerate::generateFrictions(pss::TCode & code)
 				vect_frict.push_back(vect_all_frict[vect_combi_frict[i]]);
 			code.setFrictions(vect_frict);
 			generateBrakes(code);
-		} while (vect_combi_frict.nextReplace(vect_all_FB.size()-1));
+		} while (vect_combi_frict.nextReplace(vect_all_frict.size() - 1));
 	}
 	else
 	{

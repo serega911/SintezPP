@@ -267,7 +267,6 @@ void pss::TCode::createChains()
 	for (size_t i = 0; i < m_chains.size(); i++){
 		pss::del_repetition(m_chains[i]);
 	}
-	std::sort(m_chains.begin(), m_chains.end());
 	m_needToUpdateChains = false;
 }
 

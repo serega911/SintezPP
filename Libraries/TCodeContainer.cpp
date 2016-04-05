@@ -8,7 +8,10 @@ void pss::TCodeContainer::add(const TCode& code)
 bool pss::TCodeContainer::findIn(TCode& code)
 {
 	for (int i = 0; i < m_container.size(); i++)
-	if (code.getChains() == m_container[i].getChains())
-		return true;
+	{
+		if (code.getChains() == m_container[i].getChains())
+			return true;
+	}
+		
 	return false;
 }
