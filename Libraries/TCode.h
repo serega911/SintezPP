@@ -35,7 +35,8 @@ namespace pss{
 		int										getIn() const;
 		int										getOut() const;
 		const std::vector<std::vector<int>>&	getChains();
-		const std::vector<int>					getOneElemFromOneChain();
+		const std::vector<int>					getElementsForFrictions();
+		const std::vector<int>					getElementsForBrakes();
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
 		bool									checkFree() const;

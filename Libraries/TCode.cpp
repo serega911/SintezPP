@@ -302,7 +302,20 @@ bool pss::TCode::check()
 	return true;
 }
 
-const std::vector<int> pss::TCode::getOneElemFromOneChain()
+const std::vector<int> pss::TCode::getElementsForFrictions()
+{
+	if (m_needToUpdateChains)
+		createChains();
+	std::vector<int> vect;
+	for (int i = 0; i < m_chains.size(); i++)
+	{
+		vect.push_back(m_chains[i][0]);
+	}
+		
+	return vect;
+}
+
+const std::vector<int> pss::TCode::getElementsForBrakes()
 {
 	if (m_needToUpdateChains)
 		createChains();
@@ -313,8 +326,8 @@ const std::vector<int> pss::TCode::getOneElemFromOneChain()
 		{
 			vect.push_back(m_chains[i][0]);
 		}
-			
+
 	}
-		
+
 	return vect;
 }

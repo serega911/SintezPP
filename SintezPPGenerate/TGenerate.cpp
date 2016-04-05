@@ -79,11 +79,9 @@ bool pss::TGenerate::generateLinks(pss::TCode & code)
 
 bool pss::TGenerate::generateFrictions(pss::TCode & code)
 {
-	//	Определяем элементы, на которых будет установлен фрикцион или тормоз
-	std::vector<int> vect_all_FB = code.getOneElemFromOneChain();
-	vect_all_FB.push_back(code.getIn());
-	vect_all_FB.push_back(code.getOut());
-	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions()+2)
+	//	Определяем элементы, на которых будет установлен фрикцион
+	std::vector<int> vect_all_FB = code.getElementsForFrictions();
+	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions() + 2)
 	{
 		std::vector<int> vect_all_frict;		//	Вектор всех возможных фрикционов
 		pss::TReplace vect_combi_frict;		//	Вектор сочетаний фрикционов
@@ -112,7 +110,7 @@ bool pss::TGenerate::generateFrictions(pss::TCode & code)
 
 bool pss::TGenerate::generateBrakes(pss::TCode & code)
 {
-	std::vector<int> vect_all_FB = code.getOneElemFromOneChain();
+	std::vector<int> vect_all_FB = code.getElementsForBrakes();
 	pss::TReplace vect_combi_brakes;		//	Вектор сочетаний тормозов
 	//	Создаем первое сочетание тормозов из всех возможных по Count_B
 	vect_combi_brakes.init(pss::TSingletons::getInstance()->getNumberOfBrakes());
