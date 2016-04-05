@@ -4,7 +4,6 @@
 #include "../Libraries/TReplace.h"
 #include <iostream>
 
-#include <algorithm>
 
 void pss::TGenerate::generate()
 {
@@ -84,7 +83,7 @@ bool pss::TGenerate::generateFrictions(pss::TCode & code)
 	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions() + 2)
 	{
 		std::vector<int> vect_all_frict;		//	Вектор всех возможных фрикционов
-		pss::TReplace vect_combi_frict;		//	Вектор сочетаний фрикционов
+		pss::TReplace vect_combi_frict;			//	Вектор сочетаний фрикционов
 		std::vector<int> vect_frict;			//	Вектор фрикционов
 		for (int i = 0; i < vect_all_FB.size(); i++)
 			for (int j = i + 1; j < vect_all_FB.size(); j++)

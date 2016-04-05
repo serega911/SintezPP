@@ -17,8 +17,6 @@ namespace pss{
 		int										m_frictions;
 		int										m_brekes;
 
-		bool									m_needToUpdateChains;
-
 		void									createChains();
 
 	public:
@@ -34,13 +32,13 @@ namespace pss{
 		const std::vector<int>&					getCode() const;
 		int										getIn() const;
 		int										getOut() const;
-		const std::vector<std::vector<int>>&	getChains();
-		const std::vector<int>					getElementsForFrictions();
-		const std::vector<int>					getElementsForBrakes();
+		const std::vector<std::vector<int>>&	getChains() const;
+		const std::vector<int>					getElementsForFrictions() const;
+		const std::vector<int>					getElementsForBrakes() const;
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
 		bool									checkFree() const;
-		bool									check();
+		bool									check() const;
 		void									print() const;							//	Вывод объекта на экран
 		void									clear();
 		int										size() const override;

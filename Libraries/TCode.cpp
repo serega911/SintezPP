@@ -70,7 +70,7 @@ bool TCode::setLinks(std::vector<int> links)
 	m_code.insert(m_code.begin()+2,links.begin(), links.end());
 	m_codeSize = m_code.size();
 	m_links = links.size();
-	m_needToUpdateChains = true;
+	createChains();
 	return true;
 }
 
@@ -148,7 +148,6 @@ void TCode::clear()
 	m_links = 0;
 	m_frictions = 0;
 	m_brekes = 0;
-	m_needToUpdateChains = true;
 }
 
 int TCode::size() const
@@ -201,10 +200,8 @@ int pss::TCode::getOut() const
 	return m_code[1];
 }
 
-const std::vector<std::vector<int>>& pss::TCode::getChains()
+const std::vector<std::vector<int>>& pss::TCode::getChains() const
 {
-	if (m_needToUpdateChains)
-		createChains();
 	return m_chains;
 }
 
@@ -266,14 +263,13 @@ void pss::TCode::createChains()
 	//удаление повторений
 	for (size_t i = 0; i < m_chains.size(); i++){
 		pss::del_repetition(m_chains[i]);
+		std::sort(m_chains[i].begin(), m_chains[i].end());
 	}
-	m_needToUpdateChains = false;
+	std::sort(m_chains.begin(), m_chains.end());
 }
 
-bool pss::TCode::check()
+bool pss::TCode::check() const
 {
-	if (m_needToUpdateChains)
-		createChains();
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
 	size_t b = 0;
 	//проверки корректности кода
@@ -302,10 +298,8 @@ bool pss::TCode::check()
 	return true;
 }
 
-const std::vector<int> pss::TCode::getElementsForFrictions()
+const std::vector<int> pss::TCode::getElementsForFrictions() const
 {
-	if (m_needToUpdateChains)
-		createChains();
 	std::vector<int> vect;
 	for (int i = 0; i < m_chains.size(); i++)
 	{
@@ -315,10 +309,8 @@ const std::vector<int> pss::TCode::getElementsForFrictions()
 	return vect;
 }
 
-const std::vector<int> pss::TCode::getElementsForBrakes()
+const std::vector<int> pss::TCode::getElementsForBrakes() const
 {
-	if (m_needToUpdateChains)
-		createChains();
 	std::vector<int> vect;
 	for (int i = 0; i < m_chains.size(); i++)
 	{
