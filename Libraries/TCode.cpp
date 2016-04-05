@@ -212,7 +212,8 @@ void pss::TCode::createChains()
 {
 	//Создаем начальные цепочки (каждая связь делается цепочкой)
 	m_chains.clear();
-	m_chains.resize(pss::TSingletons::getInstance()->getNumberOfLinks() + 2);
+	int size = pss::TSingletons::getInstance()->getNumberOfLinks() + 2;
+	m_chains.resize(size);
 
 	for (int i = 0; i < m_chains.size(); i++){
 		m_chains[i].push_back(m_code[i] / 100);
@@ -227,7 +228,7 @@ void pss::TCode::createChains()
 	for (size_t i = 0; i < 3 * N; i++)
 	{
 		b = 0;
-		for (size_t j = 0; j < m_code.size(); j++){
+		for (size_t j = 0; j < size; j++){
 			if (m_code[j] / 100 == pss::pos_2_code(i) || m_code[j] % 100 == pss::pos_2_code(i)){
 				b++;
 			}
@@ -266,6 +267,7 @@ void pss::TCode::createChains()
 	for (size_t i = 0; i < m_chains.size(); i++){
 		pss::del_repetition(m_chains[i]);
 	}
+	std::sort(m_chains.begin(), m_chains.end());
 	m_needToUpdateChains = false;
 }
 
