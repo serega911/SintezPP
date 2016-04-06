@@ -49,7 +49,6 @@
     <ClInclude Include="..\Libraries\TK.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\IContainer.h" />
     <ClInclude Include="TGenerate.h" />
     <ClInclude Include="..\Libraries\TCode.h">
       <Filter>Lib</Filter>
@@ -58,6 +57,9 @@
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TCodeContainer.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IContainer.h">
       <Filter>Lib</Filter>
     </ClInclude>
   </ItemGroup>

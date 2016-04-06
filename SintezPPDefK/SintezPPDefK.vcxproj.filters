@@ -17,10 +17,10 @@
     <ClInclude Include="..\Libraries\TIOFileManager.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\m_code.h">
+    <ClInclude Include="..\Libraries\TCodeContainer.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TCodeContainer.h">
+    <ClInclude Include="..\Libraries\TCode.h">
       <Filter>Lib</Filter>
     </ClInclude>
   </ItemGroup>
@@ -42,10 +42,10 @@
     <ClCompile Include="..\Libraries\TIOFileManager.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\m_code.cpp">
+    <ClCompile Include="..\Libraries\TCodeContainer.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TCodeContainer.cpp">
+    <ClCompile Include="..\Libraries\TCode.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
   </ItemGroup>

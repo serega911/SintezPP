@@ -323,3 +323,8 @@ const std::vector<int> pss::TCode::getElementsForBrakes() const
 
 	return vect;
 }
+
+bool pss::operator<(const TCode& code1, const TCode& code2)
+{
+	return code1.getChains() < code2.getChains();
+}

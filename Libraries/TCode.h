@@ -45,4 +45,6 @@ namespace pss{
 	
 	};
 
+	bool operator<(const TCode& code1, const TCode& code2);
 }
+

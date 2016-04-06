@@ -118,7 +118,7 @@ void pss::TSingletons::setGlobalParameters(int w, int n)
 	}
 		break;
 	}
-	getIOFileManager()->writeInitialData();
+	getIOFileManager()->writeSolutionData();
 }
 
 void pss::TSingletons::init()
