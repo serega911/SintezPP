@@ -70,6 +70,7 @@
     <ClInclude Include="..\Libraries\TI.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
     <ClInclude Include="..\Libraries\TK.h" />
+    <ClInclude Include="..\Libraries\TReplace.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
     <ClInclude Include="DefK.h" />
   </ItemGroup>
@@ -80,6 +81,7 @@
     <ClCompile Include="..\Libraries\TI.cpp" />
     <ClCompile Include="..\Libraries\TIOFileManager.cpp" />
     <ClCompile Include="..\Libraries\TK.cpp" />
+    <ClCompile Include="..\Libraries\TReplace.cpp" />
     <ClCompile Include="..\Libraries\TSingletons.cpp" />
     <ClCompile Include="DefK.cpp" />
     <ClCompile Include="main.cpp" />

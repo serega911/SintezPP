@@ -23,6 +23,9 @@
     <ClInclude Include="..\Libraries\TCode.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\TReplace.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
@@ -46,6 +49,9 @@
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TCode.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TReplace.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,7 +9,7 @@ namespace pss{
 	class DefK
 	{
 	public:
-		DefK();
+		DefK() = delete;
 		DefK(const pss::TI& I);
 		~DefK(void);
 		pss::TK									Run(const pss::TCode& Code, pss::TK K);
