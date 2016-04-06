@@ -1,7 +1,8 @@
-#include "TCode.h"
+#include "../Libraries/TCode.h"
 #include "func_lib.h"
 #include "../Libraries/TSingletons.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace pss;
 
@@ -69,6 +70,7 @@ bool TCode::setLinks(std::vector<int> links)
 	m_code.insert(m_code.begin()+2,links.begin(), links.end());
 	m_codeSize = m_code.size();
 	m_links = links.size();
+	createChains();
 	return true;
 }
 
@@ -142,6 +144,7 @@ void TCode::clear()
 	m_code.push_back(0);
 	m_code.push_back(0);
 	m_codeSize = m_code.size();
+	m_chains.clear();
 	m_links = 0;
 	m_frictions = 0;
 	m_brekes = 0;
@@ -168,7 +171,7 @@ void TCode::loadFromFile(std::ifstream& file)
 		file >> it;
 }
 
-bool TCode::check() const
+bool TCode::checkFree() const
 {
 	for (int i = 0; i < 3 * pss::TSingletons::getInstance()->getNumberOfPlanetaryGears(); i++)
 	{
@@ -180,9 +183,148 @@ bool TCode::check() const
 			return false;
 	}
 	return true;
-}
+}	//проверяет остались ли пустые элементы
 
 const std::vector<int>& TCode::getCode() const
 {
 	return m_code;
+}
+
+int pss::TCode::getIn() const
+{
+	return m_code[0];
+}
+
+int pss::TCode::getOut() const
+{
+	return m_code[1];
+}
+
+const std::vector<std::vector<int>>& pss::TCode::getChains() const
+{
+	return m_chains;
+}
+
+void pss::TCode::createChains()
+{
+	//Создаем начальные цепочки (каждая связь делается цепочкой)
+	m_chains.clear();
+	int size = pss::TSingletons::getInstance()->getNumberOfLinks() + 2;
+	m_chains.resize(size);
+
+	for (int i = 0; i < m_chains.size(); i++){
+		m_chains[i].push_back(m_code[i] / 100);
+		m_chains[i].push_back(m_code[i] % 100);
+		std::sort(m_chains[i].begin(), m_chains[i].end());
+	}
+	//поиск элементов, свободных от связей и создание цепочек, которые их содержат
+	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	auto in = m_code[0] / 100;
+	auto out = m_code[1] / 100;
+	size_t b;
+	for (size_t i = 0; i < 3 * N; i++)
+	{
+		b = 0;
+		for (size_t j = 0; j < size; j++){
+			if (m_code[j] / 100 == pss::pos_2_code(i) || m_code[j] % 100 == pss::pos_2_code(i)){
+				b++;
+			}
+		}
+		if (b == 0 && pss::pos_2_code(i) != in && pss::pos_2_code(i) != out){
+			m_chains.resize(m_chains.size() + 1);
+			m_chains[m_chains.size() - 1].push_back(pss::pos_2_code(i));
+			b = 0;
+		}
+	}
+	//поиск цепочек связей
+	b = 0;
+	for (size_t i = 0; i < m_chains.size() - 1; i++){
+		for (size_t j = i + 1; j < m_chains.size(); j++){
+			for (size_t k = 0; k < m_chains[i].size(); k++){
+				if (pss::in_vect(m_chains[j], m_chains[i][k]) != -1)
+					b = m_chains[i][k];
+			}
+			if (b != 0){
+				for (size_t k = 0; k < m_chains[i].size(); k++)
+					m_chains[j].push_back(m_chains[i][k]);
+				m_chains[i].clear();
+				m_chains[i].push_back(0);
+				b = 0;
+			}
+		}
+	}
+	//удаление пустых цепочек
+	for (size_t i = 0; i < m_chains.size(); i++){
+		if (m_chains[i][0] == 0){
+			m_chains.erase(m_chains.begin() + i);
+			i = i - 1;
+		}
+	}
+	//удаление повторений
+	for (size_t i = 0; i < m_chains.size(); i++){
+		pss::del_repetition(m_chains[i]);
+		std::sort(m_chains[i].begin(), m_chains[i].end());
+	}
+	std::sort(m_chains.begin(), m_chains.end());
+}
+
+bool pss::TCode::check() const
+{
+	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	size_t b = 0;
+	//проверки корректности кода
+	for (size_t i = 0; i < m_chains.size(); i++)
+	{
+		//проверка связи вход-выход
+		if (m_chains[i].size() > 1 && m_chains[i][m_chains[i].size() - 2] >= 44 && m_chains[i][m_chains[i].size() - 1] >= 44)
+		{
+			//std::cout << "Есть связь входа с выходом:\n";
+			return false;
+		}
+		//проверка связей между элементами одного ряда
+		for (int j = 1; j <= N; j++)
+		{
+			b = 0;
+			for (int k = 0; k < m_chains[i].size(); k++)
+			if (m_chains[i][k] % 10 == j)
+				b++;
+			if (b > 1)
+			{
+				//std::cout << "Есть связь между элементами одного ряда:\n";
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+const std::vector<int> pss::TCode::getElementsForFrictions() const
+{
+	std::vector<int> vect;
+	for (int i = 0; i < m_chains.size(); i++)
+	{
+		vect.push_back(m_chains[i][0]);
+	}
+		
+	return vect;
+}
+
+const std::vector<int> pss::TCode::getElementsForBrakes() const
+{
+	std::vector<int> vect;
+	for (int i = 0; i < m_chains.size(); i++)
+	{
+		if (m_chains[i][m_chains[i].size() - 1] < 44)
+		{
+			vect.push_back(m_chains[i][0]);
+		}
+
+	}
+
+	return vect;
+}
+
+bool pss::operator<(const TCode& code1, const TCode& code2)
+{
+	return code1.getChains() < code2.getChains();
 }

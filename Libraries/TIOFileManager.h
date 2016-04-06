@@ -31,7 +31,7 @@ namespace pss
 		void									writeToFile(eOutputFileType type, const IContainer & container);
 		bool									loadFromFile(eOutputFileType type, IContainer & container);
 		
-		void									writeInitialData();
+		void									writeSolutionData();
 	private:
 		
 		std::map<eOutputFileType, std::string>	m_fileNames;

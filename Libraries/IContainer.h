@@ -13,6 +13,4 @@ namespace pss
 		virtual void							writeToFile(std::ofstream&) const = 0;
 		virtual void							loadFromFile(std::ifstream&) = 0;
 	};
-
-
 }

@@ -5,9 +5,6 @@
     <ClInclude Include="..\Libraries\func_lib.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TCode.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\TK.h">
       <Filter>Lib</Filter>
     </ClInclude>
@@ -20,14 +17,17 @@
     <ClInclude Include="..\Libraries\TIOFileManager.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\TCodeContainer.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TCode.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Libraries\func_lib.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TCode.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TK.cpp">
@@ -40,6 +40,12 @@
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TIOFileManager.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TCodeContainer.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TCode.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
   </ItemGroup>

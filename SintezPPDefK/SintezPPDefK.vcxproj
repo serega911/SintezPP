@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h" />
     <ClInclude Include="..\Libraries\TCode.h" />
+    <ClInclude Include="..\Libraries\TCodeContainer.h" />
     <ClInclude Include="..\Libraries\TI.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
     <ClInclude Include="..\Libraries\TK.h" />
@@ -75,6 +76,7 @@
   <ItemGroup>
     <ClCompile Include="..\Libraries\func_lib.cpp" />
     <ClCompile Include="..\Libraries\TCode.cpp" />
+    <ClCompile Include="..\Libraries\TCodeContainer.cpp" />
     <ClCompile Include="..\Libraries\TI.cpp" />
     <ClCompile Include="..\Libraries\TIOFileManager.cpp" />
     <ClCompile Include="..\Libraries\TK.cpp" />
