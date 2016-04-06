@@ -45,7 +45,9 @@
     <ClCompile Include="..\Libraries\m_code.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TCodeContainer.cpp" />
+    <ClCompile Include="..\Libraries\TCodeContainer.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Lib">

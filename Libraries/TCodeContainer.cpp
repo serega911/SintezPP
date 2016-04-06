@@ -8,7 +8,6 @@ void pss::TCodeContainer::add(const TCode& code)
 
 bool pss::TCodeContainer::findIn(const TCode& code) const
 {
-	//auto& container = m_container[code.getChains()[0][0]][code.getChains()[0][1]];
 	auto it1 = m_container.find(code.getChains()[0][0]);
 	if (it1 != m_container.end())
 	{
@@ -22,10 +21,6 @@ bool pss::TCodeContainer::findIn(const TCode& code) const
 					return true;
 			}
 		}
-	}
-		
-	
-	
-		
+	}	
 	return false;
 }

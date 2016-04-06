@@ -1,6 +1,7 @@
 #include "../Libraries/TIOFileManager.h"
 #include "../Libraries/TSingletons.h"
 #include <direct.h>
+#include <windows.h>
 
 const std::string								pss::TIOFileManager::s_globalFolder = "..\\Results";
 
@@ -65,6 +66,11 @@ void pss::TIOFileManager::writeInitialData()
 	m_oFiles.insert({ eOutputFileType::INITIAL_DATA, file });
 	std::string fullName = m_containingFolder + "\\" + m_fileNames.at(eOutputFileType::INITIAL_DATA);
 	file->open(fullName.c_str(), std::ofstream::out);
+
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+	*file << "Started:" << st.wHour << ':' << st.wMinute << ':' << st.wSecond << std::endl;
+
 	*file << pss::TSingletons::getInstance()->getW() << ' ' << pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() << ' ' << pss::TSingletons::getInstance()->getNumberOfLinks() << ' ' << pss::TSingletons::getInstance()->getNumberOfFrictions() << ' ' << pss::TSingletons::getInstance()->getNumberOfBrakes() << '\n';
 	file->flush();
 }
@@ -82,6 +88,15 @@ pss::TIOFileManager* pss::TIOFileManager::getInstance()
 
 pss::TIOFileManager::~TIOFileManager()
 {
+
+	auto file = m_oFiles.find(eOutputFileType::INITIAL_DATA);
+	if (file != m_oFiles.end())
+	{
+		SYSTEMTIME st;
+		GetLocalTime(&st);
+		*(file->second) << "Finished:" << st.wHour << ':' << st.wMinute << ':' << st.wSecond << std::endl;
+	}
+
 	for (auto& it : m_oFiles)
 		it.second->close();
 	for (auto& it : m_oFiles)
