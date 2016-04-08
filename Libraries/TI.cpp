@@ -1,9 +1,9 @@
 #include "../Libraries/TI.h"
 #include <iostream>
 
-float pss::TI::m_eps = 0.05;
+double pss::TI::m_eps = 0.05;
 
-pss::TI::TI(const std::vector<float>& i, float eps)
+pss::TI::TI(const std::vector<double>& i, double eps)
 {
 	m_i = i;
 	m_eps = eps;
@@ -18,7 +18,7 @@ int pss::TI::size() const
 	return m_i.size();
 }
 
-const float pss::TI::operator[](int i) const
+const double pss::TI::operator[](int i) const
 {
 	return m_i.at(i);
 }
@@ -29,7 +29,7 @@ void pss::TI::operator=(const TI& obj)
 	m_eps = obj.m_eps;
 }
 
-void pss::TI::push_back(float value)
+void pss::TI::push_back(double value)
 {
 	m_i.push_back(value);
 }

@@ -13,11 +13,11 @@ pss::DefK::~DefK(void)
 {
 }
 
-pss::TK pss::DefK::Run(const pss::TCode& Code, pss::TK K)
+pss::TK pss::DefK::run(const pss::TCode& Code, pss::TK K)
 {
 	do{
 		//K.print();
-		if (PodModul(Code, K))
+		if (podModul(Code, K))
 		{
 			K.setFinded();
 			return K;
@@ -27,7 +27,7 @@ pss::TK pss::DefK::Run(const pss::TCode& Code, pss::TK K)
 	return K;
 }
 
-bool pss::DefK::PodModul(const pss::TCode & Code, const pss::TK &k)
+bool pss::DefK::podModul(const pss::TCode & Code, const pss::TK &k)
 {
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
 	auto L = pss::TSingletons::getInstance()->getNumberOfLinks();

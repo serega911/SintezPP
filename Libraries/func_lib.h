@@ -22,7 +22,7 @@ namespace pss{
 	}	//вывод на консоль одномерного вектора
 
 	template<class T>
-	int in_vect(const std::vector<T> &Vect, T Value, float E = 0)
+	int in_vect(const std::vector<T> &Vect, T Value, double E = 0)
 	{
 		int len = Vect.size();
 		for (int i = 0; i < len; i++)

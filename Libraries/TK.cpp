@@ -2,71 +2,75 @@
 #include "../Libraries/func_lib.h"
 #include "../Libraries/TSingletons.h"
 #include <iostream>
+#include <algorithm>
 
 
-pss::TK::TK(float beginNegative, float endNegative, float beginPositive, float endPositive, float dK) :
-m_beginNegative(beginNegative), m_endNegative(endNegative), m_beginPositive(beginPositive), m_endPositive(endPositive), m_dK(dK), m_isFinded(false)
+pss::TK::TK(double begin, double end, double dK)
 {
-	if (m_beginNegative <= -4.5f && m_endNegative >= -4.5f)
-		m_midNegative = -4.5f;
-	else
-		m_midNegative = (m_beginNegative + m_endNegative) / 2.0f;
-	if (m_beginPositive <= 4.5f && m_endPositive >= 4.5f)
-		m_midPositive = 4.5f;
-	else
-		m_midPositive = (m_beginPositive + m_endPositive) / 2.0f;
-
-
 	m_K.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
-	for (auto& it : m_K)
-		it = m_midNegative;
-	m_KInterval.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
-	for (auto& it : m_KInterval)
-		it = eInterval::MID_NEGATIVE;
+	m_combi.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
+	for (int i = 0; i < m_K.size(); i++)
+	{
+		m_K[i] = begin;
+		m_combi[i] = 0;
+	}
+	pushIntervalToValues(begin, end, dK);
 }
 
-const float pss::TK::operator[](int i) const
+pss::TK::TK(double beginNegative, double endNegative, double beginPositive, double endPositive, double dK) :
+pss::TK::TK(beginNegative, endNegative, dK)
+{
+	pushIntervalToValues(beginPositive, endPositive, dK);
+}
+
+bool pss::TK::inDia(const double & val)
+{
+	double a = 2.0f;
+	double b = 4.5f;
+	return (abs(val) <= b && abs(val) >= 2);
+}
+
+void pss::TK::pushIntervalToValues(double beg, double end, double dk)
+{
+	if (beg * end > 0)
+	{
+		for (double k = beg; k <= end; k += dk)
+			m_kValues.push_back(k);
+	}
+	std::sort(m_kValues.begin(), m_kValues.end(), 
+		[=](const double & x1, const double & x2)->bool
+		{
+		if (inDia(x1) == inDia(x2))
+			return abs(x1) < abs(x2);
+		if (inDia(x1))
+			return true;
+		else 
+			return false;
+		});
+	for (int i = 0; i < m_K.size(); i++)
+	{
+		m_K[i] = m_kValues[0];
+	}
+}
+
+const double pss::TK::operator[](int i) const
 {
 	return m_K.at(i);
 }
 
 bool pss::TK::next()
 {
-	int k = (int)m_K.size();
-	for (int i = k - 1; i >= 0; --i)
+	if(pss::next_combination_repetition(m_combi, m_kValues.size()-1, 0))
 	{
-		if (m_K[i] > m_midNegative - m_dK  && m_KInterval[i] == eInterval::BEG_NEGATIVE)
-		{
-			m_K[i] = m_midNegative;
-			m_KInterval[i] = eInterval::MID_NEGATIVE;
-		}
-		else
-		{
-			m_K[i] += m_dK;
-			if (m_K[i] > m_endNegative && m_KInterval[i] == eInterval::MID_NEGATIVE)
-			{
-				m_K[i] = m_beginPositive;
-				m_KInterval[i] = eInterval::BEG_POSITIVE;
-			}
-			if (m_K[i] > m_midPositive && m_KInterval[i] == eInterval::BEG_POSITIVE)
-			{
-				m_K[i] = m_midPositive;
-				m_KInterval[i] = eInterval::MID_POSITIVE;
-			}
-			if (m_K[i] > m_endPositive && m_KInterval[i] == eInterval::MID_POSITIVE)
-			{
-				m_K[i] = m_beginNegative;
-				m_KInterval[i] = eInterval::BEG_NEGATIVE;
-			}
-			return true;
-		}
+		for (int i = 0; i < m_combi.size(); i++)
+			m_K[i] = m_kValues[m_combi[i]];
+		return true;
 	}
 	return false;
 }
 
 void pss::TK::print() const
 {
-	std::cout << std::endl << m_beginNegative << ' ' << m_endNegative << ' ' << m_beginPositive << ' ' << m_endPositive << std::endl << "K: ";
 	for (auto &it : m_K)
 		std::cout << it << ' ';
 	std::cout << std::endl;
@@ -99,5 +103,4 @@ void pss::TK::loadFromFile(std::ifstream&)
 {
 
 }
-
 

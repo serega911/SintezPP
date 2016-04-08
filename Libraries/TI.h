@@ -6,16 +6,16 @@ namespace pss
 	class TI
 	{
 	private:
-		std::vector<float>						m_i;
-		static float							m_eps;
+		std::vector<double>						m_i;
+		static double							m_eps;
 	public:
 		TI();
-		TI(const std::vector<float>& i, float eps);
+		TI(const std::vector<double>& i, double eps);
 		int										size() const;
-		const float								operator[](int i) const;
+		const double								operator[](int i) const;
 		bool									operator==(const TI& obj);
 		void									operator=(const TI& obj);
-		void									push_back(float value);
+		void									push_back(double value);
 		void									print();
 
 	};
