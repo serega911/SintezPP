@@ -15,13 +15,13 @@ pss::DefK::~DefK(void)
 pss::TK pss::DefK::findK(const pss::TCode& Code, pss::TK K)
 {
 	do{
-		//K.print();
+		K.print();
 		if (podModul(Code, K))
 		{
 			K.setFinded();
 			return K;
 		}
-		//system("pause");
+		system("pause");
 	}while(K.next());
 	return K;
 }
