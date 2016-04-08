@@ -9,10 +9,10 @@ namespace pss{
 	class DefK
 	{
 	public:
-		DefK() = delete;
-		DefK(const pss::TI& I);
+		DefK();
 		~DefK(void);
-		pss::TK									run(const pss::TCode& Code, pss::TK K);
+		pss::TK									findK(const pss::TCode& Code, pss::TK K);
+		void									run();
 	private:
 		std::vector<std::vector<double>>		m_matrix;									//матрица системы уравнений
 		pss::TI									m_iTarget;									//требуемые передаточные отношения

@@ -3,9 +3,8 @@
 #include "../Libraries/TSingletons.h"
 #include <iostream>
 
-pss::DefK::DefK(const pss::TI& I)
+pss::DefK::DefK()
 {
-	m_iTarget = I;
 }
 
 
@@ -13,7 +12,7 @@ pss::DefK::~DefK(void)
 {
 }
 
-pss::TK pss::DefK::run(const pss::TCode& Code, pss::TK K)
+pss::TK pss::DefK::findK(const pss::TCode& Code, pss::TK K)
 {
 	do{
 		//K.print();
@@ -25,6 +24,57 @@ pss::TK pss::DefK::run(const pss::TCode& Code, pss::TK K)
 		//system("pause");
 	}while(K.next());
 	return K;
+}
+
+void pss::DefK::run()
+{
+	setlocale(LC_ALL, "Russian");
+	std::cout << "====  Синтез планетарных передач с тремя степенями свободы. Определение К.  ====\n";
+	//	Исходные данные
+	int W;
+	int N;
+	std::cout << "\t\t\tИсходные данные." << std::endl << "Число степеней свободы:	";
+	std::cin >> W;
+	std::cout << "Количество ПМ:		";
+	std::cin >> N;
+	pss::TSingletons::getInstance()->setGlobalParameters(W, N);
+	double dK = 0;
+	std::cout << "Шаг поиска К:		";
+	std::cin >> dK;
+	pss::TK K(dK);
+	int countIntervals = 0;
+	std::cout << "Количество диапазонов:	";
+	std::cin >> countIntervals;
+	for (int i = 0; i < countIntervals; i++)
+	{
+		double beg, end;
+		std::cout << "Начало диапазона:	";
+		std::cin >> beg;
+		std::cout << "Конец диапазона:	";
+		std::cin >> end;
+		K.addInterval(beg, end);
+	}
+	std::cout << "Передаточные отношения:	";
+	for (int i = 0; i < pss::TSingletons::getInstance()->getNumberOfGears(); i++)
+	{
+		double ratio = 0;
+		std::cin >> ratio;
+		if (ratio != 0)
+			m_iTarget.push_back(ratio);
+		else
+			break;
+	}
+	
+	pss::TCode code;
+	while (pss::TSingletons::getInstance()->getIOFileManager()->loadFromFile(pss::TIOFileManager::eOutputFileType::DONE, code))
+	{
+		pss::TK ans(findK(code, K));
+		if (ans.getFinded())
+		{
+			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::DONE_K, code);
+			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::DONE_K, ans);
+		}
+	}
 }
 
 bool pss::DefK::podModul(const pss::TCode & Code, const pss::TK &k)

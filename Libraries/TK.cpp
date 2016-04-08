@@ -5,22 +5,15 @@
 #include <algorithm>
 
 
-pss::TK::TK(double begin, double end, double dK)
+pss::TK::TK(double dK)
 {
 	m_K.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
 	m_combi.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
 	for (int i = 0; i < m_K.size(); i++)
 	{
-		m_K[i] = begin;
 		m_combi[i] = 0;
 	}
-	pushIntervalToValues(begin, end, dK);
-}
-
-pss::TK::TK(double beginNegative, double endNegative, double beginPositive, double endPositive, double dK) :
-pss::TK::TK(beginNegative, endNegative, dK)
-{
-	pushIntervalToValues(beginPositive, endPositive, dK);
+	m_dK = dK;
 }
 
 bool pss::TK::inDia(const double & val)
@@ -30,11 +23,11 @@ bool pss::TK::inDia(const double & val)
 	return (abs(val) <= b && abs(val) >= 2);
 }
 
-void pss::TK::pushIntervalToValues(double beg, double end, double dk)
+void pss::TK::addInterval(double beg, double end)
 {
 	if (beg * end > 0)
 	{
-		for (double k = beg; k <= end; k += dk)
+		for (double k = beg; k <= end; k += m_dK)
 			m_kValues.push_back(k);
 	}
 	std::sort(m_kValues.begin(), m_kValues.end(), 
