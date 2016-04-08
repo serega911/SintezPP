@@ -89,7 +89,7 @@ pss::TIOFileManager* pss::TIOFileManager::getInstance()
 pss::TIOFileManager::~TIOFileManager()
 {
 	auto file = m_oFiles.find(eOutputFileType::INITIAL_DATA);
-	if (file != m_oFiles.end())
+	if (file != m_oFiles.end() && file->second->is_open())
 	{
 		SYSTEMTIME st;
 		GetLocalTime(&st);

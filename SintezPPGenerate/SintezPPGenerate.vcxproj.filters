@@ -10,16 +10,10 @@
     <ClCompile Include="..\Libraries\func_lib.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TI.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
     <ClCompile Include="..\Libraries\TSingletons.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TIOFileManager.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TK.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="TGenerate.cpp" />
@@ -37,16 +31,10 @@
     <ClInclude Include="..\Libraries\func_lib.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TI.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\TSingletons.h">
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TIOFileManager.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TK.h">
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="TGenerate.h" />
@@ -57,9 +45,6 @@
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TCodeContainer.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\IContainer.h">
       <Filter>Lib</Filter>
     </ClInclude>
   </ItemGroup>

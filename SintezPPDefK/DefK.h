@@ -10,15 +10,15 @@ namespace pss{
 	{
 	public:
 		DefK();
-		DefK(const pss::TI& I);
 		~DefK(void);
-		pss::TK									Run(const pss::TCode& Code, pss::TK K);
+		pss::TK									findK(const pss::TCode& Code, pss::TK K);
+		void									run();
 	private:
 		std::vector<std::vector<double>>		m_matrix;									//матрица системы уравнений
 		pss::TI									m_iTarget;									//требуемые передаточные отношения
 		pss::TI									m_iReal;									//фактические передаточные отношения
 
-		bool									PodModul(const pss::TCode&, const pss::TK&);
+		bool									podModul(const pss::TCode&, const pss::TK&);
 	};
 
 }
