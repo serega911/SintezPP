@@ -20,6 +20,9 @@
     <ClInclude Include="..\Libraries\TCode.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\TGaus.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
@@ -40,6 +43,9 @@
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TCode.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TGaus.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
   </ItemGroup>
