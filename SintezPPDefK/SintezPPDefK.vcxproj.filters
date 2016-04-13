@@ -23,6 +23,15 @@
     <ClInclude Include="..\Libraries\TGaus.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\TElement.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TLink.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TChain.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
@@ -46,6 +55,15 @@
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TGaus.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TElement.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TLink.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TChain.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
   </ItemGroup>

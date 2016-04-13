@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "../Libraries/TCode.h"
+#include "../Libraries/TLink.h"
 #include "../Libraries/TCodeContainer.h"
 
 
@@ -10,7 +11,7 @@ namespace pss
 	class TGenerate
 	{
 	private:
-		std::vector<int>						m_allLinks;
+		std::vector<TLink>						m_allLinks;
 		pss::TCodeContainer						m_existingSchemes;
 
 		void									generateInOut();

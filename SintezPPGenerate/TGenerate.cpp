@@ -26,7 +26,7 @@ void pss::TGenerate::generate()
 	for (int i = 0; i <= 3 * (N - 1); i++)
 	{
 		for (int j = (i / 3 + 1) * 3; j < 3 * N; j++)
-			m_allLinks.push_back(pss::pos_2_code(i) * 100 + pss::pos_2_code(j));
+			m_allLinks.push_back(pss::TLink(pss::TElement(i), pss::TElement(j)));
 	}
 	generateInOut();
 }
@@ -41,8 +41,8 @@ void pss::TGenerate::generateInOut()
 			if (in != out)							//	Проверка: вход и выход не могут быть одним и тем же элементом
 			{
 				code.clear();
-				code.setIn(pss::pos_2_code(in));
-				code.setOut(pss::pos_2_code(out));
+				code.setIn(pss::TElement(in));
+				code.setOut(pss::TElement(out));
 				generateLinks(code);
 			}
 		}
@@ -54,7 +54,7 @@ bool pss::TGenerate::generateLinks(pss::TCode & code)
 	linksCombi.init(pss::TSingletons::getInstance()->getNumberOfLinks());
 	do{
 		//	Заполняем вектор связей с учетом сгенерированного сочетания
-		std::vector<int> links;			//	Вектор связей
+		std::vector<pss::TLink> links;			//	Вектор связей
 		for (int i = 0; i < linksCombi.size(); i++)
 			links.push_back(m_allLinks[linksCombi[i]]);
 		code.setLinks(links);
@@ -79,15 +79,15 @@ bool pss::TGenerate::generateLinks(pss::TCode & code)
 bool pss::TGenerate::generateFrictions(pss::TCode & code)
 {
 	//	Определяем элементы, на которых будет установлен фрикцион
-	std::vector<int> vect_all_FB = code.getElementsForFrictions();
+	std::vector<pss::TElement> vect_all_FB = code.getElementsForFrictions();
 	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions() + 2)
 	{
-		std::vector<int> vect_all_frict;		//	Вектор всех возможных фрикционов
+		std::vector<pss::TLink> vect_all_frict;		//	Вектор всех возможных фрикционов
 		pss::TReplace vect_combi_frict;			//	Вектор сочетаний фрикционов
-		std::vector<int> vect_frict;			//	Вектор фрикционов
+		std::vector<pss::TLink> vect_frict;			//	Вектор фрикционов
 		for (int i = 0; i < vect_all_FB.size(); i++)
 			for (int j = i + 1; j < vect_all_FB.size(); j++)
-				vect_all_frict.push_back(vect_all_FB[i] * 100 + vect_all_FB[j]);
+				vect_all_frict.push_back(pss::TLink(vect_all_FB[i], vect_all_FB[j]));
 		//	Создаем первое сочетание фрикционов из связей по Count_F (количество фрикционов) без повторений: 0,1...
 		vect_combi_frict.init(pss::TSingletons::getInstance()->getNumberOfFrictions());
 		//	В цикле генерируем все возможные сочетания фрикционов
@@ -109,15 +109,15 @@ bool pss::TGenerate::generateFrictions(pss::TCode & code)
 
 bool pss::TGenerate::generateBrakes(pss::TCode & code)
 {
-	std::vector<int> vect_all_FB = code.getElementsForBrakes();
+	std::vector<pss::TElement> vect_all_FB = code.getElementsForBrakes();
 	pss::TReplace vect_combi_brakes;		//	Вектор сочетаний тормозов
 	//	Создаем первое сочетание тормозов из всех возможных по Count_B
 	vect_combi_brakes.init(pss::TSingletons::getInstance()->getNumberOfBrakes());
 	do{
-		std::vector<int> vect_brakes;	//	Вектор тормозов
+		std::vector<pss::TLink> vect_brakes;	//	Вектор тормозов
 		//	Заполняем вектор тормозов с учетом сгенерированного сочетания
 		for (int i = 0; i < vect_combi_brakes.size(); i++)
-			vect_brakes.push_back(vect_all_FB[vect_combi_brakes[i]]);
+			vect_brakes.push_back(pss::TLink(vect_all_FB[vect_combi_brakes[i]],pss::TElement::BRAKE));
 		code.setBrakes(vect_brakes);
 		//C.print();
 		if (code.checkFree())

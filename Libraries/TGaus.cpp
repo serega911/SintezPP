@@ -54,10 +54,10 @@ void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k, int dri
 		m_system[i][j] = 0;
 	//в следующие countSV строк записываем связи
 	for (int i = N, j = 2; i < N + L; i++, j++){
-		m_system[i][pss::code_2_pos(Code[j] / 100)] = 1;
-		m_system[i][pss::code_2_pos(Code[j] % 100)] = -1;
+		//m_system[i][pss::code_2_pos(Code[j] / 100)] = 1;
+		//m_system[i][pss::code_2_pos(Code[j] % 100)] = -1;
 	}
 	//уравнение для звена, связанного с ведущим валом
-	m_system[N + L][pss::code_2_pos(Code[0] / 100)] = 1;
+	//m_system[N + L][pss::code_2_pos(Code[0] / 100)] = 1;
 	m_system[N + L][N * 3] = 1;
 }

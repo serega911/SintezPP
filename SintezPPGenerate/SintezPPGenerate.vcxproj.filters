@@ -26,6 +26,15 @@
     <ClCompile Include="..\Libraries\TCodeContainer.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\TChain.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TElement.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TLink.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -45,6 +54,15 @@
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TCodeContainer.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TChain.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TElement.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TLink.h">
       <Filter>Lib</Filter>
     </ClInclude>
   </ItemGroup>

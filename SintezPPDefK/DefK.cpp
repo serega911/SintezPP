@@ -103,11 +103,11 @@ bool pss::DefK::podModul(const pss::TCode & Code, const pss::TK &k)
 				m_matrix[i][j] = 0;
 		//в следующие countSV строк записываем связи
 	for (int i = N, j = 2; i < N + L; i++, j++){
-			m_matrix[i][pss::code_2_pos(Code[j] / 100)] = 1;
-			m_matrix[i][pss::code_2_pos(Code[j] % 100)] = -1;
+			m_matrix[i][Code[j].getElem1().getSerialNumber()] = 1;
+			m_matrix[i][Code[j].getElem2().getSerialNumber()] = -1;
 		}
 		//уравнение для звена, связанного с ведущим валом
-	m_matrix[N + L][pss::code_2_pos(Code[0] / 100)] = 1;
+	m_matrix[N + L][pss::code_2_pos(Code[0].getElem1().getSerialNumber())] = 1;
 	m_matrix[N + L][N * 3] = 1;
 			
 	//print(Matrix, "11	21	31	12	22	32	13	23	33	RP \n___________________________________________________________________________");
@@ -123,19 +123,19 @@ bool pss::DefK::podModul(const pss::TCode & Code, const pss::TK &k)
 		//записываем в матрицу уравнения с элементами управления
 		for (int i = 0; i < vect_combi_drive.size(); i++)
 		{
-			int driver = Code[2 + L + vect_combi_drive[i]];
+			pss::TLink driver = Code[2 + L + vect_combi_drive[i]];
 			//std::cout << "driver: " << driver << std::endl;
-			if (driver%100 == 66)	//driver - тормоз
-				m_matrix[N + L + 1 + i][pss::code_2_pos(driver / 100)] = 1;
+			if (driver.getElem2() == pss::TElement::BRAKE)	//driver - тормоз
+				m_matrix[N + L + 1 + i][driver.getElem1().getSerialNumber()] = 1;
 			else	//driver - фрикцион
 			{
-				m_matrix[N + L + 1 + i][pss::code_2_pos(driver / 100)] = 1;
-				m_matrix[N + L + 1 + i][pss::code_2_pos(driver % 100)] = -1;
+				m_matrix[N + L + 1 + i][driver.getElem1().getSerialNumber()] = 1;
+				m_matrix[N + L + 1 + i][driver.getElem2().getSerialNumber()] = -1;
 			}
 		}
 		//print(Matrix, "11	21	31	12	22	32	13	23	33	RP\n___________________________________________________________________________");
 		//решаем систему уравнений
-		TMP = pss::GAUS(m_matrix, pss::code_2_pos(Code[1] / 100));
+		TMP = pss::GAUS(m_matrix, Code[1].getElem1().getSerialNumber());
 		//проверяем результат
 		if (abs(TMP) > 0.001)
 			tmpI.push_back(1.0 / TMP);

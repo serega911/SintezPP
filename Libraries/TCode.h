@@ -3,38 +3,40 @@
 #include <fstream>
 
 #include "../Libraries/IContainer.h"
+#include "../Libraries/TLink.h"
+#include "../Libraries/TChain.h"
 
 namespace pss{
 	class TCode: public pss::IContainer
 	{
 	private:
-		std::vector<int>						m_code;									//	Вектор кода
+		std::vector<TLink>						m_code;									//	Вектор кода
 		int										m_codeSize;								//	Размер вектора кода
 
-		std::vector<std::vector<int>>			m_chains;
+		std::vector<TChain>						m_chains;
 
 		int										m_links;
 		int										m_frictions;
-		int										m_brekes;
+		int										m_brakes;
 
 		void									createChains();
 
 	public:
 		TCode();
 		~TCode(void);
-		int										operator[](int i) const;				//	Оператор получения элемента вектора кода
-		bool									setIn(int);								//	Установка звена, связанного со входом
-		bool									setOut(int);							//	Установка звена, связанного со выходом
-		bool									setLinks(std::vector<int>);				//	Установка связей
-		bool									setFrictions(std::vector<int>);			//	Установка фрикционов
-		bool									setBrakes(std::vector<int>);			//	Установка тормозов
+		TLink									operator[](int i) const;				//	Оператор получения элемента вектора кода
+		void									setIn(const TElement & in);								//	Установка звена, связанного со входом
+		void									setOut(const TElement & out);							//	Установка звена, связанного со выходом
+		void									setLinks(const std::vector<TLink>& links);				//	Установка связей
+		void									setFrictions(const std::vector<TLink>& frictions);			//	Установка фрикционов
+		void									setBrakes(const std::vector<TLink>& brakes);			//	Установка тормозов
 
-		const std::vector<int>&					getCode() const;
-		int										getIn() const;
-		int										getOut() const;
-		const std::vector<std::vector<int>>&	getChains() const;
-		const std::vector<int>					getElementsForFrictions() const;
-		const std::vector<int>					getElementsForBrakes() const;
+		const std::vector<TLink>&				getCode() const;
+		TLink										getIn() const;
+		TLink										getOut() const;
+		const std::vector<TChain>&				getChains() const;
+		const std::vector<TElement>				getElementsForFrictions() const;
+		const std::vector<TElement>				getElementsForBrakes() const;
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
 		bool									checkFree() const;
