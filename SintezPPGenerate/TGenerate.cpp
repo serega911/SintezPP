@@ -21,13 +21,27 @@ void pss::TGenerate::generate()
 	std::cout << "Количество фрикционов:	" << pss::TSingletons::getInstance()->getNumberOfFrictions() << std::endl;
 	std::cout << "Количество тормозов:	" << pss::TSingletons::getInstance()->getNumberOfBrakes() << std::endl;
 
-	//	Заполняем вектор всех возможных связей, пропускаем связи между элементами одного ряда.
+	//	Заполняем вектор всех возможных связей, пропускаем связи между элементами одного ряда и реверсивные связи.
 	m_allLinks.clear();
-	for (int i = 0; i <= 3 * (N - 1); i++)
+// 	for (int i = 0; i <= pss::TMainElement::s_numberOfMainElements * (N - 1); i++)
+// 	{
+// 		for (int j = (i / pss::TMainElement::s_numberOfMainElements + 1) * pss::TMainElement::s_numberOfMainElements; j < pss::TMainElement::s_numberOfMainElements * N; j++)
+// 			m_allLinks.push_back(pss::TLink(pss::TElement(i), pss::TElement(j)));
+// 	}
+	for (int i = 1; i < N; i++)
 	{
-		for (int j = (i / 3 + 1) * 3; j < 3 * N; j++)
-			m_allLinks.push_back(pss::TLink(pss::TElement(i), pss::TElement(j)));
+		for (pss::TMainElement mElem1; mElem1.end(); mElem1++)
+		{
+			for (int j = i + 1; j <= N; j++)
+			{
+				for (pss::TMainElement mElem2; mElem2.end(); mElem2++)
+				{
+					m_allLinks.push_back(pss::TLink(pss::TElement(mElem1,i), pss::TElement(mElem2,j)));
+				}
+			}
+		}
 	}
+
 	generateInOut();
 }
 
@@ -35,17 +49,37 @@ void pss::TGenerate::generateInOut()
 {
 	pss::TCode code;
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
-	for (int in = 0; in < 3 * N; in++)				//	Вход на все звенья
-		for (int out = 0; out < 3 * N; out++)		//	Выход на все звенья
+// 	for (int in = 0; in < 3 * N; in++)				//	Вход на все звенья
+// 		for (int out = 0; out < 3 * N; out++)		//	Выход на все звенья
+// 		{
+// 			if (in != out)							//	Проверка: вход и выход не могут быть одним и тем же элементом
+// 			{
+// 				code.clear();
+// 				code.setIn(pss::TElement(in));
+// 				code.setOut(pss::TElement(out));
+// 				generateLinks(code);
+// 			}
+// 		}
+	for (int i = 1; i <= N; i++)
+	{
+		for (pss::TMainElement inElem; inElem.end(); inElem++)
 		{
-			if (in != out)							//	Проверка: вход и выход не могут быть одним и тем же элементом
+			for (int j = 1; j <= N; j++)
 			{
-				code.clear();
-				code.setIn(pss::TElement(in));
-				code.setOut(pss::TElement(out));
-				generateLinks(code);
+				for (pss::TMainElement outElem; outElem.end(); outElem++)
+				{
+					pss::TElement elemIn(inElem,i);
+					pss::TElement elemOut(outElem, j);
+					if (elemIn != elemOut)
+					{
+						code.setIn(elemIn);
+						code.setOut(elemOut);
+						generateLinks(code);
+					}
+				}
 			}
 		}
+	}
 }
 
 bool pss::TGenerate::generateLinks(pss::TCode & code)
@@ -58,14 +92,14 @@ bool pss::TGenerate::generateLinks(pss::TCode & code)
 		for (int i = 0; i < linksCombi.size(); i++)
 			links.push_back(m_allLinks[linksCombi[i]]);
 		code.setLinks(links);
-		if (m_existingSchemes.findIn(code))
-		{
-			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_REPETTION, code);
-			continue;
-		}	
-		m_existingSchemes.add(code);
 		if (code.check())
 		{
+			if (m_existingSchemes.findIn(code))
+			{
+				pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_REPETTION, code);
+				continue;
+			}
+			m_existingSchemes.add(code);
 			generateFrictions(code);
 		}
 		else
@@ -83,7 +117,7 @@ bool pss::TGenerate::generateFrictions(pss::TCode & code)
 	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions() + 2)
 	{
 		std::vector<pss::TLink> vect_all_frict;		//	Вектор всех возможных фрикционов
-		pss::TReplace vect_combi_frict;			//	Вектор сочетаний фрикционов
+		pss::TReplace vect_combi_frict;				//	Вектор сочетаний фрикционов
 		std::vector<pss::TLink> vect_frict;			//	Вектор фрикционов
 		for (int i = 0; i < vect_all_FB.size(); i++)
 			for (int j = i + 1; j < vect_all_FB.size(); j++)

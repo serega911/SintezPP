@@ -73,6 +73,7 @@
     <ClCompile Include="..\Libraries\TElement.cpp" />
     <ClCompile Include="..\Libraries\TIOFileManager.cpp" />
     <ClCompile Include="..\Libraries\TLink.cpp" />
+    <ClCompile Include="..\Libraries\TMainElement.cpp" />
     <ClCompile Include="..\Libraries\TReplace.cpp" />
     <ClCompile Include="..\Libraries\TSingletons.cpp" />
     <ClCompile Include="main.cpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="..\Libraries\TElement.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
     <ClInclude Include="..\Libraries\TLink.h" />
+    <ClInclude Include="..\Libraries\TMainElement.h" />
     <ClInclude Include="..\Libraries\TReplace.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
     <ClInclude Include="TGenerate.h" />

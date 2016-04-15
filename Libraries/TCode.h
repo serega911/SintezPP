@@ -10,38 +10,35 @@ namespace pss{
 	class TCode: public pss::IContainer
 	{
 	private:
-		std::vector<TLink>						m_code;									//	Вектор кода
-		int										m_codeSize;								//	Размер вектора кода
-
-		std::vector<TChain>						m_chains;
-
-		int										m_links;
-		int										m_frictions;
-		int										m_brakes;
+		std::vector<TLink>						m_code;													//	Вектор кода
+		std::vector<TChain>						m_chains;												//	Вектор цепочек связей
+		int										m_links;												//	Количество связей
+		int										m_frictions;											//	Количество фрикционов
+		int										m_brakes;												//	Количество тормозов
 
 		void									createChains();
-
 	public:
 		TCode();
 		~TCode(void);
-		TLink									operator[](int i) const;				//	Оператор получения элемента вектора кода
+		TLink									operator[](int i) const;								//	Оператор получения элемента вектора кода
 		void									setIn(const TElement & in);								//	Установка звена, связанного со входом
 		void									setOut(const TElement & out);							//	Установка звена, связанного со выходом
 		void									setLinks(const std::vector<TLink>& links);				//	Установка связей
-		void									setFrictions(const std::vector<TLink>& frictions);			//	Установка фрикционов
+		void									setFrictions(const std::vector<TLink>& frictions);		//	Установка фрикционов
 		void									setBrakes(const std::vector<TLink>& brakes);			//	Установка тормозов
 
 		const std::vector<TLink>&				getCode() const;
-		TLink										getIn() const;
-		TLink										getOut() const;
+		TLink									getIn() const;
+		TLink									getOut() const;
 		const std::vector<TChain>&				getChains() const;
 		const std::vector<TElement>				getElementsForFrictions() const;
 		const std::vector<TElement>				getElementsForBrakes() const;
+
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
 		bool									checkFree() const;
 		bool									check() const;
-		void									print() const;							//	Вывод объекта на экран
+		void									print() const;											//	Вывод объекта на экран
 		void									clear();
 		int										size() const override;
 	

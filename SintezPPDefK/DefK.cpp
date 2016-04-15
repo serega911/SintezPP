@@ -15,13 +15,13 @@ pss::DefK::~DefK(void)
 pss::TK pss::DefK::findK(const pss::TCode& Code, pss::TK K)
 {
 	do{
-		K.print();
+		//K.print();
 		if (podModul(Code, K))
 		{
 			K.setFinded();
 			return K;
 		}
-		system("pause");
+		//system("pause");
 	}while(K.next());
 	return K;
 }
@@ -64,7 +64,6 @@ void pss::DefK::run()
 		else
 			break;
 	}
-	
 	pss::TCode code;
 	while (pss::TSingletons::getInstance()->getIOFileManager()->loadFromFile(pss::TIOFileManager::eOutputFileType::DONE, code))
 	{
@@ -99,15 +98,17 @@ bool pss::DefK::podModul(const pss::TCode & Code, const pss::TK &k)
 		//system("pause");
 		//очищаем уравнения
 	for (int i = N; i < N + L + 1; i++)
-	for (int j = 0; j < 3 * N + 1; j++)
+		for (int j = 0; j < 3 * N + 1; j++)
 				m_matrix[i][j] = 0;
-		//в следующие countSV строк записываем связи
-	for (int i = N, j = 2; i < N + L; i++, j++){
-			m_matrix[i][Code[j].getElem1().getSerialNumber()] = 1;
-			m_matrix[i][Code[j].getElem2().getSerialNumber()] = -1;
-		}
-		//уравнение для звена, связанного с ведущим валом
-	m_matrix[N + L][pss::code_2_pos(Code[0].getElem1().getSerialNumber())] = 1;
+	//в следующие countSV строк записываем связи
+	for (int i = N, j = 2; i < N + L; i++, j++)
+	{
+		m_matrix[i][Code[j].getElem1().getSerialNumber()] = 1;
+		m_matrix[i][Code[j].getElem2().getSerialNumber()] = -1;
+	}
+	//уравнение для звена, связанного с ведущим валом
+
+	m_matrix[N + L][Code[0].getElem1().getSerialNumber()] = 1;
 	m_matrix[N + L][N * 3] = 1;
 			
 	//print(Matrix, "11	21	31	12	22	32	13	23	33	RP \n___________________________________________________________________________");

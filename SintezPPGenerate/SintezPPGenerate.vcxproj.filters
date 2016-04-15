@@ -35,6 +35,7 @@
     <ClCompile Include="..\Libraries\TLink.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\TMainElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -65,5 +66,6 @@
     <ClInclude Include="..\Libraries\TLink.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\TMainElement.h" />
   </ItemGroup>
 </Project>

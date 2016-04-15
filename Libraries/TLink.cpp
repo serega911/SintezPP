@@ -32,8 +32,3 @@ std::ostream& pss::operator<<(std::ostream& out, const TLink & link)
 	return out;
 }
 
-std::istream& pss::operator>>(std::istream& in, const TLink & link)
-{
-	in >> link.m_elem1 >> link.m_elem2;
-	return in;
-}

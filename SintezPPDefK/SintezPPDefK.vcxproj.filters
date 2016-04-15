@@ -32,6 +32,9 @@
     <ClInclude Include="..\Libraries\TChain.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\TMainElement.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
@@ -64,6 +67,9 @@
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TChain.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TMainElement.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
   </ItemGroup>

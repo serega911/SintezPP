@@ -1,23 +1,25 @@
 #pragma once
 #include <ostream>
 #include <istream>
+#include "TMainElement.h"
 
 namespace pss
 {
 	class TElement
 	{
 	private:
-		int											m_elemN;
-		int											m_gearSetN;
+		TMainElement							m_elemN;		//номер элемента
+		int										m_gearSetN;		//номер планетарного ряда
 	public:
-		TElement(int elemN, int gearSetN);
-		TElement(int serialNumber);
+		TElement(TMainElement elemN, int gearSetN);
+		//TElement(int serialNumber);
 		TElement();
-		void										setElemN(int elemN);
-		void										setGearSetN(int gearSetN);
-		void										set(int elemN, int gearSetN);
 
-		int											getElemN() const;
+		void										setElemN(const TMainElement & elemN);
+		void										setGearSetN(int gearSetN);
+		void										set(const TMainElement & elemN, int gearSetN);
+
+		TMainElement								getElemN() const;
 		int											getGearSetN() const;
 		int											getSerialNumber() const;
 
@@ -27,10 +29,10 @@ namespace pss
 		static const TElement					EMPTY;
 
 		friend std::ostream&					operator<<(std::ostream& out, const TElement & elem);
-		friend std::istream&					operator>>(std::istream& out, const TElement & elem);
 	};
 	bool										operator<(const TElement& elem1, const TElement& elem2);
 	bool										operator==(const TElement& elem1, const TElement& elem2);
+	bool										operator!=(const TElement& elem1, const TElement& elem2);
 	std::ostream&								operator<<(std::ostream& out, const TElement & elem);
-	std::istream&								operator>>(std::istream& out, const TElement & elem);
+
 }

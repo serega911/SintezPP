@@ -20,9 +20,7 @@ namespace pss
 		const TElement&							getElem2() const;
 
 		friend std::ostream&					operator<<(std::ostream& out, const TLink & link);
-		friend std::istream&					operator>>(std::istream& in, const TLink & link);
 
 	};
 	std::ostream&								operator<<(std::ostream& out, const TLink & link);
-	std::istream&								operator>>(std::istream& in, const TLink & link);
 }
