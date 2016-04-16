@@ -1,71 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Lib">
-      <UniqueIdentifier>{f9076d15-2219-4dce-af0c-3551499a1f09}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\Libraries\func_lib.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TSingletons.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
     <ClCompile Include="TGenerate.cpp" />
-    <ClCompile Include="..\Libraries\TCode.cpp">
-      <Filter>Lib</Filter>
+    <ClCompile Include="..\Libraries\TChain.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TReplace.cpp">
-      <Filter>Lib</Filter>
+    <ClCompile Include="..\Libraries\TCode.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TCodeContainer.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TChain.cpp">
-      <Filter>Lib</Filter>
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TElement.cpp">
-      <Filter>Lib</Filter>
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TK.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TLink.cpp">
-      <Filter>Lib</Filter>
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TMainElement.cpp" />
+    <ClCompile Include="..\Libraries\TMainElement.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TReplace.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TSingletons.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\func_lib.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Libraries\func_lib.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TSingletons.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TIOFileManager.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="TGenerate.h" />
-    <ClInclude Include="..\Libraries\TCode.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TReplace.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCodeContainer.h">
-      <Filter>Lib</Filter>
+    <ClInclude Include="..\Libraries\IContainer.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TChain.h">
-      <Filter>Lib</Filter>
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TCode.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TCodeContainer.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TElement.h">
-      <Filter>Lib</Filter>
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TIOFileManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TK.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TLink.h">
-      <Filter>Lib</Filter>
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TMainElement.h" />
+    <ClInclude Include="..\Libraries\TMainElement.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TReplace.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TSingletons.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\func_lib.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{4191942f-526a-4618-a254-715633f5b525}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

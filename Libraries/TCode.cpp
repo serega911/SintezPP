@@ -112,8 +112,8 @@ void TCode::loadFromFile(std::ifstream& file)
 		int elem2 = num % 100;
 		it.set(pss::TElement(pss::TMainElement(elem1 / 10), elem1 % 10), pss::TElement(pss::TMainElement(elem2 / 10), elem2 % 10));
 	}
- 	char c[2];
- 	file.read(c, 2);
+	char c[2];
+	file.read(c, 2);
 	m_links = pss::TSingletons::getInstance()->getNumberOfLinks();
 	m_frictions = pss::TSingletons::getInstance()->getNumberOfFrictions();
 	m_brakes = pss::TSingletons::getInstance()->getNumberOfBrakes();
