@@ -14,6 +14,7 @@ namespace pss
 		int										getNumberOfGears() const;
 		int										getW() const;
 		int										getNumberOfLinks() const;
+		int										getNumberOfActuatedDrivingElements() const;
 		int										getNumberOfFrictions() const;
 		int										getNumberOfBrakes() const;
 
@@ -27,6 +28,7 @@ namespace pss
 
 		int										m_w;									//	число степеней свободы
 		int										m_numberOfGears;						//	Количество реализуемых передач без прямой
+		int										m_numberOfActuatedDrivingElements;		//	Количество управляющих элементов, необходимых для включения передачи
 		int										m_numberOfPlanetaryGears;				//	Количество планетарных рядов
 		int										m_numberOfBrakes;						//	Количество тормозов
 		int										m_numberOfFrictions;					//	Количество фрикционов

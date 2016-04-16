@@ -28,7 +28,9 @@ const pss::TElement& pss::TLink::getElem2() const
 
 std::ostream& pss::operator<<(std::ostream& out, const TLink & link)
 {
+	
 	out << link.m_elem1 << link.m_elem2;
+	
 	return out;
 }
 

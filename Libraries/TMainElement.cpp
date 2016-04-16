@@ -1,4 +1,5 @@
 #include "TMainElement.h"
+#include <iostream>
 
 
 const int										pss::TMainElement::s_numberOfMainElements = 3;
@@ -6,6 +7,17 @@ const int										pss::TMainElement::s_numberOfMainElements = 3;
 pss::TMainElement::TMainElement()
 {
 	m_mainElement = eMainElements::SUN_GEAR;
+}
+
+pss::TMainElement::TMainElement(int mainElement)
+{
+	if (mainElement >= 0 && mainElement <= 6)
+		m_mainElement = static_cast<eMainElements>(mainElement);
+	else
+	{
+		std::cout << "pss::TMainElement::TMainElement(int mainElement) : wrong argument!" << std::endl;
+		system("pause");
+	}
 }
 
 pss::TMainElement::TMainElement(eMainElements mainElement)

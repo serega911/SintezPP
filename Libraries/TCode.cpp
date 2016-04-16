@@ -98,7 +98,6 @@ void TCode::writeToFile(std::ofstream& file) const
 {
 	for (int i = 0; i < m_code.size(); i++)
 		file << m_code[i] << ' ';
-	file << '\n';
 }
 
 void TCode::loadFromFile(std::ifstream& file)
@@ -111,8 +110,13 @@ void TCode::loadFromFile(std::ifstream& file)
 		file >> num;
 		int elem1 = num / 100;
 		int elem2 = num % 100;
-		it.set(pss::TElement(pss::TMainElement(pss::TMainElement::eMainElements(elem1 / 10)), elem1 % 10), pss::TElement(pss::TMainElement(pss::TMainElement::eMainElements(elem2 / 10)), elem2 % 10));
+		it.set(pss::TElement(pss::TMainElement(elem1 / 10), elem1 % 10), pss::TElement(pss::TMainElement(elem2 / 10), elem2 % 10));
 	}
+ 	char c[2];
+ 	file.read(c, 2);
+	m_links = pss::TSingletons::getInstance()->getNumberOfLinks();
+	m_frictions = pss::TSingletons::getInstance()->getNumberOfFrictions();
+	m_brakes = pss::TSingletons::getInstance()->getNumberOfBrakes();
 }
 
 bool TCode::checkFree() const

@@ -13,7 +13,7 @@ namespace pss
 		void									init(int count);
 		bool									nextReplace(int maxValue);
 		const std::vector<int>&					getReplace() const;
-		int										operator[](int i);
+		int										operator[](int i) const;
 		int										size() const;
 
 

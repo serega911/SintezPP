@@ -4,7 +4,6 @@
 
 void pss::TGaus::solve()
 {
-	const double EPS = 0.0001;
 	m_solution.clear();
 	int n = m_system.size();
 	for (int i = 0; i < n; ++i) {
@@ -28,13 +27,10 @@ void pss::TGaus::solve()
 		m_solution.push_back(m_system[i][n]);
 }
 
-void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k, int driver)
+void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k)
 {
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
 	auto L = pss::TSingletons::getInstance()->getNumberOfLinks();
-	auto F = pss::TSingletons::getInstance()->getNumberOfFrictions();
-	auto B = pss::TSingletons::getInstance()->getNumberOfBrakes();
-	auto W = pss::TSingletons::getInstance()->getW();
 
 	m_system.resize(3 * N);
 	for (auto& it : m_system)
@@ -46,18 +42,46 @@ void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k, int dri
 		m_system[i][3 * i + 1] = -k[i];
 		m_system[i][3 * i + 2] = k[i] - 1;
 	}
-
 	//system("pause");
 	//очищаем уравнения
 	for (int i = N; i < N + L + 1; i++)
-	for (int j = 0; j < 3 * N + 1; j++)
-		m_system[i][j] = 0;
+		for (int j = 0; j < 3 * N + 1; j++)
+			m_system[i][j] = 0;
 	//в следующие countSV строк записываем связи
 	for (int i = N, j = 2; i < N + L; i++, j++){
-		//m_system[i][pss::code_2_pos(Code[j] / 100)] = 1;
-		//m_system[i][pss::code_2_pos(Code[j] % 100)] = -1;
+		m_system[i][Code[j].getElem1().getSerialNumber()] = 1;
+		m_system[i][Code[j].getElem2().getSerialNumber()] = -1;
 	}
 	//уравнение для звена, связанного с ведущим валом
-	//m_system[N + L][pss::code_2_pos(Code[0] / 100)] = 1;
+	m_system[N + L][Code[0].getElem1().getSerialNumber()] = 1;
 	m_system[N + L][N * 3] = 1;
+}
+
+void pss::TGaus::createSystemDrivers(const std::vector<pss::TLink>& drivers)
+{
+	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	auto L = pss::TSingletons::getInstance()->getNumberOfLinks();
+	for (int i = 0; i < drivers.size(); i++)
+	{
+		pss::TLink driver = drivers[i];
+		for (int j = 0; j < 3 * N + 1; j++)
+		{
+			m_system[N + L + 1 + i][j] = 0;
+		}
+		//std::cout << "driver: " << driver << std::endl;
+		if (driver.getElem2() == pss::TElement::BRAKE)	//driver - тормоз
+		{
+			m_system[N + L + 1 + i][driver.getElem1().getSerialNumber()] = 1;
+		}
+		else	//driver - фрикцион
+		{
+			m_system[N + L + 1 + i][driver.getElem1().getSerialNumber()] = 1;
+			m_system[N + L + 1 + i][driver.getElem2().getSerialNumber()] = -1;
+		}
+	}
+}
+
+const std::vector<float>& pss::TGaus::getSolution()
+{
+	return m_solution;
 }

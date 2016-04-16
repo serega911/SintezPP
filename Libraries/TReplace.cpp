@@ -44,7 +44,7 @@ int pss::TReplace::size() const
 	return m_container.size();
 }
 
-int pss::TReplace::operator[](int i)
+int pss::TReplace::operator[](int i) const
 {
 	return m_container.at(i);
 }

@@ -22,6 +22,7 @@ namespace pss
 	public:
 		TMainElement();
 		TMainElement(eMainElements mainElement);
+		TMainElement(int mainElement);
 		eMainElements							get() const;
 		void									set(eMainElements mainElement);
 		void									operator++();

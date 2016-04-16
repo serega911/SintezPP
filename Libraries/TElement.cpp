@@ -49,7 +49,7 @@ int pss::TElement::getGearSetN() const
 
 int pss::TElement::getSerialNumber() const
 {
-	return (m_gearSetN - 1) * pss::TMainElement::s_numberOfMainElements + (int)m_elemN.get() - 1;
+	return (m_gearSetN - 1) * pss::TMainElement::s_numberOfMainElements + static_cast<int>(m_elemN.get()) - 1;
 }
 
 bool pss::operator<(const TElement& elem1, const TElement& elem2)

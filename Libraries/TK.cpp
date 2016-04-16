@@ -89,7 +89,6 @@ void pss::TK::writeToFile(std::ofstream& file) const
 {
 	for (auto& it : m_K)
 		file << it << ' ';
-	file << std::endl;
 }
 
 void pss::TK::loadFromFile(std::ifstream&)
