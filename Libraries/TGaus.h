@@ -14,6 +14,7 @@ namespace pss
 		void									solve();
 		void									createSystem(const pss::TCode & Code, const pss::TK &k);
 		void									createSystemDrivers(const std::vector<pss::TLink>& drivers);
+		std::vector<std::vector<float>>			getSystem();
 		const std::vector<float>&				getSolution();
 	};
 }

@@ -81,6 +81,11 @@ void pss::TGaus::createSystemDrivers(const std::vector<pss::TLink>& drivers)
 	}
 }
 
+std::vector<std::vector<float>> pss::TGaus::getSystem()
+{
+	return m_system;
+}
+
 const std::vector<float>& pss::TGaus::getSolution()
 {
 	return m_solution;
