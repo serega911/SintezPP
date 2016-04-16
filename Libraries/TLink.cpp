@@ -23,7 +23,7 @@ const pss::TElement& pss::TLink::getElem1() const
 
 const pss::TElement& pss::TLink::getElem2() const
 {
-		return m_elem2;
+		return m_elem2; 
 }
 
 std::ostream& pss::operator<<(std::ostream& out, const TLink & link)

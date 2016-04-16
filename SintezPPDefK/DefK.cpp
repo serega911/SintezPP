@@ -21,7 +21,7 @@ pss::TK pss::DefK::findK(const pss::TCode& Code, pss::TK K)
 		if (podModul(Code, K))
 		{
 			K.setFinded();
-			return K;
+			return K; // RK: why two return K
 		}
 		//system("pause");
 	}while(K.next());

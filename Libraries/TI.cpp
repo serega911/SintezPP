@@ -44,7 +44,7 @@ void pss::TI::print()
 
 bool pss::TI::operator==(const pss::TI& obj)
 {
-		if (m_i.size() <= obj.size())
+		if (m_i.size() <= obj.size())	// RK: fake indent size
 		{
 			for (auto& it : m_i)
 			{

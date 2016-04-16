@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <iostream>
 
-#include<set>
+#include <set>
 
 int pss::code_2_pos(int code)
 {

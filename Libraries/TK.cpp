@@ -9,7 +9,7 @@ pss::TK::TK(double dK)
 {
 	m_K.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
 	m_combi.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
-	for (int i = 0; i < m_K.size(); i++)
+	for (int i = 0; i < m_K.size(); i++) // RK: use fill method
 	{
 		m_combi[i] = 0;
 	}
@@ -18,7 +18,7 @@ pss::TK::TK(double dK)
 
 bool pss::TK::inDia(const double & val)
 {
-	double a = 2.0f;
+	double a = 2.0f; // RK: unused?
 	double b = 4.5f;
 	return (abs(val) <= b && abs(val) >= 2);
 }
@@ -30,7 +30,7 @@ void pss::TK::addInterval(double beg, double end)
 		for (double k = beg; k <= end; k += m_dK)
 			m_kValues.push_back(k);
 	}
-	std::sort(m_kValues.begin(), m_kValues.end(), 
+	std::sort(m_kValues.begin(), m_kValues.end(),  // RK: use empty line for logic block outline
 		[=](const double & x1, const double & x2)->bool
 		{
 		if (inDia(x1) == inDia(x2))

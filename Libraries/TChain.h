@@ -20,7 +20,7 @@ namespace pss
 		int										size() const;
 		bool									intersect(const TChain& chain);
 
-		friend bool operator<(const TChain& chain1, const TChain& chain2);
+		friend bool operator<(const TChain& chain1, const TChain& chain2);		// RK: why friend and declaration should be OUTSIDE class
 
 	};
 	bool operator<(const TChain& chain1, const TChain& chain2);

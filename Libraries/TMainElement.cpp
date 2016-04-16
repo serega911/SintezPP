@@ -6,7 +6,7 @@ const int										pss::TMainElement::s_numberOfMainElements = 3;
 
 pss::TMainElement::TMainElement()
 {
-	m_mainElement = eMainElements::SUN_GEAR;
+	m_mainElement = eMainElements::SUN_GEAR; // RK: use BETTER_ENUM
 }
 
 pss::TMainElement::TMainElement(int mainElement)
