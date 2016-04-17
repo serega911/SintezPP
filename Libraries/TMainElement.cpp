@@ -30,7 +30,7 @@ pss::TMainElement::eMainElements pss::TMainElement::get() const
 	return m_mainElement;
 }
 
-void pss::TMainElement::set(eMainElements mainElement)
+void pss::TMainElement::set(const eMainElements & mainElement)
 {
 	m_mainElement = mainElement;
 }

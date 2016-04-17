@@ -13,7 +13,8 @@ namespace pss{
 		void									add(const TCode& code);
 		bool									findIn(const TCode& code) const;
 
-		int										size() const override;			// RK: comment with whitch method's block is override
+		// IContainer
+		int										size() const override;
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
 	};

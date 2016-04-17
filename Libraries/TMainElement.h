@@ -21,11 +21,11 @@ namespace pss
 		eMainElements							m_mainElement;
 	public:
 		TMainElement();
-		TMainElement(eMainElements mainElement);		// RK: Expected to be explicit
+		explicit TMainElement(eMainElements mainElement);		// RK: Expected to be explicit
 		TMainElement(int mainElement);					// RK: same
 
 		eMainElements							get() const;
-		void									set(eMainElements mainElement);		// RK: const T&
+		void									set(const eMainElements & mainElement);
 		void									operator++();		// RK: use BETTER_ENUM
 		bool									end();	// RK: strange name
 
@@ -33,5 +33,4 @@ namespace pss
 
 		friend std::ostream&					operator<<(std::ostream& out, const TMainElement & mainElement);
 	};
-	std::ostream&								operator<<(std::ostream& out, const TMainElement & mainElement);	// RK: dont need that
 }

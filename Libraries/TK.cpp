@@ -18,9 +18,9 @@ pss::TK::TK(double dK)
 
 bool pss::TK::inDia(const double & val)
 {
-	double a = 2.0f; // RK: unused?
+	double a = 2.0f;
 	double b = 4.5f;
-	return (abs(val) <= b && abs(val) >= 2);
+	return (abs(val) <= b && abs(val) >= a);
 }
 
 void pss::TK::addInterval(double beg, double end)
@@ -80,7 +80,7 @@ void pss::TK::setFinded()
 	m_isFinded = true;
 }
 
-bool pss::TK::getFinded()
+bool pss::TK::getFinded() const
 {
 	return m_isFinded;
 }

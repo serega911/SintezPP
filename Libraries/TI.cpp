@@ -44,34 +44,34 @@ void pss::TI::print()
 
 bool pss::TI::operator==(const pss::TI& obj)
 {
-		if (m_i.size() <= obj.size())	// RK: fake indent size
+	if (m_i.size() <= obj.size())
+	{
+		for (auto& it : m_i)
 		{
-			for (auto& it : m_i)
+			bool finded = false;
+			for (auto& jt : obj.m_i)
 			{
-				bool finded = false;
-				for (auto& jt : obj.m_i)
-				{
-					if (abs(it - jt) <= m_eps)
-						finded = true;
-				}
-				if (finded == false)
-					return false;
+				if (abs(it - jt) <= m_eps)
+					finded = true;
 			}
-			return true;
+			if (finded == false)
+				return false;
 		}
-		else if (m_i.size() > obj.size())
+		return true;
+	}
+	else
+	{
+		for (auto& it : obj.m_i)
 		{
-			for (auto& it : obj.m_i)
+			bool finded = false;
+			for (auto& jt : m_i)
 			{
-				bool finded = false;
-				for (auto& jt : m_i)
-				{
-					if (abs(it - jt) <= m_eps)
-						finded = true;
-				}
-				if (finded == false)
-					return false;
+				if (abs(it - jt) <= m_eps)
+					finded = true;
 			}
-			return true;
+			if (finded == false)
+				return false;
 		}
+		return true;
+	}
 }
