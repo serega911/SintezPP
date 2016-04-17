@@ -23,7 +23,7 @@ namespace pss
 		int											getGearSetN() const;
 		int											getSerialNumber() const;
 
-		static const TElement					INPUT;
+		static const TElement					INPUT;		// RK: replace on public static method
 		static const TElement					OUTPUT;
 		static const TElement					BRAKE;
 		static const TElement					EMPTY;

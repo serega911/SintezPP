@@ -3,7 +3,7 @@
 
 std::vector<pss::TLink> pss::TGearChanger::createVector(const pss::TReplace & replacer) const
 {
-	std::vector<pss::TLink> ret;
+	std::vector<pss::TLink> ret;	// RK: use empty lines between logic elements
 	for (int i = 0; i < replacer.size(); i++)
 		ret.push_back(m_drivingElements[replacer[i]]);
 	return ret;

@@ -10,16 +10,16 @@ void pss::TGenerate::generate()
 	setlocale(LC_ALL, "Russian");
 	std::cout << "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n";
 	//	Исходные данные
-	int W;
-	int N;
+	int W = 0;
+	int N = 0;
 	std::cout << "\t\t\tИсходные данные." << std::endl << "Число степеней свободы:	";
 	std::cin >> W;
 	std::cout << "Количество ПМ:		";
 	std::cin >> N;
 	pss::TSingletons::getInstance()->setGlobalParameters(W, N);
-	std::cout << "Количество связей:	" << pss::TSingletons::getInstance()->getNumberOfLinks() << std::endl;
-	std::cout << "Количество фрикционов:	" << pss::TSingletons::getInstance()->getNumberOfFrictions() << std::endl;
-	std::cout << "Количество тормозов:	" << pss::TSingletons::getInstance()->getNumberOfBrakes() << std::endl;
+	std::cout << "Количество связей:	"		<< pss::TSingletons::getInstance()->getNumberOfLinks() << std::endl;
+	std::cout << "Количество фрикционов:	"	<< pss::TSingletons::getInstance()->getNumberOfFrictions() << std::endl;
+	std::cout << "Количество тормозов:	"		<< pss::TSingletons::getInstance()->getNumberOfBrakes() << std::endl;
 
 	//	Заполняем вектор всех возможных связей, пропускаем связи между элементами одного ряда и реверсивные связи.
 	m_allLinks.clear();
@@ -49,20 +49,9 @@ void pss::TGenerate::generateInOut()
 {
 	pss::TCode code;
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
-// 	for (int in = 0; in < 3 * N; in++)				//	Вход на все звенья
-// 		for (int out = 0; out < 3 * N; out++)		//	Выход на все звенья
-// 		{
-// 			if (in != out)							//	Проверка: вход и выход не могут быть одним и тем же элементом
-// 			{
-// 				code.clear();
-// 				code.setIn(pss::TElement(in));
-// 				code.setOut(pss::TElement(out));
-// 				generateLinks(code);
-// 			}
-// 		}
 	for (int i = 1; i <= N; i++)
 	{
-		for (pss::TMainElement inElem; inElem.end(); inElem++)
+		for (pss::TMainElement inElem; inElem.end(); inElem++) // RK: to strange for that i ever seen
 		{
 			for (int j = 1; j <= N; j++)
 			{
@@ -82,7 +71,7 @@ void pss::TGenerate::generateInOut()
 	}
 }
 
-bool pss::TGenerate::generateLinks(pss::TCode & code)
+void pss::TGenerate::generateLinks(pss::TCode & code)
 {
 	pss::TReplace linksCombi;		//	Вектор сочетаний связей
 	linksCombi.init(pss::TSingletons::getInstance()->getNumberOfLinks());
@@ -97,20 +86,21 @@ bool pss::TGenerate::generateLinks(pss::TCode & code)
 			if (m_existingSchemes.findIn(code))
 			{
 				pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_REPETTION, code);
-				continue;
 			}
-			m_existingSchemes.add(code);
-			generateFrictions(code);
+			else
+			{
+				m_existingSchemes.add(code);
+				generateFrictions(code);
+			}
 		}
 		else
 		{
 			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_0, code);
 		}
 	} while (linksCombi.nextReplace(m_allLinks.size()-1));
-	return true;
 }
 
-bool pss::TGenerate::generateFrictions(pss::TCode & code)
+void pss::TGenerate::generateFrictions(pss::TCode & code)
 {
 	//	Определяем элементы, на которых будет установлен фрикцион
 	std::vector<pss::TElement> vect_all_FB = code.getElementsForFrictions();
@@ -138,10 +128,9 @@ bool pss::TGenerate::generateFrictions(pss::TCode & code)
 	{
 		pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_N, code);
 	}
-	return true;
 }
 
-bool pss::TGenerate::generateBrakes(pss::TCode & code)
+void pss::TGenerate::generateBrakes(pss::TCode & code)
 {
 	std::vector<pss::TElement> vect_all_FB = code.getElementsForBrakes();
 	pss::TReplace vect_combi_brakes;		//	Вектор сочетаний тормозов
@@ -159,5 +148,4 @@ bool pss::TGenerate::generateBrakes(pss::TCode & code)
 		else
 			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_FREE, code);
 	} while (vect_combi_brakes.nextReplace(vect_all_FB.size() - 1));
-	return true;
 }

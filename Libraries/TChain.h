@@ -21,7 +21,5 @@ namespace pss
 		bool									intersect(const TChain& chain);
 
 		friend bool operator<(const TChain& chain1, const TChain& chain2);
-
 	};
-	bool operator<(const TChain& chain1, const TChain& chain2);
 }

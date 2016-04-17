@@ -10,10 +10,10 @@ pss::TSingletons::TSingletons()
 void pss::TSingletons::calculateNumbersOfElements()
 {
 	if (m_w == 0 || m_numberOfPlanetaryGears == 0)
-		return;
+		return; // RK: BAD style
 	switch (m_w)
 	{
-		case 2:
+		case 2: // RK: magic numbers
 		{
 				  m_numberOfBrakes = m_numberOfPlanetaryGears;
 				  m_numberOfFrictions = 0;	// для двухстепенных блокировочный фрикцион не считаем

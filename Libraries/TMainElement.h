@@ -10,9 +10,9 @@ namespace pss
 		enum class eMainElements
 		{
 			SUN_GEAR = 1,
-			EPICYCLIC_GEAR = 2,
+			EPICYCLIC_GEAR = 2,					
 			CARRIER = 3,
-			INPUT = 4,
+			INPUT = 4,							// RK: why diff logic types in one enum
 			OUTPUT = 5,
 			BRAKE = 6,
 			EMPTY = 0
@@ -21,16 +21,16 @@ namespace pss
 		eMainElements							m_mainElement;
 	public:
 		TMainElement();
-		TMainElement(eMainElements mainElement);
-		TMainElement(int mainElement);
-		eMainElements							get() const;
-		void									set(eMainElements mainElement);
-		void									operator++();
-		bool									end();
+		explicit TMainElement(eMainElements mainElement);		// RK: Expected to be explicit
+		TMainElement(int mainElement);					// RK: same
 
-		static const int						s_numberOfMainElements;
+		eMainElements							get() const;
+		void									set(const eMainElements & mainElement);
+		void									operator++();		// RK: use BETTER_ENUM
+		bool									end();	// RK: strange name
+
+		static const int						s_numberOfMainElements;		// RK: Dont be PUBLIC
 
 		friend std::ostream&					operator<<(std::ostream& out, const TMainElement & mainElement);
 	};
-	std::ostream&								operator<<(std::ostream& out, const TMainElement & mainElement);
 }
