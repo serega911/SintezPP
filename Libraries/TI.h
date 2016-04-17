@@ -17,6 +17,7 @@ namespace pss
 		void									operator=(const TI& obj);
 		void									push_back(double value);
 		void									print();
+		bool									findIn( double value ) const;
 
 	};
 }

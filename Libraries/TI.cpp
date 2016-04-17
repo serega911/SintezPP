@@ -1,4 +1,5 @@
 #include "../Libraries/TI.h"
+#include "../Libraries/TSingletons.h"
 #include <iostream>
 
 double pss::TI::m_eps = 0.05;
@@ -42,7 +43,22 @@ void pss::TI::print()
 	std::cout << std::endl;
 }
 
-bool pss::TI::operator==(const pss::TI& obj)
+bool pss::TI::findIn( double value ) const
+{
+	if ( m_i.size() == pss::TSingletons::getInstance()->getNumberOfGears() )
+	{
+		for ( auto& it : m_i )
+		{
+			if ( abs( it - value ) <= m_eps )
+				return true;
+		}
+		return false;
+	}
+	else
+		return true;
+}
+
+bool pss::TI::operator==( const pss::TI& obj )
 {
 	if (m_i.size() <= obj.size())
 	{

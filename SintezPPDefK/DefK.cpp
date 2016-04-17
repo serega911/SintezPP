@@ -77,20 +77,26 @@ bool pss::DefK::podModul(const pss::TCode & code, const pss::TK &k)
 {
 	pss::TGearChanger gearChanger(code);
 	pss::TI tmpI({}, 0.01);	//вектор для полученных передаточных отношений при данном наборе K
-		
 	do
 	{
 		pss::TGaus gaus;
 		gaus.createSystem(code, k);
 		gaus.createSystemDrivers(gearChanger.getDrivingElementsForGear());
 		gaus.solve();
-		if (gaus.getSolution().size() == 0)
+		if ( gaus.getSolution().size() == 0 )
+		{
 			return false;
+		}
 		float calculatedI = gaus.getSolution()[code[1].getElem1().getSerialNumber()];
-		if (abs(calculatedI) > 0.001)
-			tmpI.push_back(1.0 / calculatedI);
+		if ( abs( calculatedI ) > 0.001 && m_iTarget.findIn( 1.0 / calculatedI ) )
+		{
+			tmpI.push_back( 1.0 / calculatedI );
+		}
 		else
+		{
 			return false;
+		}
+			
 	} while (gearChanger.next());
 	//сравниваем полученные передаточные отношения с искомыми
 	if (m_iTarget == tmpI)
