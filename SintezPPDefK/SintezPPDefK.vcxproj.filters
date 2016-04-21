@@ -1,104 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-<<<<<<< HEAD
-    <ClInclude Include="DefK.h" />
-    <ClInclude Include="..\Libraries\func_lib.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\IContainer.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TChain.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCode.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCodeContainer.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TElement.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TGaus.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TGearChanger.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TI.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TIOFileManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TK.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TLink.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TMainElement.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TReplace.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TSingletons.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DefK.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\Libraries\func_lib.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TChain.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TCode.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TCodeContainer.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TElement.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TGaus.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TGearChanger.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TI.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TK.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TLink.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TMainElement.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TReplace.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TSingletons.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{78daa20f-2249-43b2-a353-006c6d97f8f1}</UniqueIdentifier>
-=======
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DefK.cpp">
       <Filter>Files</Filter>
@@ -107,7 +9,6 @@
   <ItemGroup>
     <Filter Include="Files">
       <UniqueIdentifier>{b67d6853-7fa1-436c-8ac6-9be0909445a6}</UniqueIdentifier>
->>>>>>> 2209d7661eb53ddfc7465bf8b39500267c0dd6d3
     </Filter>
   </ItemGroup>
   <ItemGroup>
