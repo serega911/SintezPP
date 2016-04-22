@@ -7,5 +7,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TPlanetaryGearSet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TPlanetaryGearSet.h" />
   </ItemGroup>
 </Project>

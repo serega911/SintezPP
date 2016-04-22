@@ -5,6 +5,7 @@ const pss::TElement pss::TElement::INPUT = TElement(pss::TMainElement(pss::TMain
 const pss::TElement pss::TElement::OUTPUT = TElement(pss::TMainElement(pss::TMainElement::eMainElements::OUTPUT), 5);
 const pss::TElement pss::TElement::BRAKE = TElement(pss::TMainElement(pss::TMainElement::eMainElements::BRAKE), 6);
 const pss::TElement pss::TElement::EMPTY = TElement(pss::TMainElement(pss::TMainElement::eMainElements::EMPTY), 0);
+const pss::TElement pss::TElement::PLACEHOLDER = TElement( pss::TMainElement( pss::TMainElement::eMainElements::BUSY ), 9 );
 
 pss::TElement::TElement(TMainElement elemN, int gearSetN)
 {
@@ -15,11 +16,6 @@ pss::TElement::TElement()
 {
 	*this = EMPTY;
 }
-
-// pss::TElement::TElement(int serialNumber)
-// {
-// 	set(pss::TMainElement(pss::TMainElement::eMainElements(serialNumber % pss::TMainElement::s_numberOfMainElements + 1)), serialNumber / pss::TMainElement::s_numberOfMainElements + 1);
-// }
 
 void pss::TElement::setElemN(const TMainElement & elemN)
 {

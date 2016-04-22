@@ -15,7 +15,8 @@ namespace pss
 			INPUT = 4,							// RK: why diff logic types in one enum
 			OUTPUT = 5,
 			BRAKE = 6,
-			EMPTY = 0
+			EMPTY = 0,
+			BUSY = 9
 		};
 	private:
 		eMainElements							m_mainElement;

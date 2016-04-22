@@ -27,12 +27,11 @@ namespace pss
 		static const TElement					OUTPUT;
 		static const TElement					BRAKE;
 		static const TElement					EMPTY;
+		static const TElement					PLACEHOLDER;
 
 		friend std::ostream&					operator<<(std::ostream& out, const TElement & elem);
 	};
 	bool										operator<(const TElement& elem1, const TElement& elem2);
 	bool										operator==(const TElement& elem1, const TElement& elem2);
 	bool										operator!=(const TElement& elem1, const TElement& elem2);
-	std::ostream&								operator<<(std::ostream& out, const TElement & elem);
-
 }
