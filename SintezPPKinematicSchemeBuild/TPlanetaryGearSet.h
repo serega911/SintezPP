@@ -50,6 +50,9 @@ namespace pss
 		TPlanetaryGearSet();
 		~TPlanetaryGearSet();
 
+		void									print();
+		void									print( const Field & field );
+
 		void									create( int gearSetN, Type type );
 	};
 }
