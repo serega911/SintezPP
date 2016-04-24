@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TKinematicScheme.cpp" />
     <ClCompile Include="TPlanetaryGearSet.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +74,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="old\TMake.h" />
+    <ClInclude Include="old\TPKP.h" />
+    <ClInclude Include="old\TPlanRyad.h" />
+    <ClInclude Include="old\TWave.h" />
+    <ClInclude Include="TKinematicScheme.h" />
     <ClInclude Include="TPlanetaryGearSet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

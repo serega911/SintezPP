@@ -1,76 +1,45 @@
 #include "TPlanetaryGearSet.h"
 #include <iostream>
 
-const int										pss::TPlanetaryGearSet::s_maxX = 9;
-const int										pss::TPlanetaryGearSet::s_maxY = 13;
-const int										pss::TPlanetaryGearSet::s_centerX = s_maxX / 2;
-const int										pss::TPlanetaryGearSet::s_centerY = s_maxY / 2;
-
-void pss::TPlanetaryGearSet::makeLimits( Type type )
-{
-	switch ( type )
-	{
-	case pss::TPlanetaryGearSet::Type::TYPE_N:
-		makeLimitsForTypeN();
-		break;
-	case pss::TPlanetaryGearSet::Type::TYPE_N_REVERSE:
-		makeLimitsForTypeNReverse();
-		break;
-	case pss::TPlanetaryGearSet::Type::TYPE_U:
-		makeLimitsForTypeU();
-		break;
-	case pss::TPlanetaryGearSet::Type::TYPE_U_REVERSE:
-		makeLimitsForTypeUReverse();
-		break;
-	case pss::TPlanetaryGearSet::Type::TYPE_DEFAULT:
-		makeLimitsForTypeDefault();
-		break;
-	}
-}
-
-pss::TPlanetaryGearSet::TPlanetaryGearSet()
-{
-	const size_t mas_size = 6;
-	m_fieldWithLimts.resize( mas_size );
-	for ( size_t i = 0; i < mas_size; i++ )
-	{
-		m_fieldWithLimts[i].resize( s_maxY );
-		for ( size_t j = 0; j < s_maxY; j++ )
-			m_fieldWithLimts[i][j].resize( s_maxX );
-	}
-	m_planetaryGearSetType = Type::TYPE_DEFAULT;
-	makeLimits( Type::TYPE_DEFAULT );
-}
-
-pss::TPlanetaryGearSet::~TPlanetaryGearSet()
-{
-}
+const int										pss::TPlanetaryGearSet::s_xSize = 9;
+const int										pss::TPlanetaryGearSet::s_ySize = 13;
+const int										pss::TPlanetaryGearSet::s_centerX = s_xSize / 2;
+const int										pss::TPlanetaryGearSet::s_centerY = s_ySize / 2;
 
 void pss::TPlanetaryGearSet::print()
 {
-	print( m_field );
-	for (auto& field: m_fieldWithLimts)
-		print( field );
-}
-
-void pss::TPlanetaryGearSet::print( const Field & field )
-{
-	for ( auto& line : field )
+	for ( auto yPos = 0; yPos < m_field.size( ); yPos++ )
 	{
-		for ( auto& elem : line )
-		{
-			if ( elem.size() != 0 )
-				std::cout << '#';
-			else
-				std::cout << '.';
-		}
+		printLine( yPos );
 		std::cout << std::endl;
 	}
-	std::cout << std::endl;
+}
+
+void pss::TPlanetaryGearSet::printLine( int yPos )
+{
+	for ( auto i = 0; i < m_field[yPos].size(); i++ )
+	{
+		if ( m_field[yPos][i].size( ) != 0 )
+		{
+			if ( m_field[yPos][i].find( pss::TElement::PLACEHOLDER ) )
+				std::cout << '#';
+			else if ( m_field[yPos][i].find( pss::TElement::BRAKE ) )
+				std::cout << 'B';
+			else if( m_field[yPos][i].find( pss::TElement::INPUT ) )
+				std::cout << 'I';
+			else if( m_field[yPos][i].find( pss::TElement::OUTPUT ) )
+				std::cout << 'O';
+			else
+				std::cout << '%';
+		}
+		else
+			std::cout << '.';
+	}
 }
 
 void pss::TPlanetaryGearSet::create( int gearSetN, Type type )
 {
+	m_gearSetN = gearSetN;
 	resetField();
 
 	switch ( type )
@@ -91,264 +60,107 @@ void pss::TPlanetaryGearSet::create( int gearSetN, Type type )
 		createTypeDefault( gearSetN );
 		break;
 	}
-
-	//if ( type != m_planetaryGearSetType )
-		makeLimits( type );
-
-	//invers();
-
-	m_planetaryGearSetType = type;
+	for ( int i = 0; i < s_xSize; i++ )
+		m_field[i][s_ySize - 1].addElementToChain( pss::TElement::BRAKE );
 }
 
-void pss::TPlanetaryGearSet::invers()
+std::vector<pss::TChain>& pss::TPlanetaryGearSet::operator[]( int xPos )
 {
-	for ( auto & it : m_fieldWithLimts )
-	{
-		for ( int i = 0; i < it.size(); i++ )
-		{
-			if ( m_field[i].size() != 0 )
-				it[i] = m_field[i];
-		}
-	}
+	return m_field[xPos];
 }
 
 void pss::TPlanetaryGearSet::resetField()
 {
-	m_field.resize( s_maxY );
+	m_field.resize( s_xSize );
 	for ( auto & line : m_field )
 	{
-		line.resize( s_maxX );
+		line.resize( s_ySize );
 		for ( auto & elem : line )
 			elem.clear( );
 	}
 }
 
-void pss::TPlanetaryGearSet::resetLimits()
-{
-	for ( auto& field : m_fieldWithLimts )
-	{
-		field.resize( s_maxY );
-		for ( auto & line : field )
-		{
-			line.resize( s_maxX );
-			for ( auto & elem : line )
-				elem.clear();
-		}
-	}
-}
-
-void pss::TPlanetaryGearSet::makeLimitsForTypeN()
-{
-	for ( size_t i = s_centerY + 2; i < s_maxY; i++ )
-	{
-		m_fieldWithLimts[0][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[1][i][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[4][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[5][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 1; i < s_centerY - 2; i++ )
-	{
-		m_fieldWithLimts[2][i][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[3][i][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 2; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[3][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	m_fieldWithLimts[2][s_centerY - 2][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[2][s_centerY - 3][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[3][s_centerY - 2][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[3][s_centerY - 3][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-}
-
-void pss::TPlanetaryGearSet::makeLimitsForTypeNReverse()
-{
-	for ( size_t i = s_centerY + 2; i < s_maxY; i++ )
-	{
-		m_fieldWithLimts[0][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[1][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[4][i][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[5][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 1; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[2][i][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[3][i][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 2; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[3][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	m_fieldWithLimts[2][( s_centerY - 2 )][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[2][( s_centerY - 3 )][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[3][( s_centerY - 2 )][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[3][( s_centerY - 3 )][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-}
-
-void pss::TPlanetaryGearSet::makeLimitsForTypeU()
-{
-	for ( size_t i = 1; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[0][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[1][i][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[4][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[5][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 2; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[1][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 2; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[4][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = s_centerY + 2; i < s_maxX; i++ )
-	{
-		m_fieldWithLimts[2][i][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[3][i][1 + s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	m_fieldWithLimts[2][s_centerY + 2][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[2][s_centerY + 3][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[3][s_centerY + 2][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[3][s_centerY + 3][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-}
-
-void pss::TPlanetaryGearSet::makeLimitsForTypeUReverse()
-{
-	for ( size_t i = 1; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[0][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[1][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[4][i][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[5][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 2; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[1][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 2; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[4][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = s_centerY + 2; i < s_maxY; i++ )
-	{
-		m_fieldWithLimts[2][i][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[3][i][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	m_fieldWithLimts[2][( s_centerY + 2 )][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[2][( s_centerY + 3 )][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[3][( s_centerY + 2 )][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	m_fieldWithLimts[3][( s_centerY + 3 )][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-}
-
-void pss::TPlanetaryGearSet::makeLimitsForTypeDefault()
-{
-	for ( size_t i = 1; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[0][i][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[1][i][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 2; i < s_centerY - 1; i++ )
-	{
-		m_fieldWithLimts[1][i][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = s_centerY - 1; i < s_centerY + 2; i++ ){
-		if ( i != s_centerY )
-		{
-			m_fieldWithLimts[2][i][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );
-			m_fieldWithLimts[3][i][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );
-		}
-		m_fieldWithLimts[2][i][s_centerX - 2].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[3][i][s_centerX + 2].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = s_centerY + 2; i < s_maxY; i++ )
-	{
-		m_fieldWithLimts[4][i][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_fieldWithLimts[5][i][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-	for ( size_t i = 2; i < s_centerY - 2; i++ )
-	{
-		m_fieldWithLimts[5][i][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );
-	}
-}
+//
+// All coments were rotated underclockwise
+//
 
 void pss::TPlanetaryGearSet::createTypeN( int gearSetN )
 {
-	m_field[s_centerY + 2][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );			// # # # # # # # # #
-	m_field[s_centerY + 1][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
-	m_field[s_centerY][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . . . . . .
-	m_field[s_centerY - 1][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );			// # # # # # # # # #
+	m_field[s_centerX - 1][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
 																																									// . . . 3 3 3 . . . 
-	m_field[s_centerY + 2][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );	// . . . # . # . . . 
-	m_field[s_centerY + 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . # . # . . . 
-	m_field[s_centerY][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . # . # . . . 
-	m_field[s_centerY - 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . 1 . 2 . . . 
+	m_field[s_centerX + 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );	// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . 1 . 2 . . . 
 																																									// . . . . . . . . .	
-	m_field[s_centerY - 2][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// . . . . . . . . .
-	m_field[s_centerY - 2][s_centerX].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
-	m_field[s_centerY - 2][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// # # # # # # # # #
+	m_field[s_centerX - 1][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// . . . . . . . . .
+	m_field[s_centerX][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
+	m_field[s_centerX + 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// # # # # # # # # #
 }
 
 void pss::TPlanetaryGearSet::createTypeNReverse( int gearSetN )
 {
-	m_field[s_centerY + 2][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );	// # # # # # # # # #
-	m_field[s_centerY + 1][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
-	m_field[s_centerY][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . . . . . .
-	m_field[s_centerY - 1][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );	// # # # # # # # # #
+	m_field[s_centerX - 1][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
 																																									// . . . 3 3 3 . . . 
-	m_field[s_centerY + 2][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );			// . . . # . # . . . 
-	m_field[s_centerY + 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . # . # . . . 
-	m_field[s_centerY][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . # . # . . . 
-	m_field[s_centerY - 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . 2 . 1 . . . 
+	m_field[s_centerX + 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );			// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . 2 . 1 . . . 
 																																									// . . . . . . . . .	
-	m_field[s_centerY - 2][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// . . . . . . . . .
-	m_field[s_centerY - 2][s_centerX].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
-	m_field[s_centerY - 2][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// # # # # # # # # #
+	m_field[s_centerX - 1][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// . . . . . . . . .
+	m_field[s_centerX][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
+	m_field[s_centerX + 1][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// # # # # # # # # #
 }
 
 void pss::TPlanetaryGearSet::createTypeU( int gearSetN )
 {
-	m_field[s_centerY - 2][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );			// # # # # # # # # #
-	m_field[s_centerY - 1][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
-	m_field[s_centerY][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . . . . . .
-	m_field[s_centerY + 1][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );			// # # # # # # # # #
+	m_field[s_centerX - 1][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
 																																									// . . . 1 . 2 . . . 
-	m_field[s_centerY - 2][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );	// . . . # . # . . . 
-	m_field[s_centerY - 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . # . # . . . 
-	m_field[s_centerY][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . # . # . . . 
-	m_field[s_centerY + 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . 3 3 3 . . . 
+	m_field[s_centerX + 1][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );	// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . 3 3 3 . . . 
 																																									// . . . . . . . . .	
-	m_field[s_centerY + 2][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// . . . . . . . . .
-	m_field[s_centerY + 2][s_centerX].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
-	m_field[s_centerY + 2][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// # # # # # # # # #
+	m_field[s_centerX - 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// . . . . . . . . .
+	m_field[s_centerX][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
+	m_field[s_centerX + 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// # # # # # # # # #
 }
 
 void pss::TPlanetaryGearSet::createTypeUReverse( int gearSetN )
 {
-	m_field[s_centerY - 2][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );	// # # # # # # # # #
-	m_field[s_centerY - 1][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
-	m_field[s_centerY][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . . . . . .
-	m_field[s_centerY + 1][s_centerX - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );	// # # # # # # # # #
+	m_field[s_centerX - 1][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . . . . . . .
 																																									// . . . 2 . 1 . . .
-	m_field[s_centerY - 2][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );			// . . . # . # . . . 
-	m_field[s_centerY - 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . # . # . . . 
-	m_field[s_centerY][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . # . # . . . 
-	m_field[s_centerY + 1][s_centerX + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . 3 3 3 . . . 
+	m_field[s_centerX + 1][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );			// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . # . # . . . 
+	m_field[s_centerX + 1][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																			// . . . 3 3 3 . . . 
 																																									// . . . . . . . . .
-	m_field[s_centerY + 2][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// . . . . . . . . .
-	m_field[s_centerY + 2][s_centerX].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
-	m_field[s_centerY + 2][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// # # # # # # # # #
+	m_field[s_centerX - 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// . . . . . . . . .
+	m_field[s_centerX][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
+	m_field[s_centerX + 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );			// # # # # # # # # #
 }
 
 void pss::TPlanetaryGearSet::createTypeDefault( int gearSetN )
 {
- 	m_field[s_centerY - 2][s_centerX].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );		// # # # # # # # # #	
- 	m_field[s_centerY - 1][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );;																				// . . . . . . . . .
- 	m_field[s_centerY][s_centerX - 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
- 	m_field[s_centerY][s_centerX].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );					// . . . . . . . . .
- 	m_field[s_centerY][s_centerX + 1].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . 2 . . . . 
- 	m_field[s_centerY + 1][s_centerX].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . 9 . . . . 
- 	m_field[s_centerY + 2][s_centerX].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );				// . . . 3 3 3 . . .
+	m_field[s_centerX][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );		// # # # # # # # # #	
+	m_field[s_centerX][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );;																				// . . . . . . . . .
+	m_field[s_centerX - 1][s_centerY].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . . . . . .
+	m_field[s_centerX][s_centerY].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );					// . . . . . . . . .
+	m_field[s_centerX + 1][s_centerY].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );				// . . . . 2 . . . . 
+	m_field[s_centerX][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																				// . . . . 9 . . . . 
+	m_field[s_centerX][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );				// . . . 3 3 3 . . .
 																																									// . . . . 9 . . . . 
 																																									// . . . . 1 . . . . 
 																																									// . . . . . . . . .

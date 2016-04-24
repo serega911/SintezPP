@@ -8,6 +8,9 @@ namespace pss
 	class TPlanetaryGearSet
 	{
 	public:
+
+		typedef std::vector<std::vector<pss::TChain>> Field;
+
 		enum class Type
 		{
 			TYPE_N,
@@ -16,44 +19,32 @@ namespace pss
 			TYPE_U_REVERSE,
 			TYPE_DEFAULT
 		};
-	private:
-		typedef std::vector<std::vector<pss::TChain>> Field;
 
-		static const int						s_maxX;
-		static const int						s_maxY;
+		static const int						s_xSize;
+		static const int						s_ySize;
 		static const int						s_centerX;
 		static const int						s_centerY;
 
-		Type									m_planetaryGearSetType;
+	private:
 
-		std::vector<Field>						m_fieldWithLimts;	//new
 		Field									m_field;
-
-		void									makeLimits( Type type );
-		void									invers();
+		int										m_gearSetN;
 
 		void									resetField();
-		void									resetLimits();
-
-		void									makeLimitsForTypeN();
-		void									makeLimitsForTypeNReverse( );
-		void									makeLimitsForTypeU();
-		void									makeLimitsForTypeUReverse();
-		void									makeLimitsForTypeDefault();
-
 		void									createTypeN( int gearSetN );
 		void									createTypeNReverse( int gearSetN );
 		void									createTypeU( int gearSetN );
 		void									createTypeUReverse( int gearSetN );
-		void									createTypeDefault( int gearSetN );
+		void
+			createTypeDefault( int gearSetN );
 	public:
-		TPlanetaryGearSet();
-		~TPlanetaryGearSet();
 
 		void									print();
-		void									print( const Field & field );
+		void									printLine( int xPos );
 
 		void									create( int gearSetN, Type type );
+
+		std::vector<pss::TChain>&				operator[]( int xPos );
 	};
 }
 

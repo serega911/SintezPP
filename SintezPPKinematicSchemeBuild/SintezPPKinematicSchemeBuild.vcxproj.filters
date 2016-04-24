@@ -4,12 +4,37 @@
     <Filter Include="Files">
       <UniqueIdentifier>{d22477fd-da40-4be6-baff-6eeec0111b9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Old">
+      <UniqueIdentifier>{9cd70c91-54cf-41ae-a7f6-9d7714e1f580}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TPlanetaryGearSet.cpp" />
+    <ClCompile Include="TPlanetaryGearSet.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TKinematicScheme.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TPlanetaryGearSet.h" />
+    <ClInclude Include="TPlanetaryGearSet.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="old\TMake.h">
+      <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="old\TPKP.h">
+      <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="old\TPlanRyad.h">
+      <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="old\TWave.h">
+      <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="TKinematicScheme.h">
+      <Filter>Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
