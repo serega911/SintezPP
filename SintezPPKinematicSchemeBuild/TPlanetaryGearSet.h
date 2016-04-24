@@ -32,11 +32,9 @@ namespace pss
 
 		void									resetField();
 		void									createTypeN( int gearSetN );
-		void									createTypeNReverse( int gearSetN );
-		void									createTypeU( int gearSetN );
-		void									createTypeUReverse( int gearSetN );
-		void
-			createTypeDefault( int gearSetN );
+		void									createTypeDefault( int gearSetN );
+		void									reverseX();
+		void									reverseY();
 	public:
 
 		void									print();
@@ -45,6 +43,7 @@ namespace pss
 		void									create( int gearSetN, Type type );
 
 		std::vector<pss::TChain>&				operator[]( int xPos );
+		const std::vector<pss::TChain>&			operator[]( int xPos ) const;
 	};
 }
 

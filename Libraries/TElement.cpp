@@ -1,11 +1,11 @@
 #include "../Libraries/TElement.h"
 #include "../Libraries/func_lib.h"
 
-const pss::TElement pss::TElement::INPUT = TElement(pss::TMainElement(pss::TMainElement::eMainElements::INPUT), 4);
-const pss::TElement pss::TElement::OUTPUT = TElement(pss::TMainElement(pss::TMainElement::eMainElements::OUTPUT), 5);
-const pss::TElement pss::TElement::BRAKE = TElement(pss::TMainElement(pss::TMainElement::eMainElements::BRAKE), 6);
+const pss::TElement pss::TElement::INPUT = TElement(pss::TMainElement(pss::TMainElement::eMainElements::INPUT), 0);
+const pss::TElement pss::TElement::OUTPUT = TElement(pss::TMainElement(pss::TMainElement::eMainElements::OUTPUT), 0);
+const pss::TElement pss::TElement::BRAKE = TElement(pss::TMainElement(pss::TMainElement::eMainElements::BRAKE), 0);
 const pss::TElement pss::TElement::EMPTY = TElement(pss::TMainElement(pss::TMainElement::eMainElements::EMPTY), 0);
-const pss::TElement pss::TElement::PLACEHOLDER = TElement( pss::TMainElement( pss::TMainElement::eMainElements::BUSY ), 9 );
+const pss::TElement pss::TElement::PLACEHOLDER = TElement( pss::TMainElement( pss::TMainElement::eMainElements::BUSY ), 0 );
 
 pss::TElement::TElement(TMainElement elemN, int gearSetN)
 {

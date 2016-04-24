@@ -18,7 +18,7 @@ namespace pss
 		
 		bool									pss::TK::inDia(const double & val);
 	public:
-		TK() = delete;
+		TK();
 		TK(double dK);
 		void									addInterval(double beg, double end);
 		const double							operator[](int i) const;

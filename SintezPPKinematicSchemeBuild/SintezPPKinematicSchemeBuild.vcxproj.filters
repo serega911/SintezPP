@@ -16,6 +16,15 @@
     <ClCompile Include="TKinematicScheme.cpp">
       <Filter>Files</Filter>
     </ClCompile>
+    <ClCompile Include="TPathBuilder.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TRoute.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TCordinates.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TPlanetaryGearSet.h">
@@ -36,5 +45,12 @@
     <ClInclude Include="TKinematicScheme.h">
       <Filter>Files</Filter>
     </ClInclude>
+    <ClInclude Include="TPathBuilder.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TRoute.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TCordinates.h" />
   </ItemGroup>
 </Project>

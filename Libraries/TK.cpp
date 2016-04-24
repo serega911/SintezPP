@@ -16,7 +16,11 @@ pss::TK::TK(double dK)
 	m_dK = dK;
 }
 
-bool pss::TK::inDia(const double & val)
+pss::TK::TK( ) : TK(0.1)
+{
+}
+
+bool pss::TK::inDia( const double & val )
 {
 	double a = 2.0f;
 	double b = 4.5f;

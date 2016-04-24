@@ -65,8 +65,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TCordinates.cpp" />
     <ClCompile Include="TKinematicScheme.cpp" />
+    <ClCompile Include="TPathBuilder.cpp" />
     <ClCompile Include="TPlanetaryGearSet.cpp" />
+    <ClCompile Include="TRoute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
@@ -78,8 +81,11 @@
     <ClInclude Include="old\TPKP.h" />
     <ClInclude Include="old\TPlanRyad.h" />
     <ClInclude Include="old\TWave.h" />
+    <ClInclude Include="TCordinates.h" />
     <ClInclude Include="TKinematicScheme.h" />
+    <ClInclude Include="TPathBuilder.h" />
     <ClInclude Include="TPlanetaryGearSet.h" />
+    <ClInclude Include="TRoute.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

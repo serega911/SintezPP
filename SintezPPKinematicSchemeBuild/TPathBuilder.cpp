@@ -1,0 +1,119 @@
+#include "TPathBuilder.h"
+#include <set>
+#include <iostream>
+
+
+void pss::TPathBuilder::initField( const pss::TKinematicScheme & scheme, pss::TLink link )
+{
+	m_field.resize( scheme.size() );
+	for ( auto & it : m_field )
+		it.resize( TPlanetaryGearSet::s_ySize );
+
+	for ( auto x = 0; x < m_field.size(); x++ )
+	{
+		for ( auto y = 0; y < m_field[x].size(); y++ )
+		{
+			// start
+			if ( scheme[x][y].find( link.getElem1() ) )
+			{
+				m_field[x][y] = m_start;
+			}
+			// empty
+			else if ( scheme[x][y].size() == 0 )
+			{
+				m_field[x][y] = m_empty;
+			}
+			// finish
+			else if ( scheme[x][y].find( link.getElem2() ) )
+			{
+				m_field[x][y] = m_finish;
+			}
+			// wall
+			else
+			{
+				m_field[x][y] = m_wall;
+			}
+		}
+	}
+}
+
+void pss::TPathBuilder::spreadWave()
+{
+	std::set<pss::TCordinates> currentWave;
+	std::set<pss::TCordinates> nextWave;
+
+	//заполняем текущую волну клетками финиша
+	for ( int x = 0; x < m_field.size( ); x++ )
+	{
+		for ( int y = 0; y < m_field[x].size(); y++ )
+		{
+			if ( m_field[x][y] == m_finish )
+				currentWave.insert( pss::TCordinates(x,y) );
+		}
+	}
+	//Распространение волны
+	int ni = 1;
+	while ( currentWave.size() != 0 )
+	{
+		for ( auto& cord : currentWave )
+		{
+			auto neighbors = cord.getNeighbors();
+			for ( auto& neighbor : neighbors )
+			{
+				if ( m_field[neighbor.m_x][neighbor.m_y] == m_empty )
+				{
+					m_field[neighbor.m_x][neighbor.m_y] = ni;
+					nextWave.insert( neighbor );
+				}
+			}
+			system( "cls" );
+			printField();
+			//system( "pause" );
+		}
+		currentWave = nextWave;
+		nextWave.clear();
+		ni++;
+	}
+}
+
+void pss::TPathBuilder::printField()
+{
+	for ( int x = 0; x < m_field.size(); x++ )
+	{
+		for ( int y = 0; y < m_field[x].size(); y++ )
+		{
+			if ( m_field[x][y] == m_start )
+				std::cout << 's';
+			else if ( m_field[x][y] == m_finish )
+				std::cout << 'f';
+			else if ( m_field[x][y] == m_empty )
+				std::cout << 'e';
+			else if ( m_field[x][y] == m_wall )
+				std::cout << 'w';
+			else
+				std::cout << '.';
+		}
+		std::cout << std::endl;
+	}
+}
+
+pss::TPathBuilder::TPathBuilder()
+{
+	m_direction = Direction::DOWN;
+}
+
+bool pss::TPathBuilder::findPath( const pss::TKinematicScheme & scheme, pss::TLink link )
+{
+	int maxX = scheme.size( );
+	int maxY = TPlanetaryGearSet::s_ySize;
+	m_start = maxX * maxY;
+	m_finish = 0;
+	m_empty = maxX * maxY + 1;
+	m_wall = maxX * maxY + 2;
+	initField( scheme, link );
+	spreadWave();
+
+
+
+	return true;
+}
