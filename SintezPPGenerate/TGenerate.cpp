@@ -23,20 +23,15 @@ void pss::TGenerate::generate()
 
 	//	Заполняем вектор всех возможных связей, пропускаем связи между элементами одного ряда и реверсивные связи.
 	m_allLinks.clear();
-// 	for (int i = 0; i <= pss::TMainElement::s_numberOfMainElements * (N - 1); i++)
-// 	{
-// 		for (int j = (i / pss::TMainElement::s_numberOfMainElements + 1) * pss::TMainElement::s_numberOfMainElements; j < pss::TMainElement::s_numberOfMainElements * N; j++)
-// 			m_allLinks.push_back(pss::TLink(pss::TElement(i), pss::TElement(j)));
-// 	}
 	for (int i = 1; i < N; i++)
 	{
-		for (pss::TMainElement mElem1; mElem1.end(); mElem1++)
+		for (auto mElem1 = 1; mElem1 <=3; mElem1++)
 		{
 			for (int j = i + 1; j <= N; j++)
 			{
-				for (pss::TMainElement mElem2; mElem2.end(); mElem2++)
+				for (auto mElem2 = 1; mElem2<=3; mElem2++)
 				{
-					m_allLinks.push_back(pss::TLink(pss::TElement(mElem1,i), pss::TElement(mElem2,j)));
+					m_allLinks.push_back( pss::TLink( pss::TElement( pss::eMainElement::_from_integral( mElem1 ), i ), pss::TElement( pss::eMainElement::_from_integral( mElem2 ), j ) ) );
 				}
 			}
 		}
@@ -51,14 +46,14 @@ void pss::TGenerate::generateInOut()
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
 	for (int i = 1; i <= N; i++)
 	{
-		for (pss::TMainElement inElem; inElem.end(); inElem++) // RK: to strange for that i ever seen
+		for (int inElem = 1; inElem <= 3; inElem++) // RK: to strange for that i ever seen
 		{
 			for (int j = 1; j <= N; j++)
 			{
-				for (pss::TMainElement outElem; outElem.end(); outElem++)
+				for (auto outElem = 1; outElem<=3; outElem++)
 				{
-					pss::TElement elemIn(inElem,i);
-					pss::TElement elemOut(outElem, j);
+					pss::TElement elemIn( pss::eMainElement::_from_integral( inElem ), i );
+					pss::TElement elemOut( pss::eMainElement::_from_integral( outElem ), j );
 					if (elemIn != elemOut)
 					{
 						code.setIn(elemIn);
