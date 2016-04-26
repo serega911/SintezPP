@@ -13,15 +13,15 @@ void pss::TPathBuilder::initField( const pss::TKinematicScheme & scheme, pss::TL
 	{
 		for ( auto y = 0; y < m_field[x].size(); y++ )
 		{
-			// start
-			if ( scheme[x][y].find( link.getElem1() ) )
-			{
-				m_field[x][y] = m_start;
-			}
 			// empty
-			else if ( scheme[x][y].size() == 0 )
+			if ( scheme[x][y].size() == 0 )
 			{
 				m_field[x][y] = m_empty;
+			}
+			// start
+			else if( scheme[x][y].find( link.getElem1( ) ) )
+			{
+				m_field[x][y] = m_start;
 			}
 			// finish
 			else if ( scheme[x][y].find( link.getElem2() ) )
@@ -37,7 +37,7 @@ void pss::TPathBuilder::initField( const pss::TKinematicScheme & scheme, pss::TL
 	}
 }
 
-void pss::TPathBuilder::spreadWave()
+bool pss::TPathBuilder::spreadWave()
 {
 	std::set<pss::TCordinates> currentWave;
 	std::set<pss::TCordinates> nextWave;
@@ -65,15 +65,17 @@ void pss::TPathBuilder::spreadWave()
 					m_field[neighbor.m_x][neighbor.m_y] = ni;
 					nextWave.insert( neighbor );
 				}
+				else if ( m_field[neighbor.m_x][neighbor.m_y] == m_start )
+				{
+					return true;
+				}
 			}
-			system( "cls" );
-			printField();
-			//system( "pause" );
 		}
 		currentWave = nextWave;
 		nextWave.clear();
 		ni++;
 	}
+	return false;
 }
 
 void pss::TPathBuilder::printField()
@@ -87,7 +89,7 @@ void pss::TPathBuilder::printField()
 			else if ( m_field[x][y] == m_finish )
 				std::cout << 'f';
 			else if ( m_field[x][y] == m_empty )
-				std::cout << 'e';
+				std::cout << ' ';
 			else if ( m_field[x][y] == m_wall )
 				std::cout << 'w';
 			else
@@ -102,6 +104,57 @@ pss::TPathBuilder::TPathBuilder()
 	m_direction = Direction::DOWN;
 }
 
+std::vector<pss::TCordinates> pss::TPathBuilder::findPath()
+{
+	// строим путь
+	std::vector<pss::TCordinates> path;
+	pss::TCordinates current = findStartCell();
+	
+	while ( m_field[current.m_x][current.m_y] != m_finish)
+	{
+		m_field[current.m_x][current.m_y] = m_wall;
+		auto neighbors = current.getNeighbors( );
+		for ( auto& neighbor : neighbors )
+		{
+			if ( m_field[neighbor.m_x][neighbor.m_y] < m_field[current.m_x][current.m_y] && m_field[neighbor.m_x][neighbor.m_y] != m_empty )
+			{
+				current = neighbor;
+			}
+		}
+// 		path.emplace_back( current );
+// 		system( "cls" );
+// 		printField();
+	}
+	return path;
+}
+
+pss::TCordinates pss::TPathBuilder::findStartCell()
+{
+	// ищем клетку старта
+	pss::TCordinates start( 0, 0 );
+	int pathLenght = m_start;
+	for ( int x = 1; x < m_field.size() - 1; x++ )
+	{
+		for ( int y = 1; y < m_field[x].size() - 1; y++ )
+		{
+			if ( m_field[x][y] == m_start )
+			{
+				pss::TCordinates cord( x, y );
+				auto neighbors = cord.getNeighbors();
+				for ( auto& neighbor : neighbors )
+				{
+					if ( m_field[neighbor.m_x][neighbor.m_y] < pathLenght )
+					{
+						start = cord;
+						pathLenght = m_field[neighbor.m_x][neighbor.m_y];
+					}
+				}
+			}
+		}
+	}
+	return start;
+}
+
 bool pss::TPathBuilder::findPath( const pss::TKinematicScheme & scheme, pss::TLink link )
 {
 	int maxX = scheme.size( );
@@ -111,9 +164,10 @@ bool pss::TPathBuilder::findPath( const pss::TKinematicScheme & scheme, pss::TLi
 	m_empty = maxX * maxY + 1;
 	m_wall = maxX * maxY + 2;
 	initField( scheme, link );
-	spreadWave();
-
-
-
-	return true;
+	if ( spreadWave() )
+	{
+		auto path = findPath();
+		return true;
+	}
+	return false;
 }

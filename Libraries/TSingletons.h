@@ -1,5 +1,6 @@
 #pragma once
 #include "TIOFileManager.h"
+#include "TLoaderFromFile.h"
 
 namespace pss
 {
@@ -10,6 +11,7 @@ namespace pss
 		~TSingletons();
 		void									init();
 		TIOFileManager*							getIOFileManager();
+		TLoaderFromFile*							getLoaderFromFile( );
 		int										getNumberOfPlanetaryGears() const;
 		int										getNumberOfGears() const;
 		int										getW() const;

@@ -28,6 +28,6 @@ namespace pss
 		void									setFinded();
 		bool									getFinded() const;
 		void									writeToFile(std::ofstream& file) const override;
-		void									loadFromFile(std::ifstream&) override;
+		void									loadFromFile(std::ifstream& in) override;
 	};
 }

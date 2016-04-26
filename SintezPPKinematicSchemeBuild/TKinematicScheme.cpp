@@ -14,17 +14,33 @@ const std::vector<pss::TChain>& pss::TKinematicScheme::operator[]( int xPos ) co
 
 void pss::TKinematicScheme::addGearSet( const TPlanetaryGearSet & gearSet )
 {
-	m_field.emplace_back( gearSet );
- 	for ( auto x = 0; x < m_field.size() * pss::TPlanetaryGearSet::s_xSize; x++ )
- 	{
- 		auto & chain = m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][0];
- 		chain.clear();
- 		if ( x < m_field.size() * pss::TPlanetaryGearSet::s_xSize / 2 )
- 			chain.addElementToChain( pss::TElement::INPUT );
- 		else
- 			chain.addElementToChain( pss::TElement::OUTPUT );
- 	}
-		
+	m_field.emplace_back( gearSet );		
+}
+
+void pss::TKinematicScheme::addBorders()
+{
+	//input-output-brakes
+	for ( auto x = 0; x < m_field.size() * pss::TPlanetaryGearSet::s_xSize; x++ )
+	{
+		//input-output
+		auto & chain = m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][0];
+		chain.clear();
+		if ( x < m_field.size() * pss::TPlanetaryGearSet::s_xSize / 2 )
+			chain.addElementToChain( pss::TElement::INPUT );
+		else
+			chain.addElementToChain( pss::TElement::OUTPUT );
+		//brakes
+		auto & brakeChain = m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][pss::TPlanetaryGearSet::s_ySize - 1];
+		brakeChain.addElementToChain( pss::TElement::BRAKE );
+	}
+	//left and right borders
+	for ( auto y = 0; y < pss::TPlanetaryGearSet::s_ySize; y++ )
+	{
+		auto & leftBorder = m_field[0][0][y];
+		leftBorder.addElementToChain( pss::TElement::BRAKE );
+		auto & rightBorder = m_field[m_field.size( ) - 1][pss::TPlanetaryGearSet::s_xSize - 1][y];
+		rightBorder.addElementToChain( pss::TElement::BRAKE );
+	}
 }
 
 void pss::TKinematicScheme::print()

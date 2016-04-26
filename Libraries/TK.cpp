@@ -95,8 +95,10 @@ void pss::TK::writeToFile(std::ofstream& file) const
 		file << it << ' ';
 }
 
-void pss::TK::loadFromFile(std::ifstream&)
+void pss::TK::loadFromFile(std::ifstream& in)
 {
-
+	m_K.resize( pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() );
+	for ( auto i = 0; i < m_K.size(); i++ )
+		in >> m_K[i];
 }
 

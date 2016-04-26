@@ -50,12 +50,20 @@ int pss::TElement::getSerialNumber() const
 
 bool pss::operator<(const TElement& elem1, const TElement& elem2)
 {
-	return elem1.getSerialNumber() < elem2.getSerialNumber();
+	//return elem1.getSerialNumber() < elem2.getSerialNumber();
+	if ( elem1.m_gearSetN == elem2.m_gearSetN )
+	{
+		return elem1.m_elemN.get() < elem2.m_elemN.get();
+	}
+	else
+	{
+		return elem1.m_gearSetN < elem2.m_gearSetN;
+	}
 }
 
 bool pss::operator==(const TElement& elem1, const TElement& elem2)
 {
-	return elem1.getSerialNumber() == elem2.getSerialNumber();
+	return ( ( elem1.m_gearSetN == elem2.m_gearSetN ) && ( elem1.m_elemN.get() == elem2.m_elemN.get() ) );
 }
 
 bool pss::operator!=(const TElement& elem1, const TElement& elem2)
@@ -68,13 +76,3 @@ std::ostream& pss::operator<<(std::ostream& out, const TElement & elem)
 	out << elem.m_elemN << elem.m_gearSetN;
 	return out;
 }
-
-// std::istream& pss::operator>>(std::istream& in, TElement & elem)
-// {
-//	in >> elem.m_elemN;
-//	char num;
-//	in.get(num);
-//	num -= '0';
-//	elem.m_gearSetN = int(num);
-//	return in;
-//}

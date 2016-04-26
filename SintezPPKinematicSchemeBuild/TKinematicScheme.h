@@ -16,6 +16,7 @@ namespace pss
 		const std::vector<pss::TChain>&				operator[]( int xPos ) const;
 		std::vector<pss::TChain>&				operator[]( int xPos );
 		void									addGearSet(const TPlanetaryGearSet & gearSet);
+		void									addBorders();
 		void									print();
 
 		void									create( const pss::TCode& code, pss::TK & k );

@@ -26,7 +26,9 @@ namespace pss
 
 
 		void									initField( const pss::TKinematicScheme & scheme, pss::TLink link );
-		void									spreadWave();
+		bool									spreadWave();
+		std::vector<pss::TCordinates>			findPath();
+		pss::TCordinates						findStartCell();
 		void									printField();
 	public:
 		TPathBuilder();
