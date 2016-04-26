@@ -110,7 +110,7 @@ void TCode::loadFromFile(std::ifstream& file)
 		file >> num;
 		int elem1 = num / 100;
 		int elem2 = num % 100;
-		it.set(pss::TElement(pss::TMainElement(elem1 / 10), elem1 % 10), pss::TElement(pss::TMainElement(elem2 / 10), elem2 % 10));
+		it.set(pss::TElement(pss::eMainElement::_from_integral(elem1 / 10), elem1 % 10), pss::TElement(pss::eMainElement::_from_integral(elem2 / 10), elem2 % 10));
 	}
 	char c[2];
 	file.read(c, 2);
@@ -169,8 +169,9 @@ void pss::TCode::createChains()
 	auto out = m_code[1].getElem1();
 	for (size_t i = 1; i <= N; i++)
 	{
-		for (pss::TMainElement elem; elem.end(); elem++)
+		for ( auto e = 1; e <= 3; e++ )
 		{
+			pss::eMainElement elem = pss::eMainElement::_from_integral( e );
 			size_t b = 0;
 			for (size_t j = 0; j < size; j++){
 				if (pss::TElement(elem, i) == m_code[j].getElem1() || pss::TElement(elem, i) == m_code[j].getElem2())
