@@ -15,110 +15,50 @@ TCode::~TCode(void)
 {
 }
 
-int TCode::operator[](int i) const
+TLink TCode::operator[](int i) const
 {
-	if (i<m_codeSize)
-		return m_code[i];
-	else
-		return -1;
+	return m_code.at(i);
 }
 
-bool TCode::setIn(int in)
+void TCode::setIn(const TElement & in)
 {
-	if (in / 10 <= 3 && in % 10 <= pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() && in > 9)
-	{
-		m_code[0] = 100*in + 44;
-		return true;
-	}
-	pss::SetColor(15, 4);
-	std::cout << "Установка элемента входа не удалась!" << std::endl;
-	pss::SetColor(15, 0);
-	system("pause");
-	return false;
+	m_code[0].set(in, TElement::INPUT);
 }
 
-bool TCode::setOut(int out)
+void TCode::setOut(const TElement & out)
 {
-	if (out / 10 <= 3 && out % 10 <= pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() && out>9)
-	{
-		m_code[1] = 100*out + 55;
-		return true;
-	}
-	pss::SetColor(15, 4);
-	std::cout << "Установка элемента выхода не удалась!" << std::endl;
-	pss::SetColor(15, 0);
-	system("pause");
-	return false;
+	m_code[1].set(out, TElement::OUTPUT);
 }
 
-bool TCode::setLinks(std::vector<int> links)
+void TCode::setLinks(const std::vector<TLink>& links)
 {
-	for (int i = 0; i < links.size(); i++)
-		if (links[i] / 1000>3 || links[i] / 100 % 10>pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() || links[i] % 100 / 10>3 || links[i] % 10 > pss::TSingletons::getInstance()->getNumberOfPlanetaryGears())
-		{
-			pss::SetColor(15, 4);
-			std::cout << "Установка связей не удалась!\nПричина сбоя: " << links[i] << ". Вектор кода остался без изменений.";
-			print();
-			pss::SetColor(15, 0);
-			system("pause");
-			return false;
-		}
 	if (m_links)
 	{
 		m_code.erase(m_code.begin() + 2, m_code.begin() + m_links + 2);	
 	}
 	m_code.insert(m_code.begin()+2,links.begin(), links.end());
-	m_codeSize = m_code.size();
 	m_links = links.size();
 	createChains();
-	return true;
 }
 
-bool TCode::setFrictions(std::vector<int> frict)
+void TCode::setFrictions(const std::vector<TLink>& frictions)
 {
-	for (int i = 0; i < frict.size(); i++)
-	if (frict[i] / 1000 > 3 || frict[i] / 100 % 10 > pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() || frict[i] % 100 / 10>3 || frict[i] % 10 > pss::TSingletons::getInstance()->getNumberOfPlanetaryGears())
-	{
-		pss::SetColor(15, 4);
-		std::cout << "Установка фрикционов не удалась!\nПричина сбоя: " << frict[i] << ". Вектор кода остался без изменений.";
-		print();
-		pss::SetColor(15, 0);
-		system("pause");
-		return false;
-	}
 	if (m_frictions)
 	{
 		m_code.erase(m_code.begin() + 2 + m_links, m_code.begin() + 2 + m_links + m_frictions);
 	}
-	m_code.insert(m_code.begin() + 2 +m_links, frict.begin(), frict.end());
-	m_codeSize = m_code.size();
-	m_frictions = frict.size();
-	return true;
+	m_code.insert(m_code.begin() + 2 + m_links, frictions.begin(), frictions.end());
+	m_frictions = frictions.size();
 }
 
-bool TCode::setBrakes(std::vector<int> brakes)
+void TCode::setBrakes(const std::vector<TLink>& brakes)
 {
-	for (int i = 0; i < brakes.size(); i++)
+	if (m_brakes)
 	{
-		if (brakes[i] / 10>3 || brakes[i] % 10 > pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() || brakes[i] < 10)
-		{
-			pss::SetColor(15, 4);
-			std::cout << "Установка торомозов не удалась!\nПричина сбоя: " << brakes[i] << ". Вектор кода остался без изменений.";
-			print();
-			pss::SetColor(15, 0);
-			system("pause");
-			return false;
-		}
-		brakes[i] = brakes[i]*100 + 66;
-	}
-	if (m_brekes)
-	{
-		m_code.erase(m_code.begin() + 2 + m_links + m_frictions, m_code.begin() + 2 + m_links + m_frictions + m_brekes);
+		m_code.erase(m_code.begin() + 2 + m_links + m_frictions, m_code.begin() + 2 + m_links + m_frictions + m_brakes);
 	}
 	m_code.insert(m_code.begin() + 2 + m_links + m_frictions, brakes.begin(), brakes.end());
-	m_codeSize = m_code.size();
-	m_brekes = brakes.size();
-	return true;
+	m_brakes = brakes.size();
 }
 
 void TCode::print() const
@@ -127,9 +67,9 @@ void TCode::print() const
 	pss::SetColor(15, 2);
 	std::cout << "==================================================\n";
 	pss::SetColor(15, 0);
-	std::cout << "Длина вектора кода:			" << m_codeSize << std::endl;
+	std::cout << "Длина вектора кода:			" << m_code.size() << std::endl;
 	std::cout << "--------------------------------------------------\n";
-	for (int i=0; i < m_codeSize; i++)
+	for (int i = 0; i < m_code.size(); i++)
 	{
 		if (i == 1 || i == 2 || i == 2 + pss::TSingletons::getInstance()->getNumberOfLinks() || i == 2 + pss::TSingletons::getInstance()->getNumberOfLinks() + pss::TSingletons::getInstance()->getNumberOfFrictions())
 			std::cout << "| "; 
@@ -141,34 +81,42 @@ void TCode::print() const
 void TCode::clear()
 {
 	m_code.clear();
-	m_code.push_back(0);
-	m_code.push_back(0);
-	m_codeSize = m_code.size();
+	m_code.resize(2);
 	m_chains.clear();
 	m_links = 0;
 	m_frictions = 0;
-	m_brekes = 0;
+	m_brakes = 0;
 }
 
 int TCode::size() const
 {
-	return m_codeSize;
+	return m_code.size();
 }
 
 
 void TCode::writeToFile(std::ofstream& file) const
 {
-	for (int i=0; i < m_codeSize; i++)
+	for (int i = 0; i < m_code.size(); i++)
 		file << m_code[i] << ' ';
-	file << '\n';
 }
 
 void TCode::loadFromFile(std::ifstream& file)
 {
-	m_codeSize = 2 + pss::TSingletons::getInstance()->getNumberOfLinks() + pss::TSingletons::getInstance()->getNumberOfFrictions() + pss::TSingletons::getInstance()->getNumberOfBrakes();
-	m_code.resize(m_codeSize);
+	auto codeSize = 2 + pss::TSingletons::getInstance()->getNumberOfLinks() + pss::TSingletons::getInstance()->getNumberOfFrictions() + pss::TSingletons::getInstance()->getNumberOfBrakes();
+	m_code.resize(codeSize);
 	for (auto& it : m_code)
-		file >> it;
+	{
+		int num;
+		file >> num;
+		int elem1 = num / 100;
+		int elem2 = num % 100;
+		it.set(pss::TElement(pss::TMainElement(elem1 / 10), elem1 % 10), pss::TElement(pss::TMainElement(elem2 / 10), elem2 % 10));
+	}
+	char c[2];
+	file.read(c, 2);
+	m_links = pss::TSingletons::getInstance()->getNumberOfLinks();
+	m_frictions = pss::TSingletons::getInstance()->getNumberOfFrictions();
+	m_brakes = pss::TSingletons::getInstance()->getNumberOfBrakes();
 }
 
 bool TCode::checkFree() const
@@ -177,7 +125,7 @@ bool TCode::checkFree() const
 	{
 		int count = 0;
 		for (int j = 0; j < m_code.size(); j++)
-			if (pss::pos_2_code(i) == m_code[j] / 100 || pss::pos_2_code(i) == m_code[j] % 100)
+			if (i == m_code[j].getElem1().getSerialNumber() || i == m_code[j].getElem2().getSerialNumber())
 				count++;
 		if (count == 0)
 			return false;
@@ -185,22 +133,22 @@ bool TCode::checkFree() const
 	return true;
 }	//проверяет остались ли пустые элементы
 
-const std::vector<int>& TCode::getCode() const
+const std::vector<TLink>& TCode::getCode() const
 {
 	return m_code;
 }
 
-int pss::TCode::getIn() const
+TLink pss::TCode::getIn() const
 {
 	return m_code[0];
 }
 
-int pss::TCode::getOut() const
+TLink pss::TCode::getOut() const
 {
 	return m_code[1];
 }
 
-const std::vector<std::vector<int>>& pss::TCode::getChains() const
+const std::vector<TChain>& pss::TCode::getChains() const
 {
 	return m_chains;
 }
@@ -213,57 +161,46 @@ void pss::TCode::createChains()
 	m_chains.resize(size);
 
 	for (int i = 0; i < m_chains.size(); i++){
-		m_chains[i].push_back(m_code[i] / 100);
-		m_chains[i].push_back(m_code[i] % 100);
-		std::sort(m_chains[i].begin(), m_chains[i].end());
+		m_chains[i].addLinkToChain(m_code[i]);
 	}
 	//поиск элементов, свободных от связей и создание цепочек, которые их содержат
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
-	auto in = m_code[0] / 100;
-	auto out = m_code[1] / 100;
-	size_t b;
-	for (size_t i = 0; i < 3 * N; i++)
+	auto in = m_code[0].getElem1();
+	auto out = m_code[1].getElem1();
+	for (size_t i = 1; i <= N; i++)
 	{
-		b = 0;
-		for (size_t j = 0; j < size; j++){
-			if (m_code[j] / 100 == pss::pos_2_code(i) || m_code[j] % 100 == pss::pos_2_code(i)){
-				b++;
+		for (pss::TMainElement elem; elem.end(); elem++)
+		{
+			size_t b = 0;
+			for (size_t j = 0; j < size; j++){
+				if (pss::TElement(elem, i) == m_code[j].getElem1() || pss::TElement(elem, i) == m_code[j].getElem2())
+				{
+					b++;
+				}
 			}
-		}
-		if (b == 0 && pss::pos_2_code(i) != in && pss::pos_2_code(i) != out){
-			m_chains.resize(m_chains.size() + 1);
-			m_chains[m_chains.size() - 1].push_back(pss::pos_2_code(i));
-			b = 0;
+			if (b == 0 && pss::TElement(elem, i) != in && pss::TElement(elem, i) != out){
+				m_chains.resize(m_chains.size() + 1);
+				m_chains[m_chains.size() - 1].addElementToChain(pss::TElement(elem, i));
+				b = 0;
+			}
 		}
 	}
 	//поиск цепочек связей
-	b = 0;
 	for (size_t i = 0; i < m_chains.size() - 1; i++){
 		for (size_t j = i + 1; j < m_chains.size(); j++){
-			for (size_t k = 0; k < m_chains[i].size(); k++){
-				if (pss::in_vect(m_chains[j], m_chains[i][k]) != -1)
-					b = m_chains[i][k];
-			}
-			if (b != 0){
-				for (size_t k = 0; k < m_chains[i].size(); k++)
-					m_chains[j].push_back(m_chains[i][k]);
-				m_chains[i].clear();
-				m_chains[i].push_back(0);
-				b = 0;
+			if (m_chains[i].intersect(m_chains[j]))
+			{
+				m_chains[i].addChainToChain(m_chains[j]);
+				m_chains[j].clear();
 			}
 		}
 	}
 	//удаление пустых цепочек
 	for (size_t i = 0; i < m_chains.size(); i++){
-		if (m_chains[i][0] == 0){
+		if (m_chains[i].size() == 0){
 			m_chains.erase(m_chains.begin() + i);
 			i = i - 1;
 		}
-	}
-	//удаление повторений
-	for (size_t i = 0; i < m_chains.size(); i++){
-		pss::del_repetition(m_chains[i]);
-		std::sort(m_chains[i].begin(), m_chains[i].end());
 	}
 	std::sort(m_chains.begin(), m_chains.end());
 }
@@ -271,56 +208,45 @@ void pss::TCode::createChains()
 bool pss::TCode::check() const
 {
 	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
-	size_t b = 0;
 	//проверки корректности кода
 	for (size_t i = 0; i < m_chains.size(); i++)
 	{
 		//проверка связи вход-выход
-		if (m_chains[i].size() > 1 && m_chains[i][m_chains[i].size() - 2] >= 44 && m_chains[i][m_chains[i].size() - 1] >= 44)
+		if (m_chains[i].find(TElement::INPUT) && m_chains[i].find(TElement::OUTPUT))
 		{
 			//std::cout << "Есть связь входа с выходом:\n";
 			return false;
 		}
 		//проверка связей между элементами одного ряда
-		for (int j = 1; j <= N; j++)
+		if (!m_chains[i].checkElemByOnePlanetarySet())
 		{
-			b = 0;
-			for (int k = 0; k < m_chains[i].size(); k++)
-			if (m_chains[i][k] % 10 == j)
-				b++;
-			if (b > 1)
-			{
-				//std::cout << "Есть связь между элементами одного ряда:\n";
-				return false;
-			}
+			//std::cout << "Есть связь между элементами одного ряда:\n";
+			return false;
 		}
 	}
 	return true;
 }
 
-const std::vector<int> pss::TCode::getElementsForFrictions() const
+const std::vector<TElement> pss::TCode::getElementsForFrictions() const
 {
-	std::vector<int> vect;
+	std::vector<TElement> vect;
 	for (int i = 0; i < m_chains.size(); i++)
 	{
-		vect.push_back(m_chains[i][0]);
+		vect.push_back(m_chains[i].getFirst());
 	}
-		
 	return vect;
 }
 
-const std::vector<int> pss::TCode::getElementsForBrakes() const
+const std::vector<TElement> pss::TCode::getElementsForBrakes() const
 {
-	std::vector<int> vect;
+	std::vector<TElement> vect;
 	for (int i = 0; i < m_chains.size(); i++)
 	{
-		if (m_chains[i][m_chains[i].size() - 1] < 44)
+		if (!m_chains[i].find(TElement::INPUT) && !m_chains[i].find(TElement::OUTPUT))
 		{
-			vect.push_back(m_chains[i][0]);
+			vect.push_back(m_chains[i].getFirst());
 		}
-
 	}
-
 	return vect;
 }
 

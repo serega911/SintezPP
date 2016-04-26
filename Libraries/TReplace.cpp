@@ -3,7 +3,7 @@
 void pss::TReplace::init(int count)
 {
 	m_container.clear();
-	for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++) // RK: use reserve and fill sequence method!
 		m_container.push_back(i);
 }
 
@@ -11,7 +11,7 @@ bool pss::TReplace::nextReplace(int maxValue)
 {
 	if (m_container.size() == 0)  return false;
 	std::vector<int>tmp;
-	int m = m_container.size();
+	int m = m_container.size(); // RK: empty lines for logic blocks?
 	tmp = m_container;
 	int x = 1;
 	if (tmp[m - 1] < maxValue)
@@ -44,7 +44,7 @@ int pss::TReplace::size() const
 	return m_container.size();
 }
 
-int pss::TReplace::operator[](int i)
+int pss::TReplace::operator[](int i) const
 {
 	return m_container.at(i);
 }

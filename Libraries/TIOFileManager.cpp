@@ -15,6 +15,7 @@ void pss::TIOFileManager::writeToFile(eOutputFileType type, const IContainer & c
 	auto file = m_oFiles.find(type);
 	if (file != m_oFiles.end())
 	{
+		*(file->second) << std::endl;
 		container.writeToFile(*(file->second));
 	}
 	else

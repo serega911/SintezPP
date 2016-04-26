@@ -9,8 +9,7 @@ namespace pss{
 	class DefK
 	{
 	public:
-		DefK();
-		~DefK(void);
+		~DefK(void);		// same
 		pss::TK									findK(const pss::TCode& Code, pss::TK K);
 		void									run();
 	private:

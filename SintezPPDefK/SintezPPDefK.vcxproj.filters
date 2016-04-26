@@ -1,51 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="DefK.h" />
-    <ClInclude Include="..\Libraries\func_lib.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TK.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TI.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TSingletons.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TIOFileManager.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCode.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DefK.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\Libraries\func_lib.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TK.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TI.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TSingletons.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TCode.cpp">
-      <Filter>Lib</Filter>
+    <ClCompile Include="DefK.cpp">
+      <Filter>Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Lib">
-      <UniqueIdentifier>{d66d1bc6-1ab8-4855-9087-dd3a262b1164}</UniqueIdentifier>
+    <Filter Include="Files">
+      <UniqueIdentifier>{b67d6853-7fa1-436c-8ac6-9be0909445a6}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DefK.h">
+      <Filter>Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <iostream>
 
-#include<set>
+#include <set>
 
 int pss::code_2_pos(int code)
 {
@@ -22,7 +22,7 @@ int pss::pos_2_code(int pos)
 }
 
 bool pss::next_combination_repetition(std::vector<int>&v1, int max_value, int min_value){
-	int k = (int)v1.size();
+	int k = static_cast<int>(v1.size());
 	for (int i = k - 1; i >= 0; --i)
 		if (v1[i] != min_value-1)
 			if (v1[i] < max_value)

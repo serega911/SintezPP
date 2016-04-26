@@ -1,4 +1,5 @@
 #include "../Libraries/TI.h"
+#include "../Libraries/TSingletons.h"
 #include <iostream>
 
 double pss::TI::m_eps = 0.05;
@@ -42,36 +43,51 @@ void pss::TI::print()
 	std::cout << std::endl;
 }
 
-bool pss::TI::operator==(const pss::TI& obj)
+bool pss::TI::findIn( double value ) const
 {
-		if (m_i.size() <= obj.size())
+	if ( m_i.size() == pss::TSingletons::getInstance()->getNumberOfGears() )
+	{
+		for ( auto& it : m_i )
 		{
-			for (auto& it : m_i)
-			{
-				bool finded = false;
-				for (auto& jt : obj.m_i)
-				{
-					if (abs(it - jt) <= m_eps)
-						finded = true;
-				}
-				if (finded == false)
-					return false;
-			}
-			return true;
+			if ( abs( it - value ) <= m_eps )
+				return true;
 		}
-		else if (m_i.size() > obj.size())
+		return false;
+	}
+	else
+		return true;
+}
+
+bool pss::TI::operator==( const pss::TI& obj )
+{
+	if (m_i.size() <= obj.size())
+	{
+		for (auto& it : m_i)
 		{
-			for (auto& it : obj.m_i)
+			bool finded = false;
+			for (auto& jt : obj.m_i)
 			{
-				bool finded = false;
-				for (auto& jt : m_i)
-				{
-					if (abs(it - jt) <= m_eps)
-						finded = true;
-				}
-				if (finded == false)
-					return false;
+				if (abs(it - jt) <= m_eps)
+					finded = true;
 			}
-			return true;
+			if (finded == false)
+				return false;
 		}
+		return true;
+	}
+	else
+	{
+		for (auto& it : obj.m_i)
+		{
+			bool finded = false;
+			for (auto& jt : m_i)
+			{
+				if (abs(it - jt) <= m_eps)
+					finded = true;
+			}
+			if (finded == false)
+				return false;
+		}
+		return true;
+	}
 }

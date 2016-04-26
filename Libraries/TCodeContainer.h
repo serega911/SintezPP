@@ -13,6 +13,7 @@ namespace pss{
 		void									add(const TCode& code);
 		bool									findIn(const TCode& code) const;
 
+		// IContainer
 		int										size() const override;
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;

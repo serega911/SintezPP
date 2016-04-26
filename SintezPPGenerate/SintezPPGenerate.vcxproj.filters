@@ -1,51 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Lib">
-      <UniqueIdentifier>{f9076d15-2219-4dce-af0c-3551499a1f09}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\Libraries\func_lib.cpp">
-      <Filter>Lib</Filter>
+    <ClCompile Include="TGenerate.cpp">
+      <Filter>Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TSingletons.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="TGenerate.cpp" />
-    <ClCompile Include="..\Libraries\TCode.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TReplace.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TCodeContainer.cpp">
-      <Filter>Lib</Filter>
+    <ClCompile Include="..\Libraries\TMainElement.cpp">
+      <Filter>Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Libraries\func_lib.h">
-      <Filter>Lib</Filter>
+    <ClInclude Include="TGenerate.h">
+      <Filter>Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TSingletons.h">
-      <Filter>Lib</Filter>
+    <ClInclude Include="..\Libraries\TMainElement.h">
+      <Filter>Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TIOFileManager.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="TGenerate.h" />
-    <ClInclude Include="..\Libraries\TCode.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TReplace.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCodeContainer.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Files">
+      <UniqueIdentifier>{3da5f5a6-d283-4d24-9d9e-ea3890d67383}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

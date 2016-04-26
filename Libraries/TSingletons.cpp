@@ -9,44 +9,47 @@ pss::TSingletons::TSingletons()
 
 void pss::TSingletons::calculateNumbersOfElements()
 {
-	if (m_w == 0 || m_numberOfPlanetaryGears == 0)
-		return;
-	switch (m_w)
+	if ( m_w != 0 && m_numberOfPlanetaryGears != 0 )
 	{
-		case 2:
+		switch ( m_w )
 		{
-				  m_numberOfBrakes = m_numberOfPlanetaryGears;
-				  m_numberOfFrictions = 0;	// для двухстепенных блокировочный фрикцион не считаем
-				  m_numberOfLinks = 2 * m_numberOfPlanetaryGears - m_w;
-				  m_numberOfGears = m_numberOfBrakes;
+		case 2: // RK: magic numbers
+		{
+					m_numberOfBrakes = m_numberOfPlanetaryGears;
+					m_numberOfFrictions = 0;	// для двухстепенных блокировочный фрикцион не считаем
+					m_numberOfLinks = 2 * m_numberOfPlanetaryGears - m_w;
+					m_numberOfGears = m_numberOfBrakes;
 		}
 			break;
 		case 3:
 		{
-				  if (m_numberOfPlanetaryGears == 1)
+				  if ( m_numberOfPlanetaryGears == 1 )
 				  {
 					  std::cout << "Ошибка: Один планетарный ряд при трех степенях свободы!\n";
-					  system("pause");
+					  system( "pause" );
 					  return;
 				  }
 				  m_numberOfBrakes = m_numberOfPlanetaryGears - 1;
 				  m_numberOfFrictions = 2;
 				  m_numberOfLinks = 2 * m_numberOfPlanetaryGears - m_w;
-				  if (m_numberOfPlanetaryGears == 2)
+				  if ( m_numberOfPlanetaryGears == 2 )
 					  m_numberOfGears = 2;
-				  else if (m_numberOfPlanetaryGears == 3)
+				  else if ( m_numberOfPlanetaryGears == 3 )
 					  m_numberOfGears = 5;
-				  else if (m_numberOfPlanetaryGears == 4)
+				  else if ( m_numberOfPlanetaryGears == 4 )
 					  m_numberOfGears = 9;
 		}
 			break;
 		default:
 		{
 				   std::cout << "Ошибка: Некорректное количество степеней свободы!\n";
-				   system("pause");
+				   system( "pause" );
 				   return;
 		}
 			break;
+			
+		}
+		m_numberOfActuatedDrivingElements = m_w - 1;
 	}
 }
 
@@ -85,6 +88,11 @@ int pss::TSingletons::getNumberOfLinks() const
 	return m_numberOfLinks;
 }
 
+int pss::TSingletons::getNumberOfActuatedDrivingElements() const
+{
+	return m_numberOfActuatedDrivingElements;
+}
+
 int pss::TSingletons::getNumberOfFrictions() const
 {
 	return m_numberOfFrictions;
@@ -99,37 +107,6 @@ void pss::TSingletons::setGlobalParameters(int w, int n)
 {
 	m_w = w;
 	m_numberOfPlanetaryGears = n;
-
-// 	switch (m_w)
-// 	{
-// 	case 2:
-// 	{
-// 			  m_numberOfBrakes = m_numberOfPlanetaryGears;
-// 			  m_numberOfFrictions = 0;	// для двухстепенных блокировочный фрикцион не считаем
-// 			  m_numberOfLinks = 2 * m_numberOfPlanetaryGears - m_w;
-// 	}
-// 		break;
-// 	case 3:
-// 	{
-// 			  if (m_numberOfPlanetaryGears == 1)
-// 			  {
-// 				  std::cout << "Ошибка: Один планетарный ряд при трех степенях свободы!\n";
-// 				  system("pause");
-// 				  exit(0);
-// 			  }
-// 			  m_numberOfBrakes = m_numberOfPlanetaryGears - 1;
-// 			  m_numberOfFrictions = 2;
-// 			  m_numberOfLinks = 2 * m_numberOfPlanetaryGears - m_w;
-// 	}
-// 		break;
-// 	default:
-// 	{
-// 			   std::cout << "Ошибка: Некорректное количество степеней свободы!\n";
-// 			   system("pause");
-// 			   exit(0);
-// 	}
-// 		break;
-// 	}
 	calculateNumbersOfElements();
 	getIOFileManager()->writeSolutionData();
 }
