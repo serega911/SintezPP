@@ -1,6 +1,7 @@
 #pragma once
 #include "TKinematicScheme.h"
 #include "TCordinates.h"
+#include "eDirection.h"
 
 namespace pss
 {
@@ -8,15 +9,8 @@ namespace pss
 	{
 	public:
 		typedef std::vector<std::vector<int>> Field;
-		enum class Direction
-		{
-			UP,
-			DOWN,
-			LEFT,
-			RIGHT
-		};
+
 	private:
-		Direction								m_direction;
 		Field									m_field;
 
 		int										m_start;
@@ -32,7 +26,7 @@ namespace pss
 		void									printField();
 	public:
 		TPathBuilder();
-		bool									findPath( const pss::TKinematicScheme & scheme, pss::TLink link );
+		std::vector<pss::TCordinates>			findPath( const pss::TKinematicScheme & scheme, pss::TLink link );
 	};
 }
 

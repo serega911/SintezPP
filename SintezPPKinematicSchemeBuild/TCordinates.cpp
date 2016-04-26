@@ -6,7 +6,12 @@ m_x( x ), m_y( y )
 
 }
 
-pss::TCordinates pss::TCordinates::getLeftNeighbor( ) const
+pss::TCordinates::TCordinates() : TCordinates( 0, 0 )
+{
+
+}
+
+pss::TCordinates pss::TCordinates::getLeftNeighbor() const
 {
 	return pss::TCordinates( m_x - 1, m_y );
 }
@@ -26,13 +31,13 @@ pss::TCordinates pss::TCordinates::getBottomNeighbor( ) const
 	return pss::TCordinates( m_x, m_y - 1 );
 }
 
-std::vector<pss::TCordinates> pss::TCordinates::getNeighbors( ) const
+std::map<pss::eDirection, pss::TCordinates> pss::TCordinates::getNeighbors( ) const
 {
-	std::vector<pss::TCordinates> neighbors;
-	neighbors.push_back( getLeftNeighbor( ) );
-	neighbors.push_back( getRightNeighbor( ) );
-	neighbors.push_back( getTopNeighbor( ) );
-	neighbors.push_back( getBottomNeighbor( ) );
+	std::map<pss::eDirection, pss::TCordinates> neighbors;
+	neighbors[pss::eDirection::LEFT] =  getLeftNeighbor( );
+	neighbors[pss::eDirection::RIGHT] = getRightNeighbor( );
+	neighbors[pss::eDirection::UP] = getTopNeighbor( );
+	neighbors[pss::eDirection::DOWN] = getBottomNeighbor( );
 	return neighbors;
 }
 

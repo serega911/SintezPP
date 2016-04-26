@@ -67,6 +67,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TCordinates.cpp" />
     <ClCompile Include="TKinematicScheme.cpp" />
+    <ClCompile Include="TKinematicSchemeBuilder.cpp" />
     <ClCompile Include="TPathBuilder.cpp" />
     <ClCompile Include="TPlanetaryGearSet.cpp" />
     <ClCompile Include="TRoute.cpp" />
@@ -77,12 +78,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="eDirection.h" />
     <ClInclude Include="old\TMake.h" />
     <ClInclude Include="old\TPKP.h" />
     <ClInclude Include="old\TPlanRyad.h" />
     <ClInclude Include="old\TWave.h" />
     <ClInclude Include="TCordinates.h" />
     <ClInclude Include="TKinematicScheme.h" />
+    <ClInclude Include="TKinematicSchemeBuilder.h" />
     <ClInclude Include="TPathBuilder.h" />
     <ClInclude Include="TPlanetaryGearSet.h" />
     <ClInclude Include="TRoute.h" />

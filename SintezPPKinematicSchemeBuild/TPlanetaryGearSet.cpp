@@ -2,7 +2,7 @@
 #include <iostream>
 
 const int										pss::TPlanetaryGearSet::s_xSize = 9;
-const int										pss::TPlanetaryGearSet::s_ySize = 13;
+const int										pss::TPlanetaryGearSet::s_ySize = 15;
 const int										pss::TPlanetaryGearSet::s_centerX = s_xSize / 2;
 const int										pss::TPlanetaryGearSet::s_centerY = s_ySize / 2;
 
@@ -33,7 +33,7 @@ void pss::TPlanetaryGearSet::printLine( int yPos )
 				std::cout << '%';
 		}
 		else
-			std::cout << '.';
+			std::cout << ' ';
 	}
 }
 

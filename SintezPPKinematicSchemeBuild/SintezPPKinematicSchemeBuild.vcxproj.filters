@@ -25,6 +25,7 @@
     <ClCompile Include="TCordinates.cpp">
       <Filter>Files</Filter>
     </ClCompile>
+    <ClCompile Include="TKinematicSchemeBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TPlanetaryGearSet.h">
@@ -52,5 +53,7 @@
       <Filter>Files</Filter>
     </ClInclude>
     <ClInclude Include="TCordinates.h" />
+    <ClInclude Include="eDirection.h" />
+    <ClInclude Include="TKinematicSchemeBuilder.h" />
   </ItemGroup>
 </Project>

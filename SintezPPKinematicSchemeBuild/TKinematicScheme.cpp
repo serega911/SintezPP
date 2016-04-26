@@ -17,30 +17,50 @@ void pss::TKinematicScheme::addGearSet( const TPlanetaryGearSet & gearSet )
 	m_field.emplace_back( gearSet );		
 }
 
-void pss::TKinematicScheme::addBorders()
+void pss::TKinematicScheme::addRoute( const std::vector<pss::TCordinates> & cord, const pss::TLink & link )
 {
-	//input-output-brakes
+	for ( auto& it : cord )
+	{
+		( *this )[it.m_x][it.m_y].addLinkToChain(link);
+		( *this )[it.m_x][it.m_y].addChainToChain( ( *this )[cord[0].m_x][cord[0].m_y] );
+		( *this )[it.m_x][it.m_y].addChainToChain( ( *this )[cord[cord.size() - 1].m_x][cord[cord.size() - 1].m_y] );
+	}
 	for ( auto x = 0; x < m_field.size() * pss::TPlanetaryGearSet::s_xSize; x++ )
 	{
-		//input-output
-		auto & chain = m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][0];
-		chain.clear();
-		if ( x < m_field.size() * pss::TPlanetaryGearSet::s_xSize / 2 )
-			chain.addElementToChain( pss::TElement::INPUT );
-		else
-			chain.addElementToChain( pss::TElement::OUTPUT );
-		//brakes
-		auto & brakeChain = m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][pss::TPlanetaryGearSet::s_ySize - 1];
-		brakeChain.addElementToChain( pss::TElement::BRAKE );
+		for ( auto y = 0; y < pss::TPlanetaryGearSet::s_ySize; y++ )
+		{
+			if ( ( *this )[x][y].find( link.getElem1( ) ) || ( *this )[x][y].find( link.getElem2( ) ) )
+			{
+				( *this )[x][y].addLinkToChain( link );
+			}
+		}
+	}
+	
+}
+
+void pss::TKinematicScheme::addBorders()
+{
+	//top and bottoms borders
+	for ( auto x = 0; x < m_field.size() * pss::TPlanetaryGearSet::s_xSize; x++ )
+	{
+		m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][0].addElementToChain( pss::TElement::PLACEHOLDER );
+		m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][pss::TPlanetaryGearSet::s_ySize - 1].addElementToChain( pss::TElement::PLACEHOLDER );
+	}
+	//brakes
+	for ( auto x = 1; x < m_field.size() * pss::TPlanetaryGearSet::s_xSize - 1; x++ )
+	{
+		m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][pss::TPlanetaryGearSet::s_ySize - 2].addElementToChain( pss::TElement::BRAKE );
 	}
 	//left and right borders
 	for ( auto y = 0; y < pss::TPlanetaryGearSet::s_ySize; y++ )
 	{
-		auto & leftBorder = m_field[0][0][y];
-		leftBorder.addElementToChain( pss::TElement::BRAKE );
-		auto & rightBorder = m_field[m_field.size( ) - 1][pss::TPlanetaryGearSet::s_xSize - 1][y];
-		rightBorder.addElementToChain( pss::TElement::BRAKE );
+		m_field[0][0][y].addElementToChain( pss::TElement::PLACEHOLDER );
+		m_field[m_field.size( ) - 1][pss::TPlanetaryGearSet::s_xSize - 1][y].addElementToChain( pss::TElement::PLACEHOLDER );
 	}
+	//input-output
+	m_field[0][1][1].addElementToChain( pss::TElement::INPUT );
+	m_field[m_field.size( ) - 1][pss::TPlanetaryGearSet::s_xSize - 2][1].addElementToChain( pss::TElement::OUTPUT );
+	//brakes
 }
 
 void pss::TKinematicScheme::print()

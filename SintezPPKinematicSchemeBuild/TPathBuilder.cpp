@@ -51,6 +51,11 @@ bool pss::TPathBuilder::spreadWave()
 				currentWave.insert( pss::TCordinates(x,y) );
 		}
 	}
+
+	system( "cls" );
+	printField();
+	system( "pause" );
+
 	//Распространение волны
 	int ni = 1;
 	while ( currentWave.size() != 0 )
@@ -60,17 +65,19 @@ bool pss::TPathBuilder::spreadWave()
 			auto neighbors = cord.getNeighbors();
 			for ( auto& neighbor : neighbors )
 			{
-				if ( m_field[neighbor.m_x][neighbor.m_y] == m_empty )
+				if ( m_field[neighbor.second.m_x][neighbor.second.m_y] == m_empty )
 				{
-					m_field[neighbor.m_x][neighbor.m_y] = ni;
-					nextWave.insert( neighbor );
+					m_field[neighbor.second.m_x][neighbor.second.m_y] = ni;
+					nextWave.insert( neighbor.second );
 				}
-				else if ( m_field[neighbor.m_x][neighbor.m_y] == m_start )
+				else if ( m_field[neighbor.second.m_x][neighbor.second.m_y] == m_start )
 				{
 					return true;
 				}
 			}
 		}
+		 		system( "cls" );
+		 		printField();
 		currentWave = nextWave;
 		nextWave.clear();
 		ni++;
@@ -101,7 +108,6 @@ void pss::TPathBuilder::printField()
 
 pss::TPathBuilder::TPathBuilder()
 {
-	m_direction = Direction::DOWN;
 }
 
 std::vector<pss::TCordinates> pss::TPathBuilder::findPath()
@@ -109,22 +115,37 @@ std::vector<pss::TCordinates> pss::TPathBuilder::findPath()
 	// строим путь
 	std::vector<pss::TCordinates> path;
 	pss::TCordinates current = findStartCell();
+	path.emplace_back( current );
+	pss::eDirection direction = pss::eDirection::DOWN;
+
 	
+
 	while ( m_field[current.m_x][current.m_y] != m_finish)
 	{
 		m_field[current.m_x][current.m_y] = m_wall;
 		auto neighbors = current.getNeighbors( );
+
+		auto next = neighbors.at(direction);
+		if ( m_field[next.m_x][next.m_y] < m_field[current.m_x][current.m_y] && m_field[next.m_x][next.m_y] != m_empty )
+		{
+			current = next;
+		}
+
 		for ( auto& neighbor : neighbors )
 		{
-			if ( m_field[neighbor.m_x][neighbor.m_y] < m_field[current.m_x][current.m_y] && m_field[neighbor.m_x][neighbor.m_y] != m_empty )
+			if ( m_field[neighbor.second.m_x][neighbor.second.m_y] < m_field[current.m_x][current.m_y] && m_field[neighbor.second.m_x][neighbor.second.m_y] != m_empty )
 			{
-				current = neighbor;
+				current = neighbor.second;
+				direction = neighbor.first;
 			}
 		}
-// 		path.emplace_back( current );
-// 		system( "cls" );
-// 		printField();
+
+		
+ 		path.emplace_back( current );
+ 		system( "cls" );
+ 		printField();
 	}
+	path.emplace_back( current );
 	return path;
 }
 
@@ -143,10 +164,10 @@ pss::TCordinates pss::TPathBuilder::findStartCell()
 				auto neighbors = cord.getNeighbors();
 				for ( auto& neighbor : neighbors )
 				{
-					if ( m_field[neighbor.m_x][neighbor.m_y] < pathLenght )
+					if ( m_field[neighbor.second.m_x][neighbor.second.m_y] < pathLenght )
 					{
 						start = cord;
-						pathLenght = m_field[neighbor.m_x][neighbor.m_y];
+						pathLenght = m_field[neighbor.second.m_x][neighbor.second.m_y];
 					}
 				}
 			}
@@ -155,9 +176,9 @@ pss::TCordinates pss::TPathBuilder::findStartCell()
 	return start;
 }
 
-bool pss::TPathBuilder::findPath( const pss::TKinematicScheme & scheme, pss::TLink link )
+std::vector<pss::TCordinates> pss::TPathBuilder::findPath( const pss::TKinematicScheme & scheme, pss::TLink link )
 {
-	int maxX = scheme.size( );
+	int maxX = scheme.size();
 	int maxY = TPlanetaryGearSet::s_ySize;
 	m_start = maxX * maxY;
 	m_finish = 0;
@@ -166,8 +187,8 @@ bool pss::TPathBuilder::findPath( const pss::TKinematicScheme & scheme, pss::TLi
 	initField( scheme, link );
 	if ( spreadWave() )
 	{
-		auto path = findPath();
-		return true;
+		return findPath();
+
 	}
-	return false;
+	return{};
 }

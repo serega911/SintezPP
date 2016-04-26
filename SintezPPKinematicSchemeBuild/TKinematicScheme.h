@@ -3,6 +3,8 @@
 #include "TPlanetaryGearSet.h"
 #include "../Libraries/TCode.h"
 #include "../Libraries/TK.h"
+#include "TCordinates.h"
+#include <vector>
 
 namespace pss
 {
@@ -16,6 +18,7 @@ namespace pss
 		const std::vector<pss::TChain>&				operator[]( int xPos ) const;
 		std::vector<pss::TChain>&				operator[]( int xPos );
 		void									addGearSet(const TPlanetaryGearSet & gearSet);
+		void									addRoute( const std::vector<pss::TCordinates> & cord, const pss::TLink & link );
 		void									addBorders();
 		void									print();
 
