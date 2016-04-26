@@ -28,6 +28,7 @@
     <ClCompile Include="..\Libraries\TSingletons.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Libraries\enum.h" />
     <ClInclude Include="..\Libraries\func_lib.h" />
     <ClInclude Include="..\Libraries\IContainer.h" />
     <ClInclude Include="..\Libraries\TChain.h" />

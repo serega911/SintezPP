@@ -39,9 +39,6 @@
     <ClCompile Include="..\Libraries\TLink.cpp">
       <Filter>StaticLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TMainElement.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
     <ClCompile Include="..\Libraries\TReplace.cpp">
       <Filter>StaticLib</Filter>
     </ClCompile>
@@ -89,9 +86,6 @@
     <ClInclude Include="..\Libraries\TLink.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TMainElement.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\TReplace.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
@@ -99,6 +93,9 @@
       <Filter>StaticLib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TLoaderFromFile.h">
+	  <Filter>StaticLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\enum.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
   </ItemGroup>
