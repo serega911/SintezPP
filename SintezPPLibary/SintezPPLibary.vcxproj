@@ -39,7 +39,6 @@
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
     <ClInclude Include="..\Libraries\TK.h" />
     <ClInclude Include="..\Libraries\TLink.h" />
-    <ClInclude Include="..\Libraries\eMainElement.h" />
     <ClInclude Include="..\Libraries\TReplace.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
   </ItemGroup>

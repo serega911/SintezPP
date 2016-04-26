@@ -13,7 +13,6 @@ pss::TElement::TElement(const pss::eMainElement & elemN, int gearSetN)
 
 pss::TElement::TElement()
 {
-	*this = EMPTY;
 }
 
 void pss::TElement::setElemN(const eMainElement & elemN)

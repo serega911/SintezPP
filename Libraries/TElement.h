@@ -8,7 +8,7 @@ namespace pss
 	class TElement
 	{
 	private:
-		pss::eMainElement						m_elemN;		//номер элемента
+		pss::eMainElement						m_elemN = pss::eMainElement::EMPTY;		//номер элемента
 		int										m_gearSetN;		//номер планетарного ряда
 	public:
 		TElement(const eMainElement & elemN, int gearSetN);
