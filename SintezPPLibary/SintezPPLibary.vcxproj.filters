@@ -93,7 +93,7 @@
       <Filter>StaticLib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TLoaderFromFile.h">
-	  <Filter>StaticLib</Filter>
+      <Filter>StaticLib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\enum.h">
       <Filter>StaticLib</Filter>

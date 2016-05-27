@@ -161,8 +161,10 @@ private:
 			v.push_back(9999);
 			for (size_t k = 0; k < MasPlanRyad.size(); k++){
 				for (int j = 0; j < YmaxPlanRyad; j++){
-					if ((k+1) == In) v.push_back(MasPlanRyad[k].getCellMas(a,i*YmaxPlanRyad+j));
-					if ((k+1) != In) v.push_back(MasPlanRyad[k].getCellMas(0,i*YmaxPlanRyad+j));
+					if ((k+1) == In) 
+						v.push_back(MasPlanRyad[k].getCellMas(a,i*YmaxPlanRyad+j));
+					if ((k+1) != In) 
+						v.push_back(MasPlanRyad[k].getCellMas(0,i*YmaxPlanRyad+j));
 				}
 			}
 			v.push_back(9999);}

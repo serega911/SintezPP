@@ -95,10 +95,10 @@ void pss::TPlanetaryGearSet::createTypeN( int gearSetN )
 	}
 	for ( auto x = s_centerX - 1; x < s_centerX + 2; x++ )
 	{
-		m_field[x][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );
+		m_field[x][s_centerY + 2].addElementToChain( pss::TElement( pss::eMainElement::CARRIER, gearSetN ) );
 	}
-	m_field[s_centerX - 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );
-	m_field[s_centerX + 1][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );
+	m_field[s_centerX - 1][s_centerY - 2].addElementToChain( pss::TElement( pss::eMainElement::SUN_GEAR, gearSetN ) );
+	m_field[s_centerX + 1][s_centerY - 2].addElementToChain( pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, gearSetN ) );
 	// # # # # # # # # #
 	// . . . . . . . . .
 	// . . . . . . . . .
@@ -116,14 +116,14 @@ void pss::TPlanetaryGearSet::createTypeN( int gearSetN )
 
 void pss::TPlanetaryGearSet::createTypeDefault( int gearSetN )
 {
-	m_field[s_centerX][s_centerY + 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::EPICYCLIC_GEAR ), gearSetN ) );			
+	m_field[s_centerX][s_centerY + 2].addElementToChain( pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, gearSetN ) );			
 	m_field[s_centerX][s_centerY + 1].addElementToChain( pss::TElement::PLACEHOLDER );																				
 	for ( auto x = s_centerX - 1; x < s_centerX + 2; x++ )
 	{
-		m_field[x][s_centerY].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::CARRIER ), gearSetN ) );
+		m_field[x][s_centerY].addElementToChain( pss::TElement( pss::eMainElement::CARRIER, gearSetN ) );
 	}				 
 	m_field[s_centerX][s_centerY - 1].addElementToChain( pss::TElement::PLACEHOLDER );																				 
-	m_field[s_centerX][s_centerY - 2].addElementToChain( pss::TElement( pss::TMainElement( pss::TMainElement::eMainElements::SUN_GEAR ), gearSetN ) );																																												
+	m_field[s_centerX][s_centerY - 2].addElementToChain( pss::TElement( pss::eMainElement::SUN_GEAR, gearSetN ) );																																												
 	// # # # # # # # # #
 	// . . . . . . . . .
 	// . . . . . . . . .

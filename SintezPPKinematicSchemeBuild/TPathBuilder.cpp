@@ -54,7 +54,7 @@ bool pss::TPathBuilder::spreadWave()
 
 	system( "cls" );
 	printField();
-	system( "pause" );
+	//system( "pause" );
 
 	//Распространение волны
 	int ni = 1;
@@ -76,8 +76,8 @@ bool pss::TPathBuilder::spreadWave()
 				}
 			}
 		}
-		 		system( "cls" );
-		 		printField();
+				system( "cls" );
+				printField();
 		currentWave = nextWave;
 		nextWave.clear();
 		ni++;
@@ -141,9 +141,9 @@ std::vector<pss::TCordinates> pss::TPathBuilder::findPath()
 		}
 
 		
- 		path.emplace_back( current );
- 		system( "cls" );
- 		printField();
+		path.emplace_back( current );
+		system( "cls" );
+		printField();
 	}
 	path.emplace_back( current );
 	return path;

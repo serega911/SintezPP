@@ -6,6 +6,18 @@
 #include "../Libraries/TK.h"
 #include "../Libraries/IContainer.h"
 
+pss::TKinematicScheme pss::TKinematicSchemeBuilder::creatKinematicScheme( const pss::TCode & code, const pss::TK & k )
+{
+	pss::TKinematicScheme scheme;
+	pss::TPlanetaryGearSet set;
+	set.create( 1, pss::TPlanetaryGearSet::Type::TYPE_DEFAULT );
+	scheme.addGearSet( set );
+	set.create( 2, pss::TPlanetaryGearSet::Type::TYPE_DEFAULT );
+	scheme.addGearSet( set );
+	scheme.addBorders();
+	return scheme;
+}
+
 void pss::TKinematicSchemeBuilder::buildSchemes()
 {
 	pss::TSingletons::getInstance()->setGlobalParameters( 2, 2 );
@@ -17,17 +29,11 @@ void pss::TKinematicSchemeBuilder::buildSchemes()
 
 	while ( pss::TSingletons::getInstance()->getLoaderFromFile()->load( containers, pss::TIOFileManager::eOutputFileType::DONE_K ) )
 	{
-		pss::TKinematicScheme scheme;
-		pss::TPlanetaryGearSet set;
-		set.create( 1, pss::TPlanetaryGearSet::Type::TYPE_DEFAULT );
-		scheme.addGearSet( set );
-		set.create( 2, pss::TPlanetaryGearSet::Type::TYPE_DEFAULT );
-		scheme.addGearSet( set );
-		scheme.addBorders();
+		pss::TKinematicScheme scheme = creatKinematicScheme(code,k);
 
 		system( "cls" );
 		scheme.print();
-		system( "pause" );
+		//system( "pause" );
 
 		for ( int i = 0; i < code.size(); i++ )
 		{
@@ -39,7 +45,7 @@ void pss::TKinematicSchemeBuilder::buildSchemes()
 			}
 			system( "cls" );
 			scheme.print();
-			system( "pause" );
+			//system( "pause" );
 		}
 		code.print();
 		k.print();
