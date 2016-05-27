@@ -5,15 +5,30 @@
     <ClCompile Include="DefK.cpp">
       <Filter>Files</Filter>
     </ClCompile>
+    <ClCompile Include="DefKNuton.cpp">
+      <Filter>Files\Nuton</Filter>
+    </ClCompile>
+    <ClCompile Include="Equations.cpp">
+      <Filter>Files\Nuton</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Files">
       <UniqueIdentifier>{b67d6853-7fa1-436c-8ac6-9be0909445a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Nuton">
+      <UniqueIdentifier>{0fa87991-ca34-44b1-8494-d56495ca0fd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DefK.h">
       <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefKNuton.h">
+      <Filter>Files\Nuton</Filter>
+    </ClInclude>
+    <ClInclude Include="Equations.h">
+      <Filter>Files\Nuton</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

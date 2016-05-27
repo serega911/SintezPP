@@ -6,14 +6,19 @@
 #include "../Libraries/TK.h"
 #include "../Libraries/TI.h"
 #include "../Libraries/TSingletons.h"
-#include "DefK.h"
+//#include "DefK.h"
+#include "DefKNuton.h"
 
 #pragma comment(lib, "../Libraries/SintezPPLibary.lib")
 
 int main()
 {
-	pss::DefK DK;
+// 	pss::DefK DK;
+// 	DK.run();
+	pss::DefKNuton DK;
 	DK.run();
+
+
 	system("pause");
 	return 0;
 }

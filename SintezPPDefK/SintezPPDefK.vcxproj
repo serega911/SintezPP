@@ -65,9 +65,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DefK.h" />
+    <ClInclude Include="DefKNuton.h" />
+    <ClInclude Include="Equations.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
+    <ClCompile Include="DefKNuton.cpp" />
+    <ClCompile Include="Equations.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
