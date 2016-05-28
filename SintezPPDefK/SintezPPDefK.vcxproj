@@ -69,7 +69,10 @@
     <ClInclude Include="Determinant.h" />
     <ClInclude Include="Equations.h" />
     <ClInclude Include="Fumction.h" />
+    <ClInclude Include="UndefinedVariables.h" />
+    <ClInclude Include="UndefinedVariables_fwd.h" />
     <ClInclude Include="Variables.h" />
+    <ClInclude Include="WSet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
@@ -77,7 +80,9 @@
     <ClCompile Include="Determinant.cpp" />
     <ClCompile Include="Equations.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="UndefinedVariables.cpp" />
     <ClCompile Include="Variables.cpp" />
+    <ClCompile Include="WSet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

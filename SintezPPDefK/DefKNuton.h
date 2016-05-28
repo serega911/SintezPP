@@ -14,7 +14,6 @@ namespace pss
 		std::vector<std::vector<double>>		m_matrix;									//матрица системы уравнений
 		pss::TI									m_i;										//передаточные отношения
 
-		void									defineVariables( pss::Variables& var, pss::TCode& Code );
 
 	public:
 		pss::TK									findK( pss::TCode& Code );

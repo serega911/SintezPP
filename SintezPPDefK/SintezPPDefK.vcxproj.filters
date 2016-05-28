@@ -15,6 +15,12 @@
       <Filter>Files\Nuton</Filter>
     </ClCompile>
     <ClCompile Include="Variables.cpp" />
+    <ClCompile Include="WSet.cpp">
+      <Filter>Files\Nuton</Filter>
+    </ClCompile>
+    <ClCompile Include="UndefinedVariables.cpp">
+      <Filter>Files\Nuton\UndefinedVariables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Files">
@@ -22,6 +28,9 @@
     </Filter>
     <Filter Include="Files\Nuton">
       <UniqueIdentifier>{0fa87991-ca34-44b1-8494-d56495ca0fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\UndefinedVariables">
+      <UniqueIdentifier>{c3c82861-85f3-4f0b-96be-81d466786f70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +51,15 @@
     </ClInclude>
     <ClInclude Include="Variables.h">
       <Filter>Files\Nuton</Filter>
+    </ClInclude>
+    <ClInclude Include="WSet.h">
+      <Filter>Files\Nuton</Filter>
+    </ClInclude>
+    <ClInclude Include="UndefinedVariables.h">
+      <Filter>Files\Nuton\UndefinedVariables</Filter>
+    </ClInclude>
+    <ClInclude Include="UndefinedVariables_fwd.h">
+      <Filter>Files\Nuton\UndefinedVariables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

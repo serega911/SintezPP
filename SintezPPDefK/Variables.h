@@ -1,26 +1,40 @@
 #pragma once
-#include "Fumction.h"
+
+#include "WSet.h"
+#include "UndefinedVariables_fwd.h"
+
+#include "../Libraries/TChain.h"
+
 #include <vector>
 namespace pss
 {
 
 	class Variables
 	{
+		friend class UndefinedVariables;
 	private:
-		struct Var
-		{
-			variable*	_var = nullptr;
-			bool		_def = false;
-		};
-		typedef  std::vector<Var> varSet;		// k, w1, w2, w3
-		static const size_t						s_varSetSize;
 
-		std::vector<varSet>						m_variables;
+		double									m_wInput = 1.0;
+		double									m_wOut;
+		double									m_wBrake = 0.0;
+		double									m_wDefaultValue = 1.0;
+
+		std::vector<WSet>						m_variables;
+		std::vector<variable>					m_values;
 
 		void									resize( size_t size );
 
+		void									addInputChain( const TChain& chain );
+		void									addBrakeChain( const TChain& chain );
+		void									addOutputChain( const TChain& chain, double i );
+		void									addUndefinedChain( const TChain& chain);
+		
+
 	public:
 		Variables( size_t size );
-		varSet &								operator[]( size_t i );
+
+		void									init( const std::vector<TChain>& chains, const TElement& brake, double i );
+
+		WSet &									operator[]( size_t i );
 	};
 }

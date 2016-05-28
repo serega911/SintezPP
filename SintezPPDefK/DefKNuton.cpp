@@ -1,46 +1,27 @@
 #include "DefKNuton.h"
 #include "Equations.h"
 #include "Determinant.h"
+#include "UndefinedVariables.h"
 
 #include "../Libraries/TSingletons.h"
 
-void pss::DefKNuton::defineVariables( pss::Variables& var, pss::TCode& Code )
-{
-	auto chains = Code.getChains();
-	static std::vector<double> vectW;
-	static std::vector<double> wOut;
-	static variable inputW = 1.0;
-	
-	// i
-	for ( int i = 0; i < m_i.size(); i++ )
-		wOut.push_back( 1 / m_i[i] );
-
-	for ( auto& chain: chains )
-	{
-		if ( chain.find( pss::TElement::INPUT ) )
-		{
-			const auto& elements = chain.getElements();
-			for ( auto& elem : elements )
-			{
-				if ( elem != pss::TElement::INPUT )
-				{
-					int gearSetN = elem.getGearSetN();
-					int elemN = elem.getElemN()._to_integral();
-					var[gearSetN - 1][elemN]._def = true;
-					var[gearSetN - 1][elemN]._var = &inputW;
-				}
-
-			}
-		}
-	}
-
-}
-
 pss::TK pss::DefKNuton::findK( pss::TCode& Code )
 {
-	Variables variables(TSingletons::getInstance()->getNumberOfPlanetaryGears());
-	
-	defineVariables( variables, Code );
+	auto chains = Code.getChains( );
+
+	auto N = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+
+	std::vector<Variables> vectVar = { Variables( N ), Variables( N ) };
+	vectVar[0].init( chains, pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, 1 ), 2 );
+	vectVar[1].init( chains, pss::TElement( pss::eMainElement::CARRIER, 2 ), 3 );
+
+	UndefinedVariables uVar( vectVar );
+
+	// test
+	uVar[0] = 67;
+	uVar[1] = 67;
+	uVar[2] = 67;
+	uVar[3] = 67;
 
 	Determinant det;
 	det.setSize( 2 );
