@@ -11,6 +11,10 @@
     <ClCompile Include="Equations.cpp">
       <Filter>Files\Nuton</Filter>
     </ClCompile>
+    <ClCompile Include="Determinant.cpp">
+      <Filter>Files\Nuton</Filter>
+    </ClCompile>
+    <ClCompile Include="Variables.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Files">
@@ -28,6 +32,15 @@
       <Filter>Files\Nuton</Filter>
     </ClInclude>
     <ClInclude Include="Equations.h">
+      <Filter>Files\Nuton</Filter>
+    </ClInclude>
+    <ClInclude Include="Fumction.h">
+      <Filter>Files\Nuton</Filter>
+    </ClInclude>
+    <ClInclude Include="Determinant.h">
+      <Filter>Files\Nuton</Filter>
+    </ClInclude>
+    <ClInclude Include="Variables.h">
       <Filter>Files\Nuton</Filter>
     </ClInclude>
   </ItemGroup>

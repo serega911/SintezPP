@@ -19,7 +19,7 @@ int pss::TI::size() const
 	return m_i.size();
 }
 
-const double pss::TI::operator[](int i) const
+const double & pss::TI::operator[](int i) const
 {
 	return m_i.at(i);
 }

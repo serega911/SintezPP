@@ -66,13 +66,18 @@
   <ItemGroup>
     <ClInclude Include="DefK.h" />
     <ClInclude Include="DefKNuton.h" />
+    <ClInclude Include="Determinant.h" />
     <ClInclude Include="Equations.h" />
+    <ClInclude Include="Fumction.h" />
+    <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
     <ClCompile Include="DefKNuton.cpp" />
+    <ClCompile Include="Determinant.cpp" />
     <ClCompile Include="Equations.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Variables.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

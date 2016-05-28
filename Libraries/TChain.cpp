@@ -68,7 +68,12 @@ bool pss::TChain::intersect(const TChain& chain)
 	return false;
 }
 
-bool pss::operator<(const TChain& chain1, const TChain& chain2)
+const std::set<pss::TElement>& pss::TChain::getElements() const
+{
+	return m_elements;
+}
+
+bool pss::operator<( const TChain& chain1, const TChain& chain2 )
 {
 	return chain1.m_elements < chain2.m_elements;
 }

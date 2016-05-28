@@ -20,6 +20,8 @@ namespace pss
 		int										size() const;
 		bool									intersect(const TChain& chain);
 
+		const std::set<TElement>&				getElements() const;
+
 		friend bool operator<(const TChain& chain1, const TChain& chain2);
 	};
 }
