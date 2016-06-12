@@ -1,19 +1,19 @@
 #include "Equations.h"
 #include "VariablesSet.h"
 
-using namespace pss;
+NS_PSS_USING
 
- pss::FunctionValue pss::Equations::wyllys( const VariablesSet & set )
+ FunctionValue Equations::wyllys( const VariablesSet & set )
  {
 	return set[eMainElement::EMPTY].getValue( ) - ( set[eMainElement::CARRIER].getValue( ) - set[eMainElement::SUN_GEAR].getValue( ) ) / ( set[eMainElement::CARRIER].getValue( ) - set[eMainElement::EPICYCLIC_GEAR].getValue( ) );
  }
  
- pss::FunctionValue pss::Equations::empty( const VariablesSet & set )
+ FunctionValue Equations::empty( const VariablesSet & set )
  {
 	return 0.0f;
  }
 
- const Equation pss::Equations::getEquation( const eMainElement & elem )
+ const Equation Equations::getEquation( const eMainElement & elem )
  {
 	switch ( elem )
 	{
@@ -35,22 +35,22 @@ using namespace pss;
 	}
  }
 
- pss::FunctionValue pss::Equations::dfDk( const VariablesSet & set )
+ FunctionValue Equations::dfDk( const VariablesSet & set )
  {
 	 return 1.0f;
  }
 
- pss::FunctionValue pss::Equations::dfDw1( const VariablesSet & set )
+ FunctionValue Equations::dfDw1( const VariablesSet & set )
  {
 	 return 1.0f / ( set[eMainElement::EPICYCLIC_GEAR].getValue() - set[eMainElement::CARRIER].getValue() );
  }
 
- pss::FunctionValue pss::Equations::dfDw2( const VariablesSet & set )
+ FunctionValue Equations::dfDw2( const VariablesSet & set )
  {
 	 return ( set[eMainElement::SUN_GEAR].getValue() - set[eMainElement::CARRIER].getValue() ) / pow( ( set[eMainElement::CARRIER].getValue() - set[eMainElement::EPICYCLIC_GEAR].getValue() ), 2 );
  }
 
- pss::FunctionValue pss::Equations::dfDw3( const VariablesSet & set )
+ FunctionValue Equations::dfDw3( const VariablesSet & set )
  {
 	 return ( set[eMainElement::SUN_GEAR].getValue() - set[eMainElement::EPICYCLIC_GEAR].getValue() ) / pow( ( set[eMainElement::CARRIER].getValue() - set[eMainElement::EPICYCLIC_GEAR].getValue() ), 2 );
  }

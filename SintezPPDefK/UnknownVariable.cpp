@@ -1,36 +1,36 @@
 #include "UnknownVariable.h"
 #include "Variable.h"
 
-using namespace pss;
+NS_PSS_USING
 
-pss::UnknownVariable::UnknownVariable( const VariableValue & value ) :
+UnknownVariable::UnknownVariable( const VariableValue & value ) :
 m_value(value)
 {
 }
 
-void pss::UnknownVariable::setValue( const VariableValue & value )
+void UnknownVariable::setValue( const VariableValue & value )
 {
 	m_value = value;
 	callAllListeners();
 }
 
-void pss::UnknownVariable::addListener( Variable* listener )
+void UnknownVariable::addListener( Variable* listener )
 {
 	m_listeners.insert( listener );
 	listener->onChangeUnknownVariableValue( m_value );
 }
 
-void pss::UnknownVariable::deleteListener( Variable* listener )
+void UnknownVariable::deleteListener( Variable* listener )
 {
 	m_listeners.erase( listener );
 }
 
-const std::set<Variable*> pss::UnknownVariable::getAllListeners() const
+const std::set<Variable*> UnknownVariable::getAllListeners() const
 {
 	return m_listeners;
 }
 
-bool pss::UnknownVariable::findElementInListeners( const TElement & element )
+bool UnknownVariable::findElementInListeners( const TElement & element )
 {
 	bool result = false;
 	for ( const auto & listener : m_listeners )
@@ -45,7 +45,7 @@ bool pss::UnknownVariable::findElementInListeners( const TElement & element )
 	return result;
 }
 
-void pss::UnknownVariable::callAllListeners() const
+void UnknownVariable::callAllListeners() const
 {
 	for ( auto & listener : m_listeners )
 	{

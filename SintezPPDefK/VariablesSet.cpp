@@ -1,14 +1,14 @@
 #include "VariablesSet.h"
 
-using namespace pss;
+NS_PSS_USING
 
 
-Variable& pss::VariablesSet::operator[]( const eMainElement & element )
+Variable& VariablesSet::operator[]( const eMainElement & element )
 {
 	return m_set[element];
 }
 
-const Variable& pss::VariablesSet::operator[]( const eMainElement & element ) const
+const Variable& VariablesSet::operator[]( const eMainElement & element ) const
 {
 	return m_set.at(element);
 }

@@ -13,9 +13,9 @@
 
 int main()
 {
-// 	pss::DefK DK;
+// 	DefK DK;
 // 	DK.run();
-	pss::DefKNuton DK;
+	NS_PSS DefKNuton DK;
 	DK.run();
 
 

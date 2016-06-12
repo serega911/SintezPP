@@ -92,6 +92,9 @@
     <ClInclude Include="..\Libraries\enum.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\GlobalDefines.h">
+      <Filter>StaticLib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\func_lib.inl">

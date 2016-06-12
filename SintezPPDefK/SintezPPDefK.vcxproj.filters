@@ -78,11 +78,11 @@
     <ClInclude Include="Equations.h">
       <Filter>Files\Nuton\Equations</Filter>
     </ClInclude>
-    <ClInclude Include="Fumction.h">
-      <Filter>Files\Nuton</Filter>
-    </ClInclude>
     <ClInclude Include="VariablesSet_fwd.h">
       <Filter>Files\Nuton\VariablesSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Files\Nuton</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

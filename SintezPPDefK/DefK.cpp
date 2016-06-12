@@ -3,13 +3,13 @@
 #include "../Libraries/TSingletons.h"
 #include "../Libraries/TGaus.h"
 #include "../Libraries/TGearChanger.h"
+
+
 #include <iostream>
 
-pss::DefK::~DefK(void)
-{
-}
+NS_PSS_USING
 
-pss::TK pss::DefK::findK(const pss::TCode& Code, pss::TK K)
+TK DefK::findK(const TCode& Code, TK K)
 {
 	do{
 		//K.print();
@@ -23,7 +23,7 @@ pss::TK pss::DefK::findK(const pss::TCode& Code, pss::TK K)
 	return K;
 }
 
-void pss::DefK::run()
+void DefK::run()
 {
 	setlocale(LC_ALL, "Russian");
 	std::cout << "====  Синтез планетарных передач с тремя степенями свободы. Определение К.  ====\n";
@@ -34,11 +34,11 @@ void pss::DefK::run()
 	std::cin >> W;
 	std::cout << "Количество ПМ:		";
 	std::cin >> N;
-	pss::TSingletons::getInstance()->setGlobalParameters(W, N);
+	TSingletons::getInstance()->setGlobalParameters(W, N);
 	double dK = 0;
 	std::cout << "Шаг поиска К:		";
 	std::cin >> dK;
-	pss::TK K(dK);
+	TK K(dK);
 	int countIntervals = 0;
 	std::cout << "Количество диапазонов:	";
 	std::cin >> countIntervals;
@@ -52,7 +52,7 @@ void pss::DefK::run()
 		K.addInterval(beg, end);
 	}
 	std::cout << "Передаточные отношения:	";
-	for (int i = 0; i < pss::TSingletons::getInstance()->getNumberOfGears(); i++)
+	for (int i = 0; i < TSingletons::getInstance()->getNumberOfGears(); i++)
 	{
 		double ratio = 0;
 		std::cin >> ratio;
@@ -61,25 +61,25 @@ void pss::DefK::run()
 		else
 			break;
 	}
-	pss::TCode code;
-	while (pss::TSingletons::getInstance()->getIOFileManager()->loadFromFile(pss::TIOFileManager::eOutputFileType::DONE, code))
+	TCode code;
+	while (TSingletons::getInstance()->getIOFileManager()->loadFromFile(TIOFileManager::eOutputFileType::DONE, code))
 	{
-		pss::TK ans(findK(code, K));
+		TK ans(findK(code, K));
 		if (ans.getFinded())
 		{
-			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::DONE_K, code);
-			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::DONE_K, ans);
+			TSingletons::getInstance()->getIOFileManager()->writeToFile(TIOFileManager::eOutputFileType::DONE_K, code);
+			TSingletons::getInstance()->getIOFileManager()->writeToFile(TIOFileManager::eOutputFileType::DONE_K, ans);
 		}
 	}
 }
 
-bool pss::DefK::podModul(const pss::TCode & code, const pss::TK &k)
+bool DefK::podModul(const TCode & code, const TK &k)
 {
-	pss::TGearChanger gearChanger(code);
-	pss::TI tmpI({}, 0.01);	//вектор для полученных передаточных отношений при данном наборе K
+	TGearChanger gearChanger(code);
+	TI tmpI({}, 0.01);	//вектор для полученных передаточных отношений при данном наборе K
 	do
 	{
-		pss::TGaus gaus;
+		TGaus gaus;
 		gaus.createSystem(code, k);
 		gaus.createSystemDrivers(gearChanger.getDrivingElementsForGear());
 		gaus.solve();

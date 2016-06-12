@@ -68,7 +68,7 @@
     <ClInclude Include="DefKNuton.h" />
     <ClInclude Include="Determinant.h" />
     <ClInclude Include="Equations.h" />
-    <ClInclude Include="Fumction.h" />
+    <ClInclude Include="Defines.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="UnknownVariable.h" />
     <ClInclude Include="Variable.h" />

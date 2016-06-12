@@ -1,31 +1,34 @@
 #pragma once
 
-#include "Fumction.h"
+#include "../Libraries/GlobalDefines.h"
+
+#include "Defines.h"
 
 #include "../Libraries/TElement.h"
 
-namespace pss
+
+NS_PSS_START
+
+class Variable
 {
-	class Variable
-	{
-	private:
+private:
 
-		VariableValue							m_value;
-		bool									m_isDefined;
-		TElement								m_element;
+	VariableValue								m_value;
+	bool										m_isDefined;
+	TElement									m_element;
 
-	public:
+public:
 
-		void									setDefined( bool isDefined );
-		void									setValue( const VariableValue & value );
-		void									setElement( const TElement & element );
+	void										setDefined( bool isDefined );
+	void										setValue( const VariableValue & value );
+	void										setElement( const TElement & element );
 
-		TElement								getElement() const;
-		bool									getDefined( ) const;
-		VariableValue							getValue( ) const;
+	TElement									getElement() const;
+	bool										getDefined() const;
+	VariableValue								getValue() const;
 
-		void									onChangeUnknownVariableValue( const VariableValue & newValue );
+	void										onChangeUnknownVariableValue( const VariableValue & newValue );
 
-	};
+};
 
-}
+NS_PSS_END

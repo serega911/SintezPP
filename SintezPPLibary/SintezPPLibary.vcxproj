@@ -28,6 +28,7 @@
   <ItemGroup>
     <ClInclude Include="..\Libraries\enum.h" />
     <ClInclude Include="..\Libraries\func_lib.h" />
+    <ClInclude Include="..\Libraries\GlobalDefines.h" />
     <ClInclude Include="..\Libraries\IContainer.h" />
     <ClInclude Include="..\Libraries\TChain.h" />
     <ClInclude Include="..\Libraries\TCode.h" />

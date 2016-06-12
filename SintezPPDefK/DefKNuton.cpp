@@ -3,6 +3,7 @@
 
 #include "../Libraries/TSingletons.h"
 
+NS_PSS_USING
 
 void ober_matr( double a[2][2] )
 {
@@ -16,13 +17,13 @@ void ober_matr( double a[2][2] )
 	a[1][0] = -a[1][0] / det;
 }
 
-pss::TK pss::DefKNuton::findK( pss::TCode& Code )
+TK DefKNuton::findK( TCode& Code )
 {
 	auto chains = Code.getChains( );
 
 	System system;
-	system.addGearChains( chains, pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, 1 ), 2 );
-	system.addGearChains( chains, pss::TElement( pss::eMainElement::CARRIER, 2 ), 4 );
+	system.addGearChains( chains, TElement( eMainElement::EPICYCLIC_GEAR, 1 ), 2 );
+	system.addGearChains( chains, TElement( eMainElement::CARRIER, 2 ), 4 );
 
 	auto determinant = createDeterminant( system );
 
@@ -48,20 +49,20 @@ pss::TK pss::DefKNuton::findK( pss::TCode& Code )
 	return TK( 1 );
 }
 
-void pss::DefKNuton::run()
+void DefKNuton::run()
 {
-	pss::TSingletons::getInstance( )->setGlobalParameters( 2, 2 );
+	TSingletons::getInstance( )->setGlobalParameters( 2, 2 );
 
-	pss::TCode code;
-	code.setIn( pss::TElement( pss::eMainElement::CARRIER, 1 ) );
-	code.setOut( pss::TElement( pss::eMainElement::SUN_GEAR, 2 ) );
+	TCode code;
+	code.setIn( TElement( eMainElement::CARRIER, 1 ) );
+	code.setOut( TElement( eMainElement::SUN_GEAR, 2 ) );
 	code.setLinks( {
-		pss::TLink( pss::TElement( pss::eMainElement::SUN_GEAR, 1 ), pss::TElement( pss::eMainElement::CARRIER, 2 ) ),
-		pss::TLink( pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, 1 ), pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, 2 ) )
+		TLink( TElement( eMainElement::SUN_GEAR, 1 ), TElement( eMainElement::CARRIER, 2 ) ),
+		TLink( TElement( eMainElement::EPICYCLIC_GEAR, 1 ), TElement( eMainElement::EPICYCLIC_GEAR, 2 ) )
 	} );
 	code.setBrakes( {
-		pss::TLink( pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, 1 ), pss::TElement::BRAKE ),
-		pss::TLink( pss::TElement( pss::eMainElement::CARRIER, 2 ), pss::TElement::BRAKE )
+		TLink( TElement( eMainElement::EPICYCLIC_GEAR, 1 ), TElement::BRAKE ),
+		TLink( TElement( eMainElement::CARRIER, 2 ), TElement::BRAKE )
 	} );
 
 	m_i.push_back(3);
@@ -70,7 +71,7 @@ void pss::DefKNuton::run()
 	findK( code );
 }
 
-pss::Determinant pss::DefKNuton::createDeterminant( const System & system )
+Determinant DefKNuton::createDeterminant( const System & system )
 {
 	Determinant det;
 	

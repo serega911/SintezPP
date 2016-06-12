@@ -1,24 +1,27 @@
 #pragma once
 
+#include "../Libraries/GlobalDefines.h"
+
 #include <vector>
 
-#include "Fumction.h"
+#include "Defines.h"
 
-namespace pss
+NS_PSS_START
+
+class Determinant
 {
-	class Determinant
-	{
-	private:
-		size_t									m_size;
-		std::vector<std::vector<Equation>>		m_determinant;
-	public:
+private:
+	size_t										m_size;
+	std::vector<std::vector<Equation>>			m_determinant;
+public:
 
-		Determinant();
+	Determinant();
 
-		void									setSize( size_t size );
-		void									setEquation( size_t i, size_t j, const Equation & eq );
+	void										setSize( size_t size );
+	void										setEquation( size_t i, size_t j, const Equation & eq );
 
-		const std::vector<Equation>&			operator[]( size_t i );
+	const std::vector<Equation>&				operator[]( size_t i );
 
-	};
-}
+};
+
+NS_PSS_END

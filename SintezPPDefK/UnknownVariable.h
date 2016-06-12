@@ -1,34 +1,36 @@
 #pragma once
 
+#include "../Libraries/GlobalDefines.h"
+
 #include "Variable.h"
 #include "../Libraries/TElement.h"
 #include <set>
 
 
-namespace pss
+NS_PSS_START
+
+class UnknownVariable
 {
-	class UnknownVariable
-	{
-	private:
+private:
 
-		std::set<Variable*>						m_listeners;
+	std::set<Variable*>							m_listeners;
 
-		VariableValue							m_value;
+	VariableValue								m_value;
 
-		void									callAllListeners() const;
+	void										callAllListeners() const;
 
-	public:
+public:
 
-		explicit UnknownVariable( const VariableValue & value );
+	explicit UnknownVariable( const VariableValue & value );
 
-		void									setValue( const VariableValue & value );
+	void										setValue( const VariableValue & value );
 
-		void									addListener( Variable* listener );
-		void									deleteListener( Variable* listener );
-		const std::set<Variable*>				getAllListeners() const;
+	void										addListener( Variable* listener );
+	void										deleteListener( Variable* listener );
+	const std::set<Variable*>					getAllListeners() const;
 
-		bool									findElementInListeners( const TElement & element );
+	bool										findElementInListeners( const TElement & element );
 
-	};
+};
 
-}
+NS_PSS_END

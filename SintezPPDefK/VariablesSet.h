@@ -1,23 +1,26 @@
 #pragma once
 
+#include "../Libraries/GlobalDefines.h"
+
 #include "Variable.h"
 #include "../Libraries/eMainElement.h"
 
 #include <map>
 
-namespace pss
+
+NS_PSS_START
+
+class VariablesSet
 {
-	class VariablesSet
-	{
-	private:
+private:
 
-		std::map<eMainElement, Variable>		m_set;
+	std::map<eMainElement, Variable>			m_set;
 
-	public:
+public:
 
-		Variable&								operator[]( const eMainElement & element );
-		const Variable&							operator[]( const eMainElement & element ) const;
+	Variable&									operator[]( const eMainElement & element );
+	const Variable&								operator[]( const eMainElement & element ) const;
 
-	};
+};
 
-}
+NS_PSS_END

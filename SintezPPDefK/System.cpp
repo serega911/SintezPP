@@ -2,16 +2,16 @@
 
 #include "../Libraries/TSingletons.h"
 
-using namespace pss;
+NS_PSS_USING
 
 
-void pss::System::addDefinedChain( const TChain& chain, const VariableValue & value )
+void System::addDefinedChain( const TChain& chain, const VariableValue & value )
 {
 	const auto & elements = chain.getElements();
 
 	for ( auto & elem : elements )
 	{
-		if ( elem != pss::TElement::INPUT && elem != pss::TElement::OUTPUT && elem != pss::TElement::BRAKE )
+		if ( elem != TElement::INPUT && elem != TElement::OUTPUT && elem != TElement::BRAKE )
 		{
 			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN() - 1][elem.getElemN()];
 			variable.setDefined( true );
@@ -21,7 +21,7 @@ void pss::System::addDefinedChain( const TChain& chain, const VariableValue & va
 	}
 }
 
-void pss::System::addUndefinedChain( const TChain& chain, const VariableValue & value )
+void System::addUndefinedChain( const TChain& chain, const VariableValue & value )
 {
 	m_unknowns.emplace_back( UnknownVariable( value ) );
 	auto& unknown = m_unknowns[m_unknowns.size() - 1];
@@ -29,7 +29,7 @@ void pss::System::addUndefinedChain( const TChain& chain, const VariableValue & 
 
 	for ( auto & elem : elements )
 	{
-		if ( elem != pss::TElement::INPUT && elem != pss::TElement::OUTPUT && elem != pss::TElement::BRAKE )
+		if ( elem != TElement::INPUT && elem != TElement::OUTPUT && elem != TElement::BRAKE )
 		{
 			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN() - 1][elem.getElemN()];
 			variable.setDefined( false );
@@ -39,16 +39,16 @@ void pss::System::addUndefinedChain( const TChain& chain, const VariableValue & 
 	}
 }
 
-pss::System::System() : m_addedSetCount( 0 )
+System::System() : m_addedSetCount( 0 )
 {
 	init();
 }
 
-void pss::System::addGearChains( const std::vector<TChain>& chains, const TElement& brake, double i )
+void System::addGearChains( const std::vector<TChain>& chains, const TElement& brake, double i )
 {
 	for ( auto& chain : chains )
 	{
-		if ( chain.find( pss::TElement::INPUT ) )
+		if ( chain.find( TElement::INPUT ) )
 		{
 			addDefinedChain( chain, 1.0f );
 		}
@@ -56,7 +56,7 @@ void pss::System::addGearChains( const std::vector<TChain>& chains, const TEleme
 		{
 			addDefinedChain( chain, 0.0f );
 		}
-		else if ( chain.find( pss::TElement::OUTPUT ) )
+		else if ( chain.find( TElement::OUTPUT ) )
 		{
 			addDefinedChain( chain, i );
 		}
@@ -68,27 +68,27 @@ void pss::System::addGearChains( const std::vector<TChain>& chains, const TEleme
 	m_addedSetCount++;
 }
 
-VariablesSet & pss::System::getVariablesSet( const int & gearN, const int & gearSetN )
+VariablesSet & System::getVariablesSet( const int & gearN, const int & gearSetN )
 {
 	return m_sets.at( gearN ).at( gearSetN );
 }
 
-const VariablesSet & pss::System::getVariablesSet( const int & gearN, const int & gearSetN ) const
+const VariablesSet & System::getVariablesSet( const int & gearN, const int & gearSetN ) const
 {
 	return m_sets.at( gearN ).at( gearSetN );
 }
 
-std::vector<UnknownVariable> & pss::System::getUnknownVariables()
+std::vector<UnknownVariable> & System::getUnknownVariables()
 {
 	return m_unknowns;
 }
 
-const std::vector<UnknownVariable> & pss::System::getUnknownVariables() const
+const std::vector<UnknownVariable> & System::getUnknownVariables() const
 {
 	return m_unknowns;
 }
 
-void pss::System::init()
+void System::init()
 {
 	auto N = TSingletons::getInstance()->getNumberOfPlanetaryGears();
 
