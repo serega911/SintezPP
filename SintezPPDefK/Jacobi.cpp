@@ -1,14 +1,14 @@
-#include "Determinant.h"
+#include "Jacobi.h"
 #include "Equations.h"
 #include <iostream>
 
 NS_PSS_USING
 
-Determinant::Determinant() : m_size( 0 )
+Jacobi::Jacobi() : m_size( 0 )
 {
 }
 
-void Determinant::setSize( size_t size )
+void Jacobi::setSize( size_t size )
 {
 	m_size = size;
 	m_determinant.resize( m_size );
@@ -23,14 +23,14 @@ void Determinant::setSize( size_t size )
 		
 }
 
-void Determinant::setEquation( size_t i, size_t j, const Equation & eq )
+void Jacobi::setEquation( size_t i, size_t j, const Equation & eq )
 {
 	if ( i >= m_size && j >= m_size )
 		std::cout << "i,j out of range. Determinant.cpp\n";
 	m_determinant.at( i ).at( j ) = eq;
 }
 
-const std::vector<Equation>& Determinant::operator[]( size_t i )
+const std::vector<Equation>& Jacobi::operator[]( size_t i )
 {
 	return m_determinant.at( i );
 }

@@ -20,11 +20,17 @@
     <ClCompile Include="UnknownVariable.cpp">
       <Filter>Files\Nuton\UnknownVariable</Filter>
     </ClCompile>
-    <ClCompile Include="Determinant.cpp">
-      <Filter>Files\Nuton\Determinant</Filter>
-    </ClCompile>
     <ClCompile Include="Equations.cpp">
       <Filter>Files\Nuton\Equations</Filter>
+    </ClCompile>
+    <ClCompile Include="Jacobi.cpp">
+      <Filter>Files\Nuton\Jacobi</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Files\Nuton\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixOperations.cpp">
+      <Filter>Files\Nuton\Matrix\MatrixOperations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -33,9 +39,6 @@
     </Filter>
     <Filter Include="Files\Nuton">
       <UniqueIdentifier>{0fa87991-ca34-44b1-8494-d56495ca0fd7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Nuton\Determinant">
-      <UniqueIdentifier>{b85a5022-8e7f-46ee-9f0a-b56cd4903b66}</UniqueIdentifier>
     </Filter>
     <Filter Include="Files\Nuton\Equations">
       <UniqueIdentifier>{d7969ccf-7b5c-4a36-aba0-346a8f815990}</UniqueIdentifier>
@@ -51,6 +54,15 @@
     </Filter>
     <Filter Include="Files\Nuton\VariablesSet">
       <UniqueIdentifier>{ad7bbd20-73ae-4683-a98a-bd4bc00665d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\Jacobi">
+      <UniqueIdentifier>{b85a5022-8e7f-46ee-9f0a-b56cd4903b66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\Matrix">
+      <UniqueIdentifier>{67813020-71a7-4c75-90bf-e1afd8d8563d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\Matrix\MatrixOperations">
+      <UniqueIdentifier>{ef7d0ff6-459d-4da5-a6ce-035a68b51cfc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +84,6 @@
     <ClInclude Include="UnknownVariable.h">
       <Filter>Files\Nuton\UnknownVariable</Filter>
     </ClInclude>
-    <ClInclude Include="Determinant.h">
-      <Filter>Files\Nuton\Determinant</Filter>
-    </ClInclude>
     <ClInclude Include="Equations.h">
       <Filter>Files\Nuton\Equations</Filter>
     </ClInclude>
@@ -83,6 +92,15 @@
     </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Files\Nuton</Filter>
+    </ClInclude>
+    <ClInclude Include="Jacobi.h">
+      <Filter>Files\Nuton\Jacobi</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Files\Nuton\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixOperations.h">
+      <Filter>Files\Nuton\Matrix\MatrixOperations</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

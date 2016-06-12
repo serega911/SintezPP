@@ -66,9 +66,11 @@
   <ItemGroup>
     <ClInclude Include="DefK.h" />
     <ClInclude Include="DefKNuton.h" />
-    <ClInclude Include="Determinant.h" />
+    <ClInclude Include="Jacobi.h" />
     <ClInclude Include="Equations.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="MatrixOperations.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="UnknownVariable.h" />
     <ClInclude Include="Variable.h" />
@@ -78,9 +80,11 @@
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
     <ClCompile Include="DefKNuton.cpp" />
-    <ClCompile Include="Determinant.cpp" />
+    <ClCompile Include="Jacobi.cpp" />
     <ClCompile Include="Equations.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="MatrixOperations.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="UnknownVariable.cpp" />
     <ClCompile Include="Variable.cpp" />

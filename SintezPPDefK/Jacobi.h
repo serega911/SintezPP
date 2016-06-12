@@ -8,14 +8,14 @@
 
 NS_PSS_START
 
-class Determinant
+class Jacobi
 {
 private:
 	size_t										m_size;
 	std::vector<std::vector<Equation>>			m_determinant;
 public:
 
-	Determinant();
+	Jacobi();
 
 	void										setSize( size_t size );
 	void										setEquation( size_t i, size_t j, const Equation & eq );

@@ -1,5 +1,7 @@
 #include "DefKNuton.h"
 #include "Equations.h"
+#include "Matrix.h"
+#include "MatrixOperations.h"
 
 #include "../Libraries/TSingletons.h"
 
@@ -19,7 +21,7 @@ void ober_matr( double a[2][2] )
 
 TK DefKNuton::findK( TCode& Code )
 {
-	auto chains = Code.getChains( );
+	auto chains = Code.getChains();
 
 	System system;
 	system.addGearChains( chains, TElement( eMainElement::EPICYCLIC_GEAR, 1 ), 2 );
@@ -27,8 +29,19 @@ TK DefKNuton::findK( TCode& Code )
 
 	auto determinant = createDeterminant( system );
 
+	Matrix matr( {
+		{ 1, 0, 1, 5 },
+		{ 8, 1, -4, -7 },
+		{ 0, -3, 4, 6 },
+		{ 2, 6, 8, -7 },
+	} );
+
+
+
+	auto det = MatrixOperations::convertToInversMatrix(matr);
+
 	//a[2][2] - determinant
-	//b[2] - undef var
+	//b[2] - values of wyllys
 
 // 	int i = 1;
 // 	const double eps = 0.001;
@@ -71,9 +84,9 @@ void DefKNuton::run()
 	findK( code );
 }
 
-Determinant DefKNuton::createDeterminant( const System & system )
+Jacobi DefKNuton::createDeterminant( const System & system )
 {
-	Determinant det;
+	Jacobi det;
 	
 	auto undefinedVar = system.getUnknownVariables();
 

@@ -6,7 +6,7 @@
 #include "../Libraries/TK.h"
 #include "../Libraries/TI.h"
 
-#include "Determinant.h"
+#include "Jacobi.h"
 #include "System.h"
 
 NS_PSS_START
@@ -17,7 +17,7 @@ private:
 	std::vector<std::vector<double>>			m_matrix;									//матрица системы уравнений
 	TI											m_i;										//передаточные отношения
 
-	Determinant									createDeterminant( const System & system );
+	Jacobi									createDeterminant( const System & system );
 
 public:
 	TK											findK( TCode& Code );
