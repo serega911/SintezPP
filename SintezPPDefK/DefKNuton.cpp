@@ -1,31 +1,49 @@
 #include "DefKNuton.h"
 #include "Equations.h"
-#include "Determinant.h"
-#include "UndefinedVariables.h"
 
 #include "../Libraries/TSingletons.h"
+
+
+void ober_matr( double a[2][2] )
+{
+	double det, aa;
+	det = a[0][0] * a[1][1] - a[0][1] * a[1][0];
+	aa = a[0][0];
+	a[0][0] = a[1][1] / det;
+	a[1][1] = aa / det;
+	aa = a[0][1];
+	a[0][1] = -a[0][1] / det;
+	a[1][0] = -a[1][0] / det;
+}
 
 pss::TK pss::DefKNuton::findK( pss::TCode& Code )
 {
 	auto chains = Code.getChains( );
 
-	auto N = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	System system;
+	system.addGearChains( chains, pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, 1 ), 2 );
+	system.addGearChains( chains, pss::TElement( pss::eMainElement::CARRIER, 2 ), 4 );
 
-	std::vector<Variables> vectVar = { Variables( N ), Variables( N ) };
-	vectVar[0].init( chains, pss::TElement( pss::eMainElement::EPICYCLIC_GEAR, 1 ), 2 );
-	vectVar[1].init( chains, pss::TElement( pss::eMainElement::CARRIER, 2 ), 3 );
+	auto determinant = createDeterminant( system );
 
-	UndefinedVariables uVar( vectVar );
+	//a[2][2] - determinant
+	//b[2] - undef var
 
-	// test
-	uVar[0] = 67;
-	uVar[1] = 67;
-	uVar[2] = 67;
-	uVar[3] = 67;
-
-	Determinant det;
-	det.setSize( 2 );
-	value ans = det[1][1](1,2,3,4);
+// 	int i = 1;
+// 	const double eps = 0.001;
+// 	double dx, dy, norm;
+// 	do
+// 	{
+// 		ober_matr( a );
+// 		dx = -a[0][0] * function1( x, y ) + -a[0][1] * function2( x, y );
+// 		dy = -a[1][0] * function1( x, y ) + -a[1][1] * function2( x, y );
+// 		x = x + dx;
+// 		y = y + dy;
+// 		b[0] = function1( x, y );
+// 		b[1] = function2( x, y );
+// 		norm = sqrt( b[0] * b[0] + b[1] * b[1] );
+// 		i++;
+// 	} while ( norm >= eps );
 
 	return TK( 1 );
 }
@@ -51,3 +69,43 @@ void pss::DefKNuton::run()
 
 	findK( code );
 }
+
+pss::Determinant pss::DefKNuton::createDeterminant( const System & system )
+{
+	Determinant det;
+	
+	auto undefinedVar = system.getUnknownVariables();
+
+	auto gearsN = TSingletons::getInstance()->getNumberOfGears();
+	auto gearSetsN = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+
+	if ( gearsN * gearSetsN == undefinedVar.size() )
+	{
+		det.setSize( gearsN * gearSetsN );
+		for ( auto i = 0; i < gearsN; i++ )
+		{
+			for ( auto j = 0; j < gearSetsN; j++ )
+			{
+				for ( auto k = 0; k < undefinedVar.size(); k++ )
+				{
+					auto undefVarListeners = undefinedVar[k].getAllListeners();
+					auto gearSetVariables = system.getVariablesSet( i, j );
+					for ( const auto & variable : undefVarListeners )
+					{
+						if ( ( !gearSetVariables[variable->getElement().getElemN()].getDefined() ) && variable->getElement().getGearSetN() == j + 1 )
+						{
+							auto eq = Equations::getEquation( variable->getElement().getElemN() );
+							det.setEquation( i*gearSetsN + j, k, eq );
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//exception
+	}
+	return det;
+}
+

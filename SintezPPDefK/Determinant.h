@@ -10,15 +10,15 @@ namespace pss
 	{
 	private:
 		size_t									m_size;
-		std::vector<std::vector<equation>>		m_determinant;
+		std::vector<std::vector<Equation>>		m_determinant;
 	public:
 
 		Determinant();
 
 		void									setSize( size_t size );
-		void									setEquation( size_t i, size_t j, equation eq );
+		void									setEquation( size_t i, size_t j, const Equation & eq );
 
-		const std::vector<equation>&			operator[]( size_t i );
+		const std::vector<Equation>&			operator[]( size_t i );
 
 	};
 }

@@ -1,10 +1,11 @@
 #pragma once
 
 #include <functional>
+#include "VariablesSet_fwd.h"
 
 namespace pss
 {
-	typedef double variable;
-	typedef double value;
-	typedef std::function<value( variable, variable, variable, variable )> equation;
+	typedef double VariableValue;
+	typedef double FunctionValue;
+	typedef std::function<FunctionValue( const VariablesSet & )> Equation;
 }

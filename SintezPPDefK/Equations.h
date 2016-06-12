@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "Fumction.h"
+#include "../Libraries/eMainElement.h"
 
 namespace pss
 {
@@ -10,18 +11,18 @@ namespace pss
 	{
 	private:
 
-		static value							dfDk( variable k, variable w1, variable w2, variable w3 );
-		static value							dfDw1( variable k, variable w1, variable w2, variable w3 );
-		static value							dfDw2( variable k, variable w1, variable w2, variable w3 );
-		static value							dfDw3( variable k, variable w1, variable w2, variable w3 );
+		static FunctionValue					dfDk( const VariablesSet & set );
+		static FunctionValue					dfDw1( const VariablesSet & set );
+		static FunctionValue					dfDw2( const VariablesSet & set );
+		static FunctionValue					dfDw3( const VariablesSet & set );
 		
 	public:
 
-		static const std::vector<const equation>s_equations;
+		static FunctionValue					wyllys( const VariablesSet & set );
 
-		static value							wyllys( variable k, variable w1, variable w2, variable w3 );
+		static FunctionValue					empty( const VariablesSet & set );
 
-		static value							empty( variable k, variable w1, variable w2, variable w3 );
+		static const Equation					getEquation( const eMainElement & elem );
 
 	};
 }

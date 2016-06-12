@@ -2,5 +2,5 @@
 
 namespace pss
 {
-	class UndefinedVariables;
+	class VariablesSet;
 }

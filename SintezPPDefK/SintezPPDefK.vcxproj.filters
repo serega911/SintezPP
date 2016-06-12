@@ -8,18 +8,23 @@
     <ClCompile Include="DefKNuton.cpp">
       <Filter>Files\Nuton</Filter>
     </ClCompile>
-    <ClCompile Include="Equations.cpp">
-      <Filter>Files\Nuton</Filter>
+    <ClCompile Include="Variable.cpp">
+      <Filter>Files\Nuton\Variable</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Files\Nuton\System</Filter>
+    </ClCompile>
+    <ClCompile Include="VariablesSet.cpp">
+      <Filter>Files\Nuton\VariablesSet</Filter>
+    </ClCompile>
+    <ClCompile Include="UnknownVariable.cpp">
+      <Filter>Files\Nuton\UnknownVariable</Filter>
     </ClCompile>
     <ClCompile Include="Determinant.cpp">
-      <Filter>Files\Nuton</Filter>
+      <Filter>Files\Nuton\Determinant</Filter>
     </ClCompile>
-    <ClCompile Include="Variables.cpp" />
-    <ClCompile Include="WSet.cpp">
-      <Filter>Files\Nuton</Filter>
-    </ClCompile>
-    <ClCompile Include="UndefinedVariables.cpp">
-      <Filter>Files\Nuton\UndefinedVariables</Filter>
+    <ClCompile Include="Equations.cpp">
+      <Filter>Files\Nuton\Equations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -29,8 +34,23 @@
     <Filter Include="Files\Nuton">
       <UniqueIdentifier>{0fa87991-ca34-44b1-8494-d56495ca0fd7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Files\Nuton\UndefinedVariables">
-      <UniqueIdentifier>{c3c82861-85f3-4f0b-96be-81d466786f70}</UniqueIdentifier>
+    <Filter Include="Files\Nuton\Determinant">
+      <UniqueIdentifier>{b85a5022-8e7f-46ee-9f0a-b56cd4903b66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\Equations">
+      <UniqueIdentifier>{d7969ccf-7b5c-4a36-aba0-346a8f815990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\System">
+      <UniqueIdentifier>{e0e0b677-cd4b-47ce-b376-a38163d80722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\UnknownVariable">
+      <UniqueIdentifier>{a896f1df-dc08-4ac7-932c-2ed52046a935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\Variable">
+      <UniqueIdentifier>{8d3f0654-5034-4afc-9243-34cf77c711e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Nuton\VariablesSet">
+      <UniqueIdentifier>{ad7bbd20-73ae-4683-a98a-bd4bc00665d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,26 +60,29 @@
     <ClInclude Include="DefKNuton.h">
       <Filter>Files\Nuton</Filter>
     </ClInclude>
+    <ClInclude Include="Variable.h">
+      <Filter>Files\Nuton\Variable</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Files\Nuton\System</Filter>
+    </ClInclude>
+    <ClInclude Include="VariablesSet.h">
+      <Filter>Files\Nuton\VariablesSet</Filter>
+    </ClInclude>
+    <ClInclude Include="UnknownVariable.h">
+      <Filter>Files\Nuton\UnknownVariable</Filter>
+    </ClInclude>
+    <ClInclude Include="Determinant.h">
+      <Filter>Files\Nuton\Determinant</Filter>
+    </ClInclude>
     <ClInclude Include="Equations.h">
-      <Filter>Files\Nuton</Filter>
+      <Filter>Files\Nuton\Equations</Filter>
     </ClInclude>
     <ClInclude Include="Fumction.h">
       <Filter>Files\Nuton</Filter>
     </ClInclude>
-    <ClInclude Include="Determinant.h">
-      <Filter>Files\Nuton</Filter>
-    </ClInclude>
-    <ClInclude Include="Variables.h">
-      <Filter>Files\Nuton</Filter>
-    </ClInclude>
-    <ClInclude Include="WSet.h">
-      <Filter>Files\Nuton</Filter>
-    </ClInclude>
-    <ClInclude Include="UndefinedVariables.h">
-      <Filter>Files\Nuton\UndefinedVariables</Filter>
-    </ClInclude>
-    <ClInclude Include="UndefinedVariables_fwd.h">
-      <Filter>Files\Nuton\UndefinedVariables</Filter>
+    <ClInclude Include="VariablesSet_fwd.h">
+      <Filter>Files\Nuton\VariablesSet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

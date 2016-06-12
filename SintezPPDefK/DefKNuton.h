@@ -4,7 +4,8 @@
 #include "../Libraries/TK.h"
 #include "../Libraries/TI.h"
 
-#include "Variables.h"
+#include "Determinant.h"
+#include "System.h"
 
 namespace pss
 {
@@ -14,6 +15,7 @@ namespace pss
 		std::vector<std::vector<double>>		m_matrix;									//матрица системы уравнений
 		pss::TI									m_i;										//передаточные отношения
 
+		Determinant								createDeterminant( const System & system );
 
 	public:
 		pss::TK									findK( pss::TCode& Code );

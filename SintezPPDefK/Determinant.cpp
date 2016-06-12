@@ -15,20 +15,20 @@ void pss::Determinant::setSize( size_t size )
 		it.resize( m_size );
 		for ( auto & eq : it )
 		{
-			eq = Equations::s_equations[1];
+			eq = Equations::empty;
 		}
 	}
 		
 }
 
-void pss::Determinant::setEquation( size_t i, size_t j, equation eq )
+void pss::Determinant::setEquation( size_t i, size_t j, const Equation & eq )
 {
 	if ( i >= m_size && j >= m_size )
 		std::cout << "i,j out of range. Determinant.cpp\n";
 	m_determinant.at( i ).at( j ) = eq;
 }
 
-const std::vector<pss::equation>& pss::Determinant::operator[]( size_t i )
+const std::vector<pss::Equation>& pss::Determinant::operator[]( size_t i )
 {
 	return m_determinant.at( i );
 }
