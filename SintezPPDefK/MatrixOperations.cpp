@@ -3,38 +3,19 @@
 
 NS_PSS_USING
 
-pss::CellType pss::MatrixOperations::calcDeterminant( const Matrix& matrix )
+pss::CellType pss::MatrixOperations::determinant( const Matrix& matrix )
 {
-	int i, j;
-	CellType det = 0;
-
 	auto size = matrix.getSize();
-
-	if ( size == 1 )
-	{
-		det = matrix.at( 0, 0 );
-	}
-	else if ( size == 2 )
-	{
-		det = matrix.at( 0, 0 ) * matrix.at( 1, 1 ) - matrix.at( 0, 1 ) * matrix.at( 1, 0 );
-	}
+	if ( size == 1 ) return matrix[0][0];
 	else
 	{
-		MatrixTable matr;
-		matr.resize( size - 1 );
-		for ( i = 0; i < size; ++i )
+		double res = 0;
+		for ( int i = 0; i < size; i++ )
 		{
-			for ( j = 0; j < size - 1; ++j )
-			{
-				if ( j < i )
-					matr[j] = matrix[j];
-				else
-					matr[j] = matrix[j + 1];
-			}
-			det += pow( -1.0, ( i + j ) ) * calcDeterminant( Matrix(matr) ) * matrix.at(i, size - 1);
+			res += matrix[i][0] * ( determinant( minor( matrix, i, 0 )  ) )	*( i % 2 == 0 ? -1.0 : 1.0 );
 		}
+		return res;
 	}
-	return det;
 }
 
 MatrixLine operator*( const MatrixLine & line, const double & k )
@@ -58,60 +39,170 @@ MatrixLine operator-( const MatrixLine & line1, const MatrixLine & line2 )
 	return ret;
 }
 
-Matrix pss::MatrixOperations::convertToInversMatrix( const Matrix& matrix )
+pss::MatrixLine pss::MatrixOperations::solveGaus( const Matrix& systemMatrix, const MatrixLine& rightParts )
 {
-	auto size = matrix.getSize();
-	
-	MatrixTable tmp = matrix.getMatrix( );
+
+	auto system = systemMatrix.getMatrix();
+	auto right = rightParts;
+
+	const int n = system.size( );
+
+	for ( int i = 0; i < n; ++i ) 
+	{
+		int k = i;
+
+		for ( int j = i + 1; j < n; ++j )
+		{
+			if ( abs( system[j][i] ) > abs( system[k][i] ) )
+			{
+				k = j;
+			}
+		}
+			
+		if ( k != i )
+		{
+			std::swap( system[i], system[k] );
+			std::swap( right[i], right[k] );
+		}
+
+		if ( system[i][i] != 0 )
+		{
+			for ( int j = i + 1; j < n; ++j )
+			{
+				system[i][j] /= system[i][i];
+			}
+			right[i] /= system[i][i];
+		}
+		else
+		{
+			right.clear( );
+			return right;
+		}
+			
+		for ( int j = 0; j < n; ++j )
+		{
+			if ( j != i )
+			{
+				for ( int k = i + 1; k < n; ++k )
+				{
+					system[j][k] -= system[i][k] * system[j][i];
+				}
+				right[j] -= right[i] * system[j][i];
+			}
+		}
+	}
+
+	return right;
+}
+
+Matrix pss::MatrixOperations::minor( const Matrix& matrix, int i, int j )
+{
+	const auto size = matrix.getSize();
+	if ( i < size && j < size && i >= 0 && j >= 0 )
+	{
+		if ( size > 1 )
+		{
+			MatrixTable res( size - 1 );
+			for ( auto i = 0; i < size - 1; i++ )
+			{
+				res[i].resize( size - 1, 0 );
+			}
+
+			for ( int i1 = 0; i1 < size; i1++ )
+			{
+
+				for ( int j1 = 0; j1 < size; j1++ )
+				{
+					if ( i1 != i && j1 != j )
+					{
+						int it = ( i1 > i ) ? -1 : 0;
+						int jt = ( j1 > j ) ? -1 : 0;
+						res[i1 + it][j1 + jt] = matrix[i1][j1];
+					}
+				}
+			}
+			return Matrix( res );
+		}
+	}
+}
+
+Matrix pss::MatrixOperations::inverse( const Matrix& matrix )
+{
+	const auto size = matrix.getSize();
 	MatrixTable ret( size );
 	for ( auto i = 0; i < size; i++ )
 	{
 		ret[i].resize( size, 0 );
-		ret[i][i] = 1;
 	}
-	
-	for ( auto i = 0; i < size; i++ )
+
+	double d = determinant( matrix );
+	for ( int i = 0; i < size; i++ )
 	{
-		if ( tmp[i][i] == 0 )
+		for ( int j = 0; j < size; j++ )
 		{
-			//exception
+			ret[i][j] = determinant( minor( matrix, j, i ) ) / d*( ( i + j ) % 2 == 0 ? -1.0 : 1.0 );
 		}
-		else
-		{
-			for ( auto line = i + 1; line < size; line++ )
-			{
-				auto k = tmp[line][i] / tmp[i][i];
-				tmp[line] = tmp[line] - tmp[i] * k;
-				ret[line] = ret[line] - ret[i] * k;
-			}
-		}
-
 	}
-
-	for ( int i = size-1; i >= 1; i-- )
-	{
-		if ( tmp[i][i] == 0 )
-		{
-			//exception
-		}
-		else
-		{
-			for ( int line = i - 1; line >= 0; line-- )
-			{
-				auto k = tmp[line][i] / tmp[i][i];
-				tmp[line] = tmp[line] - tmp[i] * k;
-				ret[line] = ret[line] - ret[i] * k;
-			}
-		}
-
-	}
-
-	for ( auto i = 0; i < size; i++ )
-	{
-		tmp[i] = tmp[i] * ( 1 / tmp[i][i] );
-		ret[i] = ret[i] * ( 1 / ret[i][i] );
-	}
-	
-	return Matrix(ret);
+	return Matrix( ret );
 }
 
+MatrixLine pss::MatrixOperations::multiple( const Matrix& matrix, const MatrixLine& vector )
+{
+	const auto size = matrix.getSize();
+	if ( vector.size() == size )
+	{
+		MatrixLine ret( size );
+		for ( int i = 0; i < size; i++ )
+		{
+			double val = 0;
+			for ( int j = 0; j < size; j++ )
+			{
+				val += matrix[i][j] * vector[j];
+			}
+			ret[i] = val;
+		}
+		return ret;
+	}
+	return MatrixLine( 0 );
+}
+
+Matrix pss::MatrixOperations::multiple( const Matrix& matrix1, const Matrix& matrix2 )
+{
+	const auto size = matrix1.getSize();
+	if ( size == matrix2.getSize() )
+	{
+		MatrixTable res( size );
+		for ( auto i = 0; i < size; i++ )
+		{
+			res[i].resize( size, 0 );
+		}
+
+		for ( int i = 0; i < size; i++ )
+		{
+			for ( int j = 0; j < size; j++ )
+			{
+				double val = 0;
+				for ( int k = 0; k < size; k++ )
+				{
+					val += matrix1[k][i] * matrix2[j][k];
+				}
+				res[j][i] = val;
+			}
+		}
+		return Matrix( res );
+	}
+	return Matrix( 0 );
+}
+
+pss::MatrixLine pss::MatrixOperations::delta( const MatrixLine& vector1, const MatrixLine& vector2 )
+{
+	const auto size = vector1.size();
+	MatrixLine ret( size );
+
+	for ( auto i = 0; i < size; i++ )
+	{
+		ret[i] = vector1[i] - vector2[i];
+	}
+
+	return ret;
+}

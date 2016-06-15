@@ -58,11 +58,11 @@ void System::addGearChains( const std::vector<TChain>& chains, const TElement& b
 		}
 		else if ( chain.find( TElement::OUTPUT ) )
 		{
-			addDefinedChain( chain, i );
+			addDefinedChain( chain, 1/i );
 		}
 		else
 		{
-			addUndefinedChain( chain, -2.0f );
+			addUndefinedChain( chain, 2.0f );
 		}
 	}
 	m_addedSetCount++;

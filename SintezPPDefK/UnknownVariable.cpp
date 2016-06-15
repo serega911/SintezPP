@@ -14,6 +14,11 @@ void UnknownVariable::setValue( const VariableValue & value )
 	callAllListeners();
 }
 
+pss::VariableValue pss::UnknownVariable::getValue() const
+{
+	return m_value;
+}
+
 void UnknownVariable::addListener( Variable* listener )
 {
 	m_listeners.insert( listener );

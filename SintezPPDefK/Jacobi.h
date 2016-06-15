@@ -19,8 +19,9 @@ public:
 
 	void										setSize( size_t size );
 	void										setEquation( size_t i, size_t j, const Equation & eq );
+	size_t										size() const;
 
-	const std::vector<Equation>&				operator[]( size_t i );
+	const std::vector<Equation>&				operator[]( size_t i ) const;
 
 };
 

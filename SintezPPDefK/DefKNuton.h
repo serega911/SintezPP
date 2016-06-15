@@ -8,16 +8,18 @@
 
 #include "Jacobi.h"
 #include "System.h"
+#include "Matrix.h"
 
 NS_PSS_START
 
 class DefKNuton
 {
 private:
-	std::vector<std::vector<double>>			m_matrix;									//матрица системы уравнений
+
 	TI											m_i;										//передаточные отношения
 
-	Jacobi									createDeterminant( const System & system );
+	Jacobi										createJacobian( const System & system );
+	Matrix										createMatrix( const Jacobi& jacobian, const System & system );
 
 public:
 	TK											findK( TCode& Code );

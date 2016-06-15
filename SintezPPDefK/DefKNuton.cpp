@@ -7,17 +7,6 @@
 
 NS_PSS_USING
 
-void ober_matr( double a[2][2] )
-{
-	double det, aa;
-	det = a[0][0] * a[1][1] - a[0][1] * a[1][0];
-	aa = a[0][0];
-	a[0][0] = a[1][1] / det;
-	a[1][1] = aa / det;
-	aa = a[0][1];
-	a[0][1] = -a[0][1] / det;
-	a[1][0] = -a[1][0] / det;
-}
 
 TK DefKNuton::findK( TCode& Code )
 {
@@ -27,37 +16,42 @@ TK DefKNuton::findK( TCode& Code )
 	system.addGearChains( chains, TElement( eMainElement::EPICYCLIC_GEAR, 1 ), 2 );
 	system.addGearChains( chains, TElement( eMainElement::CARRIER, 2 ), 4 );
 
-	auto determinant = createDeterminant( system );
+	auto jacobian = createJacobian( system );
 
-	Matrix matr( {
-		{ 1, 0, 1, 5 },
-		{ 8, 1, -4, -7 },
-		{ 0, -3, 4, 6 },
-		{ 2, 6, 8, -7 },
-	} );
+	auto gearsN = TSingletons::getInstance()->getNumberOfGears();
+	auto gearSetsN = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+
+	const double eps = 0.001;
+	double norm;
+	do
+	{
+		auto matrix = createMatrix( jacobian, system );
+		//auto oberMatrix = MatrixOperations::inverse( matrix );
+
+		MatrixLine rightParts( gearsN *gearSetsN );
+		for ( int i = 0; i < gearsN; i++ )
+		{
+			for ( int j = 0; j < gearSetsN; j++ )
+			{
+				rightParts[i * gearSetsN + j] = -Equations::wyllys(system.getVariablesSet(i,j));
+			}
+		}
+
+		//auto next = MatrixOperations::multiple( oberMatrix, rightParts );
+		auto next = MatrixOperations::solveGaus( matrix, rightParts );
+
+		norm = abs( next[0] );
+		for ( int i = 0; i < next.size( ); i++ )
+		{
+			if ( abs( next[i] ) > norm )
+			{
+				norm = abs( next[i] );
+			}
+			system.getUnknownVariables()[i].setValue( system.getUnknownVariables( )[i].getValue( ) - next[i] );
+		}
 
 
-
-	auto det = MatrixOperations::convertToInversMatrix(matr);
-
-	//a[2][2] - determinant
-	//b[2] - values of wyllys
-
-// 	int i = 1;
-// 	const double eps = 0.001;
-// 	double dx, dy, norm;
-// 	do
-// 	{
-// 		ober_matr( a );
-// 		dx = -a[0][0] * function1( x, y ) + -a[0][1] * function2( x, y );
-// 		dy = -a[1][0] * function1( x, y ) + -a[1][1] * function2( x, y );
-// 		x = x + dx;
-// 		y = y + dy;
-// 		b[0] = function1( x, y );
-// 		b[1] = function2( x, y );
-// 		norm = sqrt( b[0] * b[0] + b[1] * b[1] );
-// 		i++;
-// 	} while ( norm >= eps );
+	} while ( norm >= eps );
 
 	return TK( 1 );
 }
@@ -84,7 +78,7 @@ void DefKNuton::run()
 	findK( code );
 }
 
-Jacobi DefKNuton::createDeterminant( const System & system )
+Jacobi DefKNuton::createJacobian( const System & system )
 {
 	Jacobi det;
 	
@@ -121,5 +115,29 @@ Jacobi DefKNuton::createDeterminant( const System & system )
 		//exception
 	}
 	return det;
+}
+
+Matrix pss::DefKNuton::createMatrix( const Jacobi& jacobian, const System & system )
+{
+	auto size = jacobian.size();
+	
+	Matrix ret( size );
+	auto undefinedVar = system.getUnknownVariables();
+
+	auto gearsN = TSingletons::getInstance()->getNumberOfGears();
+	auto gearSetsN = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	
+	for ( auto i = 0; i < gearsN; i++ )
+	{
+		for ( auto j = 0; j < gearSetsN; j++ )
+		{
+			for ( auto k = 0; k < undefinedVar.size(); k++ )
+			{
+				ret.at( i*gearSetsN + j, k ) = jacobian[i*gearSetsN + j][k]( system.getVariablesSet( i, j ) );
+			}
+		}
+	}
+
+	return ret;
 }
 

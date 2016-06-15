@@ -5,7 +5,7 @@ NS_PSS_USING
 
  FunctionValue Equations::wyllys( const VariablesSet & set )
  {
-	return set[eMainElement::EMPTY].getValue( ) - ( set[eMainElement::CARRIER].getValue( ) - set[eMainElement::SUN_GEAR].getValue( ) ) / ( set[eMainElement::CARRIER].getValue( ) - set[eMainElement::EPICYCLIC_GEAR].getValue( ) );
+	 return set[eMainElement::SUN_GEAR].getValue() + set[eMainElement::EMPTY].getValue()*set[eMainElement::EPICYCLIC_GEAR].getValue() - ( set[eMainElement::EMPTY].getValue() - 1.0f ) * set[eMainElement::CARRIER].getValue();
  }
  
  FunctionValue Equations::empty( const VariablesSet & set )
@@ -37,20 +37,20 @@ NS_PSS_USING
 
  FunctionValue Equations::dfDk( const VariablesSet & set )
  {
-	 return 1.0f;
+	 return set[eMainElement::EPICYCLIC_GEAR].getValue() - set[eMainElement::CARRIER].getValue();
  }
 
  FunctionValue Equations::dfDw1( const VariablesSet & set )
  {
-	 return 1.0f / ( set[eMainElement::EPICYCLIC_GEAR].getValue() - set[eMainElement::CARRIER].getValue() );
+	 return 1.0f;// / ( set[eMainElement::EPICYCLIC_GEAR].getValue() - set[eMainElement::CARRIER].getValue() );
  }
 
  FunctionValue Equations::dfDw2( const VariablesSet & set )
  {
-	 return ( set[eMainElement::SUN_GEAR].getValue() - set[eMainElement::CARRIER].getValue() ) / pow( ( set[eMainElement::CARRIER].getValue() - set[eMainElement::EPICYCLIC_GEAR].getValue() ), 2 );
+	 return set[eMainElement::EMPTY].getValue();// ( set[eMainElement::SUN_GEAR].getValue() - set[eMainElement::CARRIER].getValue() ) / pow( ( set[eMainElement::CARRIER].getValue() - set[eMainElement::EPICYCLIC_GEAR].getValue() ), 2 );
  }
 
  FunctionValue Equations::dfDw3( const VariablesSet & set )
  {
-	 return ( set[eMainElement::SUN_GEAR].getValue() - set[eMainElement::EPICYCLIC_GEAR].getValue() ) / pow( ( set[eMainElement::CARRIER].getValue() - set[eMainElement::EPICYCLIC_GEAR].getValue() ), 2 );
+	 return 1.0f - set[eMainElement::EMPTY].getValue();// ( set[eMainElement::EPICYCLIC_GEAR].getValue() - set[eMainElement::SUN_GEAR].getValue() ) / pow( ( set[eMainElement::CARRIER].getValue() - set[eMainElement::EPICYCLIC_GEAR].getValue() ), 2 );
  }

@@ -24,6 +24,7 @@ public:
 	explicit UnknownVariable( const VariableValue & value );
 
 	void										setValue( const VariableValue & value );
+	VariableValue								getValue() const;
 
 	void										addListener( Variable* listener );
 	void										deleteListener( Variable* listener );

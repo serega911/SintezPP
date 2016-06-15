@@ -30,7 +30,12 @@ void Jacobi::setEquation( size_t i, size_t j, const Equation & eq )
 	m_determinant.at( i ).at( j ) = eq;
 }
 
-const std::vector<Equation>& Jacobi::operator[]( size_t i )
+size_t pss::Jacobi::size() const
+{
+	return m_size;
+}
+
+const std::vector<Equation>& Jacobi::operator[]( size_t i ) const
 {
 	return m_determinant.at( i );
 }
