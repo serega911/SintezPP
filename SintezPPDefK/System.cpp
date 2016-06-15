@@ -62,7 +62,7 @@ void System::addGearChains( const std::vector<TChain>& chains, const TElement& b
 		}
 		else
 		{
-			addUndefinedChain( chain, 2.0f );
+			addUndefinedChain( chain, 1.0f );
 		}
 	}
 	m_addedSetCount++;
@@ -96,7 +96,7 @@ void System::init()
 
 	for ( auto setNumber = 0; setNumber < m_sets.size( ); setNumber++ )
 	{
-		m_unknowns.emplace_back( UnknownVariable( -2.0 ) );
+		m_unknowns.emplace_back( UnknownVariable( -2.0f ) );
 		auto& unknown = m_unknowns[m_unknowns.size( ) - 1];
 
 		m_sets[setNumber].resize( N );
