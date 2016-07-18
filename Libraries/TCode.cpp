@@ -251,6 +251,19 @@ const std::vector<TElement> pss::TCode::getElementsForBrakes() const
 	return vect;
 }
 
+std::vector<TLink> pss::TCode::getBrakes() const
+{
+	std::vector<TLink> ret;
+
+	for ( const auto& it : m_code )
+	{
+		if ( it.getElem2() == pss::TElement::BRAKE )
+			ret.push_back( it );
+	}
+
+	return ret;
+}
+
 bool pss::operator<(const TCode& code1, const TCode& code2)
 {
 	return code1.getChains() < code2.getChains();

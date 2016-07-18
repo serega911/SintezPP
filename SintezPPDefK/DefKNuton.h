@@ -16,14 +16,12 @@ class DefKNuton
 {
 private:
 
-	TI											m_i;										//передаточные отношения
-
 	Jacobi										createJacobian( const System & system );
 	Matrix										createMatrix( const Jacobi& jacobian, const System & system );
 
 public:
-	TK											findK( TCode& Code );
-	void										run();
+
+	TK											findK( const TCode& Code, const TI& i, const TK& initialKValues );
 
 };
 

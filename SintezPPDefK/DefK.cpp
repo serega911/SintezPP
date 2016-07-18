@@ -1,4 +1,5 @@
 #include "DefK.h"
+#include "DefKNuton.h"
 #include "../Libraries/func_lib.h"
 #include "../Libraries/TSingletons.h"
 #include "../Libraries/TGaus.h"
@@ -9,18 +10,22 @@
 
 NS_PSS_USING
 
-TK DefK::findK(const TCode& Code, TK K)
+TK DefK::findK(const TCode& Code, const TK& K)
 {
+	TK ans(K);
+	TK initial( 0.5 );
+
+	NS_PSS DefKNuton defKByNonlinearSolving;
 	do{
 		//K.print();
-		if (podModul(Code, K))
+		auto ans = defKByNonlinearSolving.findK( Code, m_iTarget, initial );
+		if (/*podModul(Code, K)*/ans.getFinded() )
 		{
-			K.setFinded();
 			break;
 		}
 		//system("pause");
-	}while(K.next());
-	return K;
+	} while ( initial.next( ) );
+	return ans;
 }
 
 void DefK::run()
@@ -64,6 +69,7 @@ void DefK::run()
 	TCode code;
 	while (TSingletons::getInstance()->getIOFileManager()->loadFromFile(TIOFileManager::eOutputFileType::DONE, code))
 	{
+		code.createChains();
 		TK ans(findK(code, K));
 		if (ans.getFinded())
 		{

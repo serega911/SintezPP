@@ -1,9 +1,9 @@
 #include "../Libraries/TElement.h"
 #include "../Libraries/func_lib.h"
 
-const pss::TElement pss::TElement::INPUT = TElement(pss::eMainElement::INPUT, 4);
-const pss::TElement pss::TElement::OUTPUT = TElement(pss::eMainElement::OUTPUT, 5);
-const pss::TElement pss::TElement::BRAKE = TElement(pss::eMainElement::BRAKE, 6);
+const pss::TElement pss::TElement::INPUT = TElement(pss::eMainElement::INPUT, 0);
+const pss::TElement pss::TElement::OUTPUT = TElement(pss::eMainElement::OUTPUT, 0);
+const pss::TElement pss::TElement::BRAKE = TElement(pss::eMainElement::BRAKE, 0);
 const pss::TElement pss::TElement::EMPTY = TElement(pss::eMainElement::EMPTY, 0);
 
 pss::TElement::TElement(const pss::eMainElement & elemN, int gearSetN) 

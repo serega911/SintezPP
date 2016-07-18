@@ -8,13 +8,20 @@
 NS_PSS_USING
 
 
-TK DefKNuton::findK( TCode& Code )
+TK DefKNuton::findK( const TCode& Code, const TI& i, const TK& initialKValues )
 {
+	
 	auto chains = Code.getChains();
 
 	System system;
-	system.addGearChains( chains, TElement( eMainElement::CARRIER, 1 ), m_i[0] );
-	system.addGearChains( chains, TElement( eMainElement::EPICYCLIC_GEAR, 2 ), m_i[1] );
+	system.init( initialKValues );
+
+	auto brakes = Code.getBrakes();
+
+	for ( auto brakeI = 0; brakeI < brakes.size( ); brakeI++ )
+	{
+		system.addGearChains( chains, brakes[brakeI].getElem1( ), i[brakeI] );
+	}
 
 	auto jacobian = createJacobian( system );
 
@@ -22,7 +29,11 @@ TK DefKNuton::findK( TCode& Code )
 	auto gearSetsN = TSingletons::getInstance()->getNumberOfPlanetaryGears();
 
 	const double eps = 0.001;
+	const int maxIterCount = 100;
 	double norm;
+
+	int iterCount = 0;
+	bool notFinded = false;
 	do
 	{
 		auto matrix = createMatrix( jacobian, system );
@@ -48,32 +59,32 @@ TK DefKNuton::findK( TCode& Code )
 			system.getUnknownVariables()[i].setValue( system.getUnknownVariables( )[i].getValue( ) + next[i] );
 		}
 
+		if ( ++iterCount > maxIterCount )
+		{
+			notFinded = true;
+			break;
+		}
 
 	} while ( norm >= eps );
 
-	return TK( 1 );
-}
 
-void DefKNuton::run()
-{
-	TSingletons::getInstance( )->setGlobalParameters( 2, 2 );
+	TK ans( initialKValues );
+	if ( !notFinded )
+	{
+		std::vector<double> kValues;
+		for ( auto i = gearSetsN; i < system.getUnknownVariables().size(); i++ )
+		{
+			kValues.push_back( system.getUnknownVariables()[i].getValue() );
+		}
+		ans.setValues( kValues );
+		ans.setFinded( true );
+	}
+	else
+	{
+		ans.setFinded( false );
+	}
 
-	TCode code;
-	code.setIn( TElement( eMainElement::SUN_GEAR, 1 ) );
-	code.setOut( TElement( eMainElement::CARRIER, 2 ) );
-	code.setLinks( {
-		TLink( TElement( eMainElement::SUN_GEAR, 1 ), TElement( eMainElement::SUN_GEAR, 2 ) ),
-		TLink( TElement( eMainElement::EPICYCLIC_GEAR, 1 ), TElement( eMainElement::CARRIER, 2 ) )
-	} );
-	code.setBrakes( {
-		TLink( TElement( eMainElement::CARRIER, 1 ), TElement::BRAKE ),
-		TLink( TElement( eMainElement::EPICYCLIC_GEAR, 2 ), TElement::BRAKE )
-	} );
-
-	m_i.push_back(2);
-	m_i.push_back(4);
-
-	findK( code );
+	return ans;
 }
 
 Jacobi DefKNuton::createJacobian( const System & system )
@@ -111,6 +122,7 @@ Jacobi DefKNuton::createJacobian( const System & system )
 	else
 	{
 		//exception
+		int a = 5;
 	}
 	return det;
 }

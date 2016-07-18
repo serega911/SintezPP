@@ -41,7 +41,6 @@ void System::addUndefinedChain( const TChain& chain, const VariableValue & value
 
 System::System() : m_addedSetCount( 0 )
 {
-	init();
 }
 
 void System::addGearChains( const std::vector<TChain>& chains, const TElement& brake, double i )
@@ -88,7 +87,7 @@ const std::vector<UnknownVariable> & System::getUnknownVariables() const
 	return m_unknowns;
 }
 
-void System::init()
+void System::init( const TK& initialKValues )
 {
 	auto N = TSingletons::getInstance()->getNumberOfPlanetaryGears();
 
@@ -96,7 +95,7 @@ void System::init()
 
 	for ( auto setNumber = 0; setNumber < m_sets.size( ); setNumber++ )
 	{
-		m_unknowns.emplace_back( UnknownVariable( -2.0f ) );
+		m_unknowns.emplace_back( UnknownVariable( initialKValues[setNumber] ) );
 		auto& unknown = m_unknowns[m_unknowns.size( ) - 1];
 
 		m_sets[setNumber].resize( N );

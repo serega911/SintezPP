@@ -9,6 +9,7 @@
 #include "UnknownVariable.h"
 #include "VariablesSet.h"
 #include "../Libraries/TChain.h"
+#include "../Libraries/TK.h"
 
 NS_PSS_START
 
@@ -23,12 +24,13 @@ private:
 	void										addDefinedChain( const TChain& chain, const VariableValue & value );
 	void										addUndefinedChain( const TChain& chain, const VariableValue & value );
 
-	void										init();
+	
 
 public:
 
 	System();
 
+	void										init( const TK& initialKValues );
 	void										addGearChains( const std::vector<TChain>& chains, const TElement& brake, double i );
 
 	VariablesSet &								getVariablesSet( const int & gearN, const int & gearSetN );

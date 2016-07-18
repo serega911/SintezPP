@@ -16,10 +16,13 @@ namespace pss{
 		int										m_frictions;											//	Количество фрикционов
 		int										m_brakes;												//	Количество тормозов
 
-		void									createChains();
+		
 	public:
 		TCode();
 		~TCode(void);
+
+		void									createChains( );
+
 		TLink									operator[](int i) const;								//	Оператор получения элемента вектора кода
 		void									setIn(const TElement & in);								//	Установка звена, связанного со входом
 		void									setOut(const TElement & out);							//	Установка звена, связанного со выходом
@@ -30,6 +33,7 @@ namespace pss{
 		const std::vector<TLink>&				getCode() const;
 		TLink									getIn() const;
 		TLink									getOut() const;
+		std::vector<TLink>						getBrakes() const;
 		const std::vector<TChain>&				getChains() const;
 		const std::vector<TElement>				getElementsForFrictions() const;
 		const std::vector<TElement>				getElementsForBrakes() const;

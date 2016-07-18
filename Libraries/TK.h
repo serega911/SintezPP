@@ -25,9 +25,10 @@ namespace pss
 		bool									next();
 		void									print() const;
 		int										size() const override;
-		void									setFinded();
+		void									setFinded( const bool finded );
 		bool									getFinded() const;
 		void									writeToFile(std::ofstream& file) const override;
 		void									loadFromFile(std::ifstream&) override;
+		void									setValues( const std::vector<double>& values );
 	};
 }

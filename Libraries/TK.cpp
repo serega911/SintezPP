@@ -75,9 +75,9 @@ int pss::TK::size() const
 	return m_K.size();
 }
 
-void pss::TK::setFinded()
+void pss::TK::setFinded( const bool finded )
 {
-	m_isFinded = true;
+	m_isFinded = finded;
 }
 
 bool pss::TK::getFinded() const
@@ -94,5 +94,10 @@ void pss::TK::writeToFile(std::ofstream& file) const
 void pss::TK::loadFromFile(std::ifstream&)
 {
 
+}
+
+void pss::TK::setValues( const std::vector<double>& values )
+{
+	m_K = values;
 }
 
