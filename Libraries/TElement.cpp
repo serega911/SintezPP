@@ -48,12 +48,15 @@ int pss::TElement::getSerialNumber() const
 
 bool pss::operator<(const TElement& elem1, const TElement& elem2)
 {
-	return elem1.getSerialNumber() < elem2.getSerialNumber();
+	return elem1.getGearSetN() < elem2.getGearSetN() ? true :
+		elem1.getGearSetN() == elem2.getGearSetN() ? elem1.getElemN() < elem2.getElemN() : false;
+	//return elem1.getSerialNumber() < elem2.getSerialNumber();
 }
 
 bool pss::operator==(const TElement& elem1, const TElement& elem2)
 {
-	return elem1.getSerialNumber() == elem2.getSerialNumber();
+	return elem1.getGearSetN() == elem2.getGearSetN() && elem1.getElemN() == elem2.getElemN();
+	//return elem1.getSerialNumber() == elem2.getSerialNumber();
 }
 
 bool pss::operator!=(const TElement& elem1, const TElement& elem2)

@@ -49,6 +49,12 @@ TK DefKNuton::findK( const TCode& Code, const TI& i, const TK& initialKValues )
 
 		auto next = MatrixOperations::solveGaus( matrix, rightParts );
 
+		if ( next.size() == 0 )
+		{
+			notFinded = true;
+			break;
+		}
+
 		norm = abs( next[0] );
 		for ( int i = 0; i < next.size( ); i++ )
 		{

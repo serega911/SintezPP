@@ -7,6 +7,7 @@
 #include "../Libraries/TChain.h"
 
 namespace pss{
+
 	class TCode: public pss::IContainer
 	{
 	private:
@@ -35,11 +36,13 @@ namespace pss{
 		TLink									getOut() const;
 		std::vector<TLink>						getBrakes() const;
 		const std::vector<TChain>&				getChains() const;
+
 		const std::vector<TElement>				getElementsForFrictions() const;
 		const std::vector<TElement>				getElementsForBrakes() const;
 
 		void									writeToFile(std::ofstream&) const override;
 		void									loadFromFile(std::ifstream&) override;
+
 		bool									checkFree() const;
 		bool									check() const;
 		void									print() const;											//	Вывод объекта на экран

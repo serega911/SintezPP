@@ -18,7 +18,7 @@ TK DefK::findK(const TCode& Code, const TK& K)
 	NS_PSS DefKNuton defKByNonlinearSolving;
 	do{
 		//K.print();
-		auto ans = defKByNonlinearSolving.findK( Code, m_iTarget, initial );
+		ans = defKByNonlinearSolving.findK( Code, m_iTarget, initial );
 		if (/*podModul(Code, K)*/ans.getFinded() )
 		{
 			break;

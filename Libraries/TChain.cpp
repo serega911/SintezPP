@@ -24,7 +24,7 @@ void pss::TChain::clear()
 
 bool pss::TChain::find(const TElement & element) const
 {
-	if (m_elements.find(element) != m_elements.end())
+	if ( m_elements.find( element ) != m_elements.end() )
 		return true;
 	else
 		return false;
