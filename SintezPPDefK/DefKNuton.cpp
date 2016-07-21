@@ -2,6 +2,7 @@
 #include "Equations.h"
 #include "Matrix.h"
 #include "MatrixOperations.h"
+#include "../Libraries/TGearChanger.h"
 
 #include "../Libraries/TSingletons.h"
 
@@ -16,12 +17,13 @@ TK DefKNuton::findK( const TCode& Code, const TK& initialKValues )
 	System system;
 	system.init( initialKValues );
 
-	auto brakes = Code.getBrakes();
-
-	for ( auto brakeI = 0; brakeI < brakes.size( ); brakeI++ )
+	int i = 0;
+	TGearChanger gearChanger( Code );
+	do 
 	{
-		system.addGearChains( chains, brakes[brakeI].getElem1( ), TSingletons::getInstance()->getInitialData()._i[brakeI] );
-	}
+		system.addGearChains( chains, gearChanger.getDrivingElementsForGear(i+1)[0].getElem1(), TSingletons::getInstance()->getInitialData()._i[i] );
+		i++;
+	} while ( gearChanger.next() );
 
 	auto jacobian = createJacobian( system );
 
@@ -70,6 +72,31 @@ TK DefKNuton::findK( const TCode& Code, const TK& initialKValues )
 			break;
 		}
 
+
+		for ( auto i = 0; i < initialData._numberOfPlanetaryGears; i++ )
+		{
+			bool flag = false;
+			for ( auto j = 0; j < initialData._ranges.size(); j++ )
+			{
+				if ( initialData._ranges[j].isInRange( system.getUnknownVariables()[i].getValue() ) )
+				{
+					flag = true;
+					break;
+				}
+			}
+			if ( !flag )
+			{
+				notFinded = true;
+				break;
+			}
+
+		}
+
+		if ( notFinded )
+		{
+			break;
+		}
+
 	} while ( norm >= eps );
 
 
@@ -77,7 +104,7 @@ TK DefKNuton::findK( const TCode& Code, const TK& initialKValues )
 	if ( !notFinded )
 	{
 		std::vector<double> kValues;
-		for ( auto i = initialData._numberOfPlanetaryGears; i < system.getUnknownVariables().size(); i++ )
+		for ( auto i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 		{
 			kValues.push_back( system.getUnknownVariables()[i].getValue() );
 		}

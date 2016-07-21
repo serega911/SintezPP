@@ -24,7 +24,7 @@ float pss::TRange::getMid() const
 	return ( m_begin + m_end ) / 2.0f;
 }
 
-bool pss::TRange::isInRange( const float value )
+bool pss::TRange::isInRange( const float value ) const
 {
-	return value > m_begin && value < m_end;
+	return value >= m_begin && value <= m_end;
 }

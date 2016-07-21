@@ -16,18 +16,16 @@ TK DefK::findK( const TCode& Code )
 	std::vector<double> initialK;
 	std::vector<int> combi;
 
-	auto size = TSingletons::getInstance()->getInitialData()._ranges.size();
-
-	for ( auto i = 0; i < size; i++ )
+	for ( auto i = 0; i < TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears; i++ )
 	{
 		combi.push_back( 0 );
 	}
-	initialK.resize( size );
+	initialK.resize( TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
 		
 	TK ans;
 
 	do{
-		for ( auto i = 0; i < size; i++ )
+		for ( auto i = 0; i < initialK.size(); i++ )
 			initialK[i] = TSingletons::getInstance()->getInitialData()._ranges[combi[i]].getMid();
 
 		TK initial;
@@ -41,7 +39,7 @@ TK DefK::findK( const TCode& Code )
 		{
 			break;
 		}
-		system( "pause" );
+		//system( "pause" );
 	} while ( next_combination_repetition( combi, TSingletons::getInstance()->getInitialData()._ranges.size() - 1, 0 ) );
 
 	return ans;

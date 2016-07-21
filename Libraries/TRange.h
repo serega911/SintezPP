@@ -17,7 +17,7 @@ namespace pss
 		float									getBegin() const;
 		float									getEnd() const;
 		float									getMid() const;
-		bool									isInRange( const float value );
+		bool									isInRange( const float value ) const;
 
 	};
 }
