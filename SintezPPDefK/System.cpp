@@ -89,9 +89,9 @@ const std::vector<UnknownVariable> & System::getUnknownVariables() const
 
 void System::init( const TK& initialKValues )
 {
-	auto N = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	auto N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
-	m_sets.resize( TSingletons::getInstance()->getNumberOfGears() );
+	m_sets.resize( TSingletons::getInstance()->getInitialData()._numberOfGears );
 
 	for ( auto setNumber = 0; setNumber < m_sets.size( ); setNumber++ )
 	{

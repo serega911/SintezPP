@@ -69,9 +69,12 @@ void TCode::print() const
 	pss::SetColor(15, 0);
 	std::cout << "Длина вектора кода:			" << m_code.size() << std::endl;
 	std::cout << "--------------------------------------------------\n";
+
+	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
+
 	for (int i = 0; i < m_code.size(); i++)
 	{
-		if (i == 1 || i == 2 || i == 2 + pss::TSingletons::getInstance()->getNumberOfLinks() || i == 2 + pss::TSingletons::getInstance()->getNumberOfLinks() + pss::TSingletons::getInstance()->getNumberOfFrictions())
+		if ( i == 1 || i == 2 || i == 2 + generalData._numberOfLinks || i == 2 + generalData._numberOfLinks + generalData._numberOfFrictions )
 			std::cout << "| "; 
 		std::cout << m_code[i] << ' ';
 	}
@@ -102,7 +105,9 @@ void TCode::writeToFile(std::ofstream& file) const
 
 void TCode::loadFromFile(std::ifstream& file)
 {
-	auto codeSize = 2 + pss::TSingletons::getInstance()->getNumberOfLinks() + pss::TSingletons::getInstance()->getNumberOfFrictions() + pss::TSingletons::getInstance()->getNumberOfBrakes();
+	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
+
+	auto codeSize = 2 + generalData._numberOfLinks + generalData._numberOfFrictions + generalData._numberOfBrakes;
 	m_code.resize(codeSize);
 	for (auto& it : m_code)
 	{
@@ -114,14 +119,14 @@ void TCode::loadFromFile(std::ifstream& file)
 	}
 	char c[2];
 	file.read(c, 2);
-	m_links = pss::TSingletons::getInstance()->getNumberOfLinks();
-	m_frictions = pss::TSingletons::getInstance()->getNumberOfFrictions();
-	m_brakes = pss::TSingletons::getInstance()->getNumberOfBrakes();
+	m_links = generalData._numberOfLinks;
+	m_frictions = generalData._numberOfFrictions;
+	m_brakes = generalData._numberOfBrakes;
 }
 
 bool TCode::checkFree() const
 {
-	for (int i = 0; i < 3 * pss::TSingletons::getInstance()->getNumberOfPlanetaryGears(); i++)
+	for (int i = 0; i < 3 * pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears; i++)
 	{
 		int count = 0;
 		for (int j = 0; j < m_code.size(); j++)
@@ -157,14 +162,14 @@ void pss::TCode::createChains()
 {
 	//Создаем начальные цепочки (каждая связь делается цепочкой)
 	m_chains.clear();
-	int size = pss::TSingletons::getInstance()->getNumberOfLinks() + 2;
+	int size = pss::TSingletons::getInstance()->getGeneralData()._numberOfLinks + 2;
 	m_chains.resize(size);
 
 	for (int i = 0; i < m_chains.size(); i++){
 		m_chains[i].addLinkToChain(m_code[i]);
 	}
 	//поиск элементов, свободных от связей и создание цепочек, которые их содержат
-	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	auto N = pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	auto in = m_code[0].getElem1();
 	auto out = m_code[1].getElem1();
 	for (size_t i = 1; i <= N; i++)
@@ -208,7 +213,7 @@ void pss::TCode::createChains()
 
 bool pss::TCode::check() const
 {
-	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	auto N = pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	//проверки корректности кода
 	for (size_t i = 0; i < m_chains.size(); i++)
 	{

@@ -9,20 +9,14 @@ namespace pss
 	class TK: public IContainer
 	{
 	private:
-		bool									m_isFinded;
-		double									m_dK;
-		std::vector<double>						m_K;
-		std::vector<int>						m_combi;
-		std::vector<double>						m_kValues;
 
+		bool									m_isFinded;
+		std::vector<double>						m_K;
 		
-		bool									pss::TK::inDia(const double & val);
 	public:
-		TK() = delete;
-		TK(double dK);
-		void									addInterval(double beg, double end);
+
 		const double							operator[](int i) const;
-		bool									next();
+
 		void									print() const;
 		int										size() const override;
 		void									setFinded( const bool finded );

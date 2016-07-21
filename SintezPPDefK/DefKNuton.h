@@ -21,7 +21,7 @@ private:
 
 public:
 
-	TK											findK( const TCode& Code, const TI& i, const TK& initialKValues );
+	TK											findK( const TCode& Code,  const TK& initialKValues );
 
 };
 

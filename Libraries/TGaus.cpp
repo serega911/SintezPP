@@ -29,8 +29,8 @@ void pss::TGaus::solve()
 
 void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k)
 {
-	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
-	auto L = pss::TSingletons::getInstance()->getNumberOfLinks();
+	auto N = pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	auto L = pss::TSingletons::getInstance()->getGeneralData()._numberOfLinks;
 
 	m_system.resize(3 * N);
 	for (auto& it : m_system)
@@ -59,8 +59,8 @@ void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k)
 
 void pss::TGaus::createSystemDrivers(const std::vector<pss::TLink>& drivers)
 {
-	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
-	auto L = pss::TSingletons::getInstance()->getNumberOfLinks();
+	auto N = pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	auto L = pss::TSingletons::getInstance()->getGeneralData()._numberOfLinks;
 	for (int i = 0; i < drivers.size(); i++)
 	{
 		pss::TLink driver = drivers[i];

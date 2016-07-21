@@ -8,7 +8,7 @@
 NS_PSS_USING
 
 
-TK DefKNuton::findK( const TCode& Code, const TI& i, const TK& initialKValues )
+TK DefKNuton::findK( const TCode& Code, const TK& initialKValues )
 {
 	
 	auto chains = Code.getChains();
@@ -20,13 +20,12 @@ TK DefKNuton::findK( const TCode& Code, const TI& i, const TK& initialKValues )
 
 	for ( auto brakeI = 0; brakeI < brakes.size( ); brakeI++ )
 	{
-		system.addGearChains( chains, brakes[brakeI].getElem1( ), i[brakeI] );
+		system.addGearChains( chains, brakes[brakeI].getElem1( ), TSingletons::getInstance()->getInitialData()._i[brakeI] );
 	}
 
 	auto jacobian = createJacobian( system );
 
-	auto gearsN = TSingletons::getInstance()->getNumberOfGears();
-	auto gearSetsN = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	const auto& initialData = TSingletons::getInstance()->getInitialData();
 
 	const double eps = 0.001;
 	const int maxIterCount = 100;
@@ -38,12 +37,12 @@ TK DefKNuton::findK( const TCode& Code, const TI& i, const TK& initialKValues )
 	{
 		auto matrix = createMatrix( jacobian, system );
 
-		MatrixLine rightParts( gearsN *gearSetsN );
-		for ( int i = 0; i < gearsN; i++ )
+		MatrixLine rightParts( initialData._numberOfGears *initialData._numberOfPlanetaryGears );
+		for ( int i = 0; i < initialData._numberOfGears; i++ )
 		{
-			for ( int j = 0; j < gearSetsN; j++ )
+			for ( int j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 			{
-				rightParts[i * gearSetsN + j] = -Equations::wyllys(system.getVariablesSet(i,j));
+				rightParts[i * initialData._numberOfPlanetaryGears + j] = -Equations::wyllys( system.getVariablesSet( i, j ) );
 			}
 		}
 
@@ -78,7 +77,7 @@ TK DefKNuton::findK( const TCode& Code, const TI& i, const TK& initialKValues )
 	if ( !notFinded )
 	{
 		std::vector<double> kValues;
-		for ( auto i = gearSetsN; i < system.getUnknownVariables().size(); i++ )
+		for ( auto i = initialData._numberOfPlanetaryGears; i < system.getUnknownVariables().size(); i++ )
 		{
 			kValues.push_back( system.getUnknownVariables()[i].getValue() );
 		}
@@ -99,15 +98,14 @@ Jacobi DefKNuton::createJacobian( const System & system )
 	
 	auto undefinedVar = system.getUnknownVariables();
 
-	auto gearsN = TSingletons::getInstance()->getNumberOfGears();
-	auto gearSetsN = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	const auto& initialData = TSingletons::getInstance()->getInitialData();
 
-	if ( gearsN * gearSetsN == undefinedVar.size() )
+	if ( initialData._numberOfGears * initialData._numberOfPlanetaryGears == undefinedVar.size() )
 	{
-		det.setSize( gearsN * gearSetsN );
-		for ( auto i = 0; i < gearsN; i++ )
+		det.setSize( initialData._numberOfGears * initialData._numberOfPlanetaryGears );
+		for ( auto i = 0; i < initialData._numberOfGears; i++ )
 		{
-			for ( auto j = 0; j < gearSetsN; j++ )
+			for ( auto j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 			{
 				for ( auto k = 0; k < undefinedVar.size(); k++ )
 				{
@@ -118,7 +116,7 @@ Jacobi DefKNuton::createJacobian( const System & system )
 						if ( ( !gearSetVariables[variable->getElement().getElemN()].getDefined() ) && variable->getElement().getGearSetN() == j + 1 )
 						{
 							auto eq = Equations::getEquation( variable->getElement().getElemN() );
-							det.setEquation( i*gearSetsN + j, k, eq );
+							det.setEquation( i*initialData._numberOfPlanetaryGears + j, k, eq );
 						}
 					}
 				}
@@ -140,16 +138,15 @@ Matrix pss::DefKNuton::createMatrix( const Jacobi& jacobian, const System & syst
 	Matrix ret( size );
 	auto undefinedVar = system.getUnknownVariables();
 
-	auto gearsN = TSingletons::getInstance()->getNumberOfGears();
-	auto gearSetsN = TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	const auto& initialData = TSingletons::getInstance()->getInitialData();
 	
-	for ( auto i = 0; i < gearsN; i++ )
+	for ( auto i = 0; i < initialData._numberOfGears; i++ )
 	{
-		for ( auto j = 0; j < gearSetsN; j++ )
+		for ( auto j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 		{
 			for ( auto k = 0; k < undefinedVar.size(); k++ )
 			{
-				ret.at( i*gearSetsN + j, k ) = jacobian[i*gearSetsN + j][k]( system.getVariablesSet( i, j ) );
+				ret.at( i*initialData._numberOfPlanetaryGears + j, k ) = jacobian[i*initialData._numberOfPlanetaryGears + j][k]( system.getVariablesSet( i, j ) );
 			}
 		}
 	}

@@ -45,6 +45,9 @@
     <ClCompile Include="..\Libraries\TSingletons.cpp">
       <Filter>StaticLib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\TRange.cpp">
+      <Filter>StaticLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -93,6 +96,9 @@
       <Filter>StaticLib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\GlobalDefines.h">
+      <Filter>StaticLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TRange.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
   </ItemGroup>

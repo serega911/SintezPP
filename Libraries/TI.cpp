@@ -45,7 +45,7 @@ void pss::TI::print()
 
 bool pss::TI::findIn( double value ) const
 {
-	if ( m_i.size() == pss::TSingletons::getInstance()->getNumberOfGears() )
+	if ( m_i.size() == pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears )
 	{
 		for ( auto& it : m_i )
 		{

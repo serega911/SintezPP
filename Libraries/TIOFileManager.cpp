@@ -72,7 +72,14 @@ void pss::TIOFileManager::writeSolutionData()
 	GetLocalTime(&st);
 	*file << "Started:	" << st.wHour << ':' << st.wMinute << ':' << st.wSecond << std::endl;
 
-	*file << pss::TSingletons::getInstance()->getW() << ' ' << pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() << ' ' << pss::TSingletons::getInstance()->getNumberOfLinks() << ' ' << pss::TSingletons::getInstance()->getNumberOfFrictions() << ' ' << pss::TSingletons::getInstance()->getNumberOfBrakes() << '\n';
+	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
+	const auto& initialData = pss::TSingletons::getInstance()->getInitialData();
+
+	*file << initialData._w << ' ' 
+		<< initialData._numberOfPlanetaryGears << ' '
+		<< generalData._numberOfLinks << ' '
+		<< generalData._numberOfFrictions << ' '
+		<< generalData._numberOfBrakes << '\n';
 	file->flush();
 }
 
@@ -114,7 +121,8 @@ void pss::TIOFileManager::init()
 	m_fileNames[eOutputFileType::DONE] = "done.pkp";
 	m_fileNames[eOutputFileType::DONE_K] = "done_K.pkp";
 
-	auto folder = "w" + std::to_string(TSingletons::getInstance()->getW()) + "n" + std::to_string(TSingletons::getInstance()->getNumberOfPlanetaryGears());
+	const auto& initialData = pss::TSingletons::getInstance()->getInitialData();
+	auto folder = "w" + std::to_string( initialData._w ) + "n" + std::to_string( initialData._numberOfPlanetaryGears );
 
 	m_containingFolder = s_globalFolder + "\\" + folder;
 
