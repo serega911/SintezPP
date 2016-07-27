@@ -1,13 +1,13 @@
-#include "../Libraries/TReplace.h"
+#include "../Libraries/TCombinations.h"
 
-void pss::TReplace::init(int count)
+void pss::TCombinations::init(int count)
 {
 	m_container.clear();
 	for (int i = 0; i < count; i++) // RK: use reserve and fill sequence method!
 		m_container.push_back(i);
 }
 
-bool pss::TReplace::nextReplace(int maxValue)
+bool pss::TCombinations::nextReplace(int maxValue)
 {
 	if (m_container.size() == 0)  return false;
 	std::vector<int>tmp;
@@ -34,17 +34,17 @@ bool pss::TReplace::nextReplace(int maxValue)
 	return true;
 }
 
-const std::vector<int>& pss::TReplace::getReplace() const
+const std::vector<int>& pss::TCombinations::getReplace() const
 {
 	return m_container;
 }
 
-int pss::TReplace::size() const
+int pss::TCombinations::size() const
 {
 	return m_container.size();
 }
 
-int pss::TReplace::operator[](int i) const
+int pss::TCombinations::operator[](int i) const
 {
 	return m_container.at(i);
 }

@@ -18,6 +18,9 @@ namespace pss{
 	private:
 
 		void									readInitialData();
+
+		void									checkAllInitialKValues( const TCode& Code, TK& ret );
+		void									checkAllRatiosPermutations( const TCode& Code, const TK& initial, TK& ret );
 	};
 
 }

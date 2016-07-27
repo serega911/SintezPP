@@ -19,8 +19,9 @@ namespace pss
 		const TElement&							getElem1() const;
 		const TElement&							getElem2() const;
 
-		friend std::ostream&					operator<<(std::ostream& out, const TLink & link);
+		void									writeTofile( std::ostream& file ) const;
+		void									loadFromFile( std::istream& file );
 
+		void									print() const;
 	};
-	std::ostream&								operator<<(std::ostream& out, const TLink & link);
 }

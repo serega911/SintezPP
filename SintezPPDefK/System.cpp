@@ -5,7 +5,7 @@
 NS_PSS_USING
 
 
-void System::addDefinedChain( const TChain& chain, const VariableValue & value )
+void System::addDefinedChain( const TChain& chain, const VariableValue & value, const int gear )
 {
 	const auto & elements = chain.getElements();
 
@@ -15,13 +15,13 @@ void System::addDefinedChain( const TChain& chain, const VariableValue & value )
 		{
 			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN() - 1][elem.getElemN()];
 			variable.setDefined( true );
-			variable.setElement( elem );
+			variable.setElement( elem, gear );
 			variable.setValue( value );
 		}
 	}
 }
 
-void System::addUndefinedChain( const TChain& chain, const VariableValue & value )
+void System::addUndefinedChain( const TChain& chain, const VariableValue & value, const int gear )
 {
 	m_unknowns.emplace_back( UnknownVariable( value ) );
 	auto& unknown = m_unknowns[m_unknowns.size() - 1];
@@ -33,7 +33,7 @@ void System::addUndefinedChain( const TChain& chain, const VariableValue & value
 		{
 			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN() - 1][elem.getElemN()];
 			variable.setDefined( false );
-			variable.setElement( elem );
+			variable.setElement( elem, gear );
 			unknown.addListener( &variable );
 		}
 	}
@@ -43,25 +43,25 @@ System::System() : m_addedSetCount( 0 )
 {
 }
 
-void System::addGearChains( const std::vector<TChain>& chains, const TElement& brake, double i )
+void pss::System::addGearChains( const std::vector<TChain>& chains, const std::vector<TLink>& drivingElements, const int gear, const double i )
 {
 	for ( auto& chain : chains )
 	{
 		if ( chain.find( TElement::INPUT ) )
 		{
-			addDefinedChain( chain, 1.0f );
+			addDefinedChain( chain, 1.0f, gear );
 		}
-		else if ( chain.find( brake ) )
+		else if ( chain.find( drivingElements[0].getElem1() ) )
 		{
-			addDefinedChain( chain, 0.0f );
+			addDefinedChain( chain, 0.0f, gear );
 		}
 		else if ( chain.find( TElement::OUTPUT ) )
 		{
-			addDefinedChain( chain, 1/i );
+			addDefinedChain( chain, 1 / i, gear );
 		}
 		else
 		{
-			addUndefinedChain( chain, 1.0f );
+			addUndefinedChain( chain, 1.0f, gear );
 		}
 	}
 	m_addedSetCount++;
@@ -103,7 +103,7 @@ void System::init( const TK& initialKValues )
 		{
 			unknown.addListener( &( m_sets[setNumber].at( i )[eMainElement::EMPTY] ) );
 			m_sets[setNumber].at( i )[eMainElement::EMPTY].setDefined( false );
-			m_sets[setNumber].at( i )[eMainElement::EMPTY].setElement( TElement( eMainElement::EMPTY, setNumber + 1 ) );
+			m_sets[setNumber].at( i )[eMainElement::EMPTY].setElement( TElement( eMainElement::EMPTY, setNumber + 1 ), i + 1 );
 		}
 		
 	}

@@ -18,10 +18,14 @@ private:
 
 	Jacobi										createJacobian( const System & system );
 	Matrix										createMatrix( const Jacobi& jacobian, const System & system );
+	MatrixLine									createRightParts( const System & system );
+
+	TK											getKValuesFromSystem( const System & system );
+	double										calcNorm( const MatrixLine& delta );
 
 public:
 
-	TK											findK( const TCode& Code,  const TK& initialKValues );
+	TK											findK( const TCode& Code, const TK& initialKValues, const TI& iTarget );
 
 };
 

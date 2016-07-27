@@ -13,6 +13,11 @@ VariableValue Variable::getValue() const
 	return m_value;
 }
 
+int pss::Variable::getGear() const
+{
+	return m_gear;
+}
+
 bool Variable::getDefined() const
 {
 	return m_isDefined;
@@ -28,9 +33,10 @@ void Variable::onChangeUnknownVariableValue( const VariableValue & newValue )
 	setValue( newValue );
 }
 
-void Variable::setElement( const TElement & element )
+void Variable::setElement( const TElement & element, const int gear )
 {
 	m_element = element;
+	m_gear = gear;
 }
 
 TElement Variable::getElement() const

@@ -24,5 +24,6 @@ namespace pss
 		void									writeToFile(std::ofstream& file) const override;
 		void									loadFromFile(std::ifstream&) override;
 		void									setValues( const std::vector<double>& values );
+		bool									check() const;
 	};
 }

@@ -3,7 +3,7 @@
 
 namespace pss
 {
-	class TReplace
+	class TCombinations
 	{
 	private:
 		std::vector<int>						m_container;

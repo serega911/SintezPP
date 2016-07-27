@@ -21,8 +21,8 @@ private:
 	std::vector<UnknownVariable>				m_unknowns;
 	size_t										m_addedSetCount;
 
-	void										addDefinedChain( const TChain& chain, const VariableValue & value );
-	void										addUndefinedChain( const TChain& chain, const VariableValue & value );
+	void										addDefinedChain( const TChain& chain, const VariableValue & value, const int gear );
+	void										addUndefinedChain( const TChain& chain, const VariableValue & value, const int gear );
 
 	
 
@@ -31,7 +31,7 @@ public:
 	System();
 
 	void										init( const TK& initialKValues );
-	void										addGearChains( const std::vector<TChain>& chains, const TElement& brake, double i );
+	void										addGearChains( const std::vector<TChain>& chains, const std::vector<TLink>& drivingElements, const int gear, const double i );
 
 	VariablesSet &								getVariablesSet( const int & gearN, const int & gearSetN );
 	const VariablesSet &						getVariablesSet( const int & gearN, const int & gearSetN ) const;

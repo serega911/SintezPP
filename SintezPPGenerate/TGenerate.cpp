@@ -1,37 +1,41 @@
 #include "TGenerate.h"
 #include "../Libraries/func_lib.h"
 #include "../Libraries/TSingletons.h"
-#include "../Libraries/TReplace.h"
+#include "../Libraries/TCombinations.h"
+#include "../Libraries/TLog.h"
 #include <iostream>
 
 
 void pss::TGenerate::generate()
 {
 	setlocale(LC_ALL, "Russian");
-	std::cout << "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n";
+	TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n" );
 	//	Исходные данные
 	int W = 0;
 	int N = 0;
-	std::cout << "\t\t\tИсходные данные." << std::endl << "Число степеней свободы:	";
+	TLog::log( "\t\t\tИсходные данные." );
+	TLog::log( "Число степеней свободы:	", false );
 	std::cin >> W;
-	std::cout << "Количество ПМ:		";
+	TLog::log( "Количество ПМ:		", false );
 	std::cin >> N;
 	pss::TSingletons::getInstance()->setGlobalParameters(W, N);
-	std::cout << "Количество связей:	"		<< pss::TSingletons::getInstance()->getNumberOfLinks() << std::endl;
-	std::cout << "Количество фрикционов:	"	<< pss::TSingletons::getInstance()->getNumberOfFrictions() << std::endl;
-	std::cout << "Количество тормозов:	"		<< pss::TSingletons::getInstance()->getNumberOfBrakes() << std::endl;
+
+	auto generalData = pss::TSingletons::getInstance()->getGeneralData();
+	TLog::log( "Количество связей:	" + std::to_string( generalData._numberOfLinks ) );
+	TLog::log( "Количество фрикционов:	" + std::to_string( generalData._numberOfFrictions ) );
+	TLog::log( "Количество тормозов:	" + std::to_string( generalData._numberOfBrakes ) );
 
 	//	Заполняем вектор всех возможных связей, пропускаем связи между элементами одного ряда и реверсивные связи.
 	m_allLinks.clear();
 	for (int i = 1; i < N; i++)
 	{
-		for (auto mElem1 = 1; mElem1 <=3; mElem1++)
+		for ( const auto& mElem1 : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 		{
 			for (int j = i + 1; j <= N; j++)
 			{
-				for (auto mElem2 = 1; mElem2<=3; mElem2++)
+				for ( const auto& mElem2 : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 				{
-					m_allLinks.push_back( pss::TLink( pss::TElement( pss::eMainElement::_from_integral( mElem1 ), i ), pss::TElement( pss::eMainElement::_from_integral( mElem2 ), j ) ) );
+					m_allLinks.push_back( pss::TLink( pss::TElement( mElem1, i ), pss::TElement( mElem2, j ) ) );
 				}
 			}
 		}
@@ -43,17 +47,17 @@ void pss::TGenerate::generate()
 void pss::TGenerate::generateInOut()
 {
 	pss::TCode code;
-	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	auto N = pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	for (int i = 1; i <= N; i++)
 	{
-		for (int inElem = 1; inElem <= 3; inElem++) // RK: to strange for that i ever seen
+		for ( const auto& inElem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 		{
 			for (int j = 1; j <= N; j++)
 			{
-				for (auto outElem = 1; outElem<=3; outElem++)
+				for ( const auto& outElem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 				{
-					pss::TElement elemIn( pss::eMainElement::_from_integral( inElem ), i );
-					pss::TElement elemOut( pss::eMainElement::_from_integral( outElem ), j );
+					pss::TElement elemIn( inElem, i );
+					pss::TElement elemOut(  outElem, j );
 					if (elemIn != elemOut)
 					{
 						code.setIn(elemIn);
@@ -68,8 +72,8 @@ void pss::TGenerate::generateInOut()
 
 void pss::TGenerate::generateLinks(pss::TCode & code)
 {
-	pss::TReplace linksCombi;		//	Вектор сочетаний связей
-	linksCombi.init(pss::TSingletons::getInstance()->getNumberOfLinks());
+	pss::TCombinations linksCombi;		//	Вектор сочетаний связей
+	linksCombi.init( pss::TSingletons::getInstance()->getGeneralData()._numberOfLinks );
 	do{
 		//	Заполняем вектор связей с учетом сгенерированного сочетания
 		std::vector<pss::TLink> links;			//	Вектор связей
@@ -99,16 +103,19 @@ void pss::TGenerate::generateFrictions(pss::TCode & code)
 {
 	//	Определяем элементы, на которых будет установлен фрикцион
 	std::vector<pss::TElement> vect_all_FB = code.getElementsForFrictions();
-	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions() + 2)
+
+	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
+
+	if ( vect_all_FB.size() == generalData._numberOfBrakes + generalData._numberOfFrictions + 2 )
 	{
 		std::vector<pss::TLink> vect_all_frict;		//	Вектор всех возможных фрикционов
-		pss::TReplace vect_combi_frict;				//	Вектор сочетаний фрикционов
+		pss::TCombinations vect_combi_frict;				//	Вектор сочетаний фрикционов
 		std::vector<pss::TLink> vect_frict;			//	Вектор фрикционов
 		for (int i = 0; i < vect_all_FB.size(); i++)
 			for (int j = i + 1; j < vect_all_FB.size(); j++)
 				vect_all_frict.push_back(pss::TLink(vect_all_FB[i], vect_all_FB[j]));
 		//	Создаем первое сочетание фрикционов из связей по Count_F (количество фрикционов) без повторений: 0,1...
-		vect_combi_frict.init(pss::TSingletons::getInstance()->getNumberOfFrictions());
+		vect_combi_frict.init( generalData._numberOfFrictions );
 		//	В цикле генерируем все возможные сочетания фрикционов
 		do{
 			//	Заполняем вектор фрикционов с учетом сгенерированного сочетания
@@ -128,9 +135,9 @@ void pss::TGenerate::generateFrictions(pss::TCode & code)
 void pss::TGenerate::generateBrakes(pss::TCode & code)
 {
 	std::vector<pss::TElement> vect_all_FB = code.getElementsForBrakes();
-	pss::TReplace vect_combi_brakes;		//	Вектор сочетаний тормозов
+	pss::TCombinations vect_combi_brakes;		//	Вектор сочетаний тормозов
 	//	Создаем первое сочетание тормозов из всех возможных по Count_B
-	vect_combi_brakes.init(pss::TSingletons::getInstance()->getNumberOfBrakes());
+	vect_combi_brakes.init( pss::TSingletons::getInstance()->getGeneralData()._numberOfBrakes );
 	do{
 		std::vector<pss::TLink> vect_brakes;	//	Вектор тормозов
 		//	Заполняем вектор тормозов с учетом сгенерированного сочетания

@@ -1,6 +1,7 @@
 #include "../Libraries/TK.h"
 #include "../Libraries/func_lib.h"
 #include "../Libraries/TSingletons.h"
+#include "../Libraries/TLog.h"
 #include <iostream>
 #include <algorithm>
 
@@ -65,8 +66,8 @@ const double pss::TK::operator[](int i) const
 void pss::TK::print() const
 {
 	for (auto &it : m_K)
-		std::cout << it << ' ';
-	std::cout << std::endl;
+		TLog::log( std::to_string( it ) + " ", false );
+	TLog::log( "", false );
 }
 
 int pss::TK::size() const
@@ -97,5 +98,30 @@ void pss::TK::loadFromFile(std::ifstream&)
 void pss::TK::setValues( const std::vector<double>& values )
 {
 	m_K = values;
+}
+
+bool pss::TK::check() const
+{
+	const auto& initialData = TSingletons::getInstance()->getInitialData();
+
+	for ( auto i = 0; i < m_K.size(); i++ )
+	{
+		bool flag = false;
+		for ( auto j = 0; j < initialData._ranges.size(); j++ )
+		{
+			if ( initialData._ranges[j].isInRange( m_K[i] ) )
+			{
+				flag = true;
+				break;
+			}
+		}
+
+		if ( !flag )
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 

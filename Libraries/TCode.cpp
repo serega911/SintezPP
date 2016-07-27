@@ -1,6 +1,7 @@
 #include "../Libraries/TCode.h"
 #include "func_lib.h"
 #include "../Libraries/TSingletons.h"
+#include "../Libraries/TLog.h"
 #include <iostream>
 #include <algorithm>
 
@@ -63,22 +64,23 @@ void TCode::setBrakes(const std::vector<TLink>& brakes)
 
 void TCode::print() const
 {
-	std::cout << std::endl << std::endl;
+	TLog::log( "\n" );
 	pss::SetColor(15, 2);
-	std::cout << "==================================================\n";
+	TLog::log( "==================================================" );
 	pss::SetColor(15, 0);
-	std::cout << "Длина вектора кода:			" << m_code.size() << std::endl;
-	std::cout << "--------------------------------------------------\n";
+	TLog::log( "Длина вектора кода:			" + std::to_string( m_code.size() ) );
+	TLog::log( "--------------------------------------------------" );
 
 	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
 
 	for (int i = 0; i < m_code.size(); i++)
 	{
 		if ( i == 1 || i == 2 || i == 2 + generalData._numberOfLinks || i == 2 + generalData._numberOfLinks + generalData._numberOfFrictions )
-			std::cout << "| "; 
-		std::cout << m_code[i] << ' ';
+			TLog::log( "|", false );
+		m_code[i].print();
+		TLog::log( " ", false );
 	}
-	std::cout << "\n--------------------------------------------------\n";
+	TLog::log( "\n--------------------------------------------------" );
 }
 
 void TCode::clear()
@@ -99,8 +101,8 @@ int TCode::size() const
 
 void TCode::writeToFile(std::ofstream& file) const
 {
-	for (int i = 0; i < m_code.size(); i++)
-		file << m_code[i] << ' ';
+	for ( int i = 0; i < m_code.size(); i++ )
+		m_code[i].writeTofile( file );
 }
 
 void TCode::loadFromFile(std::ifstream& file)
@@ -109,16 +111,13 @@ void TCode::loadFromFile(std::ifstream& file)
 
 	auto codeSize = 2 + generalData._numberOfLinks + generalData._numberOfFrictions + generalData._numberOfBrakes;
 	m_code.resize(codeSize);
+
 	for (auto& it : m_code)
 	{
-		int num;
-		file >> num;
-		int elem1 = num / 100;
-		int elem2 = num % 100;
-		it.set(pss::TElement(pss::eMainElement::_from_integral(elem1 / 10), elem1 % 10), pss::TElement(pss::eMainElement::_from_integral(elem2 / 10), elem2 % 10));
+
+		it.loadFromFile( file );
 	}
-	char c[2];
-	file.read(c, 2);
+
 	m_links = generalData._numberOfLinks;
 	m_frictions = generalData._numberOfFrictions;
 	m_brakes = generalData._numberOfBrakes;
@@ -174,9 +173,8 @@ void pss::TCode::createChains()
 	auto out = m_code[1].getElem1();
 	for (size_t i = 1; i <= N; i++)
 	{
-		for ( auto e = 1; e <= 3; e++ )
+		for ( const auto& elem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 		{
-			pss::eMainElement elem = pss::eMainElement::_from_integral( e );
 			size_t b = 0;
 			for (size_t j = 0; j < size; j++){
 				if (pss::TElement(elem, i) == m_code[j].getElem1() || pss::TElement(elem, i) == m_code[j].getElem2())
@@ -220,13 +218,11 @@ bool pss::TCode::check() const
 		//проверка связи вход-выход
 		if (m_chains[i].find(TElement::INPUT) && m_chains[i].find(TElement::OUTPUT))
 		{
-			//std::cout << "Есть связь входа с выходом:\n";
 			return false;
 		}
 		//проверка связей между элементами одного ряда
 		if (!m_chains[i].checkElemByOnePlanetarySet())
 		{
-			//std::cout << "Есть связь между элементами одного ряда:\n";
 			return false;
 		}
 	}

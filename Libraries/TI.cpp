@@ -1,5 +1,6 @@
 #include "../Libraries/TI.h"
 #include "../Libraries/TSingletons.h"
+#include "../Libraries/TLog.h"
 #include <iostream>
 
 double pss::TI::m_eps = 0.05;
@@ -37,10 +38,10 @@ void pss::TI::push_back(double value)
 
 void pss::TI::print()
 {
-	std::cout << "eps = " << m_eps << std::endl;
+	TLog::log( "eps = " + std::to_string( m_eps ) );
 	for (auto& it: m_i)
-		std::cout << it << ' ';
-	std::cout << std::endl;
+		TLog::log( std::to_string( it ) + " ", false );
+	TLog::log( "" );
 }
 
 bool pss::TI::findIn( double value ) const

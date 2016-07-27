@@ -1,4 +1,5 @@
 #include "TSingletons.h"
+#include "TLog.h"
 #include <iostream>
 
 
@@ -22,12 +23,8 @@ void pss::TSingletons::calculateNumbersOfElements()
 			break;
 		case 3:
 		{
-			if ( m_initialData._numberOfPlanetaryGears == 1 )
-				  {
-					  std::cout << "Ошибка: Один планетарный ряд при трех степенях свободы!\n";
-					  system( "pause" );
-					  return;
-				  }
+			TLog::warning( m_initialData._numberOfPlanetaryGears == 1, "Ошибка: Один планетарный ряд при трех степенях свободы!", TLog::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
+
 			m_generalData._numberOfBrakes = m_initialData._numberOfPlanetaryGears - 1;
 			m_generalData._numberOfFrictions = 2;
 			m_generalData._numberOfLinks = 2 * m_initialData._numberOfPlanetaryGears - m_initialData._w;
@@ -41,9 +38,7 @@ void pss::TSingletons::calculateNumbersOfElements()
 			break;
 		default:
 		{
-				   std::cout << "Ошибка: Некорректное количество степеней свободы!\n";
-				   system( "pause" );
-				   return;
+			TLog::warning( true, "Ошибка: Некорректное количество степеней свободы!", TLog::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
 		}
 			break;
 			

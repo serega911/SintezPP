@@ -5,15 +5,9 @@
     <ClCompile Include="TGenerate.cpp">
       <Filter>Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TMainElement.cpp">
-      <Filter>Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TGenerate.h">
-      <Filter>Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TMainElement.h">
       <Filter>Files</Filter>
     </ClInclude>
   </ItemGroup>

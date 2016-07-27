@@ -68,7 +68,6 @@ void pss::TGaus::createSystemDrivers(const std::vector<pss::TLink>& drivers)
 		{
 			m_system[N + L + 1 + i][j] = 0;
 		}
-		//std::cout << "driver: " << driver << std::endl;
 		if (driver.getElem2() == pss::TElement::BRAKE)	//driver - тормоз
 		{
 			m_system[N + L + 1 + i][driver.getElem1().getSerialNumber()] = 1;

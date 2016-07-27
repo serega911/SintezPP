@@ -1,7 +1,7 @@
 #include "../Libraries/TGearChanger.h"
 #include "../Libraries/TSingletons.h"
 
-std::vector<pss::TLink> pss::TGearChanger::createVector(const pss::TReplace & replacer) const
+std::vector<pss::TLink> pss::TGearChanger::createVector(const pss::TCombinations & replacer) const
 {
 	std::vector<pss::TLink> ret;
 
@@ -26,7 +26,7 @@ std::vector<pss::TLink> pss::TGearChanger::getDrivingElementsForGear() const
 
 std::vector<pss::TLink> pss::TGearChanger::getDrivingElementsForGear(int gear) const
 {
-	pss::TReplace replacer;
+	pss::TCombinations replacer;
 	
 	replacer.init(m_replacer.size());
 	

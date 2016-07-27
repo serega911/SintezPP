@@ -1,5 +1,6 @@
 #include "Jacobi.h"
 #include "Equations.h"
+#include "../Libraries/TLog.h"
 #include <iostream>
 
 NS_PSS_USING
@@ -25,8 +26,7 @@ void Jacobi::setSize( size_t size )
 
 void Jacobi::setEquation( size_t i, size_t j, const Equation & eq )
 {
-	if ( i >= m_size && j >= m_size )
-		std::cout << "i,j out of range. Determinant.cpp\n";
+	TLog::warning( i >= m_size && j >= m_size, "i,j out of range.", TLog::CRITICAL, "Determinant.cpp" );
 	m_determinant.at( i ).at( j ) = eq;
 }
 

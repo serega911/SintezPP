@@ -6,29 +6,16 @@ const pss::TElement pss::TElement::OUTPUT = TElement(pss::eMainElement::OUTPUT, 
 const pss::TElement pss::TElement::BRAKE = TElement(pss::eMainElement::BRAKE, 0);
 const pss::TElement pss::TElement::EMPTY = TElement(pss::eMainElement::EMPTY, 0);
 
-pss::TElement::TElement(const pss::eMainElement & elemN, int gearSetN) 
+pss::TElement::TElement( const pss::eMainElement & elemN, int gearSetN )
+	: m_elemN( elemN )
+	, m_gearSetN( gearSetN )
 {
-	set(elemN, gearSetN);
 }
 
 pss::TElement::TElement()
+	: TElement( eMainElement::EMPTY, 0 )
 {
-}
 
-void pss::TElement::setElemN(const eMainElement & elemN)
-{
-	m_elemN = elemN;
-}
-
-void pss::TElement::setGearSetN(int gearSetN)
-{
-	m_gearSetN = gearSetN;
-}
-
-void pss::TElement::set(const eMainElement & elemN, int gearSetN)
-{
-	setElemN(elemN);
-	setGearSetN(gearSetN);
 }
 
 pss::eMainElement pss::TElement::getElemN() const
@@ -43,20 +30,18 @@ int pss::TElement::getGearSetN() const
 
 int pss::TElement::getSerialNumber() const
 {
-	return (m_gearSetN - 1) * 3 + m_elemN._to_integral() - 1;
+	return (m_gearSetN - 1) * 3 + static_cast<int>(m_elemN) - 1;
 }
 
 bool pss::operator<(const TElement& elem1, const TElement& elem2)
 {
 	return elem1.getGearSetN() < elem2.getGearSetN() ? true :
 		elem1.getGearSetN() == elem2.getGearSetN() ? elem1.getElemN() < elem2.getElemN() : false;
-	//return elem1.getSerialNumber() < elem2.getSerialNumber();
 }
 
 bool pss::operator==(const TElement& elem1, const TElement& elem2)
 {
 	return elem1.getGearSetN() == elem2.getGearSetN() && elem1.getElemN() == elem2.getElemN();
-	//return elem1.getSerialNumber() == elem2.getSerialNumber();
 }
 
 bool pss::operator!=(const TElement& elem1, const TElement& elem2)
@@ -64,8 +49,27 @@ bool pss::operator!=(const TElement& elem1, const TElement& elem2)
 	return !(elem1 == elem2);
 }
 
-std::ostream& pss::operator<<(std::ostream& out, const TElement & elem)
+void pss::TElement::print() const
 {
-	out << elem.m_elemN << elem.m_gearSetN;
-	return out;
+	TLog::log( std::to_string( convernToSymbol( m_elemN ) ) );
+	TLog::log( std::to_string( m_gearSetN ) );
 }
+
+void pss::TElement::writeTofile( std::ostream& file ) const
+{
+	file << convernToSymbol( m_elemN ) << m_gearSetN;
+}
+
+bool pss::TElement::loadFromFile( std::istream& file )
+{
+	char elem, gear;
+	file >> elem >> gear;
+	if ( !file.eof() )
+	{
+		m_gearSetN = gear - 48;
+		m_elemN = convernToMainElement( elem );
+		//TLog::warning( true, "dont forget for me", TLog::NON_CRITICAL, "TElement::loadFromFile" );
+	}
+	return !file.eof();
+}
+

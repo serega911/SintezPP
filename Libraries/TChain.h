@@ -8,7 +8,9 @@ namespace pss
 	class TChain
 	{
 	private:
+
 		std::set<TElement>						m_elements;
+
 	public:
 
 		void									addLinkToChain(const TLink & link);

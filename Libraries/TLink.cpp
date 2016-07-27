@@ -1,4 +1,5 @@
 #include "../Libraries/TLink.h"
+#include "../Libraries/TLog.h"
 
 pss::TLink::TLink(const pss::TElement& elem1, const pss::TElement& elem2)
 {
@@ -26,11 +27,23 @@ const pss::TElement& pss::TLink::getElem2() const
 		return m_elem2; 
 }
 
-std::ostream& pss::operator<<(std::ostream& out, const TLink & link)
+void pss::TLink::writeTofile( std::ostream& file ) const
 {
-	
-	out << link.m_elem1 << link.m_elem2;
-	
-	return out;
+	m_elem1.writeTofile( file );
+	m_elem2.writeTofile( file );
+	file << ' ';
 }
+
+void pss::TLink::loadFromFile( std::istream& file )
+{
+	m_elem1.loadFromFile( file );
+	m_elem2.loadFromFile( file );
+}
+
+void pss::TLink::print() const
+{
+	m_elem1.print();
+	m_elem2.print();
+}
+
 
