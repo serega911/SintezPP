@@ -21,6 +21,10 @@ NS_ARI_START
 
 		void									checkAllInitialKValues( const NS_CORE TGearBox& gearBox, NS_CORE TK& ret );
 		void									checkAllRatiosPermutations( const NS_CORE TGearBox& gearBox, const NS_CORE TK& initial, NS_CORE TK& ret );
+
+		//======================================
+		NS_CORE TK								findK( const NS_CORE TCode& Code, NS_CORE TK K );
+		bool									podModul( const NS_CORE TCode & code, const NS_CORE TK &k );
 	};
 
 NS_ARI_END

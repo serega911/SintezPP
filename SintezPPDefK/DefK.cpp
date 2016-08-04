@@ -124,3 +124,68 @@ void DefK::checkAllRatiosPermutations( const NS_CORE TGearBox& gearBox, const NS
 	} while ( !ret.getFinded() && std::next_permutation( replace.begin(), replace.end() ) );
 }
 
+//==================================================================================================================================================================
+//==================================================================================================================================================================
+//==================================================================================================================================================================
+NS_CORE TK DefK::findK( const NS_CORE TCode& Code, NS_CORE TK K )
+{
+	do{
+		//K.print();
+		if ( podModul( Code, K ) )
+		{
+			K.setFinded();
+			break;
+		}
+		//system("pause");
+	} while ( K.next() );
+	return K;
+}
+
+void DefK::run()
+{
+	NS_CORE TCode code;
+	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
+	{
+		NS_CORE TK ans( findK( code, K ) );
+		if ( ans.getFinded() )
+		{
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans );
+		}
+	}
+}
+
+bool DefK::podModul( const NS_CORE TCode & code, const NS_CORE TK &k )
+{
+	NS_CORE TGearChanger gearChanger( code );
+	NS_CORE TI tmpI( {}, 0.01 );	//вектор для полученных передаточных отношений при данном наборе K
+	do
+	{
+		NS_CORE TGaus gaus;
+		gaus.createSystem( code, k );
+		gaus.createSystemDrivers( gearChanger.getDrivingElementsForGear() );
+		gaus.solve();
+		if ( gaus.getSolution().size() == 0 )
+		{
+			return false;
+		}
+		float calculatedI = gaus.getSolution()[code[1].getElem1().getSerialNumber()];
+		if ( abs( calculatedI ) > 0.001 && m_iTarget.findIn( 1.0 / calculatedI ) )
+		{
+			tmpI.push_back( 1.0 / calculatedI );
+		}
+		else
+		{
+			return false;
+		}
+
+	} while ( gearChanger.next() );
+	//сравниваем полученные передаточные отношения с искомыми
+	if ( m_iTarget == tmpI )
+	{
+		m_iReal = tmpI;
+		return true;
+	}
+	else
+		return false;
+}
