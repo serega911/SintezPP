@@ -14,9 +14,10 @@
     <ClCompile Include="..\Libraries\func_lib.cpp" />
     <ClCompile Include="..\Libraries\TChain.cpp" />
     <ClCompile Include="..\Libraries\TCode.cpp" />
-    <ClCompile Include="..\Libraries\TCodeContainer.cpp" />
+    <ClCompile Include="..\Libraries\TChainsContainer.cpp" />
     <ClCompile Include="..\Libraries\TElement.cpp" />
     <ClCompile Include="..\Libraries\TGaus.cpp" />
+    <ClCompile Include="..\Libraries\TGearBox.cpp" />
     <ClCompile Include="..\Libraries\TGearChanger.cpp" />
     <ClCompile Include="..\Libraries\TI.cpp" />
     <ClCompile Include="..\Libraries\TIOFileManager.cpp" />
@@ -31,12 +32,14 @@
     <ClInclude Include="..\Libraries\eMainElement.h" />
     <ClInclude Include="..\Libraries\func_lib.h" />
     <ClInclude Include="..\Libraries\GlobalDefines.h" />
+    <ClInclude Include="..\Libraries\GlobalTypes.h" />
     <ClInclude Include="..\Libraries\IContainer.h" />
     <ClInclude Include="..\Libraries\TChain.h" />
     <ClInclude Include="..\Libraries\TCode.h" />
-    <ClInclude Include="..\Libraries\TCodeContainer.h" />
+    <ClInclude Include="..\Libraries\TChainsContainer.h" />
     <ClInclude Include="..\Libraries\TElement.h" />
     <ClInclude Include="..\Libraries\TGaus.h" />
+    <ClInclude Include="..\Libraries\TGearBox.h" />
     <ClInclude Include="..\Libraries\TGearChanger.h" />
     <ClInclude Include="..\Libraries\TI.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />

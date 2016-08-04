@@ -2,7 +2,9 @@
 #include "../Libraries/TSingletons.h"
 #include "../Libraries/func_lib.h"
 
-void pss::TGaus::solve()
+NS_CORE_USING
+
+void TGaus::solve()
 {
 	m_solution.clear();
 	int n = m_system.size();
@@ -27,48 +29,48 @@ void pss::TGaus::solve()
 		m_solution.push_back(m_system[i][n]);
 }
 
-void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k)
+void TGaus::createSystem(const TCode & Code, const TK &k)
 {
-	auto N = pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
-	auto L = pss::TSingletons::getInstance()->getGeneralData()._numberOfLinks;
-
-	m_system.resize(3 * N);
-	for (auto& it : m_system)
-		it.resize(3 * N + 1);
-	//в первые N строк записываем уравнения Виллиса. 
-	//Эти строки никогда не очищаем так как все значения всегда пишутся на одни и те же позиции
-	for (int i = 0; i < k.size(); i++){
-		m_system[i][3 * i] = 1;
-		m_system[i][3 * i + 1] = -k[i];
-		m_system[i][3 * i + 2] = k[i] - 1;
-	}
-	//system("pause");
-	//очищаем уравнения
-	for (int i = N; i < N + L + 1; i++)
-		for (int j = 0; j < 3 * N + 1; j++)
-			m_system[i][j] = 0;
-	//в следующие countSV строк записываем связи
-	for (int i = N, j = 2; i < N + L; i++, j++){
-		m_system[i][Code[j].getElem1().getSerialNumber()] = 1;
-		m_system[i][Code[j].getElem2().getSerialNumber()] = -1;
-	}
-	//уравнение для звена, связанного с ведущим валом
-	m_system[N + L][Code[0].getElem1().getSerialNumber()] = 1;
-	m_system[N + L][N * 3] = 1;
+// 	auto N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+// 	auto L = TSingletons::getInstance()->getGeneralData()._numberOfLinks;
+// 
+// 	m_system.resize(3 * N);
+// 	for (auto& it : m_system)
+// 		it.resize(3 * N + 1);
+// 	//в первые N строк записываем уравнения Виллиса. 
+// 	//Эти строки никогда не очищаем так как все значения всегда пишутся на одни и те же позиции
+// 	for (int i = 0; i < k.size(); i++){
+// 		m_system[i][3 * i] = 1;
+// 		m_system[i][3 * i + 1] = -k[i];
+// 		m_system[i][3 * i + 2] = k[i] - 1;
+// 	}
+// 	//system("pause");
+// 	//очищаем уравнения
+// 	for (int i = N; i < N + L + 1; i++)
+// 		for (int j = 0; j < 3 * N + 1; j++)
+// 			m_system[i][j] = 0;
+// 	//в следующие countSV строк записываем связи
+// 	for (int i = N, j = 2; i < N + L; i++, j++){
+// 		m_system[i][Code[j].getElem1().getSerialNumber()] = 1;
+// 		m_system[i][Code[j].getElem2().getSerialNumber()] = -1;
+// 	}
+// 	//уравнение для звена, связанного с ведущим валом
+// 	m_system[N + L][Code[0].getElem1().getSerialNumber()] = 1;
+// 	m_system[N + L][N * 3] = 1;
 }
 
-void pss::TGaus::createSystemDrivers(const std::vector<pss::TLink>& drivers)
+void TGaus::createSystemDrivers(const std::vector<TLink>& drivers)
 {
-	auto N = pss::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
-	auto L = pss::TSingletons::getInstance()->getGeneralData()._numberOfLinks;
+	auto N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	auto L = TSingletons::getInstance()->getGeneralData()._numberOfLinks;
 	for (int i = 0; i < drivers.size(); i++)
 	{
-		pss::TLink driver = drivers[i];
+		TLink driver = drivers[i];
 		for (int j = 0; j < 3 * N + 1; j++)
 		{
 			m_system[N + L + 1 + i][j] = 0;
 		}
-		if (driver.getElem2() == pss::TElement::BRAKE)	//driver - тормоз
+		if (driver.getElem2() == TElement::BRAKE)	//driver - тормоз
 		{
 			m_system[N + L + 1 + i][driver.getElem1().getSerialNumber()] = 1;
 		}
@@ -80,12 +82,12 @@ void pss::TGaus::createSystemDrivers(const std::vector<pss::TLink>& drivers)
 	}
 }
 
-std::vector<std::vector<float>> pss::TGaus::getSystem()
+std::vector<std::vector<float>> TGaus::getSystem() const
 {
 	return m_system;
 }
 
-const std::vector<float>& pss::TGaus::getSolution()
+const std::vector<float>& TGaus::getSolution() const
 {
 	return m_solution;
 }

@@ -5,7 +5,7 @@
 #include "Matrix.h"
 
 
-NS_PSS_START
+NS_ARI_START
 
 class MatrixOperations
 {
@@ -26,4 +26,4 @@ public:
 };
 
 
-NS_PSS_END
+NS_ARI_END

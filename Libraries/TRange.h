@@ -1,23 +1,26 @@
 #pragma once
 
-namespace pss
+#include "GlobalDefines.h"
+
+NS_CORE_START
+
+class TRange
 {
-	class TRange
-	{
-	private:
+private:
 
-		float									m_begin;
-		float									m_end;
+	float									m_begin;
+	float									m_end;
 
-	public:
+public:
 
-		TRange() = delete;
-		TRange( const float beg, const float end );
+	TRange() = delete;
+	TRange( const float beg, const float end );
 
-		float									getBegin() const;
-		float									getEnd() const;
-		float									getMid() const;
-		bool									isInRange( const float value ) const;
+	float									getBegin() const;
+	float									getEnd() const;
+	float									getMid() const;
+	bool									isInRange( const float value ) const;
 
-	};
-}
+};
+
+NS_CORE_END

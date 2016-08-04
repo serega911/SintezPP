@@ -3,7 +3,7 @@
 #include "../Libraries/TLog.h"
 #include <iostream>
 
-NS_PSS_USING
+NS_ARI_USING
 
 Jacobi::Jacobi() : m_size( 0 )
 {
@@ -26,11 +26,11 @@ void Jacobi::setSize( size_t size )
 
 void Jacobi::setEquation( size_t i, size_t j, const Equation & eq )
 {
-	TLog::warning( i >= m_size && j >= m_size, "i,j out of range.", TLog::CRITICAL, "Determinant.cpp" );
+	NS_CORE TLog::warning( i >= m_size && j >= m_size, "i,j out of range.", NS_CORE TLog::CRITICAL, "Determinant.cpp" );
 	m_determinant.at( i ).at( j ) = eq;
 }
 
-size_t pss::Jacobi::size() const
+size_t Jacobi::size() const
 {
 	return m_size;
 }

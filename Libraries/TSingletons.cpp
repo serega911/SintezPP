@@ -1,13 +1,15 @@
-#include "TSingletons.h"
-#include "TLog.h"
 #include <iostream>
 
+#include "TSingletons.h"
+#include "TLog.h"
 
-pss::TSingletons::TSingletons()
+NS_CORE_USING
+
+TSingletons::TSingletons()
 {
 }
 
-void pss::TSingletons::calculateNumbersOfElements()
+void TSingletons::calculateNumbersOfElements()
 {
 	if ( m_initialData._w != 0 && m_initialData._numberOfPlanetaryGears != 0 )
 	{
@@ -47,32 +49,32 @@ void pss::TSingletons::calculateNumbersOfElements()
 	}
 }
 
-pss::TSingletons* pss::TSingletons::getInstance()
+TSingletons* TSingletons::getInstance()
 {
-	static pss::TSingletons Singletons;
+	static TSingletons Singletons;
 	return &Singletons;
 }
 
-pss::TSingletons::~TSingletons()
+TSingletons::~TSingletons()
 {
 }
 
-pss::TIOFileManager* pss::TSingletons::getIOFileManager()
+TIOFileManager* TSingletons::getIOFileManager()
 {
-	return pss::TIOFileManager::getInstance();
+	return TIOFileManager::getInstance();
 }
 
-const pss::GeneralData& pss::TSingletons::getGeneralData() const
+const GeneralData& TSingletons::getGeneralData() const
 {
 	return m_generalData;
 }
 
-const pss::InitialData& pss::TSingletons::getInitialData() const
+const InitialData& TSingletons::getInitialData() const
 {
 	return m_initialData;
 }
 
-void pss::TSingletons::setGlobalParameters( int w, int n )
+void TSingletons::setGlobalParameters( int w, int n )
 {
 	m_initialData._w = w;
 	m_initialData._numberOfPlanetaryGears = n;
@@ -80,12 +82,12 @@ void pss::TSingletons::setGlobalParameters( int w, int n )
 	getIOFileManager()->writeSolutionData();
 }
 
-void pss::TSingletons::addRangeK( const TRange& range )
+void TSingletons::addRangeK( const TRange& range )
 {
 	m_initialData._ranges.push_back( range );
 }
 
-void pss::TSingletons::addGearRatio( const float& i )
+void TSingletons::addGearRatio( const float& i )
 {
 	m_initialData._i.push_back( i );
 }

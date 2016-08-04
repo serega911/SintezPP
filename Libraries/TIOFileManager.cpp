@@ -1,16 +1,19 @@
-#include "../Libraries/TIOFileManager.h"
-#include "../Libraries/TSingletons.h"
 #include <direct.h>
 #include <windows.h>
 
-const std::string								pss::TIOFileManager::s_globalFolder = "..\\Results";
+#include "TIOFileManager.h"
+#include "TSingletons.h"
 
-std::string pss::TIOFileManager::getFolder()
+NS_CORE_USING
+
+const std::string								TIOFileManager::s_globalFolder = "..\\Results";
+
+std::string TIOFileManager::getFolder()
 {
 	return s_globalFolder;
 }
 
-void pss::TIOFileManager::writeToFile(eOutputFileType type, const IContainer & container)
+void TIOFileManager::writeToFile(eOutputFileType type, const IContainer & container)
 {
 	auto file = m_oFiles.find(type);
 	if (file != m_oFiles.end())
@@ -29,39 +32,25 @@ void pss::TIOFileManager::writeToFile(eOutputFileType type, const IContainer & c
 }
 
 
-bool pss::TIOFileManager::loadFromFile(eOutputFileType type, IContainer & container)
+bool TIOFileManager::loadFromFile(eOutputFileType type, IContainer & container)
 {
 	auto file = m_iFiles.find(type);
 	if (file != m_iFiles.end())
 	{
-		if (!file->second->eof())
-		{
-			container.loadFromFile(*(file->second));
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return container.loadFromFile( *( file->second ) );
 	}
 	else
-	{	
-		std::string fullName = m_containingFolder + "\\" + m_fileNames.at(type);
-		std::ifstream* in = new std::ifstream(fullName.c_str());
-		m_iFiles.insert({ type, in });
-		if ((!in->eof()) && !in->fail())
-		{
-			container.loadFromFile(*in);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	} 
+	{
+		std::string fullName = m_containingFolder + "\\" + m_fileNames.at( type );
+		std::ifstream* in = new std::ifstream( fullName.c_str() );
+
+		m_iFiles.insert( { type, in } );
+
+		return container.loadFromFile( *in );
+	}
 }
 
-void pss::TIOFileManager::writeSolutionData()
+void TIOFileManager::writeSolutionData()
 {
 	std::ofstream* file = new std::ofstream;
 	m_oFiles.insert({ eOutputFileType::INITIAL_DATA, file });
@@ -72,8 +61,8 @@ void pss::TIOFileManager::writeSolutionData()
 	GetLocalTime(&st);
 	*file << "Started:	" << st.wHour << ':' << st.wMinute << ':' << st.wSecond << std::endl;
 
-	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
-	const auto& initialData = pss::TSingletons::getInstance()->getInitialData();
+	const auto& generalData = TSingletons::getInstance()->getGeneralData();
+	const auto& initialData = TSingletons::getInstance()->getInitialData();
 
 	*file << initialData._w << ' ' 
 		<< initialData._numberOfPlanetaryGears << ' '
@@ -83,18 +72,18 @@ void pss::TIOFileManager::writeSolutionData()
 	file->flush();
 }
 
-pss::TIOFileManager::TIOFileManager()
+TIOFileManager::TIOFileManager()
 {
 	init();
 }
 
-pss::TIOFileManager* pss::TIOFileManager::getInstance()
+TIOFileManager* TIOFileManager::getInstance()
 {
-	static pss::TIOFileManager ioFileManager;
+	static TIOFileManager ioFileManager;
 	return &ioFileManager;
 }
 
-pss::TIOFileManager::~TIOFileManager()
+TIOFileManager::~TIOFileManager()
 {
 	auto file = m_oFiles.find(eOutputFileType::INITIAL_DATA);
 	if (file != m_oFiles.end() && file->second->is_open())
@@ -111,7 +100,7 @@ pss::TIOFileManager::~TIOFileManager()
 	m_oFiles.clear();
 }
 
-void pss::TIOFileManager::init()
+void TIOFileManager::init()
 {
 	m_fileNames[eOutputFileType::FAIL_0] = "failed_0.log";
 	m_fileNames[eOutputFileType::FAIL_FREE] = "failed_free.log";
@@ -121,7 +110,7 @@ void pss::TIOFileManager::init()
 	m_fileNames[eOutputFileType::DONE] = "done.pkp";
 	m_fileNames[eOutputFileType::DONE_K] = "done_K.pkp";
 
-	const auto& initialData = pss::TSingletons::getInstance()->getInitialData();
+	const auto& initialData = TSingletons::getInstance()->getInitialData();
 	auto folder = "w" + std::to_string( initialData._w ) + "n" + std::to_string( initialData._numberOfPlanetaryGears );
 
 	m_containingFolder = s_globalFolder + "\\" + folder;

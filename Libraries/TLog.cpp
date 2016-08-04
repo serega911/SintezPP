@@ -1,7 +1,8 @@
-#include "../Libraries/TLog.h"
 #include <iostream>
 
-NS_PSS_USING
+#include "TLog.h"
+
+NS_CORE_USING
 
 void TLog::log( const std::string& message, const bool isEndlNedded /*= true */ )
 {

@@ -4,9 +4,10 @@
 #include <vector>
 
 #include "VariablesSet_fwd.h"
+#include "../Libraries/GlobalDefines.h"
 
-namespace pss
-{
+NS_ARI_START
+
 	typedef double VariableValue;
 	typedef double FunctionValue;
 	typedef std::function<FunctionValue( const VariablesSet & )> Equation;
@@ -14,4 +15,5 @@ namespace pss
 	typedef double						CellType;
 	typedef std::vector<CellType>		MatrixLine;
 	typedef std::vector<MatrixLine>		MatrixTable;
-}
+
+NS_ARI_END

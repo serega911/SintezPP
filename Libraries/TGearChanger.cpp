@@ -1,9 +1,11 @@
-#include "../Libraries/TGearChanger.h"
-#include "../Libraries/TSingletons.h"
+#include "TGearChanger.h"
+#include "TSingletons.h"
 
-std::vector<pss::TLink> pss::TGearChanger::createVector(const pss::TCombinations & replacer) const
+NS_CORE_USING
+
+std::vector<TLink> TGearChanger::createVector(const TCombinations & replacer) const
 {
-	std::vector<pss::TLink> ret;
+	std::vector<TLink> ret;
 
 	for (int i = 0; i < replacer.size(); i++)
 		ret.push_back(m_drivingElements[replacer[i]]);
@@ -11,35 +13,41 @@ std::vector<pss::TLink> pss::TGearChanger::createVector(const pss::TCombinations
 	return ret;
 }
 
-pss::TGearChanger::TGearChanger(const pss::TCode& code)
+TGearChanger::TGearChanger(const TCode& code)
 {
-	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
+	const auto& generalData = TSingletons::getInstance()->getGeneralData();
 
-	m_drivingElements.insert(m_drivingElements.begin(), code.getCode().begin() + 2 + generalData._numberOfLinks, code.getCode().end());
-	m_replacer.init( generalData._numberOfActuatedDrivingElements );
+	auto startPos = 2 + generalData._numberOfLinks;
+
+	if ( startPos < code.getCode().size() )
+	{
+		m_drivingElements.insert( m_drivingElements.begin(), code.getCode().begin() + startPos, code.getCode().end() );
+		m_replacer.init( generalData._numberOfActuatedDrivingElements );
+	}
+
 }
 
-std::vector<pss::TLink> pss::TGearChanger::getDrivingElementsForGear() const
+std::vector<TLink> TGearChanger::getDrivingElementsForGear() const
 {
 	return createVector(m_replacer);
 }
 
-std::vector<pss::TLink> pss::TGearChanger::getDrivingElementsForGear(int gear) const
-{
-	pss::TCombinations replacer;
-	
-	replacer.init(m_replacer.size());
-	
-	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
-	
-	for (int i = 1; i < gear; i++)
-		replacer.nextReplace( generalData._numberOfFrictions + generalData._numberOfBrakes - 1 );
-	return createVector(replacer);
-}
+// std::vector<TLink> TGearChanger::getDrivingElementsForGear(int gear) const
+// {
+// 	TCombinations replacer;
+// 	
+// 	replacer.init(m_replacer.size());
+// 	
+// 	const auto& generalData = TSingletons::getInstance()->getGeneralData();
+// 	
+// 	for (int i = 1; i < gear; i++)
+// 		replacer.nextReplace( generalData._numberOfFrictions + generalData._numberOfBrakes - 1 );
+// 	return createVector(replacer);
+// }
 
-bool pss::TGearChanger::next()
+bool TGearChanger::next()
 {
-	const auto& generalData = pss::TSingletons::getInstance()->getGeneralData();
+	const auto& generalData = TSingletons::getInstance()->getGeneralData();
 
 	return m_replacer.nextReplace( generalData._numberOfFrictions + generalData._numberOfBrakes - 1 );
 }

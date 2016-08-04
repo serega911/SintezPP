@@ -3,24 +3,24 @@
 #include <vector>
 #include "../Libraries/TK.h"
 #include "../Libraries/TI.h"
-#include "../Libraries/TCode.h"
+#include "../Libraries/TGearBox.h"
 #include "../Libraries/GlobalDefines.h"
 
-namespace pss{
+NS_ARI_START
 
 	class DefK
 	{
 	public:
 
-		TK										findK(const TCode& Code);
+		NS_CORE TK								findK( const NS_CORE TGearBox& gearBox );
 		void									run();
 
 	private:
 
 		void									readInitialData();
 
-		void									checkAllInitialKValues( const TCode& Code, TK& ret );
-		void									checkAllRatiosPermutations( const TCode& Code, const TK& initial, TK& ret );
+		void									checkAllInitialKValues( const NS_CORE TGearBox& gearBox, NS_CORE TK& ret );
+		void									checkAllRatiosPermutations( const NS_CORE TGearBox& gearBox, const NS_CORE TK& initial, NS_CORE TK& ret );
 	};
 
-}
+NS_ARI_END

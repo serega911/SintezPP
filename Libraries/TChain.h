@@ -1,35 +1,37 @@
 #pragma once
 #include "../Libraries/TElement.h"
 #include "../Libraries/TLink.h"
+#include "GlobalDefines.h"
 #include <set>
 
-namespace pss
+NS_CORE_START
+
+class TChain
 {
-	class TChain
-	{
-	private:
+private:
 
-		std::set<TElement>						m_elements;
+	std::set<TElement>						m_elements;
 
-	public:
+public:
 
-		void									addLinkToChain(const TLink & link);
-		void									addElementToChain(const TElement & elem);
-		void									addChainToChain(const TChain & chain);
+	void									addLinkToChain(const TLink & link);
+	void									addElementToChain(const TElement & elem);
+	void									addChainToChain(const TChain & chain);
 
-		void									clear();
+	void									clear();
 
-		bool									find(const TElement & element) const;
+	bool									find(const TElement & element) const;
 
-		bool									checkElemByOnePlanetarySet() const;
-		const TElement&							getFirst() const;
+	bool									checkElemByOnePlanetarySet() const;
+	const TElement&							getSomeElement() const;
 
-		int										size() const;
+	int										size() const;
 
-		bool									intersect(const TChain& chain);
+	bool									intersect(const TChain& chain);
 
-		const std::set<TElement>&				getElements() const;
+	const std::set<TElement>&				getElements() const;
 
-		friend bool operator<(const TChain& chain1, const TChain& chain2);
-	};
-}
+	friend bool operator<(const TChain& chain1, const TChain& chain2);
+};
+
+NS_CORE_END

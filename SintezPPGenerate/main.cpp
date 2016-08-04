@@ -2,9 +2,11 @@
 
 #pragma comment(lib, "../Libraries/SintezPPLibary.lib")
 
+NS_ARI_USING
+
 int main()
 {
-	pss::TGenerate generator;
+	TGenerate generator;
 	generator.generate();
 
 	system("pause");

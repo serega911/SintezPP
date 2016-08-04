@@ -67,9 +67,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TGearBox.cpp" />
     <ClCompile Include="TGenerate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TGearBox.h" />
     <ClInclude Include="TGenerate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

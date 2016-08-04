@@ -1,9 +1,10 @@
 #pragma once
 
-#include "../Libraries/GlobalDefines.h"
 #include <string>
 
-NS_PSS_START
+#include "GlobalDefines.h"
+
+NS_CORE_START
 
 class TLog
 {
@@ -22,4 +23,4 @@ public:
 
 };
 
-NS_PSS_END
+NS_CORE_END

@@ -7,7 +7,7 @@
 #include <set>
 
 
-NS_PSS_START
+NS_ARI_START
 
 class UnknownVariable
 {
@@ -30,8 +30,8 @@ public:
 	void										deleteListener( Variable* listener );
 	const std::set<Variable*>					getAllListeners() const;
 
-	bool										findElementInListeners( const TElement & element );
+	bool										findElementInListeners( const NS_CORE TElement & element );
 
 };
 
-NS_PSS_END
+NS_ARI_END

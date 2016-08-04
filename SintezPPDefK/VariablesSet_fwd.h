@@ -1,6 +1,6 @@
 #pragma once
 #include "../Libraries/GlobalDefines.h"
 
-NS_PSS_START
+NS_ARI_START
 class VariablesSet;
-NS_PSS_END
+NS_ARI_END

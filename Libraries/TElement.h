@@ -1,40 +1,42 @@
 #pragma once
-#include <ostream>
-#include <istream>
+
+#include <iostream>
+
 #include "eMainElement.h"
+#include "GlobalDefines.h"
+#include "GlobalTypes.h"
 
-namespace pss
+NS_CORE_START
+
+class TElement
 {
-	class TElement
-	{
-	private:
+private:
 
-		pss::eMainElement						m_elemN;		//номер элемента
-		int										m_gearSetN;		//номер планетарного ряда
+	eMainElement								m_elemN;		//номер элемента
+	TGearSetNumber								m_gearSetN;		//номер планетарного ряда
 
-	public:
+public:
 
-		TElement(const eMainElement & elemN, int gearSetN);
-		TElement();
+	TElement( const eMainElement& elemN, const TGearSetNumber& gearSetN );
+	TElement();
 
-		eMainElement							getElemN() const;
-		int										getGearSetN() const;
-		int										getSerialNumber() const;
+	eMainElement								getElemN() const;
+	TGearSetNumber								getGearSetN() const;
+	int											getSerialNumber() const;
 
-		void									print() const;
-		void									writeTofile( std::ostream& file ) const;
-		bool									loadFromFile( std::istream& file );
+	void										print() const;
+	void										writeTofile( std::ostream& file ) const;
+	bool										loadFromFile( std::istream& file );
 
-		static const TElement					INPUT;		// RK: replace on public static method
-		static const TElement					OUTPUT;
-		static const TElement					BRAKE;
-		static const TElement					EMPTY;
+	static const TElement						INPUT;
+	static const TElement						OUTPUT;
+	static const TElement						BRAKE;
+	static const TElement						EMPTY;
 
+	friend bool									operator<( const TElement& elem1, const TElement& elem2 );
+	friend bool									operator==( const TElement& elem1, const TElement& elem2 );
+	friend bool									operator!=( const TElement& elem1, const TElement& elem2 );
+};
 
-	};
+NS_CORE_END
 
-	bool										operator<(const TElement& elem1, const TElement& elem2);
-	bool										operator==(const TElement& elem1, const TElement& elem2);
-	bool										operator!=(const TElement& elem1, const TElement& elem2);
-
-}

@@ -7,7 +7,7 @@
 #include "Defines.h"
 #include "../Libraries/eMainElement.h"
 
-NS_PSS_START
+NS_ARI_START
 
 class Equations
 {
@@ -24,8 +24,8 @@ public:
 
 	static FunctionValue						empty( const VariablesSet & set );
 
-	static const Equation						getEquation( const eMainElement & elem );
+	static const Equation						getEquation( const NS_CORE eMainElement & elem );
 
 };
 
-NS_PSS_END
+NS_ARI_END

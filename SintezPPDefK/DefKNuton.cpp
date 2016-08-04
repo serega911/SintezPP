@@ -8,21 +8,22 @@
 
 #include <iostream>
 
-NS_PSS_USING
+NS_ARI_USING
 
 
-TK DefKNuton::findK( const TCode& Code, const TK& initialKValues, const TI& iTarget )
+NS_CORE TK DefKNuton::findK( const NS_CORE TGearBox& gearBox, const NS_CORE TK& initialKValues, const NS_CORE TI& iTarget )
 {
 	System system;
 	system.init( initialKValues );
 
-	TGearChanger gearChanger( Code );
-	int i = 0;
-	do 
-	{
-		system.addGearChains( Code.getChains(), gearChanger.getDrivingElementsForGear( i + 1 ), i + 1, iTarget[i] );
-		i++;
-	} while ( gearChanger.next() );
+	NS_CORE TGearBox gb( gearBox );
+
+ 	int i = 0;
+ 	do 
+ 	{
+		system.addGearChains( gb.getChainsForCurrentGear(), i + 1, iTarget[i] );
+ 		i++;
+	} while ( gb.turnOnNextGear() );
 
 	auto jacobian = createJacobian( system );
 
@@ -32,7 +33,7 @@ TK DefKNuton::findK( const TCode& Code, const TK& initialKValues, const TI& iTar
 	int iterCount = 0;
 	bool notFinded = false;
 
-	TK ans( initialKValues );
+	NS_CORE TK ans( initialKValues );
 
 	//TLog::log( "|", false );
 	do
@@ -54,7 +55,7 @@ TK DefKNuton::findK( const TCode& Code, const TK& initialKValues, const TI& iTar
 			// вычисляем норму ( максимальную дельту )
 			norm = calcNorm( next );
 			// вычисляем начальные значения для следующей итерации
-			for ( int i = 0; i < next.size(); i++ )
+			for ( size_t i = 0; i < next.size(); i++ )
 			{
 				system.getUnknownVariables()[i].setValue( system.getUnknownVariables()[i].getValue() + next[i] );
 			}
@@ -74,7 +75,7 @@ Jacobi DefKNuton::createJacobian( const System & system )
 	
 	auto undefinedVar = system.getUnknownVariables();
 
-	const auto& initialData = TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 
 	if ( initialData._numberOfGears * initialData._numberOfPlanetaryGears == undefinedVar.size() )
 	{
@@ -107,7 +108,7 @@ Jacobi DefKNuton::createJacobian( const System & system )
 	return det;
 }
 
-double pss::DefKNuton::calcNorm( const MatrixLine& delta )
+double DefKNuton::calcNorm( const MatrixLine& delta )
 {
 	double norm = abs( delta[0] );
 
@@ -122,9 +123,9 @@ double pss::DefKNuton::calcNorm( const MatrixLine& delta )
 	return norm;
 }
 
-pss::TK pss::DefKNuton::getKValuesFromSystem( const System & system )
+NS_CORE TK DefKNuton::getKValuesFromSystem( const System & system )
 {
-	const auto& initialData = TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 
 	std::vector<double> kValues;
 	for ( auto i = 0; i < initialData._numberOfPlanetaryGears; i++ )
@@ -132,15 +133,15 @@ pss::TK pss::DefKNuton::getKValuesFromSystem( const System & system )
 		kValues.push_back( system.getUnknownVariables()[i].getValue() );
 	}
 	
-	TK ret;
+	NS_CORE TK ret;
 	ret.setValues( kValues );
 
 	return ret;
 }
 
-pss::MatrixLine pss::DefKNuton::createRightParts( const System & system )
+MatrixLine DefKNuton::createRightParts( const System & system )
 {
-	const auto& initialData = TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 
 	MatrixLine rightParts( initialData._numberOfGears *initialData._numberOfPlanetaryGears );
 	for ( int i = 0; i < initialData._numberOfGears; i++ )
@@ -154,14 +155,14 @@ pss::MatrixLine pss::DefKNuton::createRightParts( const System & system )
 	return rightParts;
 }
 
-Matrix pss::DefKNuton::createMatrix( const Jacobi& jacobian, const System & system )
+Matrix DefKNuton::createMatrix( const Jacobi& jacobian, const System & system )
 {
 	auto size = jacobian.size();
 	
 	Matrix ret( size );
 	auto undefinedVar = system.getUnknownVariables();
 
-	const auto& initialData = TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 	
 	for ( auto i = 0; i < initialData._numberOfGears; i++ )
 	{

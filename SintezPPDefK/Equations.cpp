@@ -1,13 +1,13 @@
 #include "Equations.h"
 #include "VariablesSet.h"
 
-NS_PSS_USING
+NS_ARI_USING
 
  FunctionValue Equations::wyllys( const VariablesSet & set )
  {
-	 return set[eMainElement::SUN_GEAR].getValue()
-		 - set[eMainElement::EMPTY].getValue()*set[eMainElement::EPICYCLIC_GEAR].getValue()
-		 + ( set[eMainElement::EMPTY].getValue() - 1.0f ) * set[eMainElement::CARRIER].getValue();
+	 return set[NS_CORE eMainElement::SUN_GEAR].getValue()
+		 - set[NS_CORE eMainElement::EMPTY].getValue()*set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue()
+		 + ( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f ) * set[NS_CORE eMainElement::CARRIER].getValue();
  }
  
  FunctionValue Equations::empty( const VariablesSet & set )
@@ -15,20 +15,20 @@ NS_PSS_USING
 	return 0.0f;
  }
 
- const Equation Equations::getEquation( const eMainElement & elem )
+ const Equation Equations::getEquation( const NS_CORE eMainElement & elem )
  {
 	switch ( elem )
 	{
-	case eMainElement::SUN_GEAR :
+	case NS_CORE eMainElement::SUN_GEAR:
 		return dfDw1;
 		break;
-	case eMainElement::EPICYCLIC_GEAR:
+	case NS_CORE eMainElement::EPICYCLIC_GEAR:
 		return dfDw2;
 		break;
-	case eMainElement::CARRIER:
+	case NS_CORE eMainElement::CARRIER:
 		return dfDw3;
 		break;
-	case eMainElement::EMPTY:
+	case NS_CORE eMainElement::EMPTY:
 		return dfDk;
 		break;
 	default:
@@ -39,7 +39,7 @@ NS_PSS_USING
 
  FunctionValue Equations::dfDk( const VariablesSet & set )
  {
-	 return - set[eMainElement::EPICYCLIC_GEAR].getValue() + set[eMainElement::CARRIER].getValue();
+	 return -set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() + set[NS_CORE eMainElement::CARRIER].getValue();
  }
 
  FunctionValue Equations::dfDw1( const VariablesSet & set )
@@ -49,10 +49,10 @@ NS_PSS_USING
 
  FunctionValue Equations::dfDw2( const VariablesSet & set )
  {
-	 return - set[eMainElement::EMPTY].getValue();
+	 return -set[NS_CORE eMainElement::EMPTY].getValue();
  }
 
  FunctionValue Equations::dfDw3( const VariablesSet & set )
  {
-	 return set[eMainElement::EMPTY].getValue() - 1.0f;
+	 return set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
  }

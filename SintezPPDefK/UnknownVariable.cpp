@@ -1,7 +1,7 @@
 #include "UnknownVariable.h"
 #include "Variable.h"
 
-NS_PSS_USING
+NS_ARI_USING
 
 UnknownVariable::UnknownVariable( const VariableValue & value ) :
 m_value(value)
@@ -14,7 +14,7 @@ void UnknownVariable::setValue( const VariableValue & value )
 	callAllListeners();
 }
 
-pss::VariableValue pss::UnknownVariable::getValue() const
+VariableValue UnknownVariable::getValue() const
 {
 	return m_value;
 }
@@ -35,7 +35,7 @@ const std::set<Variable*> UnknownVariable::getAllListeners() const
 	return m_listeners;
 }
 
-bool UnknownVariable::findElementInListeners( const TElement & element )
+bool UnknownVariable::findElementInListeners( const NS_CORE TElement & element )
 {
 	bool result = false;
 	for ( const auto & listener : m_listeners )

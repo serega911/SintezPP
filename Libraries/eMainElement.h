@@ -1,82 +1,52 @@
 #pragma once
 
+#include "GlobalDefines.h"
 #include "TLog.h"
 
-namespace pss
+NS_CORE_START
+
+enum class eMainElement
 {
-	enum class eMainElement
-	{
-		EMPTY = 0
-		, SUN_GEAR
-		, EPICYCLIC_GEAR
-		, CARRIER
-		, INPUT
-		, OUTPUT
-		, BRAKE
-	};
+	EMPTY = 0
+	, SUN_GEAR = 'S'
+	, EPICYCLIC_GEAR = 'E'
+	, CARRIER = 'C'
+	, INPUT = 'I'
+	, OUTPUT = 'O'
+	, BRAKE = 'B'
+};
 
-	inline char convernToSymbol( const eMainElement& e )
-	{
-		char res;
-
-		switch ( e )
-		{
-		case eMainElement::SUN_GEAR:
-			res = 'S';
-			break;
-		case eMainElement::EPICYCLIC_GEAR:
-			res = 'E';
-			break;
-		case eMainElement::CARRIER:
-			res = 'C';
-			break;
-		case eMainElement::INPUT:
-			res = 'I';
-			break;
-		case eMainElement::OUTPUT:
-			res = 'O';
-			break;
-		case eMainElement::BRAKE:
-			res = 'B';
-			break;
-		default:
-			TLog::warning( true, "Wrong eMainElement value", TLog::CRITICAL, "eMainElement.h" );
-			break;
-		}
-
-		return res;
-	}
-
-	inline eMainElement convernToMainElement( const char symbol )
-	{
-		eMainElement res;
-
-		switch ( symbol )
-		{
-		case 'S':
-			res = eMainElement::SUN_GEAR;
-			break;
-		case 'E':
-			res = eMainElement::EPICYCLIC_GEAR;
-			break;
-		case 'C':
-			res = eMainElement::CARRIER;
-			break;
-		case 'I':
-			res = eMainElement::INPUT;
-			break;
-		case 'O':
-			res = eMainElement::OUTPUT;
-			break;
-		case 'B':
-			res = eMainElement::BRAKE;
-			break;
-		default:
-			TLog::warning( true, "Wrong symbol value", TLog::CRITICAL, "eMainElement.h" );
-			break;
-		}
-
-		return res;
-	}
-
+inline char convernToSymbol( const eMainElement& e )
+{
+	return static_cast<char>( e );
 }
+
+inline eMainElement convernToMainElement( const char symbol )
+{
+	return static_cast<eMainElement>( symbol );
+}
+
+inline int convernToInt( const eMainElement& e )
+{
+	int ret;
+
+	switch ( e )
+	{
+	case eMainElement::SUN_GEAR:
+		ret = 1;
+		break;
+	case eMainElement::EPICYCLIC_GEAR:
+		ret = 2;
+		break;
+	case eMainElement::CARRIER:
+		ret = 3;
+		break;
+	default:
+		TLog::warning( true, "Wrong convertation from eMainElement to int.", TLog::CRITICAL, "inline int convernToInt( const eMainElement& e )" );
+		break;
+	}
+
+	return ret;
+}
+
+NS_CORE_END

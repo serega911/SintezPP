@@ -1,13 +1,17 @@
-#include "../Libraries/TCombinations.h"
+#include "TCombinations.h"
 
-void pss::TCombinations::init(int count)
+NS_CORE_USING
+
+void TCombinations::init(int count)
 {
 	m_container.clear();
-	for (int i = 0; i < count; i++) // RK: use reserve and fill sequence method!
+	m_container.reserve( count );
+
+	for (int i = 0; i < count; i++)
 		m_container.push_back(i);
 }
 
-bool pss::TCombinations::nextReplace(int maxValue)
+bool TCombinations::nextReplace(int maxValue)
 {
 	if (m_container.size() == 0)  return false;
 	std::vector<int>tmp;
@@ -34,17 +38,17 @@ bool pss::TCombinations::nextReplace(int maxValue)
 	return true;
 }
 
-const std::vector<int>& pss::TCombinations::getReplace() const
+const std::vector<int>& TCombinations::getReplace() const
 {
 	return m_container;
 }
 
-int pss::TCombinations::size() const
+int TCombinations::size() const
 {
 	return m_container.size();
 }
 
-int pss::TCombinations::operator[](int i) const
+int TCombinations::operator[](int i) const
 {
 	return m_container.at(i);
 }

@@ -8,19 +8,19 @@
 #include <map>
 
 
-NS_PSS_START
+NS_ARI_START
 
 class VariablesSet
 {
 private:
 
-	std::map<eMainElement, Variable>			m_set;
+	std::map<NS_CORE eMainElement, Variable>	m_set;
 
 public:
 
-	Variable&									operator[]( const eMainElement & element );
-	const Variable&								operator[]( const eMainElement & element ) const;
+	Variable&									operator[]( const NS_CORE eMainElement & element );
+	const Variable&								operator[]( const NS_CORE eMainElement & element ) const;
 
 };
 
-NS_PSS_END
+NS_ARI_END

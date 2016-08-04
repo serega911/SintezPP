@@ -13,7 +13,7 @@
 
 int main()
 {
-	NS_PSS DefK DK;
+	NS_ARI DefK DK;
  	DK.run();
 
 // 	NS_PSS DefKNuton DK;

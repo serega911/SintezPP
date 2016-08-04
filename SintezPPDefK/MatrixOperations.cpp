@@ -1,9 +1,9 @@
 
 #include "MatrixOperations.h"
 
-NS_PSS_USING
+NS_ARI_USING
 
-pss::CellType pss::MatrixOperations::determinant( const Matrix& matrix )
+CellType MatrixOperations::determinant( const Matrix& matrix )
 {
 	auto size = matrix.getSize();
 	if ( size == 1 ) return matrix[0][0];
@@ -39,7 +39,7 @@ MatrixLine operator-( const MatrixLine & line1, const MatrixLine & line2 )
 	return ret;
 }
 
-pss::MatrixLine pss::MatrixOperations::solveGaus( const Matrix& systemMatrix, const MatrixLine& rightParts )
+MatrixLine MatrixOperations::solveGaus( const Matrix& systemMatrix, const MatrixLine& rightParts )
 {
 
 	auto system = systemMatrix.getMatrix();
@@ -95,7 +95,7 @@ pss::MatrixLine pss::MatrixOperations::solveGaus( const Matrix& systemMatrix, co
 	return right;
 }
 
-Matrix pss::MatrixOperations::minor( const Matrix& matrix, int i, int j )
+Matrix MatrixOperations::minor( const Matrix& matrix, int i, int j )
 {
 	const auto size = matrix.getSize();
 	if ( i < size && j < size && i >= 0 && j >= 0 )
@@ -126,7 +126,7 @@ Matrix pss::MatrixOperations::minor( const Matrix& matrix, int i, int j )
 	}
 }
 
-Matrix pss::MatrixOperations::inverse( const Matrix& matrix )
+Matrix MatrixOperations::inverse( const Matrix& matrix )
 {
 	const auto size = matrix.getSize();
 	MatrixTable ret( size );
@@ -146,7 +146,7 @@ Matrix pss::MatrixOperations::inverse( const Matrix& matrix )
 	return Matrix( ret );
 }
 
-MatrixLine pss::MatrixOperations::multiple( const Matrix& matrix, const MatrixLine& vector )
+MatrixLine MatrixOperations::multiple( const Matrix& matrix, const MatrixLine& vector )
 {
 	const auto size = matrix.getSize();
 	if ( vector.size() == size )
@@ -166,7 +166,7 @@ MatrixLine pss::MatrixOperations::multiple( const Matrix& matrix, const MatrixLi
 	return MatrixLine( 0 );
 }
 
-Matrix pss::MatrixOperations::multiple( const Matrix& matrix1, const Matrix& matrix2 )
+Matrix MatrixOperations::multiple( const Matrix& matrix1, const Matrix& matrix2 )
 {
 	const auto size = matrix1.getSize();
 	if ( size == matrix2.getSize() )
@@ -194,7 +194,7 @@ Matrix pss::MatrixOperations::multiple( const Matrix& matrix1, const Matrix& mat
 	return Matrix( 0 );
 }
 
-pss::MatrixLine pss::MatrixOperations::delta( const MatrixLine& vector1, const MatrixLine& vector2 )
+MatrixLine MatrixOperations::delta( const MatrixLine& vector1, const MatrixLine& vector2 )
 {
 	const auto size = vector1.size();
 	MatrixLine ret( size );

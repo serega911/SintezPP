@@ -5,7 +5,7 @@
 #include "Defines.h"
 
 
-NS_PSS_START
+NS_ARI_START
 
 class Matrix
 {
@@ -31,4 +31,4 @@ public:
 
 };
 
-NS_PSS_END
+NS_ARI_END
