@@ -12,6 +12,8 @@ class TK : public IContainer
 private:
 
 	bool										m_isFinded;
+
+protected:
 	std::vector<TKValue>						m_K;
 
 public:
@@ -28,6 +30,7 @@ public:
 
 	void										setValues( const std::vector<TKValue>& values );
 	bool										check() const;
+
 };
 
 NS_CORE_END

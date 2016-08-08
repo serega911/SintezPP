@@ -90,6 +90,7 @@ const std::vector<UnknownVariable> & System::getUnknownVariables() const
 
 void System::init( const NS_CORE TK& initialKValues )
 {
+	/*
 	auto N = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
 	m_sets.resize( NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears );
@@ -106,6 +107,29 @@ void System::init( const NS_CORE TK& initialKValues )
 			m_sets[setNumber].at( i )[NS_CORE eMainElement::EMPTY].setDefined( false );
 			m_sets[setNumber].at( i )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE TElement( NS_CORE eMainElement::EMPTY, setNumber + 1 ), i + 1 );
 		}
-		
 	}
+	*/
+
+	auto numberOfPlanetaryGears = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	auto numberOfGears = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears;
+
+	m_sets.resize( numberOfGears );
+	for ( auto&it : m_sets )
+	{
+		it.resize( numberOfPlanetaryGears );
+	}
+
+	for ( auto planetaryGear = 0; planetaryGear < numberOfPlanetaryGears; planetaryGear++ )
+	{
+		m_unknowns.emplace_back( UnknownVariable( initialKValues[planetaryGear] ) );
+		auto& unknown = m_unknowns[m_unknowns.size() - 1];
+
+		for ( auto gear = 0; gear < numberOfGears; gear++ )
+		{
+			unknown.addListener( &( m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY] ) );
+			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setDefined( false );
+			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE TElement( NS_CORE eMainElement::EMPTY, planetaryGear + 1 ), gear + 1 );
+		}
+	}
+
 }

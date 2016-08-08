@@ -109,6 +109,7 @@ void TIOFileManager::init()
 	m_fileNames[eOutputFileType::INITIAL_DATA] = "solution_data.init";
 	m_fileNames[eOutputFileType::DONE] = "done.pkp";
 	m_fileNames[eOutputFileType::DONE_K] = "done_K.pkp";
+	m_fileNames[eOutputFileType::FAIL_NUTON] = "failed_Nuton.pkp";
 
 	const auto& initialData = TSingletons::getInstance()->getInitialData();
 	auto folder = "w" + std::to_string( initialData._w ) + "n" + std::to_string( initialData._numberOfPlanetaryGears );

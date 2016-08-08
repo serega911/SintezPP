@@ -30,7 +30,6 @@ public:
 	int											getGear() const;
 
 	void										onChangeUnknownVariableValue( const VariableValue & newValue );
-
 };
 
 NS_ARI_END

@@ -60,17 +60,37 @@ void DefK::run()
 	NS_CORE TCode code;
 	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
 	{
+
 		NS_CORE TGearBox gearBox( code );
 		gearBox.createChains();
 		NS_CORE TK ans( findK( gearBox ) );
-		
+
 		if (ans.getFinded())
 		{
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans );
-			//TLog::log( "+", false );
+		 	NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
+		 	NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans );
+		 	//TLog::log( "+", false );
 		}
-		//TLog::log( "" );
+
+		///*
+		pss::TK ansOld( findK( code ) );
+		if ( ansOld.getFinded() != ans.getFinded() )
+		{
+			if ( !ans.getFinded() )
+			{
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_NUTON, code );		
+			}
+			else
+			{
+				NS_CORE TLog::log( "\n++++++++++Done++++++++++" );
+				code.print();
+				ansOld.print();
+				NS_CORE TLog::log( std::to_string( ansOld.getFinded() ) + " - old" );
+				ans.print();
+				NS_CORE TLog::log( std::to_string( ans.getFinded() ) + " - new" );
+			}
+		}
+		//*/
 	}
 }
 
@@ -119,7 +139,7 @@ void DefK::checkAllRatiosPermutations( const NS_CORE TGearBox& gearBox, const NS
 			curI.push_back( iTarget[replace[i]] );
 
 		NS_ARI DefKNuton defKByNonlinearSolving;
-		ret = defKByNonlinearSolving.findK( gearBox, initial, NS_CORE TI( curI, 0.1 ) );
+		ret = defKByNonlinearSolving.findK( gearBox, initial, NS_CORE TI( curI, 0.001 ) );
 
 	} while ( !ret.getFinded() && std::next_permutation( replace.begin(), replace.end() ) );
 }
@@ -127,13 +147,15 @@ void DefK::checkAllRatiosPermutations( const NS_CORE TGearBox& gearBox, const NS
 //==================================================================================================================================================================
 //==================================================================================================================================================================
 //==================================================================================================================================================================
-NS_CORE TK DefK::findK( const NS_CORE TCode& Code, NS_CORE TK K )
+pss::TK DefK::findK( const NS_CORE TCode& Code )
 {
+	pss::TK K( 0.1 );
+
 	do{
 		//K.print();
 		if ( podModul( Code, K ) )
 		{
-			K.setFinded();
+			K.setFinded(true);
 			break;
 		}
 		//system("pause");
@@ -141,24 +163,10 @@ NS_CORE TK DefK::findK( const NS_CORE TCode& Code, NS_CORE TK K )
 	return K;
 }
 
-void DefK::run()
-{
-	NS_CORE TCode code;
-	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
-	{
-		NS_CORE TK ans( findK( code, K ) );
-		if ( ans.getFinded() )
-		{
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans );
-		}
-	}
-}
-
-bool DefK::podModul( const NS_CORE TCode & code, const NS_CORE TK &k )
+bool DefK::podModul( const NS_CORE TCode & code, const pss::TK &k )
 {
 	NS_CORE TGearChanger gearChanger( code );
-	NS_CORE TI tmpI( {}, 0.01 );	//вектор для полученных передаточных отношений при данном наборе K
+	NS_CORE TI tmpI( {}, 0.001 );	//вектор для полученных передаточных отношений при данном наборе K
 	do
 	{
 		NS_CORE TGaus gaus;
@@ -169,8 +177,9 @@ bool DefK::podModul( const NS_CORE TCode & code, const NS_CORE TK &k )
 		{
 			return false;
 		}
-		float calculatedI = gaus.getSolution()[code[1].getElem1().getSerialNumber()];
-		if ( abs( calculatedI ) > 0.001 && m_iTarget.findIn( 1.0 / calculatedI ) )
+		const auto codeValues = code.getCode();
+		float calculatedI = gaus.getSolution()[codeValues[1].getElem1().getSerialNumber()];
+		if ( abs( calculatedI ) > 0.001 && core::TSingletons::getInstance()->getInitialData()._i.findIn( 1.0 / calculatedI ) )
 		{
 			tmpI.push_back( 1.0 / calculatedI );
 		}
@@ -181,7 +190,7 @@ bool DefK::podModul( const NS_CORE TCode & code, const NS_CORE TK &k )
 
 	} while ( gearChanger.next() );
 	//сравниваем полученные передаточные отношения с искомыми
-	if ( m_iTarget == tmpI )
+	if ( core::TSingletons::getInstance()->getInitialData()._i == tmpI )
 	{
 		m_iReal = tmpI;
 		return true;

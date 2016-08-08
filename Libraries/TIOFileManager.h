@@ -21,7 +21,8 @@ public:
 		FAIL_N,			// wrong number of elements for brakes and frictions
 		FAIL_0,			// links from in to out or between elements of one planetary mechanism
 		FAIL_FREE,		// after setting frictions and brakes there are free elements
-		FAIL_REPETTION	// scheme has already exist 
+		FAIL_REPETTION,	// scheme has already exist 
+		FAIL_NUTON		// Nuton algorithm failed
 	};
 
 	static TIOFileManager*						getInstance();

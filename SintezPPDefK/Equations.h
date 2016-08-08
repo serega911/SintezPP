@@ -24,6 +24,12 @@ public:
 
 	static FunctionValue						empty( const VariablesSet & set );
 
+	static FunctionValue						calcWSun( const VariablesSet & set );
+	static FunctionValue						calcWEpicyclic( const VariablesSet & set );
+	static FunctionValue						calcWCarrirer( const VariablesSet & set );
+	static FunctionValue						calcKValue( const VariablesSet & set );
+	static FunctionValue						calcOne( const NS_CORE eMainElement elem, const VariablesSet & set );
+
 	static const Equation						getEquation( const NS_CORE eMainElement & elem );
 
 };

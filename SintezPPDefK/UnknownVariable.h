@@ -16,6 +16,7 @@ private:
 	std::set<Variable*>							m_listeners;
 
 	VariableValue								m_value;
+	bool										m_isDefined;
 
 	void										callAllListeners() const;
 
@@ -30,7 +31,10 @@ public:
 	void										deleteListener( Variable* listener );
 	const std::set<Variable*>					getAllListeners() const;
 
-	bool										findElementInListeners( const NS_CORE TElement & element );
+	bool										findElementInListeners( const NS_CORE TElement & element, const NS_CORE TGearNumber gear );
+
+	bool										getIsDefined() const;
+	void										setLastValue( const VariableValue & value );
 
 };
 

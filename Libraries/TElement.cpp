@@ -52,8 +52,8 @@ bool NS_CORE operator!=( const TElement& elem1, const TElement& elem2 )
 
 void TElement::print() const
 {
-	TLog::log( std::to_string( convernToSymbol( m_elemN ) ) );
-	TLog::log( std::to_string( m_gearSetN ) );
+	TLog::log( std::string( 1, convernToSymbol( m_elemN ) ), false );
+	TLog::log( std::to_string( m_gearSetN ), false );
 }
 
 void TElement::writeTofile( std::ostream& file ) const

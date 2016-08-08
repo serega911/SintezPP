@@ -6,8 +6,8 @@ NS_ARI_USING
  FunctionValue Equations::wyllys( const VariablesSet & set )
  {
 	 return set[NS_CORE eMainElement::SUN_GEAR].getValue()
-		 - set[NS_CORE eMainElement::EMPTY].getValue()*set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue()
-		 + ( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f ) * set[NS_CORE eMainElement::CARRIER].getValue();
+		 - set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
+		 + set[NS_CORE eMainElement::CARRIER].getValue() *			( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f );
  }
  
  FunctionValue Equations::empty( const VariablesSet & set )
@@ -55,4 +55,58 @@ NS_ARI_USING
  FunctionValue Equations::dfDw3( const VariablesSet & set )
  {
 	 return set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
+ }
+
+ FunctionValue Equations::calcWEpicyclic( const VariablesSet & set )
+ {
+	 return (
+		 set[NS_CORE eMainElement::SUN_GEAR].getValue() +
+		 set[NS_CORE eMainElement::CARRIER].getValue() * ( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f )
+		 ) / set[NS_CORE eMainElement::EMPTY].getValue();
+ }
+
+ FunctionValue Equations::calcWSun( const VariablesSet & set )
+ {
+	 return set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
+		 - set[NS_CORE eMainElement::CARRIER].getValue() *		( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f );
+ }
+
+ FunctionValue Equations::calcWCarrirer( const VariablesSet & set )
+ {
+	 return (
+		 -set[NS_CORE eMainElement::SUN_GEAR].getValue()
+		 + set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
+		 ) / ( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f );
+ }
+
+ FunctionValue Equations::calcKValue( const VariablesSet & set )
+ {
+	 return
+		 (
+		 set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::SUN_GEAR].getValue()
+		 ) / (
+		 set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue()
+		 );
+ }
+
+ ari::FunctionValue ari::Equations::calcOne( const NS_CORE eMainElement elem, const VariablesSet & set )
+ {
+	 switch ( elem )
+	 {
+	 case NS_CORE eMainElement::SUN_GEAR:
+		 return calcWSun( set );
+		 break;
+	 case NS_CORE eMainElement::EPICYCLIC_GEAR:
+		 return calcWEpicyclic( set );
+		 break;
+	 case NS_CORE eMainElement::CARRIER:
+		 return calcWCarrirer( set );
+		 break;
+	 case NS_CORE eMainElement::EMPTY:
+		 return calcKValue( set );
+		 break;
+	 default:
+		 //exception
+		 break;
+	 }
  }

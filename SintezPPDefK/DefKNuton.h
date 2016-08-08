@@ -22,6 +22,8 @@ private:
 
 	NS_CORE TK									getKValuesFromSystem( const System & system );
 	double										calcNorm( const MatrixLine& delta );
+	NS_CORE TK									solveNuton( const Jacobi& jacobian, System& system );
+	NS_CORE TK									solveSimple(System& system );
 
 public:
 

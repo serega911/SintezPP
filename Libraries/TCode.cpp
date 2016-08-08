@@ -62,7 +62,6 @@ void TCode::setBrakes( const TLinks& brakes )
 
 void TCode::print() const
 {
-	TLog::log( "\n" );
 	SetColor(15, 2);
 	TLog::log( "==================================================" );
 	SetColor(15, 0);
