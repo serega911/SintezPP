@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Files">
+      <UniqueIdentifier>{d22477fd-da40-4be6-baff-6eeec0111b9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Old">
+      <UniqueIdentifier>{9cd70c91-54cf-41ae-a7f6-9d7714e1f580}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TPlanetaryGearSet.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TKinematicScheme.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TPathBuilder.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TRoute.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TCordinates.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TKinematicSchemeBuilder.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TPlanetaryGearSet.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="old\TMake.h">
+      <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="old\TPKP.h">
+      <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="old\TPlanRyad.h">
+      <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="old\TWave.h">
+      <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="TKinematicScheme.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TPathBuilder.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TRoute.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TCordinates.h" />
+    <ClInclude Include="eDirection.h" />
+    <ClInclude Include="TKinematicSchemeBuilder.h" />
+  </ItemGroup>
+</Project>

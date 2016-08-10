@@ -45,6 +45,9 @@
     <ClCompile Include="..\Libraries\TSingletons.cpp">
       <Filter>StaticLib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\TLoaderFromFile.cpp">
+      <Filter>StaticLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -87,6 +90,9 @@
       <Filter>StaticLib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TSingletons.h">
+      <Filter>StaticLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TLoaderFromFile.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\enum.h">

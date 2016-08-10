@@ -1,10 +1,12 @@
 #include "../Libraries/TElement.h"
 #include "../Libraries/func_lib.h"
 
-const pss::TElement pss::TElement::INPUT = TElement(pss::eMainElement::INPUT, 4);
-const pss::TElement pss::TElement::OUTPUT = TElement(pss::eMainElement::OUTPUT, 5);
-const pss::TElement pss::TElement::BRAKE = TElement(pss::eMainElement::BRAKE, 6);
+
+const pss::TElement pss::TElement::INPUT = TElement(pss::eMainElement::INPUT, 0);
+const pss::TElement pss::TElement::OUTPUT = TElement(pss::eMainElement::OUTPUT, 0);
+const pss::TElement pss::TElement::BRAKE = TElement(pss::eMainElement::BRAKE, 0);
 const pss::TElement pss::TElement::EMPTY = TElement(pss::eMainElement::EMPTY, 0);
+const pss::TElement pss::TElement::PLACEHOLDER = TElement( pss::eMainElement::BUSY , 0 );
 
 pss::TElement::TElement(const pss::eMainElement & elemN, int gearSetN) 
 {
@@ -14,6 +16,7 @@ pss::TElement::TElement(const pss::eMainElement & elemN, int gearSetN)
 pss::TElement::TElement()
 {
 }
+
 
 void pss::TElement::setElemN(const eMainElement & elemN)
 {
@@ -48,12 +51,20 @@ int pss::TElement::getSerialNumber() const
 
 bool pss::operator<(const TElement& elem1, const TElement& elem2)
 {
-	return elem1.getSerialNumber() < elem2.getSerialNumber();
+	//return elem1.getSerialNumber() < elem2.getSerialNumber();
+	if ( elem1.m_gearSetN == elem2.m_gearSetN )
+	{
+		return elem1.m_elemN < elem2.m_elemN;
+	}
+	else
+	{
+		return elem1.m_gearSetN < elem2.m_gearSetN;
+	}
 }
 
 bool pss::operator==(const TElement& elem1, const TElement& elem2)
 {
-	return elem1.getSerialNumber() == elem2.getSerialNumber();
+	return ( ( elem1.m_gearSetN == elem2.m_gearSetN ) && ( elem1.m_elemN == elem2.m_elemN ) );
 }
 
 bool pss::operator!=(const TElement& elem1, const TElement& elem2)

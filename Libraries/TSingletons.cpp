@@ -68,6 +68,11 @@ pss::TIOFileManager* pss::TSingletons::getIOFileManager()
 	return pss::TIOFileManager::getInstance();
 }
 
+pss::TLoaderFromFile* pss::TSingletons::getLoaderFromFile()
+{
+	return pss::TLoaderFromFile::getInstance();
+}
+
 int pss::TSingletons::getNumberOfPlanetaryGears() const
 {
 	return m_numberOfPlanetaryGears;

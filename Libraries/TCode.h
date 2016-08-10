@@ -15,8 +15,6 @@ namespace pss{
 		int										m_links;												//	Количество связей
 		int										m_frictions;											//	Количество фрикционов
 		int										m_brakes;												//	Количество тормозов
-
-		void									createChains();
 	public:
 		TCode();
 		~TCode(void);
@@ -26,6 +24,8 @@ namespace pss{
 		void									setLinks(const std::vector<TLink>& links);				//	Установка связей
 		void									setFrictions(const std::vector<TLink>& frictions);		//	Установка фрикционов
 		void									setBrakes(const std::vector<TLink>& brakes);			//	Установка тормозов
+
+		void									createChains( );
 
 		const std::vector<TLink>&				getCode() const;
 		TLink									getIn() const;

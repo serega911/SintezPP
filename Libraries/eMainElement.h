@@ -12,5 +12,6 @@ namespace pss
 		,INPUT					
 		,OUTPUT
 		,BRAKE
+		,BUSY
 	);
 }

@@ -11,7 +11,9 @@ namespace pss
 		pss::eMainElement						m_elemN = pss::eMainElement::EMPTY;		//номер элемента
 		int										m_gearSetN;		//номер планетарного ряда
 	public:
+
 		TElement(const eMainElement & elemN, int gearSetN);
+
 		TElement();
 
 		void										setElemN(const eMainElement & elemN);
@@ -26,12 +28,12 @@ namespace pss
 		static const TElement					OUTPUT;
 		static const TElement					BRAKE;
 		static const TElement					EMPTY;
+		static const TElement					PLACEHOLDER;
 
 		friend std::ostream&					operator<<(std::ostream& out, const TElement & elem);
+		friend	bool							operator<( const TElement& elem1, const TElement& elem2 );
+		friend bool								operator==( const TElement& elem1, const TElement& elem2 );
+		friend bool								operator!=( const TElement& elem1, const TElement& elem2 );
 	};
-	bool										operator<(const TElement& elem1, const TElement& elem2);
-	bool										operator==(const TElement& elem1, const TElement& elem2);
-	bool										operator!=(const TElement& elem1, const TElement& elem2);
-	std::ostream&								operator<<(std::ostream& out, const TElement & elem);
 
 }

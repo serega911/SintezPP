@@ -18,7 +18,7 @@ namespace pss
 		
 		bool									pss::TK::inDia(const double & val);
 	public:
-		TK() = delete;
+		TK();
 		TK(double dK);
 		void									addInterval(double beg, double end);
 		const double							operator[](int i) const;
@@ -28,6 +28,6 @@ namespace pss
 		void									setFinded();
 		bool									getFinded() const;
 		void									writeToFile(std::ofstream& file) const override;
-		void									loadFromFile(std::ifstream&) override;
+		void									loadFromFile(std::ifstream& in) override;
 	};
 }

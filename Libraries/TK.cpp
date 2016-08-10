@@ -16,7 +16,11 @@ pss::TK::TK(double dK)
 	m_dK = dK;
 }
 
-bool pss::TK::inDia(const double & val)
+pss::TK::TK( ) : TK(0.1)
+{
+}
+
+bool pss::TK::inDia( const double & val )
 {
 	double a = 2.0f;
 	double b = 4.5f;
@@ -91,8 +95,10 @@ void pss::TK::writeToFile(std::ofstream& file) const
 		file << it << ' ';
 }
 
-void pss::TK::loadFromFile(std::ifstream&)
+void pss::TK::loadFromFile(std::ifstream& in)
 {
-
+	m_K.resize( pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() );
+	for ( auto i = 0; i < m_K.size(); i++ )
+		in >> m_K[i];
 }
 
