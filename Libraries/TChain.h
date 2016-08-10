@@ -10,26 +10,29 @@ class TChain
 {
 private:
 
-	std::set<TElement>						m_elements;
+	std::set<TElement>							m_elements;
 
 public:
 
-	void									addLinkToChain(const TLink & link);
-	void									addElementToChain(const TElement & elem);
-	void									addChainToChain(const TChain & chain);
+	TChain( const TElement& element );
+	TChain();
 
-	void									clear();
+	void										addLinkToChain(const TLink & link);
+	void										addElementToChain(const TElement & elem);
+	void										addChainToChain(const TChain & chain);
 
-	bool									find(const TElement & element) const;
+	void										clear();
 
-	bool									checkElemByOnePlanetarySet() const;
-	const TElement&							getSomeElement() const;
+	bool										find(const TElement & element) const;
 
-	int										size() const;
+	bool										checkElemByOnePlanetarySet() const;
+	const TElement&								getSomeElement() const;
 
-	bool									intersect(const TChain& chain);
+	int											size() const;
 
-	const std::set<TElement>&				getElements() const;
+	bool										intersect(const TChain& chain);
+
+	const std::set<TElement>&					getElements() const;
 
 	friend bool operator<(const TChain& chain1, const TChain& chain2);
 };

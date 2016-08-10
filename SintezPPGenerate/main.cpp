@@ -9,7 +9,6 @@ int main()
 	TGenerate generator;
 	generator.generate();
 
-	system("pause");
 	return 0;
 }
 

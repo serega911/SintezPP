@@ -10,12 +10,10 @@ NS_CORE_START
 
 class TElement
 {
-private:
+public:
 
 	eMainElement								m_elemN;		//номер элемента
 	TGearSetNumber								m_gearSetN;		//номер планетарного ряда
-
-public:
 
 	TElement( const eMainElement& elemN, const TGearSetNumber& gearSetN );
 	TElement();

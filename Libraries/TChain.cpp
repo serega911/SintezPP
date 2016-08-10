@@ -1,6 +1,15 @@
 #include "../Libraries/TChain.h"
 
+core::TChain::TChain( const TElement& element )
+{
+	addElementToChain( element );
+}
+
 NS_CORE_USING
+
+TChain::TChain()
+{
+}
 
 void TChain::addLinkToChain(const TLink & link)
 {

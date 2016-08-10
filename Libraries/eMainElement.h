@@ -41,7 +41,7 @@ inline int convernToInt( const eMainElement& e )
 	case eMainElement::CARRIER:
 		ret = 3;
 		break;
-	default:
+	DEFAULT:
 		TLog::warning( true, "Wrong convertation from eMainElement to int.", TLog::CRITICAL, "inline int convernToInt( const eMainElement& e )" );
 		break;
 	}

@@ -38,7 +38,7 @@ void TSingletons::calculateNumbersOfElements()
 				m_initialData._numberOfGears = 9;
 		}
 			break;
-		default:
+		DEFAULT:
 		{
 			TLog::warning( true, "Ошибка: Некорректное количество степеней свободы!", TLog::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
 		}

@@ -7,7 +7,7 @@
 #include "../Libraries/TI.h"
 #include "../Libraries/TSingletons.h"
 #include "DefK.h"
-//#include "DefKNuton.h"
+
 
 #pragma comment(lib, "../Libraries/SintezPPLibary.lib")
 
@@ -16,10 +16,5 @@ int main()
 	NS_ARI DefK DK;
  	DK.run();
 
-// 	NS_PSS DefKNuton DK;
-// 	DK.run();
-
-
-	system("pause");
 	return 0;
 }

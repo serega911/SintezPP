@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPGenerate", "SintezPPGenerate\SintezPPGenerate.vcxproj", "{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,9 +13,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPDefK", "SintezPPDef
 		{57148835-C16B-4085-994E-3443132160A9} = {57148835-C16B-4085-994E-3443132160A9}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPView", "SintezPPView\SintezPPView.vcxproj", "{90EB20B5-4393-4296-AB10-2540A04BE55F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPLibary", "SintezPPLibary\SintezPPLibary.vcxproj", "{57148835-C16B-4085-994E-3443132160A9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPView", "SintezPPView\SintezPPView.vcxproj", "{54ECAFB9-2F6A-48C7-8FE4-06A358B573A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,12 +31,14 @@ Global
 		{C4E3655B-F856-408B-9780-96DCA92D0059}.Debug|Win32.Build.0 = Debug|Win32
 		{C4E3655B-F856-408B-9780-96DCA92D0059}.Release|Win32.ActiveCfg = Release|Win32
 		{C4E3655B-F856-408B-9780-96DCA92D0059}.Release|Win32.Build.0 = Release|Win32
-		{90EB20B5-4393-4296-AB10-2540A04BE55F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{90EB20B5-4393-4296-AB10-2540A04BE55F}.Release|Win32.ActiveCfg = Release|Win32
 		{57148835-C16B-4085-994E-3443132160A9}.Debug|Win32.ActiveCfg = Debug|Win32
 		{57148835-C16B-4085-994E-3443132160A9}.Debug|Win32.Build.0 = Debug|Win32
 		{57148835-C16B-4085-994E-3443132160A9}.Release|Win32.ActiveCfg = Release|Win32
 		{57148835-C16B-4085-994E-3443132160A9}.Release|Win32.Build.0 = Release|Win32
+		{54ECAFB9-2F6A-48C7-8FE4-06A358B573A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{54ECAFB9-2F6A-48C7-8FE4-06A358B573A3}.Debug|Win32.Build.0 = Debug|Win32
+		{54ECAFB9-2F6A-48C7-8FE4-06A358B573A3}.Release|Win32.ActiveCfg = Release|Win32
+		{54ECAFB9-2F6A-48C7-8FE4-06A358B573A3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
