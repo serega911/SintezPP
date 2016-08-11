@@ -3,7 +3,10 @@
 #include "../Libraries/TCombinations.h"
 #include "../Libraries/TLog.h"
 
+
 NS_ARI_USING
+
+const std::vector<NS_CORE eMainElement> TGenerate::s_elements = { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER };
 
 void TGenerate::readInitialData()
 {
@@ -35,11 +38,11 @@ void TGenerate::generate()
 	m_allLinks.clear();
 	for (int i = 1; i < N; i++)
 	{
-		for ( const auto& mElem1 : { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER } )
+		for ( const auto& mElem1 : s_elements )
 		{
 			for (int j = i + 1; j <= N; j++)
 			{
-				for ( const auto& mElem2 : { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER } )
+				for ( const auto& mElem2 : s_elements )
 				{
 					m_allLinks.push_back( NS_CORE TLink( NS_CORE TElement( mElem1, i ), NS_CORE TElement( mElem2, j ) ) );
 				}
@@ -56,11 +59,11 @@ void TGenerate::generateInOut()
 	auto N = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	for (int i = 1; i <= N; i++)
 	{
-		for ( const auto& inElem : { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER } )
+		for ( const auto& inElem : s_elements )
 		{
 			for (int j = 1; j <= N; j++)
 			{
-				for ( const auto& outElem : { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER } )
+				for ( const auto& outElem : s_elements )
 				{
 					NS_CORE TElement elemIn( inElem, i );
 					NS_CORE TElement elemOut( outElem, j );

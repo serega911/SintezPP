@@ -42,4 +42,3 @@ public:
 };
 
 NS_CORE_END
-

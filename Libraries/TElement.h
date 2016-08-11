@@ -30,6 +30,7 @@ public:
 	static const TElement						OUTPUT;
 	static const TElement						BRAKE;
 	static const TElement						EMPTY;
+	static const TElement						PLACEHOLDER;
 
 	friend bool									operator<( const TElement& elem1, const TElement& elem2 );
 	friend bool									operator==( const TElement& elem1, const TElement& elem2 );
@@ -37,4 +38,3 @@ public:
 };
 
 NS_CORE_END
-

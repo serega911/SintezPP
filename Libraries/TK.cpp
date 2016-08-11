@@ -41,11 +41,6 @@ void TK::writeToFile(std::ostream& file) const
 		file << it << ' ';
 }
 
-bool TK::loadFromFile(std::istream& file )
-{
-	return true;
-}
-
 void TK::setValues( const std::vector<TKValue>& values )
 {
 	m_K = values;
@@ -54,7 +49,6 @@ void TK::setValues( const std::vector<TKValue>& values )
 bool TK::check() const
 {
 	const auto& initialData = TSingletons::getInstance()->getInitialData();
-
 	for ( auto i = 0; i < m_K.size(); i++ )
 	{
 		bool flag = false;
@@ -72,6 +66,14 @@ bool TK::check() const
 			return false;
 		}
 	}
+
+	return true;
+}
+bool TK::loadFromFile(std::istream& in)
+{
+	m_K.resize( TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
+	for ( auto i = 0; i < m_K.size(); i++ )
+		in >> m_K[i];
 
 	return true;
 }

@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "TIOFileManager.h"
+#include "TLoaderFromFile.h"
 #include "TRange.h"
 #include "TI.h"
 #include "GlobalDefines.h"
@@ -48,6 +49,7 @@ public:
 	~TSingletons();
 
 	TIOFileManager*							getIOFileManager();
+	TLoaderFromFile*						getLoaderFromFile();
 
 	const GeneralData&						getGeneralData() const;
 	const InitialData&						getInitialData() const;

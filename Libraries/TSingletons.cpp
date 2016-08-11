@@ -64,6 +64,11 @@ TIOFileManager* TSingletons::getIOFileManager()
 	return TIOFileManager::getInstance();
 }
 
+TLoaderFromFile* TSingletons::getLoaderFromFile()
+{
+	return TLoaderFromFile::getInstance();
+}
+
 const GeneralData& TSingletons::getGeneralData() const
 {
 	return m_generalData;

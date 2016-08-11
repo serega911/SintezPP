@@ -13,6 +13,9 @@ NS_ARI_START
 class TGenerate
 {
 private:
+
+	static const std::vector<NS_CORE eMainElement>	s_elements;
+
 	std::vector<NS_CORE TLink>					m_allLinks;
 	NS_CORE TChainsContainer					m_existingSchemes;
 

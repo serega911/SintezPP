@@ -117,6 +117,9 @@
     <ClCompile Include="..\Libraries\TChainsContainer.cpp">
       <Filter>StaticLib\TCodeContainer</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\TLoaderFromFile.cpp">
+      <Filter>StaticLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\TChainsContainer.h">
       <Filter>StaticLib\TCodeContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TLoaderFromFile.h">
+      <Filter>StaticLib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,10 +3,11 @@
 
 NS_CORE_USING
 
-const TElement TElement::INPUT = TElement(eMainElement::INPUT, 0);
-const TElement TElement::OUTPUT = TElement(eMainElement::OUTPUT, 0);
-const TElement TElement::BRAKE = TElement(eMainElement::BRAKE, 0);
-const TElement TElement::EMPTY = TElement(eMainElement::EMPTY, 0);
+const TElement TElement::INPUT =		TElement(eMainElement::INPUT, 0);
+const TElement TElement::OUTPUT =		TElement(eMainElement::OUTPUT, 0);
+const TElement TElement::BRAKE =		TElement(eMainElement::BRAKE, 0);
+const TElement TElement::EMPTY =		TElement(eMainElement::EMPTY, 0);
+const TElement TElement::PLACEHOLDER =	TElement(eMainElement::EMPTY, 0);
 
 TElement::TElement( const eMainElement& elemN, const TGearSetNumber& gearSetN )
 	: m_elemN( elemN )
@@ -29,12 +30,17 @@ TGearSetNumber TElement::getGearSetN() const
 	return m_gearSetN;
 }
 
+// int TElement::getSerialNumber() const
+// {
+// 	return ( m_gearSetN - 1 ) * 3 + convernToInt( m_elemN ) - 1;
+// }
+
 int TElement::getSerialNumber() const
 {
 	return ( m_gearSetN - 1 ) * 3 + convernToInt( m_elemN ) - 1;
 }
 
-bool NS_CORE operator<(const TElement& elem1, const TElement& elem2)
+bool NS_CORE operator<( const TElement& elem1, const TElement& elem2 )
 {
 	return elem1.getGearSetN() < elem2.getGearSetN() ? true :
 		elem1.getGearSetN() == elem2.getGearSetN() ? elem1.getElemN() < elem2.getElemN() : false;

@@ -26,6 +26,7 @@
     <ClCompile Include="..\Libraries\TLog.cpp" />
     <ClCompile Include="..\Libraries\TRange.cpp" />
     <ClCompile Include="..\Libraries\TCombinations.cpp" />
+    <ClCompile Include="..\Libraries\TLoaderFromFile.cpp" />
     <ClCompile Include="..\Libraries\TSingletons.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +49,7 @@
     <ClInclude Include="..\Libraries\TLog.h" />
     <ClInclude Include="..\Libraries\TRange.h" />
     <ClInclude Include="..\Libraries\TCombinations.h" />
+    <ClInclude Include="..\Libraries\TLoaderFromFile.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
   </ItemGroup>
   <ItemGroup>
