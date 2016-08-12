@@ -1,15 +1,23 @@
 #pragma once
 
 #include "TKinematicScheme.h"
+#include"../Libraries/GlobalDefines.h"
 
-namespace pss
+NS_ARI_START
+
+class TKinematicSchemeBuilder
 {
-	class TKinematicSchemeBuilder
-	{
 
-	private:
-		TKinematicScheme						creatKinematicScheme( const core::TCode & code, const core::TK & k );
-	public:
-		void									buildSchemes();
-	};
-}
+private:
+
+	void										readInitialData();
+	TKinematicScheme							creatKinematicScheme( const core::TCode & code, const core::TK & k );
+	TPlanetaryGearSet::Type						getPlanetaryGearSetType( const NS_CORE TKValue& k );
+
+public:
+
+	void										buildSchemes();
+
+};
+
+NS_ARI_END

@@ -6,21 +6,51 @@
 #include "../Libraries/TK.h"
 #include "../Libraries/IContainer.h"
 
-pss::TKinematicScheme pss::TKinematicSchemeBuilder::creatKinematicScheme( const core::TCode & code, const core::TK & k )
+
+NS_ARI_USING
+
+void ari::TKinematicSchemeBuilder::readInitialData()
 {
-	pss::TKinematicScheme scheme;
-	pss::TPlanetaryGearSet set;
-	set.create( 1, pss::TPlanetaryGearSet::Type::TYPE_DEFAULT );
-	scheme.addGearSet( set );
-	set.create( 2, pss::TPlanetaryGearSet::Type::TYPE_DEFAULT );
-	scheme.addGearSet( set );
+	setlocale( LC_ALL, "Russian" );
+	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Просмотр.  ====\n\n" );
+	//	Исходные данные
+	int W = 0;
+	int N = 0;
+	NS_CORE TLog::log( "\t\t\tИсходные данные." );
+	NS_CORE TLog::log( "Число степеней свободы:	", false );
+	std::cin >> W;
+	NS_CORE TLog::log( "Количество ПМ:		", false );
+	std::cin >> N;
+	NS_CORE TSingletons::getInstance()->setGlobalParameters( W, N );
+}
+
+TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCode & code, const core::TK & k )
+{
+	TKinematicScheme scheme;
+	
+
+	auto numberOfPlanetaryGears = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+
+	for ( auto i = 0; i < numberOfPlanetaryGears; i++ )
+	{
+		TPlanetaryGearSet set;
+		set.create( i + 1, getPlanetaryGearSetType( k[i] ) );
+		scheme.addGearSet( set );
+	}
+
 	scheme.addBorders();
 	return scheme;
 }
 
-void pss::TKinematicSchemeBuilder::buildSchemes()
+TPlanetaryGearSet::Type ari::TKinematicSchemeBuilder::getPlanetaryGearSetType( const NS_CORE TKValue& k )
 {
-	core::TSingletons::getInstance()->setGlobalParameters( 2, 2 );
+	return abs( k ) > 2 ? TPlanetaryGearSet::Type::TYPE_DEFAULT : TPlanetaryGearSet::Type::TYPE_N;
+}
+
+void TKinematicSchemeBuilder::buildSchemes()
+{
+	readInitialData();
+
 	core::TCode code;
 	core::TK k;
 	std::vector<core::IContainer*> containers;
@@ -29,7 +59,7 @@ void pss::TKinematicSchemeBuilder::buildSchemes()
 
 	while ( core::TSingletons::getInstance()->getLoaderFromFile()->load( containers, core::TIOFileManager::eOutputFileType::DONE_K ) )
 	{
-		pss::TKinematicScheme scheme = creatKinematicScheme(code,k);
+		TKinematicScheme scheme = creatKinematicScheme(code,k);
 
 		system( "cls" );
 		scheme.print();
@@ -39,7 +69,7 @@ void pss::TKinematicSchemeBuilder::buildSchemes()
 
 		for ( int i = 0; i < elements.size(); i++ )
 		{
-			pss::TPathBuilder pathBuilder;
+			TPathBuilder pathBuilder;
 			auto path = pathBuilder.findPath( scheme, elements[i] );
 			if ( path.size() != 0 )
 			{

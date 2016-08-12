@@ -78,11 +78,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Defines.h" />
     <ClInclude Include="eDirection.h" />
-    <ClInclude Include="old\TMake.h" />
-    <ClInclude Include="old\TPKP.h" />
-    <ClInclude Include="old\TPlanRyad.h" />
-    <ClInclude Include="old\TWave.h" />
     <ClInclude Include="TCordinates.h" />
     <ClInclude Include="TKinematicScheme.h" />
     <ClInclude Include="TKinematicSchemeBuilder.h" />

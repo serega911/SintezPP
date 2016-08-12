@@ -1,12 +1,14 @@
 #include "TPlanetaryGearSet.h"
 #include <iostream>
 
-const int										pss::TPlanetaryGearSet::s_xSize = 9;
-const int										pss::TPlanetaryGearSet::s_ySize = 15;
-const int										pss::TPlanetaryGearSet::s_centerX = s_xSize / 2;
-const int										pss::TPlanetaryGearSet::s_centerY = s_ySize / 2;
+NS_ARI_USING
 
-void pss::TPlanetaryGearSet::print()
+const int										TPlanetaryGearSet::s_xSize = 9;
+const int										TPlanetaryGearSet::s_ySize = 15;
+const int										TPlanetaryGearSet::s_centerX = s_xSize / 2;
+const int										TPlanetaryGearSet::s_centerY = s_ySize / 2;
+
+void TPlanetaryGearSet::print()
 {
 	for ( auto yPos = 0; yPos < m_field.size( ); yPos++ )
 	{
@@ -15,13 +17,13 @@ void pss::TPlanetaryGearSet::print()
 	}
 }
 
-void pss::TPlanetaryGearSet::printLine( int yPos )
+void TPlanetaryGearSet::printLine( int yPos )
 {
 	for ( auto i = 0; i < m_field[yPos].size(); i++ )
 	{
 		if ( m_field[yPos][i].size( ) != 0 )
 		{
-			if ( m_field[yPos][i].find( core::TElement::PLACEHOLDER ) )
+			if ( m_field[yPos][i].find( core::TElement::EMPTY ) )
 				std::cout << '#';
 			else if ( m_field[yPos][i].find( core::TElement::BRAKE ) )
 				std::cout << 'B';
@@ -37,7 +39,7 @@ void pss::TPlanetaryGearSet::printLine( int yPos )
 	}
 }
 
-void pss::TPlanetaryGearSet::create( int gearSetN, Type type )
+void TPlanetaryGearSet::create( int gearSetN, Type type )
 {
 	m_gearSetN = gearSetN;
 	resetField();
@@ -51,13 +53,13 @@ void pss::TPlanetaryGearSet::create( int gearSetN, Type type )
 		createTypeN( gearSetN );
 		switch ( type )
 		{
-		case pss::TPlanetaryGearSet::Type::TYPE_N_REVERSE:
+		case TPlanetaryGearSet::Type::TYPE_N_REVERSE:
 			reverseX();
 			break;
-		case pss::TPlanetaryGearSet::Type::TYPE_U:
+		case TPlanetaryGearSet::Type::TYPE_U:
 			reverseY();
 			break;
-		case pss::TPlanetaryGearSet::Type::TYPE_U_REVERSE:
+		case TPlanetaryGearSet::Type::TYPE_U_REVERSE:
 			reverseY();
 			reverseX();
 			break;
@@ -65,17 +67,17 @@ void pss::TPlanetaryGearSet::create( int gearSetN, Type type )
 	}
 }
 
-const std::vector<core::TChain>& pss::TPlanetaryGearSet::operator[]( int xPos ) const
+const std::vector<core::TChain>& TPlanetaryGearSet::operator[]( int xPos ) const
 {
 	return m_field[xPos];
 }
 
-std::vector<core::TChain>& pss::TPlanetaryGearSet::operator[]( int xPos )
+std::vector<core::TChain>& TPlanetaryGearSet::operator[]( int xPos )
 {
 	return m_field[xPos];
 }
 
-void pss::TPlanetaryGearSet::resetField()
+void TPlanetaryGearSet::resetField()
 {
 	m_field.resize( s_xSize );
 	for ( auto & line : m_field )
@@ -86,12 +88,12 @@ void pss::TPlanetaryGearSet::resetField()
 	}
 }
 
-void pss::TPlanetaryGearSet::createTypeN( int gearSetN )
+void TPlanetaryGearSet::createTypeN( int gearSetN )
 {
 	for ( auto y = s_centerY - 1; y < s_centerY + 2; y++ )
 	{
-		m_field[s_centerX + 1][y].addElementToChain( core::TElement::PLACEHOLDER );
-		m_field[s_centerX - 1][y].addElementToChain( core::TElement::PLACEHOLDER );
+		m_field[s_centerX + 1][y].addElementToChain( core::TElement::EMPTY );
+		m_field[s_centerX - 1][y].addElementToChain( core::TElement::EMPTY );
 	}
 	for ( auto x = s_centerX - 1; x < s_centerX + 2; x++ )
 	{
@@ -114,15 +116,15 @@ void pss::TPlanetaryGearSet::createTypeN( int gearSetN )
 	// # # # # # # # # #			->x	^y
 }
 
-void pss::TPlanetaryGearSet::createTypeDefault( int gearSetN )
+void TPlanetaryGearSet::createTypeDefault( int gearSetN )
 {
 	m_field[s_centerX][s_centerY + 2].addElementToChain( core::TElement( core::eMainElement::EPICYCLIC_GEAR, gearSetN ) );
-	m_field[s_centerX][s_centerY + 1].addElementToChain( core::TElement::PLACEHOLDER );
+	m_field[s_centerX][s_centerY + 1].addElementToChain( core::TElement::EMPTY );
 	for ( auto x = s_centerX - 1; x < s_centerX + 2; x++ )
 	{
 		m_field[x][s_centerY].addElementToChain( core::TElement( core::eMainElement::CARRIER, gearSetN ) );
 	}				 
-	m_field[s_centerX][s_centerY - 1].addElementToChain( core::TElement::PLACEHOLDER );
+	m_field[s_centerX][s_centerY - 1].addElementToChain( core::TElement::EMPTY );
 	m_field[s_centerX][s_centerY - 2].addElementToChain( core::TElement( core::eMainElement::SUN_GEAR, gearSetN ) );
 	// # # # # # # # # #
 	// . . . . . . . . .
@@ -141,7 +143,7 @@ void pss::TPlanetaryGearSet::createTypeDefault( int gearSetN )
 
 
 
-void pss::TPlanetaryGearSet::reverseX()
+void TPlanetaryGearSet::reverseX()
 {
 	for ( auto x = 0; x < m_field.size()/2; x++ )
 	{
@@ -149,7 +151,7 @@ void pss::TPlanetaryGearSet::reverseX()
 	}
 }
 
-void pss::TPlanetaryGearSet::reverseY()
+void TPlanetaryGearSet::reverseY()
 {
 	for ( auto x = 0; x < m_field.size(); x++ )
 	for ( auto y = 0; y < m_field[x].size() / 2; y++ )

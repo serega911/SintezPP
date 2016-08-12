@@ -7,7 +7,6 @@ const TElement TElement::INPUT =		TElement(eMainElement::INPUT, 0);
 const TElement TElement::OUTPUT =		TElement(eMainElement::OUTPUT, 0);
 const TElement TElement::BRAKE =		TElement(eMainElement::BRAKE, 0);
 const TElement TElement::EMPTY =		TElement(eMainElement::EMPTY, 0);
-const TElement TElement::PLACEHOLDER =	TElement(eMainElement::EMPTY, 0);
 
 TElement::TElement( const eMainElement& elemN, const TGearSetNumber& gearSetN )
 	: m_elemN( elemN )
