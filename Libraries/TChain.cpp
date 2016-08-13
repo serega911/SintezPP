@@ -1,4 +1,5 @@
 #include "../Libraries/TChain.h"
+#include <algorithm>
 
 core::TChain::TChain( const TElement& element )
 {
@@ -77,7 +78,7 @@ int TChain::size() const
 	return m_elements.size();
 }
 
-bool TChain::intersect(const TChain& chain)
+bool TChain::intersect(const TChain& chain) const
 {
 	for (auto& it : m_elements)
 	{

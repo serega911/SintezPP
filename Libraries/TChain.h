@@ -30,7 +30,7 @@ public:
 
 	int											size() const;
 
-	bool										intersect(const TChain& chain);
+	bool										intersect(const TChain& chain) const;
 
 	const std::set<TElement>&					getElements() const;
 

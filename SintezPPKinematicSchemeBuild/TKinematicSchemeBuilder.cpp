@@ -1,6 +1,7 @@
 #include "TKinematicSchemeBuilder.h"
 #include <iostream>
 #include "TPathBuilder.h"
+#include "TViewer.h"
 #include "../Libraries/TSingletons.h"
 #include "../Libraries/TCode.h"
 #include "../Libraries/TK.h"
@@ -28,6 +29,7 @@ TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCod
 {
 	TKinematicScheme scheme;
 	
+	scheme.create( code, k );
 
 	auto numberOfPlanetaryGears = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
@@ -61,8 +63,8 @@ void TKinematicSchemeBuilder::buildSchemes()
 	{
 		TKinematicScheme scheme = creatKinematicScheme(code,k);
 
-		system( "cls" );
-		scheme.print();
+		//system( "cls" );
+		//scheme.print();
 		//system( "pause" );
 
 		const auto& elements = code.getCode();
@@ -75,12 +77,13 @@ void TKinematicSchemeBuilder::buildSchemes()
 			{
 				scheme.addRoute( path, elements[i] );
 			}
-			system( "cls" );
-			scheme.print();
+			//system( "cls" );
+			//scheme.print();
 			//system( "pause" );
 		}
 		code.print();
-		k.print();
+		TViewer::printKinematicScheme( scheme );
+		//k.print();
 	}
 }
 

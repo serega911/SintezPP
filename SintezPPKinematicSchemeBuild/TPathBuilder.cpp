@@ -57,8 +57,8 @@ bool TPathBuilder::spreadWave()
 		}
 	}
 
-	system( "cls" );
-	printField();
+	//system( "cls" );
+	//printField();
 	//system( "pause" );
 
 	//Распространение волны
@@ -81,8 +81,8 @@ bool TPathBuilder::spreadWave()
 				}
 			}
 		}
-				system( "cls" );
-				printField();
+				//system( "cls" );
+				//printField();
 		currentWave = nextWave;
 		nextWave.clear();
 		ni++;
@@ -147,8 +147,8 @@ std::vector<TCordinates> TPathBuilder::findPath()
 
 		
 		path.emplace_back( current );
-		system( "cls" );
-		printField();
+		//system( "cls" );
+		//printField();
 	}
 	path.emplace_back( current );
 	return path;

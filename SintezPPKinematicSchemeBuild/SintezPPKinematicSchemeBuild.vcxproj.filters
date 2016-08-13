@@ -22,6 +22,9 @@
     <Filter Include="Files\TPathBuilder">
       <UniqueIdentifier>{690ad9dd-72ea-4e4c-b8ca-8ccffecd061f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\TViewer">
+      <UniqueIdentifier>{a9fc55a3-5508-4ea6-9f4f-436e268b29f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -42,6 +45,9 @@
     </ClCompile>
     <ClCompile Include="TPathBuilder.cpp">
       <Filter>Files\TPathBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="TViewer.cpp">
+      <Filter>Files\TViewer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +72,12 @@
     </ClInclude>
     <ClInclude Include="TPathBuilder.h">
       <Filter>Files\TPathBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="TViewer.h">
+      <Filter>Files\TViewer</Filter>
+    </ClInclude>
+    <ClInclude Include="TViewer_fwd.h">
+      <Filter>Files\TViewer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

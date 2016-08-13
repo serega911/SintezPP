@@ -71,6 +71,7 @@
     <ClCompile Include="TPathBuilder.cpp" />
     <ClCompile Include="TPlanetaryGearSet.cpp" />
     <ClCompile Include="TRoute.cpp" />
+    <ClCompile Include="TViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
@@ -86,6 +87,8 @@
     <ClInclude Include="TPathBuilder.h" />
     <ClInclude Include="TPlanetaryGearSet.h" />
     <ClInclude Include="TRoute.h" />
+    <ClInclude Include="TViewer.h" />
+    <ClInclude Include="TViewer_fwd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
