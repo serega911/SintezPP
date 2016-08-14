@@ -62,6 +62,7 @@ void TKinematicSchemeBuilder::buildSchemes()
 	while ( core::TSingletons::getInstance()->getLoaderFromFile()->load( containers, core::TIOFileManager::eOutputFileType::DONE_K ) )
 	{
 		TKinematicScheme scheme = creatKinematicScheme(code,k);
+		TKinematicScheme fakeScheme = creatKinematicScheme(code,k);
 
 		//system( "cls" );
 		//scheme.print();
@@ -72,17 +73,18 @@ void TKinematicSchemeBuilder::buildSchemes()
 		for ( int i = 0; i < elements.size(); i++ )
 		{
 			TPathBuilder pathBuilder;
-			auto path = pathBuilder.findPath( scheme, elements[i] );
+			auto path = pathBuilder.findPath( fakeScheme, elements[i] );
 			if ( path.size() != 0 )
 			{
 				scheme.addRoute( path, elements[i] );
+				fakeScheme.addFakeRoute( path, elements[i] );
 			}
 			//system( "cls" );
 			//scheme.print();
-			//system( "pause" );
 		}
 		code.print();
 		TViewer::printKinematicScheme( scheme );
+		system( "pause" );
 		//k.print();
 	}
 }

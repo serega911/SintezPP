@@ -25,9 +25,9 @@ void TPathBuilder::initField( const TKinematicScheme & scheme, core::TLink link 
 				m_field[x][y] = m_start;
 			}
 			// finish
-			else if ( scheme[x][y].find( NS_CORE TElement::BRAKE ) && scheme[x][y].size() > 1 )
-			{
-				m_field[x][y] = m_wall;
+ 			else if ( scheme[x][y].find( NS_CORE TElement::BRAKE ) && scheme[x][y].size() > 1 )
+ 			{
+ 				m_field[x][y] = m_wall;
 			}
 			else if ( scheme[x][y].find( link.getElem2() ) )
 			{

@@ -3,8 +3,8 @@
 
 NS_ARI_USING
 
-const int										TPlanetaryGearSet::s_xSize = 9;
-const int										TPlanetaryGearSet::s_ySize = 15;
+const int										TPlanetaryGearSet::s_xSize = 11;
+const int										TPlanetaryGearSet::s_ySize = 17;
 const int										TPlanetaryGearSet::s_centerX = s_xSize / 2;
 const int										TPlanetaryGearSet::s_centerY = s_ySize / 2;
 

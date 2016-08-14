@@ -27,6 +27,7 @@ public:
 
 	void										addGearSet(const TPlanetaryGearSet & gearSet);
 	void										addRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link );
+	void										addFakeRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link );
 	void										addBorders();
 
 	void										print();
