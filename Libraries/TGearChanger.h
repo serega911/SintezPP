@@ -23,7 +23,6 @@ public:
 	TGearChanger() = delete;
 	TGearChanger(const TCode& code);
 
-//	std::vector<TLink>							getDrivingElementsForGear(int gear) const;
 	std::vector<TLink>							getDrivingElementsForGear() const;
 	bool										next();
 

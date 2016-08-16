@@ -32,19 +32,6 @@ std::vector<TLink> TGearChanger::getDrivingElementsForGear() const
 	return createVector(m_replacer);
 }
 
-// std::vector<TLink> TGearChanger::getDrivingElementsForGear(int gear) const
-// {
-// 	TCombinations replacer;
-// 	
-// 	replacer.init(m_replacer.size());
-// 	
-// 	const auto& generalData = TSingletons::getInstance()->getGeneralData();
-// 	
-// 	for (int i = 1; i < gear; i++)
-// 		replacer.nextReplace( generalData._numberOfFrictions + generalData._numberOfBrakes - 1 );
-// 	return createVector(replacer);
-// }
-
 bool TGearChanger::next()
 {
 	const auto& generalData = TSingletons::getInstance()->getGeneralData();

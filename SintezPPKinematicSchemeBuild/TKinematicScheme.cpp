@@ -43,7 +43,7 @@ void TKinematicScheme::addRoute( const std::vector<TCordinates> & cord, const NS
 
 void ari::TKinematicScheme::addFakeRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link )
 {
-	const int interval = 2;
+	const int interval = 1;
 
 	int b = interval;
 	for ( auto& it : cord )
