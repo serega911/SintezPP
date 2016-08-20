@@ -109,6 +109,9 @@ void TIOFileManager::init()
 	m_fileNames[eOutputFileType::INITIAL_DATA] = "solution_data.init";
 	m_fileNames[eOutputFileType::DONE] = "done.pkp";
 	m_fileNames[eOutputFileType::DONE_K] = "done_K.pkp";
+	m_fileNames[eOutputFileType::DONE_K_SIMPLE] = "done_K_simple.pkp";
+	m_fileNames[eOutputFileType::DONE_K_NUTON] = "done_K_nuton.pkp";
+	m_fileNames[eOutputFileType::DONE_K_SELECTION] = "done_K_selection.pkp";
 	m_fileNames[eOutputFileType::FAIL_NUTON] = "failed_Nuton.pkp";
 
 	const auto& initialData = TSingletons::getInstance()->getInitialData();

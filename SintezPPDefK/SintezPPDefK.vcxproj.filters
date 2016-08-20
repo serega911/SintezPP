@@ -38,6 +38,10 @@
     <ClCompile Include="TK.cpp">
       <Filter>Old</Filter>
     </ClCompile>
+    <ClCompile Include="DefKSimple.cpp">
+      <Filter>Files\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="DefKSelection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Files">
@@ -72,6 +76,12 @@
     </Filter>
     <Filter Include="Old">
       <UniqueIdentifier>{95bbfee6-c52a-4c59-a72e-f2ece7d537f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Simple">
+      <UniqueIdentifier>{dd467c90-50db-4b5a-91ac-1cdede915a53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Selection">
+      <UniqueIdentifier>{a6532836-5ad4-4a72-a4c5-3704c53aa542}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +126,15 @@
     </ClInclude>
     <ClInclude Include="TK.h">
       <Filter>Old</Filter>
+    </ClInclude>
+    <ClInclude Include="DefKSimple.h">
+      <Filter>Files\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckAllPossibilities.h">
+      <Filter>Files\Nuton</Filter>
+    </ClInclude>
+    <ClInclude Include="DefKSelection.h">
+      <Filter>Files\Selection</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -64,8 +64,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CheckAllPossibilities.h" />
     <ClInclude Include="DefK.h" />
     <ClInclude Include="DefKNuton.h" />
+    <ClInclude Include="DefKSelection.h" />
+    <ClInclude Include="DefKSimple.h" />
     <ClInclude Include="Jacobi.h" />
     <ClInclude Include="Equations.h" />
     <ClInclude Include="Defines.h" />
@@ -82,6 +85,8 @@
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
     <ClCompile Include="DefKNuton.cpp" />
+    <ClCompile Include="DefKSelection.cpp" />
+    <ClCompile Include="DefKSimple.cpp" />
     <ClCompile Include="Jacobi.cpp" />
     <ClCompile Include="Equations.cpp" />
     <ClCompile Include="main.cpp" />

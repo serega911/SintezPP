@@ -39,9 +39,29 @@ MatrixLine operator-( const MatrixLine & line1, const MatrixLine & line2 )
 	return ret;
 }
 
+MatrixLine operator+( const MatrixLine & line1, const MatrixLine & line2 )
+{
+	auto ret = line1;
+	for ( auto i = 0; i < line2.size(); i++ )
+	{
+		ret[i] += line2[i];
+	}
+
+	return ret;
+}
+
+Matrix createSpecMatrix( const Matrix& native, const MatrixLine& right, const int pos )
+{
+	Matrix ret = native;
+	for ( auto i = 0; i < ret.getSize(); i++ )
+	{
+		ret.at( i, pos ) = right[i];
+	}
+	return ret;
+}
+
 MatrixLine MatrixOperations::solveGaus( const Matrix& systemMatrix, const MatrixLine& rightParts )
 {
-
 	auto system = systemMatrix.getMatrix();
 	auto right = rightParts;
 
@@ -58,26 +78,26 @@ MatrixLine MatrixOperations::solveGaus( const Matrix& systemMatrix, const Matrix
 				k = j;
 			}
 		}
-			
+
 		if ( k != i )
 		{
 			std::swap( system[i], system[k] );
 			std::swap( right[i], right[k] );
 		}
 
-		if ( system[i][i] != 0 )
+		if ( abs(system[i][i]) > 0.0001 )
 		{
 			for ( int j = i + 1; j < n; ++j )
-			{
+			{ 
 				system[i][j] /= system[i][i];
 			}
 			right[i] /= system[i][i];
 		}
-		else
-		{
-			right.clear( );
-			return right;
-		}
+  		else
+  		{
+  			right.clear( );
+  			return right;
+  		}
 			
 		for ( int j = 0; j < n; ++j )
 		{
@@ -93,6 +113,27 @@ MatrixLine MatrixOperations::solveGaus( const Matrix& systemMatrix, const Matrix
 	}
 
 	return right;
+}
+
+ari::MatrixLine ari::MatrixOperations::solveKramer( const Matrix& systemMatrix, const MatrixLine& rightParts )
+{
+	MatrixLine ans( systemMatrix.getSize() );
+
+	auto det = determinant( systemMatrix );
+	if ( abs( det ) > 0.001 )
+	{
+		for ( auto i = 0; i < systemMatrix.getSize(); i++ )
+		{
+			auto currDet = determinant( createSpecMatrix( systemMatrix, rightParts, i ) );
+			ans[i] = currDet / det;
+		}
+	}
+	else
+	{
+		ans.clear();
+	}
+
+	return ans;
 }
 
 Matrix MatrixOperations::minor( const Matrix& matrix, int i, int j )

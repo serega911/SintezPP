@@ -2,7 +2,6 @@
 
 #include "../Libraries/GlobalDefines.h"
 
-#include "../Libraries/TGearBox.h"
 #include "../Libraries/TK.h"
 #include "../Libraries/TI.h"
 
@@ -23,12 +22,13 @@ private:
 	NS_CORE TK									getKValuesFromSystem( const System & system );
 	double										calcNorm( const MatrixLine& delta );
 	NS_CORE TK									solveNuton( const Jacobi& jacobian, System& system );
-	NS_CORE TK									solveSimple(System& system );
+
+	NS_CORE TK									findK( const NS_CORE TCode& code, const NS_CORE TK& initialKValues, const NS_CORE TI& iTarget );
 
 public:
 
-	NS_CORE TK									findK( const NS_CORE TGearBox& gearBox, const NS_CORE TK& initialKValues, const NS_CORE TI& iTarget );
-
+	
+	NS_CORE TK									calculate( const NS_CORE TCode& code );
 };
 
 NS_ARI_END

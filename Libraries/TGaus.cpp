@@ -84,12 +84,12 @@ void TGaus::createSystemDrivers(const std::vector<TLink>& drivers)
 	}
 }
 
-std::vector<std::vector<float>> TGaus::getSystem() const
+std::vector<std::vector<double>> TGaus::getSystem() const
 {
 	return m_system;
 }
 
-const std::vector<float>& TGaus::getSolution() const
+const std::vector<double>& TGaus::getSolution() const
 {
 	return m_solution;
 }

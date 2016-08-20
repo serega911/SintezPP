@@ -8,6 +8,20 @@
 
 NS_CORE_USING
 
+TK::TK( const std::vector<double>& k )
+	: m_K(k)
+{
+}
+
+core::TK::TK()
+{
+}
+
+core::TK::TK( const size_t size )
+{
+	m_K.resize( size );
+}
+
 const TKValue TK::operator[]( size_t i ) const
 {
 	return m_K.at(i);
@@ -15,24 +29,16 @@ const TKValue TK::operator[]( size_t i ) const
 
 void TK::print() const
 {
-	for (auto &it : m_K)
-		TLog::log( std::to_string( it ) + " ", false );
-	TLog::log( "", false );
+	for ( auto &it : m_K )
+	{
+		TLog::log( it, false );
+		TLog::log( " ", false );
+	}
 }
 
 size_t TK::size() const
 {
 	return m_K.size();
-}
-
-void TK::setFinded( const bool finded )
-{
-	m_isFinded = finded;
-}
-
-bool TK::getFinded() const
-{
-	return m_isFinded;
 }
 
 void TK::writeToFile(std::ostream& file) const
@@ -67,7 +73,7 @@ bool TK::check() const
 		}
 	}
 
-	return true;
+	return true && m_K.size();
 }
 bool TK::loadFromFile(std::istream& in)
 {

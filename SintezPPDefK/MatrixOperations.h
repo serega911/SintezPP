@@ -12,6 +12,7 @@ class MatrixOperations
 public:
 
 	static MatrixLine							solveGaus( const Matrix& systemMatrix, const MatrixLine& rightParts );
+	static MatrixLine							solveKramer( const Matrix& systemMatrix, const MatrixLine& rightParts );
 
 	static CellType								determinant( const Matrix& matrix );
 	static Matrix								inverse( const Matrix& matrix );

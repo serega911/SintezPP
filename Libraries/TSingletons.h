@@ -45,18 +45,18 @@ private:
 
 public:
 
-	static TSingletons*						getInstance();
+	static TSingletons*							getInstance();
 	~TSingletons();
 
-	TIOFileManager*							getIOFileManager();
-	TLoaderFromFile*						getLoaderFromFile();
+	TIOFileManager*								getIOFileManager();
+	TLoaderFromFile*							getLoaderFromFile();
 
-	const GeneralData&						getGeneralData() const;
-	const InitialData&						getInitialData() const;
+	const GeneralData&							getGeneralData() const;
+	const InitialData&							getInitialData() const;
 
-	void									setGlobalParameters(int w, int n);
-	void									addRangeK( const TRange& range );
-	void									addGearRatio( const float& i );
+	void										setGlobalParameters(int w, int n);
+	void										addRangeK( const TRange& range );
+	void										addGearRatio( const double& i );
 
 };
 

@@ -92,7 +92,7 @@ void TSingletons::addRangeK( const TRange& range )
 	m_initialData._ranges.push_back( range );
 }
 
-void TSingletons::addGearRatio( const float& i )
+void TSingletons::addGearRatio( const double& i )
 {
 	m_initialData._i.push_back( i );
 }

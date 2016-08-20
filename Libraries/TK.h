@@ -11,19 +11,19 @@ class TK : public IContainer
 {
 private:
 
-	bool										m_isFinded;
-
 protected:
 	std::vector<TKValue>						m_K;
 
 public:
 
+	TK( const std::vector<double>& k );
+	TK( const size_t size );
+	TK();
+
 	const TKValue								operator[]( size_t i ) const;
 
 	void										print() const;
 	size_t										size() const override;
-	void										setFinded( const bool finded );
-	bool										getFinded() const;
 
 	void										writeToFile( std::ostream& file ) const override;
 	bool										loadFromFile( std::istream& file ) override;

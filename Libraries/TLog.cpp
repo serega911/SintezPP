@@ -4,14 +4,7 @@
 
 NS_CORE_USING
 
-void TLog::log( const std::string& message, const bool isEndlNedded /*= true */ )
-{
-	std::cout << message;
-	if ( isEndlNedded )
-	{
-		std::cout <<  std::endl;
-	}
-}
+
 
 void TLog::warning( const bool condition, const std::string& message, eWarningImportance importance, const std::string& senderName )
 {

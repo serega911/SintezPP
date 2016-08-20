@@ -8,18 +8,18 @@ class TRange
 {
 private:
 
-	float									m_begin;
-	float									m_end;
+	double									m_begin;
+	double									m_end;
 
 public:
 
 	TRange() = delete;
-	TRange( const float beg, const float end );
+	TRange( const double beg, const double end );
 
-	float									getBegin() const;
-	float									getEnd() const;
-	float									getMid() const;
-	bool									isInRange( const float value ) const;
+	double									getBegin() const;
+	double									getEnd() const;
+	double									getMid() const;
+	bool									isInRange( const double value ) const;
 
 };
 

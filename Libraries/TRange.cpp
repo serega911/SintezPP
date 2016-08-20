@@ -2,28 +2,28 @@
 
 NS_CORE_USING
 
-TRange::TRange( const float beg, const float end )
+TRange::TRange( const double beg, const double end )
 	: m_begin( beg )
 	, m_end( end )
 {
 }
 
-float TRange::getBegin() const
+double TRange::getBegin() const
 {
 	return m_begin;
 }
 
-float TRange::getEnd() const
+double TRange::getEnd() const
 {
 	return m_end;
 }
 
-float TRange::getMid() const
+double TRange::getMid() const
 {
 	return ( m_begin + m_end ) / 2.0f;
 }
 
-bool TRange::isInRange( const float value ) const
+bool TRange::isInRange( const double value ) const
 {
 	return value >= m_begin && value <= m_end;
 }

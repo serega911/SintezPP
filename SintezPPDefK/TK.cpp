@@ -4,8 +4,10 @@
 #include <iostream>
 #include <algorithm>
 
+NS_ARI_USING
 
-pss::TK::TK(double dK)
+TK::TK( double dK )
+	: core::TK( 0 )
 {
 
 	m_dK = dK;
@@ -26,7 +28,7 @@ pss::TK::TK(double dK)
 	}
 }
 
-bool pss::TK::next()
+bool TK::next()
 {
 	if ( core::next_combination_repetition( m_combi, m_kValues.size() - 1, 0 ) )
 	{
@@ -37,7 +39,7 @@ bool pss::TK::next()
 	return false;
 }
 
-const double pss::TK::operator[]( size_t i ) const
+const double TK::operator[]( size_t i ) const
 {
 	return m_K[i];
 }

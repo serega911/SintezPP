@@ -18,6 +18,9 @@ public:
 		INITIAL_DATA,	// initial data - W N Count_L Count_F Count_B
 		DONE,			// done
 		DONE_K,			// done K
+		DONE_K_NUTON,			// done K
+		DONE_K_SIMPLE,			// done K
+		DONE_K_SELECTION,		// done K
 		FAIL_N,			// wrong number of elements for brakes and frictions
 		FAIL_0,			// links from in to out or between elements of one planetary mechanism
 		FAIL_FREE,		// after setting frictions and brakes there are free elements

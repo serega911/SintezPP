@@ -6,7 +6,7 @@
 
 NS_CORE_USING
 
-double TI::m_eps = 0.05;
+double TI::m_eps = 0.01;
 
 TI::TI( const std::vector<TIValue>& i, double eps )
 	: m_i( i )
