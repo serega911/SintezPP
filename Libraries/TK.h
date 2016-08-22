@@ -1,33 +1,36 @@
 #pragma once
 #include <vector>
-#include <fstream>
 
-#include "../Libraries/IContainer.h"
+#include "GlobalDefines.h"
+#include "GlobalTypes.h"
+#include "IContainer.h"
 
-namespace pss
+NS_CORE_START
+
+class TK : public IContainer
 {
-	class TK: public IContainer
-	{
-	private:
-		bool									m_isFinded;
-		double									m_dK;
-		std::vector<double>						m_K;
-		std::vector<int>						m_combi;
-		std::vector<double>						m_kValues;
+private:
 
-		
-		bool									pss::TK::inDia(const double & val);
-	public:
-		TK();
-		TK(double dK);
-		void									addInterval(double beg, double end);
-		const double							operator[](int i) const;
-		bool									next();
-		void									print() const;
-		int										size() const override;
-		void									setFinded();
-		bool									getFinded() const;
-		void									writeToFile(std::ofstream& file) const override;
-		void									loadFromFile(std::ifstream& in) override;
-	};
-}
+protected:
+	std::vector<TKValue>						m_K;
+
+public:
+
+	TK( const std::vector<double>& k );
+	TK( const size_t size );
+	TK();
+
+	const TKValue								operator[]( size_t i ) const;
+
+	void										print() const;
+	size_t										size() const override;
+
+	void										writeToFile( std::ostream& file ) const override;
+	bool										loadFromFile( std::istream& file ) override;
+
+	void										setValues( const std::vector<TKValue>& values );
+	bool										check() const;
+
+};
+
+NS_CORE_END

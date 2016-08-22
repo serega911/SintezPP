@@ -8,12 +8,13 @@
 #include "../Libraries/TSingletons.h"
 #include "DefK.h"
 
+
 #pragma comment(lib, "../Libraries/SintezPPLibary.lib")
 
 int main()
 {
-	pss::DefK DK;
-	DK.run();
-	system("pause");
+	NS_ARI DefK DK;
+ 	DK.run();
+
 	return 0;
 }

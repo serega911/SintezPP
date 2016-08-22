@@ -66,12 +66,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Libraries\TMainElement.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TGearBox.cpp" />
     <ClCompile Include="TGenerate.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Libraries\TMainElement.h" />
+    <ClInclude Include="TGearBox.h" />
     <ClInclude Include="TGenerate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

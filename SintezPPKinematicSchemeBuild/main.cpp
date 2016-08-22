@@ -5,7 +5,7 @@
 
 int main()
 {
-	pss::TKinematicSchemeBuilder schemeBuilder;
+	ari::TKinematicSchemeBuilder schemeBuilder;
 	schemeBuilder.buildSchemes();
 	system("pause");
 }

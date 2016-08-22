@@ -1,16 +1,16 @@
 #pragma once
 
-#include <fstream>
+#include <iostream>
+#include "GlobalDefines.h"
 
-namespace pss
+NS_CORE_START
+
+class IContainer
 {
-	class IContainer
-	{
-	private:
+public:
+	virtual size_t								size() const = 0;
+	virtual void								writeToFile( std::ostream& ) const = 0;
+	virtual bool								loadFromFile( std::istream& ) = 0;
+};
 
-	public:
-		virtual int								size() const = 0;
-		virtual void							writeToFile(std::ofstream&) const = 0;
-		virtual void							loadFromFile(std::ifstream&) = 0;
-	};
-}
+NS_CORE_END

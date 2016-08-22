@@ -2,7 +2,9 @@
 #include "../Libraries/TSingletons.h"
 #include "../Libraries/func_lib.h"
 
-void pss::TGaus::solve()
+NS_CORE_USING
+
+void TGaus::solve()
 {
 	m_solution.clear();
 	int n = m_system.size();
@@ -27,11 +29,13 @@ void pss::TGaus::solve()
 		m_solution.push_back(m_system[i][n]);
 }
 
-void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k)
+void TGaus::createSystem(const TCode & Code, const TK &k)
 {
-	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
-	auto L = pss::TSingletons::getInstance()->getNumberOfLinks();
+	auto code = Code.getCode();
 
+	auto N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	auto L = TSingletons::getInstance()->getGeneralData()._numberOfLinks;
+ 
 	m_system.resize(3 * N);
 	for (auto& it : m_system)
 		it.resize(3 * N + 1);
@@ -49,27 +53,26 @@ void pss::TGaus::createSystem(const pss::TCode & Code, const pss::TK &k)
 			m_system[i][j] = 0;
 	//в следующие countSV строк записываем связи
 	for (int i = N, j = 2; i < N + L; i++, j++){
-		m_system[i][Code[j].getElem1().getSerialNumber()] = 1;
-		m_system[i][Code[j].getElem2().getSerialNumber()] = -1;
+		m_system[i][code[j].getElem1().getSerialNumber()] = 1;
+		m_system[i][code[j].getElem2().getSerialNumber()] = -1;
 	}
 	//уравнение для звена, связанного с ведущим валом
-	m_system[N + L][Code[0].getElem1().getSerialNumber()] = 1;
+	m_system[N + L][code[0].getElem1().getSerialNumber()] = 1;
 	m_system[N + L][N * 3] = 1;
 }
 
-void pss::TGaus::createSystemDrivers(const std::vector<pss::TLink>& drivers)
+void TGaus::createSystemDrivers(const std::vector<TLink>& drivers)
 {
-	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
-	auto L = pss::TSingletons::getInstance()->getNumberOfLinks();
+	auto N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	auto L = TSingletons::getInstance()->getGeneralData()._numberOfLinks;
 	for (int i = 0; i < drivers.size(); i++)
 	{
-		pss::TLink driver = drivers[i];
+		TLink driver = drivers[i];
 		for (int j = 0; j < 3 * N + 1; j++)
 		{
 			m_system[N + L + 1 + i][j] = 0;
 		}
-		//std::cout << "driver: " << driver << std::endl;
-		if (driver.getElem2() == pss::TElement::BRAKE)	//driver - тормоз
+		if (driver.getElem2() == TElement::BRAKE)	//driver - тормоз
 		{
 			m_system[N + L + 1 + i][driver.getElem1().getSerialNumber()] = 1;
 		}
@@ -81,12 +84,12 @@ void pss::TGaus::createSystemDrivers(const std::vector<pss::TLink>& drivers)
 	}
 }
 
-std::vector<std::vector<float>> pss::TGaus::getSystem()
+std::vector<std::vector<double>> TGaus::getSystem() const
 {
 	return m_system;
 }
 
-const std::vector<float>& pss::TGaus::getSolution()
+const std::vector<double>& TGaus::getSolution() const
 {
 	return m_solution;
 }

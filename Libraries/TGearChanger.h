@@ -1,28 +1,31 @@
 #pragma once
 
-#include "../Libraries/TLink.h"
-#include "../Libraries/TCode.h"
-#include "../Libraries/TReplace.h"
 #include <vector>
 
+#include "TLink.h"
+#include "TCode.h"
+#include "TCombinations.h"
+#include "GlobalDefines.h"
 
-namespace pss
+NS_CORE_START
+
+class TGearChanger
 {
-	class TGearChanger
-	{
-	private:
-		std::vector<pss::TLink>					m_drivingElements;
-		pss::TReplace							m_replacer;
+private:
 
-		std::vector<pss::TLink>					createVector(const pss::TReplace & replacer) const;
-	public:
-		TGearChanger() = delete;
-		TGearChanger(const pss::TCode& code);
+	std::vector<TLink>							m_drivingElements;
+	TCombinations								m_replacer;
 
-		std::vector<pss::TLink>					getDrivingElementsForGear(int gear) const;
-		std::vector<pss::TLink>					getDrivingElementsForGear() const;
-		bool									next();
+	std::vector<TLink>							createVector(const TCombinations & replacer) const;
 
-	};
+public:
 
-}
+	TGearChanger() = delete;
+	TGearChanger(const TCode& code);
+
+	std::vector<TLink>							getDrivingElementsForGear() const;
+	bool										next();
+
+};
+
+NS_CORE_END

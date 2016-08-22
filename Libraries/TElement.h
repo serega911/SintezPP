@@ -1,39 +1,39 @@
 #pragma once
-#include <ostream>
-#include <istream>
+
+#include <iostream>
+
 #include "eMainElement.h"
+#include "GlobalDefines.h"
+#include "GlobalTypes.h"
 
-namespace pss
+NS_CORE_START
+
+class TElement
 {
-	class TElement
-	{
-	private:
-		pss::eMainElement						m_elemN = pss::eMainElement::EMPTY;		//номер элемента
-		int										m_gearSetN;		//номер планетарного ряда
-	public:
+public:
 
-		TElement(const eMainElement & elemN, int gearSetN);
+	eMainElement								m_elemN;		//номер элемента
+	TGearSetNumber								m_gearSetN;		//номер планетарного ряда
 
-		TElement();
+	TElement( const eMainElement& elemN, const TGearSetNumber& gearSetN );
+	TElement();
 
-		void										setElemN(const eMainElement & elemN);
-		void										setGearSetN(int gearSetN);
-		void										set(const eMainElement & elemN, int gearSetN);
+	eMainElement								getElemN() const;
+	TGearSetNumber								getGearSetN() const;
+	int											getSerialNumber() const;
 
-		eMainElement								getElemN() const;
-		int											getGearSetN() const;
-		int											getSerialNumber() const;
+	void										print() const;
+	void										writeTofile( std::ostream& file ) const;
+	bool										loadFromFile( std::istream& file );
 
-		static const TElement					INPUT;		// RK: replace on public static method
-		static const TElement					OUTPUT;
-		static const TElement					BRAKE;
-		static const TElement					EMPTY;
-		static const TElement					PLACEHOLDER;
+	static const TElement						INPUT;
+	static const TElement						OUTPUT;
+	static const TElement						BRAKE;
+	static const TElement						EMPTY;
 
-		friend std::ostream&					operator<<(std::ostream& out, const TElement & elem);
-		friend	bool							operator<( const TElement& elem1, const TElement& elem2 );
-		friend bool								operator==( const TElement& elem1, const TElement& elem2 );
-		friend bool								operator!=( const TElement& elem1, const TElement& elem2 );
-	};
+	friend bool									operator<( const TElement& elem1, const TElement& elem2 );
+	friend bool									operator==( const TElement& elem1, const TElement& elem2 );
+	friend bool									operator!=( const TElement& elem1, const TElement& elem2 );
+};
 
-}
+NS_CORE_END

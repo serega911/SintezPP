@@ -4,56 +4,80 @@
     <Filter Include="Files">
       <UniqueIdentifier>{d22477fd-da40-4be6-baff-6eeec0111b9a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Old">
-      <UniqueIdentifier>{9cd70c91-54cf-41ae-a7f6-9d7714e1f580}</UniqueIdentifier>
+    <Filter Include="Files\eDirection">
+      <UniqueIdentifier>{03b2b69a-6d5e-4373-97e6-9387e876bf3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\TCordinates">
+      <UniqueIdentifier>{6583fe6d-23b8-416a-a21b-0e64e081b8b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\TRoute">
+      <UniqueIdentifier>{500d7b74-a3b0-4559-bf4d-a6ff938d9095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\TPlanetaryGearSet">
+      <UniqueIdentifier>{906b73d1-d041-4b00-9369-f2cdfc9a0234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\TKinematicScheme">
+      <UniqueIdentifier>{6c4418be-31e1-4d22-a903-0af2cacd8c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\TPathBuilder">
+      <UniqueIdentifier>{690ad9dd-72ea-4e4c-b8ca-8ccffecd061f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\TViewer">
+      <UniqueIdentifier>{a9fc55a3-5508-4ea6-9f4f-436e268b29f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TPlanetaryGearSet.cpp">
-      <Filter>Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TKinematicScheme.cpp">
-      <Filter>Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TPathBuilder.cpp">
-      <Filter>Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TRoute.cpp">
+    <ClCompile Include="TKinematicSchemeBuilder.cpp">
       <Filter>Files</Filter>
     </ClCompile>
     <ClCompile Include="TCordinates.cpp">
-      <Filter>Files</Filter>
+      <Filter>Files\TCordinates</Filter>
     </ClCompile>
-    <ClCompile Include="TKinematicSchemeBuilder.cpp" />
+    <ClCompile Include="TRoute.cpp">
+      <Filter>Files\TRoute</Filter>
+    </ClCompile>
+    <ClCompile Include="TPlanetaryGearSet.cpp">
+      <Filter>Files\TPlanetaryGearSet</Filter>
+    </ClCompile>
+    <ClCompile Include="TKinematicScheme.cpp">
+      <Filter>Files\TKinematicScheme</Filter>
+    </ClCompile>
+    <ClCompile Include="TPathBuilder.cpp">
+      <Filter>Files\TPathBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="TViewer.cpp">
+      <Filter>Files\TViewer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TPlanetaryGearSet.h">
+    <ClInclude Include="TKinematicSchemeBuilder.h">
       <Filter>Files</Filter>
     </ClInclude>
-    <ClInclude Include="old\TMake.h">
-      <Filter>Old</Filter>
+    <ClInclude Include="Defines.h" />
+    <ClInclude Include="eDirection.h">
+      <Filter>Files\eDirection</Filter>
     </ClInclude>
-    <ClInclude Include="old\TPKP.h">
-      <Filter>Old</Filter>
-    </ClInclude>
-    <ClInclude Include="old\TPlanRyad.h">
-      <Filter>Old</Filter>
-    </ClInclude>
-    <ClInclude Include="old\TWave.h">
-      <Filter>Old</Filter>
-    </ClInclude>
-    <ClInclude Include="TKinematicScheme.h">
-      <Filter>Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TPathBuilder.h">
-      <Filter>Files</Filter>
+    <ClInclude Include="TCordinates.h">
+      <Filter>Files\TCordinates</Filter>
     </ClInclude>
     <ClInclude Include="TRoute.h">
-      <Filter>Files</Filter>
+      <Filter>Files\TRoute</Filter>
     </ClInclude>
-    <ClInclude Include="TCordinates.h" />
-    <ClInclude Include="eDirection.h" />
-    <ClInclude Include="TKinematicSchemeBuilder.h" />
+    <ClInclude Include="TPlanetaryGearSet.h">
+      <Filter>Files\TPlanetaryGearSet</Filter>
+    </ClInclude>
+    <ClInclude Include="TKinematicScheme.h">
+      <Filter>Files\TKinematicScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="TPathBuilder.h">
+      <Filter>Files\TPathBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="TViewer.h">
+      <Filter>Files\TViewer</Filter>
+    </ClInclude>
+    <ClInclude Include="TViewer_fwd.h">
+      <Filter>Files\TViewer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

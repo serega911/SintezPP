@@ -1,23 +1,24 @@
 #include "TKinematicScheme.h"
 #include <iostream>
 
+NS_ARI_USING
 
-std::vector<pss::TChain>& pss::TKinematicScheme::operator[]( int xPos ) 
+std::vector<NS_CORE TChain>& TKinematicScheme::operator[]( int xPos ) 
 {
 	return m_field[xPos / TPlanetaryGearSet::s_xSize][ xPos % TPlanetaryGearSet::s_xSize];
 }
 
-const std::vector<pss::TChain>& pss::TKinematicScheme::operator[]( int xPos ) const
+const std::vector<NS_CORE TChain>& TKinematicScheme::operator[]( int xPos ) const
 {
 	return m_field[xPos / TPlanetaryGearSet::s_xSize][xPos % TPlanetaryGearSet::s_xSize];
 }
 
-void pss::TKinematicScheme::addGearSet( const TPlanetaryGearSet & gearSet )
+void TKinematicScheme::addGearSet( const TPlanetaryGearSet & gearSet )
 {
 	m_field.emplace_back( gearSet );		
 }
 
-void pss::TKinematicScheme::addRoute( const std::vector<pss::TCordinates> & cord, const pss::TLink & link )
+void TKinematicScheme::addRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link )
 {
 	for ( auto& it : cord )
 	{
@@ -25,11 +26,13 @@ void pss::TKinematicScheme::addRoute( const std::vector<pss::TCordinates> & cord
 		( *this )[it.m_x][it.m_y].addChainToChain( ( *this )[cord[0].m_x][cord[0].m_y] );
 		( *this )[it.m_x][it.m_y].addChainToChain( ( *this )[cord[cord.size() - 1].m_x][cord[cord.size() - 1].m_y] );
 	}
-	for ( auto x = 0; x < m_field.size() * pss::TPlanetaryGearSet::s_xSize; x++ )
+	for ( auto x = 0; x < m_field.size() * TPlanetaryGearSet::s_xSize; x++ )
 	{
-		for ( auto y = 0; y < pss::TPlanetaryGearSet::s_ySize; y++ )
+		for ( auto y = 0; y < TPlanetaryGearSet::s_ySize; y++ )
 		{
-			if ( ( *this )[x][y].find( link.getElem1( ) ) || ( *this )[x][y].find( link.getElem2( ) ) )
+			//if ( ( *this )[x][y].find( link.getElem1( ) ) || ( *this )[x][y].find( link.getElem2( ) ) )
+			if ( ( *this )[x][y].find( link.getElem1() ) || 
+				( ( *this )[x][y].find( link.getElem2() ) && link.getElem2() != NS_CORE TElement::BRAKE )  )
 			{
 				( *this )[x][y].addLinkToChain( link );
 			}
@@ -38,32 +41,61 @@ void pss::TKinematicScheme::addRoute( const std::vector<pss::TCordinates> & cord
 	
 }
 
-void pss::TKinematicScheme::addBorders()
+void ari::TKinematicScheme::addFakeRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link )
+{
+	const int interval = 1;
+
+	int b = interval;
+	for ( auto& it : cord )
+	{
+		b++;
+		if ( b == interval + 1 )
+		{
+			( *this )[it.m_x][it.m_y].addLinkToChain( link );
+			( *this )[it.m_x][it.m_y].addChainToChain( ( *this )[cord[0].m_x][cord[0].m_y] );
+			( *this )[it.m_x][it.m_y].addChainToChain( ( *this )[cord[cord.size() - 1].m_x][cord[cord.size() - 1].m_y] );
+			b = 0;
+		}
+	}
+	for ( auto x = 0; x < m_field.size() * TPlanetaryGearSet::s_xSize; x++ )
+	{
+		for ( auto y = 0; y < TPlanetaryGearSet::s_ySize; y++ )
+		{
+			if ( ( *this )[x][y].find( link.getElem1() ) || 
+				( ( *this )[x][y].find( link.getElem2() ) && link.getElem2() != NS_CORE TElement::BRAKE ) )
+			{
+				( *this )[x][y].addLinkToChain( link );
+			}
+		}
+	}
+}
+
+void TKinematicScheme::addBorders()
 {
 	//top and bottoms borders
-	for ( auto x = 0; x < m_field.size() * pss::TPlanetaryGearSet::s_xSize; x++ )
+	for ( auto x = 0; x < m_field.size() * TPlanetaryGearSet::s_xSize; x++ )
 	{
-		m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][0].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][pss::TPlanetaryGearSet::s_ySize - 1].addElementToChain( pss::TElement::PLACEHOLDER );
+		m_field[x / TPlanetaryGearSet::s_xSize][x%TPlanetaryGearSet::s_xSize][0].addElementToChain( NS_CORE TElement::EMPTY );
+		m_field[x / TPlanetaryGearSet::s_xSize][x%TPlanetaryGearSet::s_xSize][TPlanetaryGearSet::s_ySize - 1].addElementToChain( NS_CORE TElement::EMPTY );
 	}
 	//brakes
-	for ( auto x = 1; x < m_field.size() * pss::TPlanetaryGearSet::s_xSize - 1; x++ )
+	for ( auto x = 1; x < m_field.size() * TPlanetaryGearSet::s_xSize - 1; x++ )
 	{
-		m_field[x / pss::TPlanetaryGearSet::s_xSize][x%pss::TPlanetaryGearSet::s_xSize][pss::TPlanetaryGearSet::s_ySize - 2].addElementToChain( pss::TElement::BRAKE );
+		m_field[x / TPlanetaryGearSet::s_xSize][x%TPlanetaryGearSet::s_xSize][TPlanetaryGearSet::s_ySize - 2].addElementToChain( NS_CORE TElement::BRAKE );
 	}
 	//left and right borders
-	for ( auto y = 0; y < pss::TPlanetaryGearSet::s_ySize; y++ )
+	for ( auto y = 0; y < TPlanetaryGearSet::s_ySize; y++ )
 	{
-		m_field[0][0][y].addElementToChain( pss::TElement::PLACEHOLDER );
-		m_field[m_field.size( ) - 1][pss::TPlanetaryGearSet::s_xSize - 1][y].addElementToChain( pss::TElement::PLACEHOLDER );
+		m_field[0][0][y].addElementToChain( NS_CORE TElement::EMPTY );
+		m_field[m_field.size() - 1][TPlanetaryGearSet::s_xSize - 1][y].addElementToChain( NS_CORE TElement::EMPTY );
 	}
 	//input-output
-	m_field[0][1][1].addElementToChain( pss::TElement::INPUT );
-	m_field[m_field.size( ) - 1][pss::TPlanetaryGearSet::s_xSize - 2][1].addElementToChain( pss::TElement::OUTPUT );
+	m_field[0][1][1].addElementToChain( NS_CORE TElement::INPUT );
+	m_field[m_field.size() - 1][TPlanetaryGearSet::s_xSize - 2][1].addElementToChain( NS_CORE TElement::OUTPUT );
 	//brakes
 }
 
-void pss::TKinematicScheme::print()
+void TKinematicScheme::print()
 {
 	for ( auto xPos = 0; xPos < m_field.size(); xPos++ )
 	{
@@ -71,14 +103,14 @@ void pss::TKinematicScheme::print()
 	}
 }
 
-void pss::TKinematicScheme::create( const pss::TCode& code, pss::TK & k )
-{
+void TKinematicScheme::create( const NS_CORE TCode& code, const NS_CORE TK & k )
+ {
 	m_code = code;
 	m_k = k;
-	m_code.createChains();
-}
+	//m_code.createChains();
+ }
 
-size_t pss::TKinematicScheme::size() const
+size_t TKinematicScheme::size() const
 {
 	return TPlanetaryGearSet::s_xSize * m_field.size();
 }
