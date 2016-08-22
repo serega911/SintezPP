@@ -2,21 +2,23 @@
 
 #include "TKinematicScheme.h"
 #include"../Libraries/GlobalDefines.h"
+#include "../Libraries/IApplication.h"
 
 NS_ARI_START
 
 class TKinematicSchemeBuilder
+	: public NS_CORE IApplication
 {
 
 private:
 
-	void										readInitialData();
+	void										readInitialData() override;
 	TKinematicScheme							creatKinematicScheme( const core::TCode & code, const core::TK & k );
 	TPlanetaryGearSet::Type						getPlanetaryGearSetType( const NS_CORE TKValue& k );
 
 public:
 
-	void										buildSchemes();
+	void										run() override;
 
 };
 

@@ -28,7 +28,7 @@ void TGenerate::readInitialData()
 	NS_CORE TLog::log( "Количество тормозов:	" + std::to_string( generalData._numberOfBrakes ) );
 }
 
-void TGenerate::generate()
+void TGenerate::run()
 {
 	readInitialData();
 

@@ -34,6 +34,7 @@
     <ClInclude Include="..\Libraries\func_lib.h" />
     <ClInclude Include="..\Libraries\GlobalDefines.h" />
     <ClInclude Include="..\Libraries\GlobalTypes.h" />
+    <ClInclude Include="..\Libraries\IApplication.h" />
     <ClInclude Include="..\Libraries\IContainer.h" />
     <ClInclude Include="..\Libraries\TChain.h" />
     <ClInclude Include="..\Libraries\TCode.h" />

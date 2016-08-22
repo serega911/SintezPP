@@ -6,6 +6,6 @@
 int main()
 {
 	ari::TKinematicSchemeBuilder schemeBuilder;
-	schemeBuilder.buildSchemes();
+	schemeBuilder.run();
 	system("pause");
 }

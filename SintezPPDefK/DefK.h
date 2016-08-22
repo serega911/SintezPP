@@ -2,18 +2,20 @@
 
 #include <vector>
 #include "../Libraries/GlobalDefines.h"
+#include "../Libraries/IApplication.h"
 
 NS_ARI_START
 
-	class DefK
+class DefK
+	: public NS_CORE IApplication
 	{
 	private:
 
-		void									readInitialData();
+		void									readInitialData() override;
 
 	public:
 
-		void									run();
+		void									run() override;
 
 	};
 

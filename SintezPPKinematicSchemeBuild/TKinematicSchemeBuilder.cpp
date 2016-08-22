@@ -49,7 +49,7 @@ TPlanetaryGearSet::Type ari::TKinematicSchemeBuilder::getPlanetaryGearSetType( c
 	return abs( k ) > 2 ? TPlanetaryGearSet::Type::TYPE_DEFAULT : TPlanetaryGearSet::Type::TYPE_N;
 }
 
-void TKinematicSchemeBuilder::buildSchemes()
+void TKinematicSchemeBuilder::run()
 {
 	readInitialData();
 
