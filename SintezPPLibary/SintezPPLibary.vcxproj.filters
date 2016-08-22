@@ -4,99 +4,189 @@
     <Filter Include="StaticLib">
       <UniqueIdentifier>{be2da492-695b-49ab-8019-f8b1708c7d8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StaticLib\enums">
+      <UniqueIdentifier>{b2b97300-7740-4e73-96bc-097ec4662809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TSingletons">
+      <UniqueIdentifier>{b64a084c-a3a0-4c2f-9304-dc32e54a8036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TI">
+      <UniqueIdentifier>{1d17c906-3e54-4b2b-886d-a1a86a404de3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\defines">
+      <UniqueIdentifier>{d937ad96-2524-45b6-92d9-e1e2c551d04f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\combinatorics">
+      <UniqueIdentifier>{ba197f0a-bece-4fba-9aa0-fd0149da4763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\combinatorics\TCombinations">
+      <UniqueIdentifier>{30302844-96e7-47ea-98f6-9f7abfc42ad3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\helpers">
+      <UniqueIdentifier>{e5eb4133-3693-4018-b8a1-00a2f75fac44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\helpers\TIOFileManager">
+      <UniqueIdentifier>{98ad5466-6d09-4d2a-ab74-c1281cc1882c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\helpers\TLog">
+      <UniqueIdentifier>{3a6b69e0-0fe9-4232-afc9-249c0806feb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\helpers\TGaus">
+      <UniqueIdentifier>{e6ac5374-a957-4108-9b9d-8c5a66d64543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\types">
+      <UniqueIdentifier>{bb96795d-4360-4805-87d5-2a0d14fcb55b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\types\TRange">
+      <UniqueIdentifier>{af7269da-8292-434d-9901-7fca7f67c125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\IContainer">
+      <UniqueIdentifier>{6f93237f-bd21-4863-8623-7f863a8f7a45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TGearBox">
+      <UniqueIdentifier>{d40f7cf8-4111-4d3c-9e34-6b1460331784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TGearBox\TChain">
+      <UniqueIdentifier>{691b7ca8-b2a6-414c-a568-5e46bc234f32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TGearBox\TCode">
+      <UniqueIdentifier>{40847248-2770-494c-9321-5321e9a913d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TCodeContainer">
+      <UniqueIdentifier>{10ceea58-d367-411b-8d13-7615e41967f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TK">
+      <UniqueIdentifier>{2e09055c-341d-466e-8cc4-da514c27ae6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TGearBox\TElement">
+      <UniqueIdentifier>{ea3b06c5-0de4-4693-80e8-c96d67a21bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TGearBox\TLink">
+      <UniqueIdentifier>{8ff98a8e-9e57-45ca-a52b-e7c3d98ba97b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TGearBox\TGearChanger">
+      <UniqueIdentifier>{223573cb-81db-4d57-88a3-c4b626aedc60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\helpers\TLoaderFromFile">
+      <UniqueIdentifier>{0e513cb3-4563-46bc-9295-73420db2c631}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Libraries\func_lib.cpp">
       <Filter>StaticLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TChain.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
     <ClCompile Include="..\Libraries\TCode.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TCodeContainer.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TElement.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TGaus.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TGearChanger.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TI.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TK.cpp">
-      <Filter>StaticLib</Filter>
+      <Filter>StaticLib\TGearBox\TCode</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TLink.cpp">
-      <Filter>StaticLib</Filter>
+      <Filter>StaticLib\TGearBox\TLink</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TReplace.cpp">
-      <Filter>StaticLib</Filter>
+    <ClCompile Include="..\Libraries\TElement.cpp">
+      <Filter>StaticLib\TGearBox\TElement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TChain.cpp">
+      <Filter>StaticLib\TGearBox\TChain</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TSingletons.cpp">
-      <Filter>StaticLib</Filter>
+      <Filter>StaticLib\TSingletons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TK.cpp">
+      <Filter>StaticLib\TK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TI.cpp">
+      <Filter>StaticLib\TI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TCombinations.cpp">
+      <Filter>StaticLib\combinatorics\TCombinations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TRange.cpp">
+      <Filter>StaticLib\types\TRange</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
+      <Filter>StaticLib\helpers\TIOFileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TGearChanger.cpp">
+      <Filter>StaticLib\TGearBox\TGearChanger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TLog.cpp">
+      <Filter>StaticLib\helpers\TLog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TGaus.cpp">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TGearBox.cpp">
+      <Filter>StaticLib\TGearBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TChainsContainer.cpp">
+      <Filter>StaticLib\TCodeContainer</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TLoaderFromFile.cpp">
-      <Filter>StaticLib</Filter>
+      <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\IContainer.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TChain.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\TCode.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCodeContainer.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TElement.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TGaus.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TGearChanger.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TI.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TIOFileManager.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TK.h">
-      <Filter>StaticLib</Filter>
+      <Filter>StaticLib\TGearBox\TCode</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TLink.h">
-      <Filter>StaticLib</Filter>
+      <Filter>StaticLib\TGearBox\TLink</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TReplace.h">
-      <Filter>StaticLib</Filter>
+    <ClInclude Include="..\Libraries\TElement.h">
+      <Filter>StaticLib\TGearBox\TElement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TChain.h">
+      <Filter>StaticLib\TGearBox\TChain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\eMainElement.h">
+      <Filter>StaticLib\enums</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TSingletons.h">
-      <Filter>StaticLib</Filter>
+      <Filter>StaticLib\TSingletons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TK.h">
+      <Filter>StaticLib\TK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TI.h">
+      <Filter>StaticLib\TI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TCombinations.h">
+      <Filter>StaticLib\combinatorics\TCombinations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TRange.h">
+      <Filter>StaticLib\types\TRange</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IContainer.h">
+      <Filter>StaticLib\IContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TIOFileManager.h">
+      <Filter>StaticLib\helpers\TIOFileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TGearChanger.h">
+      <Filter>StaticLib\TGearBox\TGearChanger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TLog.h">
+      <Filter>StaticLib\helpers\TLog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\GlobalDefines.h">
+      <Filter>StaticLib\defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TGaus.h">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\GlobalTypes.h">
+      <Filter>StaticLib\defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TGearBox.h">
+      <Filter>StaticLib\TGearBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TChainsContainer.h">
+      <Filter>StaticLib\TCodeContainer</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TLoaderFromFile.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\enum.h">
-      <Filter>StaticLib</Filter>
+      <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

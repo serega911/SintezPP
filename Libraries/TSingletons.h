@@ -1,41 +1,64 @@
 #pragma once
+
+#include <vector>
+
 #include "TIOFileManager.h"
 #include "TLoaderFromFile.h"
+#include "TRange.h"
+#include "TI.h"
+#include "GlobalDefines.h"
 
-namespace pss
+NS_CORE_START
+
+struct InitialData
 {
-	class TSingletons
-	{
-	public:
-		static TSingletons*						getInstance();
-		~TSingletons();
-		void									init();
-		TIOFileManager*							getIOFileManager();
-		TLoaderFromFile*							getLoaderFromFile( );
-		int										getNumberOfPlanetaryGears() const;
-		int										getNumberOfGears() const;
-		int										getW() const;
-		int										getNumberOfLinks() const;
-		int										getNumberOfActuatedDrivingElements() const;
-		int										getNumberOfFrictions() const;
-		int										getNumberOfBrakes() const;
+	int										_w;									//	число степеней свободы
+	int										_numberOfGears;						//	Количество реализуемых передач без прямой
+	int										_numberOfPlanetaryGears;			//	Количество планетарных рядов
+	std::vector<TRange>						_ranges;
+	TI										_i;
+};
 
-		void									setGlobalParameters(int w, int n);
+struct GeneralData
+{
+	int										_numberOfActuatedDrivingElements;	//	Количество управляющих элементов, необходимых для включения передачи
+	int										_numberOfFrictions;					//	Количество фрикционов
+	int										_numberOfBrakes;					//	Количество тормозов
+	int										_numberOfLinks;						//	Количество связей
+	int										_codeSize;							//	Размер вектора кода
+};
 
-	private:
-												TSingletons();
-												TSingletons(const TSingletons&) = delete;
-		TSingletons&							operator=(TSingletons&) = delete;
-		void									calculateNumbersOfElements();
 
-		int										m_w;									//	число степеней свободы
-		int										m_numberOfGears;						//	Количество реализуемых передач без прямой
-		int										m_numberOfActuatedDrivingElements;		//	Количество управляющих элементов, необходимых для включения передачи
-		int										m_numberOfPlanetaryGears;				//	Количество планетарных рядов
-		int										m_numberOfBrakes;						//	Количество тормозов
-		int										m_numberOfFrictions;					//	Количество фрикционов
-		int										m_numberOfLinks;						//	Количество связей
-		int										m_codeSize;								//	Размер вектора кода
-	};
-}
+class TSingletons
+{
+private:
+
+	TSingletons();
+	TSingletons( const TSingletons& ) = delete;
+
+	TSingletons&								operator=( TSingletons& ) = delete;
+
+	void										calculateNumbersOfElements();
+
+	GeneralData									m_generalData;
+	InitialData									m_initialData;
+
+public:
+
+	static TSingletons*							getInstance();
+	~TSingletons();
+
+	TIOFileManager*								getIOFileManager();
+	TLoaderFromFile*							getLoaderFromFile();
+
+	const GeneralData&							getGeneralData() const;
+	const InitialData&							getInitialData() const;
+
+	void										setGlobalParameters(int w, int n);
+	void										addRangeK( const TRange& range );
+	void										addGearRatio( const double& i );
+
+};
+
+NS_CORE_END
 

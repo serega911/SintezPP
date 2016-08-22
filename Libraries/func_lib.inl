@@ -1,7 +1,9 @@
 #pragma once
 
-namespace pss
-{
+#include "GlobalDefines.h"
+
+NS_CORE_START
+
 	template <class T>
 	void print(std::vector<T> vect, char* str /*= ""*/)
 	{
@@ -38,33 +40,4 @@ namespace pss
 		return true;
 	}	//удал€ет из вектора Vect повтор€ющиес€ элементы
 
-	template <class T>
-	T GAUS(std::vector<std::vector<T>> Sys, int elem)
-	{
-		const double EPS = 0.0001;
-		int n = Sys.size();
-		std::vector<T> ans;
-		for(int i = 0; i < n; ++i)
-		{
-			int k = i;
-			for(int j = i + 1; j<n; ++j)
-			if(abs(Sys[j][i]) > abs(Sys[k][i]))
-				k = j;
-			if(k != i)
-				std::swap(Sys[i], Sys[k]);
-			for(int j = i + 1; j <= n; ++j)
-			if(Sys[i][i] != 0)
-				Sys[i][j] /= Sys[i][i];
-			else
-				return 0;
-			for(int j = 0; j < n; ++j)
-			if(j != i)
-			for(int k = i + 1; k <= n; ++k)
-				Sys[j][k] -= Sys[i][k] * Sys[j][i];
-		}
-		for(int i = 0; i < n; ++i)
-			ans.push_back(Sys[i][n]);
-		return ans[elem];
-	}	//находит решение x[elem] системы уравнений Sys методом √аусса
-
-}
+NS_CORE_END

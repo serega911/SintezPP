@@ -1,17 +1,18 @@
 #include "TRoute.h"
 
+NS_ARI_USING
 
-size_t pss::TRoute::size()
+size_t TRoute::size()
 {
 	return m_route.size();
 }
 
-void pss::TRoute::addCordinates( const pss::TCordinates & cordinates )
+void TRoute::addCordinates( const TCordinates & cordinates )
 {
 	m_route.emplace_back( cordinates );
 }
 
-pss::TCordinates pss::TRoute::operator[]( size_t pos )
+TCordinates TRoute::operator[]( size_t pos )
 {
 	return m_route.at( pos );
 }

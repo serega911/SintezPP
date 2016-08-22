@@ -1,104 +1,86 @@
-#include "../Libraries/TK.h"
-#include "../Libraries/func_lib.h"
-#include "../Libraries/TSingletons.h"
 #include <iostream>
 #include <algorithm>
 
+#include "TK.h"
+#include "func_lib.h"
+#include "TSingletons.h"
+#include "TLog.h"
 
-pss::TK::TK(double dK)
-{
-	m_K.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
-	m_combi.resize(pss::TSingletons::getInstance()->getNumberOfPlanetaryGears());
-	for (int i = 0; i < m_K.size(); i++) // RK: use fill method
-	{
-		m_combi[i] = 0;
-	}
-	m_dK = dK;
-}
+NS_CORE_USING
 
-pss::TK::TK( ) : TK(0.1)
+TK::TK( const std::vector<double>& k )
+	: m_K(k)
 {
 }
 
-bool pss::TK::inDia( const double & val )
+core::TK::TK()
 {
-	double a = 2.0f;
-	double b = 4.5f;
-	return (abs(val) <= b && abs(val) >= a);
 }
 
-void pss::TK::addInterval(double beg, double end)
+core::TK::TK( const size_t size )
 {
-	if (beg * end > 0)
-	{
-		for (double k = beg; k <= end; k += m_dK)
-			m_kValues.push_back(k);
-	}
-	std::sort(m_kValues.begin(), m_kValues.end(),  // RK: use empty line for logic block outline
-		[=](const double & x1, const double & x2)->bool
-		{
-		if (inDia(x1) == inDia(x2))
-			return abs(x1) < abs(x2);
-		if (inDia(x1))
-			return true;
-		else 
-			return false;
-		});
-	for (int i = 0; i < m_K.size(); i++)
-	{
-		m_K[i] = m_kValues[0];
-	}
+	m_K.resize( size );
 }
 
-const double pss::TK::operator[](int i) const
+const TKValue TK::operator[]( size_t i ) const
 {
 	return m_K.at(i);
 }
 
-bool pss::TK::next()
+void TK::print() const
 {
-	if(pss::next_combination_repetition(m_combi, m_kValues.size()-1, 0))
+	for ( auto &it : m_K )
 	{
-		for (int i = 0; i < m_combi.size(); i++)
-			m_K[i] = m_kValues[m_combi[i]];
-		return true;
+		TLog::log( it, false );
+		TLog::log( " ", false );
 	}
-	return false;
 }
 
-void pss::TK::print() const
-{
-	for (auto &it : m_K)
-		std::cout << it << ' ';
-	std::cout << std::endl;
-	
-}
-
-int pss::TK::size() const
+size_t TK::size() const
 {
 	return m_K.size();
 }
 
-void pss::TK::setFinded()
-{
-	m_isFinded = true;
-}
-
-bool pss::TK::getFinded() const
-{
-	return m_isFinded;
-}
-
-void pss::TK::writeToFile(std::ofstream& file) const
+void TK::writeToFile(std::ostream& file) const
 {
 	for (auto& it : m_K)
 		file << it << ' ';
 }
 
-void pss::TK::loadFromFile(std::ifstream& in)
+void TK::setValues( const std::vector<TKValue>& values )
 {
-	m_K.resize( pss::TSingletons::getInstance()->getNumberOfPlanetaryGears() );
+	m_K = values;
+}
+
+bool TK::check() const
+{
+	const auto& initialData = TSingletons::getInstance()->getInitialData();
+	for ( auto i = 0; i < m_K.size(); i++ )
+	{
+		bool flag = false;
+		for ( auto j = 0; j < initialData._ranges.size(); j++ )
+		{
+			if ( initialData._ranges[j].isInRange( m_K[i] ) )
+			{
+				flag = true;
+				break;
+			}
+		}
+
+		if ( !flag )
+		{
+			return false;
+		}
+	}
+
+	return true && m_K.size();
+}
+bool TK::loadFromFile(std::istream& in)
+{
+	m_K.resize( TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
 	for ( auto i = 0; i < m_K.size(); i++ )
 		in >> m_K[i];
+
+	return true;
 }
 

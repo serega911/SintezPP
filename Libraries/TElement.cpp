@@ -1,79 +1,80 @@
-#include "../Libraries/TElement.h"
-#include "../Libraries/func_lib.h"
+#include "TElement.h"
+#include "TLog.h"
 
+NS_CORE_USING
 
-const pss::TElement pss::TElement::INPUT = TElement(pss::eMainElement::INPUT, 0);
-const pss::TElement pss::TElement::OUTPUT = TElement(pss::eMainElement::OUTPUT, 0);
-const pss::TElement pss::TElement::BRAKE = TElement(pss::eMainElement::BRAKE, 0);
-const pss::TElement pss::TElement::EMPTY = TElement(pss::eMainElement::EMPTY, 0);
-const pss::TElement pss::TElement::PLACEHOLDER = TElement( pss::eMainElement::BUSY , 0 );
+const TElement TElement::INPUT =		TElement(eMainElement::INPUT, 0);
+const TElement TElement::OUTPUT =		TElement(eMainElement::OUTPUT, 0);
+const TElement TElement::BRAKE =		TElement(eMainElement::BRAKE, 0);
+const TElement TElement::EMPTY =		TElement(eMainElement::EMPTY, 0);
 
-pss::TElement::TElement(const pss::eMainElement & elemN, int gearSetN) 
-{
-	set(elemN, gearSetN);
-}
-
-pss::TElement::TElement()
+TElement::TElement( const eMainElement& elemN, const TGearSetNumber& gearSetN )
+	: m_elemN( elemN )
+	, m_gearSetN( gearSetN )
 {
 }
 
-
-void pss::TElement::setElemN(const eMainElement & elemN)
+TElement::TElement()
+	: TElement( eMainElement::EMPTY, 0 )
 {
-	m_elemN = elemN;
 }
 
-void pss::TElement::setGearSetN(int gearSetN)
-{
-	m_gearSetN = gearSetN;
-}
-
-void pss::TElement::set(const eMainElement & elemN, int gearSetN)
-{
-	setElemN(elemN);
-	setGearSetN(gearSetN);
-}
-
-pss::eMainElement pss::TElement::getElemN() const
+eMainElement TElement::getElemN() const
 {
 	return m_elemN;
 }
 
-int pss::TElement::getGearSetN() const
+TGearSetNumber TElement::getGearSetN() const
 {
 	return m_gearSetN;
 }
 
-int pss::TElement::getSerialNumber() const
+// int TElement::getSerialNumber() const
+// {
+// 	return ( m_gearSetN - 1 ) * 3 + convernToInt( m_elemN ) - 1;
+// }
+
+int TElement::getSerialNumber() const
 {
-	return (m_gearSetN - 1) * 3 + m_elemN._to_integral() - 1;
+	return ( m_gearSetN - 1 ) * 3 + convernToInt( m_elemN ) - 1;
 }
 
-bool pss::operator<(const TElement& elem1, const TElement& elem2)
+bool NS_CORE operator<( const TElement& elem1, const TElement& elem2 )
 {
-	//return elem1.getSerialNumber() < elem2.getSerialNumber();
-	if ( elem1.m_gearSetN == elem2.m_gearSetN )
-	{
-		return elem1.m_elemN < elem2.m_elemN;
-	}
-	else
-	{
-		return elem1.m_gearSetN < elem2.m_gearSetN;
-	}
+	return elem1.getGearSetN() < elem2.getGearSetN() ? true :
+		elem1.getGearSetN() == elem2.getGearSetN() ? elem1.getElemN() < elem2.getElemN() : false;
 }
 
-bool pss::operator==(const TElement& elem1, const TElement& elem2)
+bool NS_CORE operator==( const TElement& elem1, const TElement& elem2 )
 {
-	return ( ( elem1.m_gearSetN == elem2.m_gearSetN ) && ( elem1.m_elemN == elem2.m_elemN ) );
+	return elem1.getGearSetN() == elem2.getGearSetN() && elem1.getElemN() == elem2.getElemN();
 }
 
-bool pss::operator!=(const TElement& elem1, const TElement& elem2)
+bool NS_CORE operator!=( const TElement& elem1, const TElement& elem2 )
 {
 	return !(elem1 == elem2);
 }
 
-std::ostream& pss::operator<<(std::ostream& out, const TElement & elem)
+void TElement::print() const
 {
-	out << elem.m_elemN << elem.m_gearSetN;
-	return out;
+	TLog::log( std::string( 1, convernToSymbol( m_elemN ) ), false );
+	TLog::log( std::to_string( m_gearSetN ), false );
 }
+
+void TElement::writeTofile( std::ostream& file ) const
+{
+	file << convernToSymbol( m_elemN ) << m_gearSetN;
+}
+
+bool TElement::loadFromFile( std::istream& file )
+{
+	char elem, gear;
+	file >> elem >> gear;
+	if ( !file.eof() )
+	{
+		m_gearSetN = gear - 48;
+		m_elemN = convernToMainElement( elem );
+	}
+	return !file.eof();
+}
+

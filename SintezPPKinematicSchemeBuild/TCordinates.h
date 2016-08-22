@@ -1,24 +1,28 @@
 #pragma once
 #include <map>
 #include "eDirection.h"
+#include "../Libraries/GlobalDefines.h"
 
-namespace pss
+NS_ARI_START
+
+struct TCordinates
 {
-	class TCordinates
-	{
-	public:
-		TCordinates( int x, int y );
-		TCordinates();
-		int										m_x ;
-		int										m_y;
+	TCordinates( int x, int y );
+	TCordinates();
 
-		TCordinates								getLeftNeighbor() const;
-		TCordinates								getRightNeighbor( ) const;
-		TCordinates								getTopNeighbor( ) const;
-		TCordinates								getBottomNeighbor( ) const;
-		std::map<eDirection, TCordinates>		getNeighbors( ) const;
-		friend bool								operator<( const TCordinates & cord1, const TCordinates& cord2 );
-	};
-}
+	int											m_x;
+	int											m_y;
+
+	TCordinates									getLeftNeighbor() const;
+	TCordinates									getRightNeighbor() const;
+	TCordinates									getTopNeighbor() const;
+	TCordinates									getBottomNeighbor() const;
+
+	std::map<eDirection, TCordinates>			getNeighbors() const;
+
+	friend bool									operator<( const TCordinates & cord1, const TCordinates& cord2 );
+};
+
+NS_ARI_END
 
 

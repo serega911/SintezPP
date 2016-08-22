@@ -5,21 +5,24 @@
     <ClCompile Include="TGenerate.cpp">
       <Filter>Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TMainElement.cpp">
-      <Filter>Files</Filter>
+    <ClCompile Include="TGearBox.cpp">
+      <Filter>Files\TGearBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TGenerate.h">
       <Filter>Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TMainElement.h">
-      <Filter>Files</Filter>
+    <ClInclude Include="TGearBox.h">
+      <Filter>Files\TGearBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Files">
       <UniqueIdentifier>{3da5f5a6-d283-4d24-9d9e-ea3890d67383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\TGearBox">
+      <UniqueIdentifier>{07c5affc-222f-4839-8aa7-19cd6aa4bdc2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

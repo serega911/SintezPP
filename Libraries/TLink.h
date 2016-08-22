@@ -1,26 +1,32 @@
 #pragma once
+
 #include <ostream>
 #include <istream>
-#include "../Libraries/TElement.h"
 
-namespace pss
+#include "TElement.h"
+#include "GlobalDefines.h"
+
+NS_CORE_START
+
+class TLink
 {
-	class TLink
-	{
-	private:
-		TElement								m_elem1;
-		TElement								m_elem2;
-	public:
-		TLink(const TElement& elem1, const TElement& elem2);
-		TLink();
+private:
 
-		void									set(const TElement& elem1, const TElement& elem2);
+	TElement									m_elem1;
+	TElement									m_elem2;
 
-		const TElement&							getElem1() const;
-		const TElement&							getElem2() const;
+public:
 
-		friend std::ostream&					operator<<(std::ostream& out, const TLink & link);
+	TLink(const TElement& elem1, const TElement& elem2);
+	TLink();
 
-	};
-	std::ostream&								operator<<(std::ostream& out, const TLink & link);
-}
+	const TElement&								getElem1() const;
+	const TElement&								getElem2() const;
+
+	void										writeTofile( std::ostream& file ) const;
+	bool										loadFromFile( std::istream& file );
+
+	void										print() const;
+};
+
+NS_CORE_END

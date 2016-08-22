@@ -3,29 +3,40 @@
 #include "TPlanetaryGearSet.h"
 #include "../Libraries/TCode.h"
 #include "../Libraries/TK.h"
+#include "../Libraries/GlobalDefines.h"
 #include "TCordinates.h"
+#include "TViewer_fwd.h"
 #include <vector>
 
-namespace pss
+NS_ARI_START
+
+class TKinematicScheme
 {
-	class TKinematicScheme
-	{
-	private:
-		std::vector<TPlanetaryGearSet>			m_field;
-		pss::TCode								m_code;
-		pss::TK									m_k;
-	public:
-		const std::vector<pss::TChain>&				operator[]( int xPos ) const;
-		std::vector<pss::TChain>&				operator[]( int xPos );
-		void									addGearSet(const TPlanetaryGearSet & gearSet);
-		void									addRoute( const std::vector<pss::TCordinates> & cord, const pss::TLink & link );
-		void									addBorders();
-		void									print();
+private:
 
-		void									create( const pss::TCode& code, pss::TK & k );
-		size_t									size() const;
+	friend class TViewer;
 
-	};
-}
+	std::vector<TPlanetaryGearSet>				m_field;
+	NS_CORE TCode									m_code;
+	NS_CORE TK									m_k;
+
+public:
+
+	const std::vector<NS_CORE TChain>&			operator[]( int xPos ) const;
+	std::vector<NS_CORE TChain>&				operator[]( int xPos );
+
+	void										addGearSet(const TPlanetaryGearSet & gearSet);
+	void										addRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link );
+	void										addFakeRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link );
+	void										addBorders();
+
+	void										print();
+
+	void										create( const NS_CORE TCode& code, const NS_CORE TK & k );
+	size_t										size() const;
+
+};
+
+NS_ARI_END
 
 

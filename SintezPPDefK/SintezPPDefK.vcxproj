@@ -68,11 +68,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CheckAllPossibilities.h" />
     <ClInclude Include="DefK.h" />
+    <ClInclude Include="DefKNuton.h" />
+    <ClInclude Include="DefKSelection.h" />
+    <ClInclude Include="DefKSimple.h" />
+    <ClInclude Include="Jacobi.h" />
+    <ClInclude Include="Equations.h" />
+    <ClInclude Include="Defines.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="MatrixOperations.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="TI.h" />
+    <ClInclude Include="TK.h" />
+    <ClInclude Include="UnknownVariable.h" />
+    <ClInclude Include="Variable.h" />
+    <ClInclude Include="VariablesSet.h" />
+    <ClInclude Include="VariablesSet_fwd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefK.cpp" />
+    <ClCompile Include="DefKNuton.cpp" />
+    <ClCompile Include="DefKSelection.cpp" />
+    <ClCompile Include="DefKSimple.cpp" />
+    <ClCompile Include="Jacobi.cpp" />
+    <ClCompile Include="Equations.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="MatrixOperations.cpp" />
+    <ClCompile Include="System.cpp" />
+    <ClCompile Include="TI.cpp" />
+    <ClCompile Include="TK.cpp" />
+    <ClCompile Include="UnknownVariable.cpp" />
+    <ClCompile Include="Variable.cpp" />
+    <ClCompile Include="VariablesSet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,37 +1,50 @@
 #include "TGenerate.h"
-#include "../Libraries/func_lib.h"
 #include "../Libraries/TSingletons.h"
-#include "../Libraries/TReplace.h"
-#include <iostream>
+#include "../Libraries/TCombinations.h"
+#include "../Libraries/TLog.h"
 
 
-void pss::TGenerate::generate()
+NS_ARI_USING
+
+const std::vector<NS_CORE eMainElement> TGenerate::s_elements = { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER };
+
+void TGenerate::readInitialData()
 {
-	setlocale(LC_ALL, "Russian");
-	std::cout << "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n";
+	setlocale( LC_ALL, "Russian" );
+	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n" );
 	//	Исходные данные
 	int W = 0;
 	int N = 0;
-	std::cout << "\t\t\tИсходные данные." << std::endl << "Число степеней свободы:	";
+	NS_CORE TLog::log( "\t\t\tИсходные данные." );
+	NS_CORE TLog::log( "Число степеней свободы:	", false );
 	std::cin >> W;
-	std::cout << "Количество ПМ:		";
+	NS_CORE TLog::log( "Количество ПМ:		", false );
 	std::cin >> N;
-	pss::TSingletons::getInstance()->setGlobalParameters(W, N);
-	std::cout << "Количество связей:	"		<< pss::TSingletons::getInstance()->getNumberOfLinks() << std::endl;
-	std::cout << "Количество фрикционов:	"	<< pss::TSingletons::getInstance()->getNumberOfFrictions() << std::endl;
-	std::cout << "Количество тормозов:	"		<< pss::TSingletons::getInstance()->getNumberOfBrakes() << std::endl;
+	NS_CORE TSingletons::getInstance()->setGlobalParameters( W, N );
+
+	auto generalData = NS_CORE TSingletons::getInstance()->getGeneralData();
+	NS_CORE TLog::log( "Количество связей:	" + std::to_string( generalData._numberOfLinks ) );
+	NS_CORE TLog::log( "Количество фрикционов:	" + std::to_string( generalData._numberOfFrictions ) );
+	NS_CORE TLog::log( "Количество тормозов:	" + std::to_string( generalData._numberOfBrakes ) );
+}
+
+void TGenerate::generate()
+{
+	readInitialData();
+
+	auto N = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
 	//	Заполняем вектор всех возможных связей, пропускаем связи между элементами одного ряда и реверсивные связи.
 	m_allLinks.clear();
 	for (int i = 1; i < N; i++)
 	{
-		for (auto mElem1 = 1; mElem1 <=3; mElem1++)
+		for ( const auto& mElem1 : s_elements )
 		{
 			for (int j = i + 1; j <= N; j++)
 			{
-				for (auto mElem2 = 1; mElem2<=3; mElem2++)
+				for ( const auto& mElem2 : s_elements )
 				{
-					m_allLinks.push_back( pss::TLink( pss::TElement( pss::eMainElement::_from_integral( mElem1 ), i ), pss::TElement( pss::eMainElement::_from_integral( mElem2 ), j ) ) );
+					m_allLinks.push_back( NS_CORE TLink( NS_CORE TElement( mElem1, i ), NS_CORE TElement( mElem2, j ) ) );
 				}
 			}
 		}
@@ -40,25 +53,27 @@ void pss::TGenerate::generate()
 	generateInOut();
 }
 
-void pss::TGenerate::generateInOut()
+void TGenerate::generateInOut()
 {
-	pss::TCode code;
-	auto N = pss::TSingletons::getInstance()->getNumberOfPlanetaryGears();
+	
+	auto N = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	for (int i = 1; i <= N; i++)
 	{
-		for (int inElem = 1; inElem <= 3; inElem++) // RK: to strange for that i ever seen
+		for ( const auto& inElem : s_elements )
 		{
 			for (int j = 1; j <= N; j++)
 			{
-				for (auto outElem = 1; outElem<=3; outElem++)
+				for ( const auto& outElem : s_elements )
 				{
-					pss::TElement elemIn( pss::eMainElement::_from_integral( inElem ), i );
-					pss::TElement elemOut( pss::eMainElement::_from_integral( outElem ), j );
+					NS_CORE TElement elemIn( inElem, i );
+					NS_CORE TElement elemOut( outElem, j );
 					if (elemIn != elemOut)
 					{
+						NS_CORE TCode code;
 						code.setIn(elemIn);
 						code.setOut(elemOut);
-						generateLinks(code);
+						TGearBox gearBox( code );
+						generateLinks( gearBox );
 					}
 				}
 			}
@@ -66,81 +81,90 @@ void pss::TGenerate::generateInOut()
 	}
 }
 
-void pss::TGenerate::generateLinks(pss::TCode & code)
+void TGenerate::generateLinks( const TGearBox & gearBox )
 {
-	pss::TReplace linksCombi;		//	Вектор сочетаний связей
-	linksCombi.init(pss::TSingletons::getInstance()->getNumberOfLinks());
+	NS_CORE TCombinations linksCombi;		//	Вектор сочетаний связей
+	linksCombi.init( NS_CORE TSingletons::getInstance()->getGeneralData()._numberOfLinks );
 	do{
+		TGearBox gearBoxWithLinks( gearBox );
 		//	Заполняем вектор связей с учетом сгенерированного сочетания
-		std::vector<pss::TLink> links;			//	Вектор связей
+		std::vector<NS_CORE TLink> links;			//	Вектор связей
 		for (int i = 0; i < linksCombi.size(); i++)
 			links.push_back(m_allLinks[linksCombi[i]]);
-		code.setLinks(links);
-		if (code.check())
+		gearBoxWithLinks.setLinksToCode( links );
+		gearBoxWithLinks.createChains();
+		if ( gearBoxWithLinks.check() )
 		{
-			if (m_existingSchemes.findIn(code))
+			if ( m_existingSchemes.findIn( gearBoxWithLinks.getChains() ) )
 			{
-				pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_REPETTION, code);
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_REPETTION, gearBoxWithLinks.getCode() );
 			}
 			else
 			{
-				m_existingSchemes.add(code);
-				generateFrictions(code);
+				m_existingSchemes.add( gearBoxWithLinks.getChains() );
+				generateFrictions( gearBoxWithLinks );
 			}
 		}
 		else
 		{
-			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_0, code);
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_0, gearBoxWithLinks.getCode() );
 		}
 	} while (linksCombi.nextReplace(m_allLinks.size()-1));
 }
 
-void pss::TGenerate::generateFrictions(pss::TCode & code)
+void TGenerate::generateFrictions( const TGearBox & gearBox )
 {
 	//	Определяем элементы, на которых будет установлен фрикцион
-	std::vector<pss::TElement> vect_all_FB = code.getElementsForFrictions();
-	if (vect_all_FB.size() == pss::TSingletons::getInstance()->getNumberOfBrakes() + pss::TSingletons::getInstance()->getNumberOfFrictions() + 2)
+	NS_CORE TElements vect_all_FB = gearBox.getElementsForFrictions();
+
+	const auto& generalData = NS_CORE TSingletons::getInstance()->getGeneralData();
+
+	if ( vect_all_FB.size() == generalData._numberOfBrakes + generalData._numberOfFrictions + 2 )
 	{
-		std::vector<pss::TLink> vect_all_frict;		//	Вектор всех возможных фрикционов
-		pss::TReplace vect_combi_frict;				//	Вектор сочетаний фрикционов
-		std::vector<pss::TLink> vect_frict;			//	Вектор фрикционов
+		std::vector<NS_CORE TLink> vect_all_frict;		//	Вектор всех возможных фрикционов
+		NS_CORE TCombinations vect_combi_frict;			//	Вектор сочетаний фрикционов
+		std::vector<NS_CORE TLink> vect_frict;			//	Вектор фрикционов
 		for (int i = 0; i < vect_all_FB.size(); i++)
 			for (int j = i + 1; j < vect_all_FB.size(); j++)
-				vect_all_frict.push_back(pss::TLink(vect_all_FB[i], vect_all_FB[j]));
+				vect_all_frict.push_back( NS_CORE TLink( vect_all_FB[i], vect_all_FB[j] ) );
 		//	Создаем первое сочетание фрикционов из связей по Count_F (количество фрикционов) без повторений: 0,1...
-		vect_combi_frict.init(pss::TSingletons::getInstance()->getNumberOfFrictions());
+		vect_combi_frict.init( generalData._numberOfFrictions );
 		//	В цикле генерируем все возможные сочетания фрикционов
 		do{
+			TGearBox gearBoxWithFrictions( gearBox );
 			//	Заполняем вектор фрикционов с учетом сгенерированного сочетания
 			vect_frict.clear();
 			for (int i = 0; i < vect_combi_frict.size(); i++)
 				vect_frict.push_back(vect_all_frict[vect_combi_frict[i]]);
-			code.setFrictions(vect_frict);
-			generateBrakes(code);
+			gearBoxWithFrictions.setFrictionsToCode( vect_frict );
+			generateBrakes( gearBoxWithFrictions );
 		} while (vect_combi_frict.nextReplace(vect_all_frict.size() - 1));
 	}
 	else
 	{
-		pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_N, code);
+		NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_N, gearBox.getCode() );
 	}
 }
 
-void pss::TGenerate::generateBrakes(pss::TCode & code)
+void TGenerate::generateBrakes( const TGearBox & gearBox )
 {
-	std::vector<pss::TElement> vect_all_FB = code.getElementsForBrakes();
-	pss::TReplace vect_combi_brakes;		//	Вектор сочетаний тормозов
+	std::vector<NS_CORE TElement> vect_all_FB = gearBox.getElementsForBrakes();
+	NS_CORE TCombinations vect_combi_brakes;		//	Вектор сочетаний тормозов
 	//	Создаем первое сочетание тормозов из всех возможных по Count_B
-	vect_combi_brakes.init(pss::TSingletons::getInstance()->getNumberOfBrakes());
+	vect_combi_brakes.init( NS_CORE TSingletons::getInstance()->getGeneralData()._numberOfBrakes );
 	do{
-		std::vector<pss::TLink> vect_brakes;	//	Вектор тормозов
+		TGearBox gearBoxWithBrakes( gearBox );
+		std::vector<NS_CORE TLink> vect_brakes;	//	Вектор тормозов
 		//	Заполняем вектор тормозов с учетом сгенерированного сочетания
 		for (int i = 0; i < vect_combi_brakes.size(); i++)
-			vect_brakes.push_back(pss::TLink(vect_all_FB[vect_combi_brakes[i]],pss::TElement::BRAKE));
-		code.setBrakes(vect_brakes);
+			vect_brakes.push_back( NS_CORE TLink( vect_all_FB[vect_combi_brakes[i]], NS_CORE TElement::BRAKE ) );
+		gearBoxWithBrakes.setBrakesToCode( vect_brakes );
 		//C.print();
-		if (code.checkFree())
-			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::DONE, code);
+		if ( gearBoxWithBrakes.checkFree() )
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE, gearBoxWithBrakes.getCode() );
 		else
-			pss::TSingletons::getInstance()->getIOFileManager()->writeToFile(pss::TIOFileManager::eOutputFileType::FAIL_FREE, code);
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_FREE, gearBoxWithBrakes.getCode() );
 	} while (vect_combi_brakes.nextReplace(vect_all_FB.size() - 1));
 }
+
+

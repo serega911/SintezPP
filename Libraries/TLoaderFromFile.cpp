@@ -1,22 +1,24 @@
 #include "TLoaderFromFile.h"
 #include "TSingletons.h"
 
-pss::TLoaderFromFile::TLoaderFromFile()
+NS_CORE_USING
+
+TLoaderFromFile::TLoaderFromFile()
 {
 
 }
 
-pss::TLoaderFromFile* pss::TLoaderFromFile::getInstance( )
+TLoaderFromFile* TLoaderFromFile::getInstance()
 {
-	static pss::TLoaderFromFile loader;
+	static core::TLoaderFromFile loader;
 	return &loader;
 }
 
-bool pss::TLoaderFromFile::load( std::vector<IContainer*> & conteiners, const TIOFileManager::eOutputFileType & file )
+bool TLoaderFromFile::load( std::vector<IContainer*> & conteiners, const TIOFileManager::eOutputFileType & file )
 {
 	for ( int i = 0; i < conteiners.size(); i++ )
 	{
-		if ( !pss::TSingletons::getInstance()->getIOFileManager()->loadFromFile( file, *conteiners[i] ) )
+		if ( !core::TSingletons::getInstance()->getIOFileManager()->loadFromFile( file, *conteiners[i] ) )
 			return false;
 	}
 	return true;
