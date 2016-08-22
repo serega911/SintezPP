@@ -10,6 +10,9 @@
 
 NS_ARI_START
 
+class UnknownVariable;
+typedef std::vector<UnknownVariable> UnknownVariableArray;
+
 class UnknownVariable
 {
 private:

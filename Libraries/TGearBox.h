@@ -9,14 +9,13 @@
 NS_CORE_START
 
 typedef size_t TGearNumber;						// номер передачи
-typedef std::vector<TChain> TChains;
 
 class TGearBox
 {
 private:
 
 	TCode										m_code;
-	TChains										m_chains;
+	TChainArray										m_chains;
 	TGearChanger								m_gearChanger;
 	
 protected:
@@ -28,8 +27,8 @@ public:
 	TGearBox( const TCode& code );
 
 	const TCode&								getCode() const;
-	const TChains&								getChains() const;
-	TChains										getChainsForCurrentGear() const;
+	const TChainArray&								getChains() const;
+	TChainArray										getChainsForCurrentGear() const;
 
 	bool										createChains();
 

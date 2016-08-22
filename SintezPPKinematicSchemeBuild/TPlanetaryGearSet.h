@@ -43,8 +43,9 @@ public:
 
 	void										create( int gearSetN, Type type );
 
-	std::vector<core::TChain>&					operator[]( int xPos );
-	const std::vector<core::TChain>&			operator[]( int xPos ) const;
+	NS_CORE TChainArray&						operator[]( int xPos );
+	const NS_CORE TChainArray&					operator[]( int xPos ) const;
+
 };
 
 NS_ARI_END

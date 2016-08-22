@@ -12,12 +12,12 @@ class TChainsContainer
 {
 private:
 
-	std::set<TChains>							m_container;
+	std::set<TChainArray>							m_container;
 
 public:
 
-	void										add( const TChains& code );
-	bool										findIn( const TChains& code ) const;
+	void										add( const TChainArray& code );
+	bool										findIn( const TChainArray& code ) const;
 
 };
 

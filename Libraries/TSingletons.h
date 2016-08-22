@@ -15,7 +15,7 @@ struct InitialData
 	size_t										_w;									//	число степеней свободы
 	size_t										_numberOfGears;						//	Количество реализуемых передач без прямой
 	size_t										_numberOfPlanetaryGears;			//	Количество планетарных рядов
-	std::vector<TRange>							_ranges;
+	TRangeArray									_ranges;
 	TI											_i;
 };
 

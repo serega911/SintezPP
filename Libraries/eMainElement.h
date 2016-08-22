@@ -1,9 +1,13 @@
 #pragma once
 
+#include<vector>
 #include "GlobalDefines.h"
 #include "TLog.h"
 
 NS_CORE_START
+
+enum class eMainElement;
+typedef std::vector<eMainElement> eMainElementArray;
 
 enum class eMainElement
 {
@@ -28,7 +32,7 @@ inline eMainElement convernToMainElement( const char symbol )
 
 inline int convernToInt( const eMainElement& e )
 {
-	int ret;
+	int ret = 0;
 
 	switch ( e )
 	{

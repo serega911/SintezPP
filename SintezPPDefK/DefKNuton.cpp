@@ -169,7 +169,7 @@ NS_CORE TK DefKNuton::getKValuesFromSystem( const System & system )
 {
 	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 
-	std::vector<double> kValues;
+	NS_CORE TKValueArray kValues;
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
 		kValues.push_back( system.getUnknownVariables()[i].getValue() );

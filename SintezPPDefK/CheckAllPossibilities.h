@@ -26,7 +26,7 @@ public:
 
 		do{
 
-			std::vector<double> initialK;
+			NS_CORE TKValueArray initialK;
 			for ( size_t i = 0; i < combi.size(); i++ )
 				initialK.push_back( NS_CORE TSingletons::getInstance()->getInitialData()._ranges[combi[i]].getMid() );
 
@@ -45,7 +45,7 @@ public:
 		for ( size_t i = 0; i < iTarget.size(); i++ )
 			replace.push_back( i );
 
-		std::vector<double> curI;
+		NS_CORE TIValueArray curI;
 
 		NS_CORE TK k( size );
 

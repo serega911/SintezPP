@@ -16,9 +16,9 @@ class TGenerate
 {
 private:
 
-	static const std::vector<NS_CORE eMainElement>	s_elements;
+	static const NS_CORE eMainElementArray	s_elements;
 
-	std::vector<NS_CORE TLink>					m_allLinks;
+	NS_CORE TLinkArray							m_allLinks;
 	NS_CORE TChainsContainer					m_existingSchemes;
 
 	void										readInitialData() override;

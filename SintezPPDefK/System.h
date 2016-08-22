@@ -19,7 +19,7 @@ class System
 private:
 
 	std::vector<std::vector<VariablesSet>>		m_sets;
-	std::vector<UnknownVariable>				m_unknowns;
+	UnknownVariableArray						m_unknowns;
 	size_t										m_addedSetCount;
 
 	void										addDefinedChain( const NS_CORE TChain& chain, const VariableValue & value, const int gear );
@@ -32,12 +32,12 @@ public:
 	System();
 
 	void										init( const NS_CORE TK& initialKValues );
-	void										addGearChains( const NS_CORE TChains& chains, const int gear, const double i );
+	void										addGearChains( const NS_CORE TChainArray& chains, const int gear, const double i );
 
 	VariablesSet &								getVariablesSet( const int & gearN, const int & gearSetN );
 	const VariablesSet &						getVariablesSet( const int & gearN, const int & gearSetN ) const;
-	std::vector<UnknownVariable> &				getUnknownVariables();
-	const std::vector<UnknownVariable> &		getUnknownVariables() const;
+	UnknownVariableArray &						getUnknownVariables();
+	const UnknownVariableArray &				getUnknownVariables() const;
 };
 
 NS_ARI_END

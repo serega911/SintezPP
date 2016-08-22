@@ -93,11 +93,11 @@ MatrixLine MatrixOperations::solveGaus( const Matrix& systemMatrix, const Matrix
 			}
 			right[i] /= system[i][i];
 		}
-  		else
-  		{
-  			right.clear( );
-  			return right;
-  		}
+		else
+		{
+			right.clear( );
+			return right;
+		}
 			
 		for ( int j = 0; j < n; ++j )
 		{
@@ -165,6 +165,7 @@ Matrix MatrixOperations::minor( const Matrix& matrix, size_t i, size_t j )
 			return Matrix( res );
 		}
 	}
+	return Matrix( {} );
 }
 
 Matrix MatrixOperations::inverse( const Matrix& matrix )

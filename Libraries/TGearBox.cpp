@@ -22,14 +22,14 @@ TCode& TGearBox::getRefferenceToCode()
 	return m_code;
 }
 
-const TChains& TGearBox::getChains() const
+const TChainArray& TGearBox::getChains() const
 {
 	TLog::warning( m_chains.size() == 0, "There is no chains!", TLog::CRITICAL, "TGearBox::getChains()" );
 	return m_chains;
 }
 
 
-TChains core::TGearBox::getChainsForCurrentGear() const
+TChainArray core::TGearBox::getChainsForCurrentGear() const
 {
 	auto chains = getChains();
 	auto drivingElements = m_gearChanger.getDrivingElementsForGear();

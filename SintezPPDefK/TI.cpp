@@ -2,40 +2,42 @@
 #include "../Libraries/TSingletons.h"
 #include <iostream>
 
-double pss::TI::m_eps = 0.05;
+NS_ARI_USING
 
-pss::TI::TI(const std::vector<double>& i, double eps)
+double TI::m_eps = 0.05;
+
+TI::TI( const NS_CORE TIValueArray& i, double eps )
 {
 	m_i = i;
 	m_eps = eps;
 }
 
-pss::TI::TI()
+TI::TI()
 {
 }
 
-size_t pss::TI::size() const
+size_t TI::size() const
 {
 	return m_i.size();
 }
 
-const double pss::TI::operator[](int i) const
+const double TI::operator[](int i) const
 {
 	return m_i.at(i);
 }
 
-void pss::TI::operator=(const TI& obj)
+void TI::operator=(const TI& obj)
 {
 	m_i = obj.m_i;
 	m_eps = obj.m_eps;
 }
 
-void pss::TI::push_back(double value)
+void TI::push_back(double value)
 {
 	m_i.push_back(value);
 }
 
-void pss::TI::print()
+void TI::print()
 {
 	std::cout << "eps = " << m_eps << std::endl;
 	for (auto& it: m_i)
@@ -43,7 +45,7 @@ void pss::TI::print()
 	std::cout << std::endl;
 }
 
-bool pss::TI::findIn( double value ) const
+bool TI::findIn( double value ) const
 {
 	if ( m_i.size() == core::TSingletons::getInstance()->getInitialData()._numberOfGears )
 	{
@@ -58,7 +60,7 @@ bool pss::TI::findIn( double value ) const
 		return true;
 }
 
-bool pss::TI::operator==( const pss::TI& obj )
+bool TI::operator==( const TI& obj )
 {
 	if (m_i.size() <= obj.size())
 	{

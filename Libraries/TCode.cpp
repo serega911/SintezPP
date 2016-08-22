@@ -115,7 +115,7 @@ bool TCode::loadFromFile(std::istream& file)
 	return ret;
 }
 
-const std::vector<TLink>& TCode::getCode() const
+const TLinkArray& TCode::getCode() const
 {
 	return m_code;
 }

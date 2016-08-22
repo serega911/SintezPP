@@ -67,12 +67,12 @@ void TPlanetaryGearSet::create( int gearSetN, Type type )
 	}
 }
 
-const std::vector<core::TChain>& TPlanetaryGearSet::operator[]( int xPos ) const
+const NS_CORE TChainArray& TPlanetaryGearSet::operator[]( int xPos ) const
 {
 	return m_field[xPos];
 }
 
-std::vector<core::TChain>& TPlanetaryGearSet::operator[]( int xPos )
+NS_CORE TChainArray& TPlanetaryGearSet::operator[]( int xPos )
 {
 	return m_field[xPos];
 }

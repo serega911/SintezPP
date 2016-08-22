@@ -19,7 +19,7 @@ private:
 public:
 
 	TI();
-	TI(const std::vector<double>& i, double eps);
+	TI( const TIValueArray& i, double eps );
 
 	size_t										size() const;
 

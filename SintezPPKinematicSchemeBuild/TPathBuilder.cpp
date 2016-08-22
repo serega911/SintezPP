@@ -115,10 +115,10 @@ TPathBuilder::TPathBuilder()
 {
 }
 
-std::vector<TCordinates> TPathBuilder::findPath()
+TCordinatesArray TPathBuilder::findPath()
 {
 	// строим путь
-	std::vector<TCordinates> path;
+	TCordinatesArray path;
 	TCordinates current = findStartCell();
 	path.emplace_back( current );
 	eDirection direction = eDirection::DOWN;
@@ -181,7 +181,7 @@ TCordinates TPathBuilder::findStartCell()
 	return start;
 }
 
-std::vector<TCordinates> TPathBuilder::findPath( const TKinematicScheme & scheme, core::TLink link )
+TCordinatesArray TPathBuilder::findPath( const TKinematicScheme & scheme, core::TLink link )
 {
 	int maxX = scheme.size();
 	int maxY = TPlanetaryGearSet::s_ySize;

@@ -8,13 +8,13 @@
 
 NS_ARI_START
 
-class TK : public core::TK
+class TK : public NS_CORE TK
 {
 private:
-	bool									m_isFinded;
-	double									m_dK;
-	std::vector<int>						m_combi;
-	std::vector<double>						m_kValues;
+	bool										m_isFinded;
+	double										m_dK;
+	std::vector<int>							m_combi;
+	NS_CORE TKValueArray						m_kValues;
 
 public:
 	TK() = delete;

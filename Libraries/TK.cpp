@@ -47,7 +47,7 @@ void TK::writeToFile(std::ostream& file) const
 		file << it << ' ';
 }
 
-void TK::setValues( const std::vector<TKValue>& values )
+void TK::setValues( const TKValueArray& values )
 {
 	m_K = values;
 }

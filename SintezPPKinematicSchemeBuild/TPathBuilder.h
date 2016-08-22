@@ -24,14 +24,14 @@ private:
 
 	void										initField( const TKinematicScheme & scheme, core::TLink link );
 	bool										spreadWave();
-	std::vector<TCordinates>					findPath();
+	TCordinatesArray							findPath();
 	TCordinates									findStartCell();
 	void										printField();
 
 public:
 
 	TPathBuilder();
-	std::vector<TCordinates>					findPath( const TKinematicScheme & scheme, core::TLink link );
+	TCordinatesArray							findPath( const TKinematicScheme & scheme, core::TLink link );
 
 };
 

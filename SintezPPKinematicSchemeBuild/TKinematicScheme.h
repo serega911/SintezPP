@@ -3,6 +3,7 @@
 #include "TPlanetaryGearSet.h"
 #include "../Libraries/TCode.h"
 #include "../Libraries/TK.h"
+#include "../Libraries/TGearBox.h"
 #include "../Libraries/GlobalDefines.h"
 #include "TCordinates.h"
 #include "TViewer_fwd.h"
@@ -17,17 +18,17 @@ private:
 	friend class TViewer;
 
 	std::vector<TPlanetaryGearSet>				m_field;
-	NS_CORE TCode									m_code;
+	NS_CORE TCode								m_code;
 	NS_CORE TK									m_k;
 
 public:
 
-	const std::vector<NS_CORE TChain>&			operator[]( int xPos ) const;
-	std::vector<NS_CORE TChain>&				operator[]( int xPos );
+	const NS_CORE TChainArray&					operator[]( int xPos ) const;
+	NS_CORE TChainArray&						operator[]( int xPos );
 
 	void										addGearSet(const TPlanetaryGearSet & gearSet);
-	void										addRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link );
-	void										addFakeRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link );
+	void										addRoute( const TCordinatesArray & cord, const NS_CORE TLink & link );
+	void										addFakeRoute( const TCordinatesArray & cord, const NS_CORE TLink & link );
 	void										addBorders();
 
 	void										print();

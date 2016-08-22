@@ -3,12 +3,12 @@
 
 NS_ARI_USING
 
-std::vector<NS_CORE TChain>& TKinematicScheme::operator[]( int xPos ) 
+NS_CORE TChainArray& TKinematicScheme::operator[]( int xPos )
 {
 	return m_field[xPos / TPlanetaryGearSet::s_xSize][ xPos % TPlanetaryGearSet::s_xSize];
 }
 
-const std::vector<NS_CORE TChain>& TKinematicScheme::operator[]( int xPos ) const
+const NS_CORE TChainArray& TKinematicScheme::operator[]( int xPos ) const
 {
 	return m_field[xPos / TPlanetaryGearSet::s_xSize][xPos % TPlanetaryGearSet::s_xSize];
 }
@@ -18,7 +18,7 @@ void TKinematicScheme::addGearSet( const TPlanetaryGearSet & gearSet )
 	m_field.emplace_back( gearSet );		
 }
 
-void TKinematicScheme::addRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link )
+void TKinematicScheme::addRoute( const TCordinatesArray & cord, const NS_CORE TLink & link )
 {
 	for ( auto& it : cord )
 	{
@@ -41,7 +41,7 @@ void TKinematicScheme::addRoute( const std::vector<TCordinates> & cord, const NS
 	
 }
 
-void ari::TKinematicScheme::addFakeRoute( const std::vector<TCordinates> & cord, const NS_CORE TLink & link )
+void ari::TKinematicScheme::addFakeRoute( const TCordinatesArray & cord, const NS_CORE TLink & link )
 {
 	const int interval = 1;
 

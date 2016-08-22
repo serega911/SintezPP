@@ -6,7 +6,7 @@
 
 NS_ARI_USING
 
-const std::vector<NS_CORE eMainElement> TGenerate::s_elements = { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER };
+const NS_CORE eMainElementArray TGenerate::s_elements = { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER };
 
 void TGenerate::readInitialData()
 {

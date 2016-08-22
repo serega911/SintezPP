@@ -1,9 +1,13 @@
 #pragma once
 #include <map>
+#include <vector>
 #include "eDirection.h"
 #include "../Libraries/GlobalDefines.h"
 
 NS_ARI_START
+
+struct TCordinates;
+typedef std::vector<TCordinates> TCordinatesArray;
 
 struct TCordinates
 {

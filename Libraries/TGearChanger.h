@@ -23,7 +23,7 @@ public:
 	TGearChanger() = delete;
 	TGearChanger(const TCode& code);
 
-	std::vector<TLink>							getDrivingElementsForGear() const;
+	TLinkArray									getDrivingElementsForGear() const;
 	bool										next();
 
 };
