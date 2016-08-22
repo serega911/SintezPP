@@ -49,9 +49,9 @@ TChains core::TGearBox::getChainsForCurrentGear() const
 	}
 
 	//поиск цепочек связей
-	for ( auto i = 0; i < chains.size() - 1; i++ )
+	for ( size_t i = 0; i < chains.size() - 1; i++ )
 	{
-		for ( auto j = i + 1; j < chains.size(); j++ )
+		for ( size_t j = i + 1; j < chains.size(); j++ )
 		{
 			if ( chains[i].intersect( chains[j] ) )
 			{
@@ -61,7 +61,7 @@ TChains core::TGearBox::getChainsForCurrentGear() const
 		}
 	}
 	//удаление пустых цепочек
-	for ( auto i = 0; i < chains.size(); i++ )
+	for ( size_t i = 0; i < chains.size(); i++ )
 	{
 		if ( chains[i].size() == 0 )
 		{
@@ -70,11 +70,11 @@ TChains core::TGearBox::getChainsForCurrentGear() const
 		}
 	}
 	//добавляем тормоза
-	for ( auto i = 0; i < drivingElements.size(); i++ )
+	for ( size_t i = 0; i < drivingElements.size(); i++ )
 	{
 		if ( drivingElements[i].getElem2() == NS_CORE TElement::BRAKE )
 		{
-			for ( auto j = 0; j < chains.size(); j++ )
+			for ( size_t j = 0; j < chains.size(); j++ )
 			{
 				if ( chains[j].find( drivingElements[i].getElem1() ) )
 				{
@@ -96,19 +96,19 @@ bool TGearBox::createChains()
 	auto size = TSingletons::getInstance()->getGeneralData()._numberOfLinks + 2;
 	m_chains.resize(size);
 	 
-	for (auto i = 0; i < m_chains.size(); i++){
+	for ( size_t i = 0; i < m_chains.size(); i++ ){
 		m_chains[i].addLinkToChain(code[i]);
 	}
 	//поиск элементов, свободных от связей и создание цепочек, которые их содержат
-	auto N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	size_t N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	auto in = code[0].getElem1();
 	auto out = code[1].getElem1();
 	for (TGearSetNumber i = 1; i <= N; i++)
 	{
 		for ( const auto& elem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 		{
-			TCount b = 0;
-			for (auto j = 0; j < size; j++){
+			size_t b = 0;
+			for ( size_t j = 0; j < size; j++ ){
 				if (TElement(elem, i) == code[j].getElem1() || TElement(elem, i) == code[j].getElem2())
 				{
 					b++;
@@ -122,8 +122,8 @@ bool TGearBox::createChains()
 		}
 	}
 	//поиск цепочек связей
-	for (auto i = 0; i < m_chains.size() - 1; i++){
-		for (auto j = i + 1; j < m_chains.size(); j++){
+	for ( size_t i = 0; i < m_chains.size() - 1; i++ ){
+		for ( size_t j = i + 1; j < m_chains.size(); j++ ){
 			if (m_chains[i].intersect(m_chains[j]))
 			{
 				m_chains[i].addChainToChain(m_chains[j]);
@@ -132,7 +132,7 @@ bool TGearBox::createChains()
 		}
 	}
 	//удаление пустых цепочек
-	for (auto i = 0; i < m_chains.size(); i++){
+	for ( size_t i = 0; i < m_chains.size(); i++ ){
 		if (m_chains[i].size() == 0){
 			m_chains.erase(m_chains.begin() + i);
 			i = i - 1;

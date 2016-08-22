@@ -12,20 +12,20 @@ NS_CORE_START
 
 struct InitialData
 {
-	int										_w;									//	число степеней свободы
-	int										_numberOfGears;						//	Количество реализуемых передач без прямой
-	int										_numberOfPlanetaryGears;			//	Количество планетарных рядов
-	std::vector<TRange>						_ranges;
-	TI										_i;
+	size_t										_w;									//	число степеней свободы
+	size_t										_numberOfGears;						//	Количество реализуемых передач без прямой
+	size_t										_numberOfPlanetaryGears;			//	Количество планетарных рядов
+	std::vector<TRange>							_ranges;
+	TI											_i;
 };
 
 struct GeneralData
 {
-	int										_numberOfActuatedDrivingElements;	//	Количество управляющих элементов, необходимых для включения передачи
-	int										_numberOfFrictions;					//	Количество фрикционов
-	int										_numberOfBrakes;					//	Количество тормозов
-	int										_numberOfLinks;						//	Количество связей
-	int										_codeSize;							//	Размер вектора кода
+	size_t										_numberOfActuatedDrivingElements;	//	Количество управляющих элементов, необходимых для включения передачи
+	size_t										_numberOfFrictions;					//	Количество фрикционов
+	size_t										_numberOfBrakes;					//	Количество тормозов
+	size_t										_numberOfLinks;						//	Количество связей
+	size_t										_codeSize;							//	Размер вектора кода
 };
 
 

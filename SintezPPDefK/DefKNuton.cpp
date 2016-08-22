@@ -76,11 +76,11 @@ Jacobi DefKNuton::createJacobian( const System & system )
 	if ( initialData._numberOfGears * initialData._numberOfPlanetaryGears == undefinedVar.size() )
 	{
 		det.setSize( initialData._numberOfGears * initialData._numberOfPlanetaryGears );
-		for ( auto i = 0; i < initialData._numberOfGears; i++ )
+		for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 		{
-			for ( auto j = 0; j < initialData._numberOfPlanetaryGears; j++ )
+			for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 			{
-				for ( auto k = 0; k < undefinedVar.size(); k++ )
+				for ( size_t k = 0; k < undefinedVar.size(); k++ )
 				{
 					auto undefVarListeners = undefinedVar[k].getAllListeners();
 					auto gearSetVariables = system.getVariablesSet( i, j );
@@ -108,7 +108,7 @@ double DefKNuton::calcNorm( const MatrixLine& delta )
 {
 	double norm = abs( delta[0] );
 
-	for ( int i = 0; i < delta.size(); i++ )
+	for ( size_t i = 0; i < delta.size(); i++ )
 	{
 		if ( abs( delta[i] ) > norm )
 		{
@@ -170,7 +170,7 @@ NS_CORE TK DefKNuton::getKValuesFromSystem( const System & system )
 	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 
 	std::vector<double> kValues;
-	for ( auto i = 0; i < initialData._numberOfPlanetaryGears; i++ )
+	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
 		kValues.push_back( system.getUnknownVariables()[i].getValue() );
 	}
@@ -186,9 +186,9 @@ MatrixLine DefKNuton::createRightParts( const System & system )
 	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 
 	MatrixLine rightParts( initialData._numberOfGears *initialData._numberOfPlanetaryGears );
-	for ( int i = 0; i < initialData._numberOfGears; i++ )
+	for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 	{
-		for ( int j = 0; j < initialData._numberOfPlanetaryGears; j++ )
+		for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 		{
 			rightParts[i * initialData._numberOfPlanetaryGears + j] = -Equations::wyllys( system.getVariablesSet( i, j ) );
 		}
@@ -206,11 +206,11 @@ Matrix DefKNuton::createMatrix( const Jacobi& jacobian, const System & system )
 
 	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 	
-	for ( auto i = 0; i < initialData._numberOfGears; i++ )
+	for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 	{
-		for ( auto j = 0; j < initialData._numberOfPlanetaryGears; j++ )
+		for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 		{
-			for ( auto k = 0; k < undefinedVar.size(); k++ )
+			for ( size_t k = 0; k < undefinedVar.size(); k++ )
 			{
 				ret.at( i*initialData._numberOfPlanetaryGears + j, k ) = jacobian[i*initialData._numberOfPlanetaryGears + j][k]( system.getVariablesSet( i, j ) );
 			}

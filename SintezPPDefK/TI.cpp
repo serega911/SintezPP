@@ -14,7 +14,7 @@ pss::TI::TI()
 {
 }
 
-int pss::TI::size() const
+size_t pss::TI::size() const
 {
 	return m_i.size();
 }

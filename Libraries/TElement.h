@@ -1,12 +1,17 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 #include "eMainElement.h"
 #include "GlobalDefines.h"
-#include "GlobalTypes.h"
 
 NS_CORE_START
+
+class TElement;
+typedef std::vector<TElement> TElementArray;
+typedef size_t TGearSetNumber;					// номер планетарного ряда
+
 
 class TElement
 {

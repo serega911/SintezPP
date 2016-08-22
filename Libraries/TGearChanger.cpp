@@ -3,9 +3,9 @@
 
 NS_CORE_USING
 
-std::vector<TLink> TGearChanger::createVector(const TCombinations & replacer) const
+TLinkArray TGearChanger::createVector( const TCombinations & replacer ) const
 {
-	std::vector<TLink> ret;
+	TLinkArray ret;
 
 	for (int i = 0; i < replacer.size(); i++)
 		ret.push_back(m_drivingElements[replacer[i]]);
@@ -17,7 +17,7 @@ TGearChanger::TGearChanger(const TCode& code)
 {
 	const auto& generalData = TSingletons::getInstance()->getGeneralData();
 
-	auto startPos = 2 + generalData._numberOfLinks;
+	size_t startPos = 2 + generalData._numberOfLinks;
 
 	if ( startPos < code.getCode().size() )
 	{
@@ -27,7 +27,7 @@ TGearChanger::TGearChanger(const TCode& code)
 
 }
 
-std::vector<TLink> TGearChanger::getDrivingElementsForGear() const
+TLinkArray TGearChanger::getDrivingElementsForGear() const
 {
 	return createVector(m_replacer);
 }

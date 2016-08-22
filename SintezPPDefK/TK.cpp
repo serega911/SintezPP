@@ -21,7 +21,7 @@ TK::TK( double dK )
 	}
 	m_K.resize( core::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
 	m_combi.resize( core::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	for ( int i = 0; i < m_K.size(); i++ ) // RK: use fill method
+	for ( size_t i = 0; i < m_K.size(); i++ ) // RK: use fill method
 	{
 		m_combi[i] = 0;
 		m_K[i] = m_kValues[0];
@@ -32,7 +32,7 @@ bool TK::next()
 {
 	if ( core::next_combination_repetition( m_combi, m_kValues.size() - 1, 0 ) )
 	{
-		for (int i = 0; i < m_combi.size(); i++)
+		for ( size_t i = 0; i < m_combi.size(); i++ )
 			m_K[i] = m_kValues[m_combi[i]];
 		return true;
 	}

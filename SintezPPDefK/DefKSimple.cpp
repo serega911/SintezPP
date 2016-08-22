@@ -64,9 +64,9 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 	do
 	{
 		countOfUncalculatedEquations = 0;
-		for ( int i = 0; i < initialData._numberOfGears; i++ )
+		for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 		{
-			for ( int j = 0; j < initialData._numberOfPlanetaryGears; j++ )
+			for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 			{
 
 				auto& gearSetVariables = system.getVariablesSet( i, j );
@@ -117,7 +117,7 @@ NS_CORE TK DefKSimple::getKValuesFromSystem( const System & system )
 	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 
 	std::vector<double> kValues;
-	for ( auto i = 0; i < initialData._numberOfPlanetaryGears; i++ )
+	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
 		if ( system.getUnknownVariables()[i].getIsDefined() )
 			kValues.push_back( system.getUnknownVariables()[i].getValue() );

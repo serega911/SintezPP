@@ -13,10 +13,10 @@ class TGearChanger
 {
 private:
 
-	std::vector<TLink>							m_drivingElements;
+	TLinkArray									m_drivingElements;
 	TCombinations								m_replacer;
 
-	std::vector<TLink>							createVector(const TCombinations & replacer) const;
+	TLinkArray									createVector( const TCombinations & replacer ) const;
 
 public:
 

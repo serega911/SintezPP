@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../Libraries/GlobalDefines.h"
-#include "../Libraries/GlobalTypes.h"
 
 #include <vector>
 #include <map>

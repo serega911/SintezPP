@@ -8,7 +8,7 @@
 
 NS_CORE_USING
 
-TK::TK( const std::vector<double>& k )
+TK::TK( const TKValueArray& k )
 	: m_K(k)
 {
 }
@@ -55,10 +55,10 @@ void TK::setValues( const std::vector<TKValue>& values )
 bool TK::check() const
 {
 	const auto& initialData = TSingletons::getInstance()->getInitialData();
-	for ( auto i = 0; i < m_K.size(); i++ )
+	for ( size_t i = 0; i < m_K.size(); i++ )
 	{
 		bool flag = false;
-		for ( auto j = 0; j < initialData._ranges.size(); j++ )
+		for ( size_t j = 0; j < initialData._ranges.size(); j++ )
 		{
 			if ( initialData._ranges[j].isInRange( m_K[i] ) )
 			{
@@ -78,7 +78,7 @@ bool TK::check() const
 bool TK::loadFromFile(std::istream& in)
 {
 	m_K.resize( TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	for ( auto i = 0; i < m_K.size(); i++ )
+	for ( size_t i = 0; i < m_K.size(); i++ )
 		in >> m_K[i];
 
 	return true;

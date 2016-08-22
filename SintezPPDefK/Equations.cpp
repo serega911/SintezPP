@@ -31,7 +31,7 @@ NS_ARI_USING
 	case NS_CORE eMainElement::EMPTY:
 		return dfDk;
 		break;
-	DEFAULT:
+	default:
 		//exception
 		break;
 	}
@@ -105,7 +105,7 @@ NS_ARI_USING
 	 case NS_CORE eMainElement::EMPTY:
 		 return calcKValue( set );
 		 break;
-	 DEFAULT:
+	 default:
 		 //exception
 		 break;
 	 }

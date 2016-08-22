@@ -10,9 +10,9 @@ void TPathBuilder::initField( const TKinematicScheme & scheme, core::TLink link 
 	for ( auto & it : m_field )
 		it.resize( TPlanetaryGearSet::s_ySize );
 
-	for ( auto x = 0; x < m_field.size(); x++ )
+	for ( size_t x = 0; x < m_field.size(); x++ )
 	{
-		for ( auto y = 0; y < m_field[x].size(); y++ )
+		for ( size_t y = 0; y < m_field[x].size(); y++ )
 		{
 			// empty
 			if ( scheme[x][y].size() == 0 )
@@ -48,9 +48,9 @@ bool TPathBuilder::spreadWave()
 	std::set<TCordinates> nextWave;
 
 	//заполняем текущую волну клетками финиша
-	for ( int x = 0; x < m_field.size( ); x++ )
+	for ( size_t x = 0; x < m_field.size(); x++ )
 	{
-		for ( int y = 0; y < m_field[x].size(); y++ )
+		for ( size_t y = 0; y < m_field[x].size(); y++ )
 		{
 			if ( m_field[x][y] == m_finish )
 				currentWave.insert( TCordinates(x,y) );
@@ -92,9 +92,9 @@ bool TPathBuilder::spreadWave()
 
 void TPathBuilder::printField()
 {
-	for ( int x = 0; x < m_field.size(); x++ )
+	for ( size_t x = 0; x < m_field.size(); x++ )
 	{
-		for ( int y = 0; y < m_field[x].size(); y++ )
+		for ( size_t y = 0; y < m_field[x].size(); y++ )
 		{
 			if ( m_field[x][y] == m_start )
 				std::cout << 's';
@@ -159,9 +159,9 @@ TCordinates TPathBuilder::findStartCell()
 	// ищем клетку старта
 	TCordinates start( 0, 0 );
 	int pathLenght = m_start;
-	for ( int x = 1; x < m_field.size() - 1; x++ )
+	for ( size_t x = 1; x < m_field.size() - 1; x++ )
 	{
-		for ( int y = 1; y < m_field[x].size() - 1; y++ )
+		for ( size_t y = 1; y < m_field[x].size() - 1; y++ )
 		{
 			if ( m_field[x][y] == m_start )
 			{

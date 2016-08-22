@@ -179,9 +179,6 @@
     <ClInclude Include="..\Libraries\TGaus.h">
       <Filter>StaticLib\helpers\TGaus</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\GlobalTypes.h">
-      <Filter>StaticLib\defines</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\TGearBox.h">
       <Filter>StaticLib\TGearBox</Filter>
     </ClInclude>

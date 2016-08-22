@@ -37,7 +37,7 @@ void DefK::readInitialData()
 		NS_CORE TSingletons::getInstance()->addRangeK( NS_CORE TRange( beg, end ) );
 	}
 	NS_CORE TLog::log( "Передаточные отношения:	", false );
-	for ( int i = 0; i < NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears; i++ )
+	for ( size_t i = 0; i < NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears; i++ )
 	{
 		double ratio = 0;
 		std::cin >> ratio;

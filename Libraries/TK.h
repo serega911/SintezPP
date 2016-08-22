@@ -2,21 +2,23 @@
 #include <vector>
 
 #include "GlobalDefines.h"
-#include "GlobalTypes.h"
 #include "IContainer.h"
 
 NS_CORE_START
+
+typedef double TKValue;							// внутреннее передаточное отношение ѕћ
+typedef std::vector<TKValue> TKValueArray;		// контейнер передаточных отношений
 
 class TK : public IContainer
 {
 private:
 
 protected:
-	std::vector<TKValue>						m_K;
+	TKValueArray								m_K;
 
 public:
 
-	TK( const std::vector<double>& k );
+	TK( const TKValueArray& k );
 	TK( const size_t size );
 	TK();
 
@@ -28,7 +30,7 @@ public:
 	void										writeToFile( std::ostream& file ) const override;
 	bool										loadFromFile( std::istream& file ) override;
 
-	void										setValues( const std::vector<TKValue>& values );
+	void										setValues( const TKValueArray& values );
 	bool										check() const;
 
 };

@@ -2,15 +2,14 @@
 #include <vector>
 
 #include "GlobalDefines.h"
-#include "GlobalTypes.h"
 #include "TCode.h"
 #include "TChain.h"
 #include "TGearChanger.h"
 
 NS_CORE_START
 
+typedef size_t TGearNumber;						// номер передачи
 typedef std::vector<TChain> TChains;
-typedef std::vector<TElement> TElements;
 
 class TGearBox
 {

@@ -119,12 +119,12 @@ void System::init( const NS_CORE TK& initialKValues )
 		it.resize( numberOfPlanetaryGears );
 	}
 
-	for ( auto planetaryGear = 0; planetaryGear < numberOfPlanetaryGears; planetaryGear++ )
+	for ( size_t planetaryGear = 0; planetaryGear < numberOfPlanetaryGears; planetaryGear++ )
 	{
 		m_unknowns.emplace_back( UnknownVariable( initialKValues[planetaryGear] ) );
 		auto& unknown = m_unknowns[m_unknowns.size() - 1];
 
-		for ( auto gear = 0; gear < numberOfGears; gear++ )
+		for ( size_t gear = 0; gear < numberOfGears; gear++ )
 		{
 			unknown.addListener( &( m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY] ) );
 			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setDefined( false );

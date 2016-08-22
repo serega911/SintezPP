@@ -3,15 +3,17 @@
 #include <vector>
 
 #include "GlobalDefines.h"
-#include "GlobalTypes.h"
 
 NS_CORE_START
+
+typedef double TIValue;							// передаточное отношение КПП
+typedef std::vector<TIValue> TIValueArray;		// контейнер передаточных отношений ПКП
 
 class TI
 {
 private:
 
-	std::vector<TIValue>						m_i;
+	TIValueArray								m_i;
 	static double								m_eps;
 
 public:
@@ -19,7 +21,7 @@ public:
 	TI();
 	TI(const std::vector<double>& i, double eps);
 
-	int											size() const;
+	size_t										size() const;
 
 	const TIValue &								operator[]( size_t i ) const;
 	bool										operator==(const TI& obj) const; // outdated

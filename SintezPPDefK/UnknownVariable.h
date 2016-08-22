@@ -4,6 +4,7 @@
 
 #include "Variable.h"
 #include "../Libraries/TElement.h"
+#include "../Libraries/TGearBox.h"
 #include <set>
 
 

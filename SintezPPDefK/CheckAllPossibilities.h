@@ -19,7 +19,7 @@ public:
 		const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
 		std::vector<int> combi;
-		for ( auto i = 0; i < size; i++ )
+		for ( size_t i = 0; i < size; i++ )
 			combi.push_back( 0 );
 
 		NS_CORE TK initial( size );
@@ -27,7 +27,7 @@ public:
 		do{
 
 			std::vector<double> initialK;
-			for ( auto i = 0; i < combi.size(); i++ )
+			for ( size_t i = 0; i < combi.size(); i++ )
 				initialK.push_back( NS_CORE TSingletons::getInstance()->getInitialData()._ranges[combi[i]].getMid() );
 
 			initial.setValues( initialK );
@@ -42,7 +42,7 @@ public:
 		const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
 		std::vector<int> replace;
-		for ( int i = 0; i < iTarget.size(); i++ )
+		for ( size_t i = 0; i < iTarget.size(); i++ )
 			replace.push_back( i );
 
 		std::vector<double> curI;
@@ -52,7 +52,7 @@ public:
 		do{
 
 			curI.clear();			
-			for ( int i = 0; i < iTarget.size(); i++ )
+			for ( size_t i = 0; i < iTarget.size(); i++ )
 				curI.push_back( iTarget[replace[i]] );
 
 		} while ( toCall( NS_CORE TI( curI, 0.001 ) ) && std::next_permutation( replace.begin(), replace.end() ) );

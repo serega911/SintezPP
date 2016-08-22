@@ -11,7 +11,7 @@ namespace pss
 	public:
 		TI();
 		TI(const std::vector<double>& i, double eps);
-		int										size() const;
+		size_t									size() const;
 		const double							operator[](int i) const;
 		bool									operator==(const TI& obj); // RK: const and OUTSIDE class
 		void									operator=(const TI& obj);

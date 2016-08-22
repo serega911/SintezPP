@@ -8,7 +8,7 @@ NS_CORE_USING
 
 double TI::m_eps = 0.01;
 
-TI::TI( const std::vector<TIValue>& i, double eps )
+TI::TI( const TIValueArray& i, double eps )
 	: m_i( i )
 {
 }
@@ -17,7 +17,7 @@ TI::TI()
 {
 }
 
-int TI::size() const
+size_t TI::size() const
 {
 	return m_i.size();
 }
