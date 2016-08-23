@@ -79,7 +79,6 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixOperations.h" />
     <ClInclude Include="System.h" />
-    <ClInclude Include="TI.h" />
     <ClInclude Include="TK.h" />
     <ClInclude Include="UnknownVariable.h" />
     <ClInclude Include="Variable.h" />
@@ -97,7 +96,6 @@
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MatrixOperations.cpp" />
     <ClCompile Include="System.cpp" />
-    <ClCompile Include="TI.cpp" />
     <ClCompile Include="TK.cpp" />
     <ClCompile Include="UnknownVariable.cpp" />
     <ClCompile Include="Variable.cpp" />

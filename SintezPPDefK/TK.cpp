@@ -6,26 +6,25 @@
 
 NS_ARI_USING
 
-TK::TK( double dK )
+TK::TK( NS_CORE TKValue dK )
 	: core::TK( 0 )
 {
-
 	m_dK = dK;
 
 	for ( const auto& range : core::TSingletons::getInstance()->getInitialData()._ranges )
 	{
-		for ( auto value = range.getBegin(); value <= range.getEnd(); value += m_dK )
+		for ( NS_CORE TKValue value = range.getBegin(); value <= range.getEnd(); value = m_dK + value )
 		{
 			m_kValues.push_back(value);
 		}
 	}
-	m_K.resize( core::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	m_combi.resize( core::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	for ( size_t i = 0; i < m_K.size(); i++ ) // RK: use fill method
-	{
-		m_combi[i] = 0;
-		m_K[i] = m_kValues[0];
-	}
+	m_K.resize( core::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears, m_kValues[0] );
+	m_combi.resize( core::TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears, 0 );
+}
+
+ari::TK::TK( NS_CORE TK& k )
+	: core::TK( k )
+{
 }
 
 bool TK::next()
@@ -39,7 +38,7 @@ bool TK::next()
 	return false;
 }
 
-const double TK::operator[]( size_t i ) const
+const NS_CORE TKValue TK::operator[]( size_t i ) const
 {
 	return m_K[i];
 }

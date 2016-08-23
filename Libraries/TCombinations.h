@@ -10,15 +10,17 @@ class TCombinations
 {
 private:
 
-	std::vector<int>							m_container;
+	typedef int T;
+
+	std::vector<T>								m_container;
 
 public:
 
-	void										init( int count );
-	bool										nextReplace( int maxValue );
-	const std::vector<int>&						getReplace() const;
-	int											operator[]( int i ) const;
-	int											size() const;
+	void										init( size_t count );
+	bool										nextReplace( T maxValue );
+	const std::vector<T>&						getReplace() const;
+	T											operator[]( size_t i ) const;
+	size_t										size() const;
 
 };
 

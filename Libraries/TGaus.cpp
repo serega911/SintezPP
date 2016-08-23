@@ -43,8 +43,8 @@ void TGaus::createSystem(const TCode & Code, const TK &k)
 	//Эти строки никогда не очищаем так как все значения всегда пишутся на одни и те же позиции
 	for ( size_t i = 0; i < k.size(); i++ ){
 		m_system[i][3 * i] = 1;
-		m_system[i][3 * i + 1] = -k[i];
-		m_system[i][3 * i + 2] = k[i] - 1;
+		m_system[i][3 * i + 1] = -k[i].getValue();
+		m_system[i][3 * i + 2] = k[i].getValue() - 1;
 	}
 	//system("pause");
 	//очищаем уравнения

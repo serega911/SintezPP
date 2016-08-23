@@ -7,13 +7,13 @@ TLinkArray TGearChanger::createVector( const TCombinations & replacer ) const
 {
 	TLinkArray ret;
 
-	for (int i = 0; i < replacer.size(); i++)
-		ret.push_back(m_drivingElements[replacer[i]]);
+	for ( size_t i = 0; i < replacer.size(); i++ )
+		ret.push_back( m_drivingElements[replacer[i]] );
 
 	return ret;
 }
 
-TGearChanger::TGearChanger(const TCode& code)
+TGearChanger::TGearChanger( const TCode& code )
 {
 	const auto& generalData = TSingletons::getInstance()->getGeneralData();
 
@@ -29,7 +29,7 @@ TGearChanger::TGearChanger(const TCode& code)
 
 TLinkArray TGearChanger::getDrivingElementsForGear() const
 {
-	return createVector(m_replacer);
+	return createVector( m_replacer );
 }
 
 bool TGearChanger::next()

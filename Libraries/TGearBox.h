@@ -5,17 +5,18 @@
 #include "TCode.h"
 #include "TChain.h"
 #include "TGearChanger.h"
+#include "TGearNumber.h"
 
 NS_CORE_START
 
-typedef size_t TGearNumber;						// номер передачи
+//typedef size_t TGearNumber;						// номер передачи
 
 class TGearBox
 {
 private:
 
 	TCode										m_code;
-	TChainArray										m_chains;
+	TChainArray									m_chains;
 	TGearChanger								m_gearChanger;
 	
 protected:

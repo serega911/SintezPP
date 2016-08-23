@@ -9,25 +9,28 @@ NS_ARI_USING
 TK DefKSelection::calculate( const NS_CORE TCode& Code )
 {
 	NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, Code );
-	
+
 	TK K( 0.1 );
+	TK ans( 0.1 );
 	bool isFinded = false;
 	do{
-		if ( podModul( Code, K ) )
+		auto ret = podModul( Code, K );
+		if ( core::TSingletons::getInstance()->getInitialData()._i == ret )
 		{
 			isFinded = true;
+			ans = K;
 			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, K );
 			//break;
 		}
 	} while ( K.next() );
 
 	if ( !isFinded )
-		K.setValues( {} );
+		ans.setValues( {} );
 
-	return K;
+	return ans;
 }
 
-bool DefKSelection::podModul( const NS_CORE TCode & code, const TK &k )
+NS_CORE TI DefKSelection::podModul( const NS_CORE TCode & code, const TK &k )
 {
 	NS_CORE TGearChanger gearChanger( code );
 	NS_CORE TI tmpI( {}, 0.001 );	//вектор для полученных передаточных отношений при данном наборе K
@@ -39,7 +42,7 @@ bool DefKSelection::podModul( const NS_CORE TCode & code, const TK &k )
 		gaus.solve();
 		if ( gaus.getSolution().size() == 0 )
 		{
-			return false;
+			return NS_CORE TI();
 		}
 		const auto codeValues = code.getCode();
 		double calculatedI = gaus.getSolution()[codeValues[1].getElem1().getSerialNumber()];
@@ -49,16 +52,10 @@ bool DefKSelection::podModul( const NS_CORE TCode & code, const TK &k )
 		}
 		else
 		{
-			return false;
+			return NS_CORE TI();
 		}
 
 	} while ( gearChanger.next() );
-	//сравниваем полученные передаточные отношения с искомыми
-	if ( core::TSingletons::getInstance()->getInitialData()._i == tmpI )
-	{
-		m_iReal = tmpI;
-		return true;
-	}
-	else
-		return false;
+
+	return tmpI;
 }

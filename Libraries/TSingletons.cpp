@@ -79,7 +79,7 @@ const InitialData& TSingletons::getInitialData() const
 	return m_initialData;
 }
 
-void TSingletons::setGlobalParameters( int w, int n )
+void TSingletons::setGlobalParameters( size_t w, size_t n )
 {
 	m_initialData._w = w;
 	m_initialData._numberOfPlanetaryGears = n;

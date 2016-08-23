@@ -191,6 +191,25 @@
     <ClInclude Include="..\Libraries\IApplication.h">
       <Filter>StaticLib\IApplication</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
+    <ClInclude Include="..\Libraries\TKValue.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TKValueArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TIValue.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TIValueArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TGearNumber.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TRangeArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\func_lib.inl">

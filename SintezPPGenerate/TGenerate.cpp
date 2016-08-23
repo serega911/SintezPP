@@ -13,8 +13,8 @@ void TGenerate::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n" );
 	//	Исходные данные
-	int W = 0;
-	int N = 0;
+	size_t W = 0;
+	size_t N = 0;
 	NS_CORE TLog::log( "\t\t\tИсходные данные." );
 	NS_CORE TLog::log( "Число степеней свободы:	", false );
 	std::cin >> W;
@@ -89,7 +89,7 @@ void TGenerate::generateLinks( const TGearBox & gearBox )
 		TGearBox gearBoxWithLinks( gearBox );
 		//	Заполняем вектор связей с учетом сгенерированного сочетания
 		NS_CORE TLinkArray links;			//	Вектор связей
-		for (int i = 0; i < linksCombi.size(); i++)
+		for ( size_t i = 0; i < linksCombi.size(); i++ )
 			links.push_back(m_allLinks[linksCombi[i]]);
 		gearBoxWithLinks.setLinksToCode( links );
 		gearBoxWithLinks.createChains();
@@ -134,7 +134,7 @@ void TGenerate::generateFrictions( const TGearBox & gearBox )
 			TGearBox gearBoxWithFrictions( gearBox );
 			//	Заполняем вектор фрикционов с учетом сгенерированного сочетания
 			vect_frict.clear();
-			for (int i = 0; i < vect_combi_frict.size(); i++)
+			for ( size_t i = 0; i < vect_combi_frict.size(); i++ )
 				vect_frict.push_back(vect_all_frict[vect_combi_frict[i]]);
 			gearBoxWithFrictions.setFrictionsToCode( vect_frict );
 			generateBrakes( gearBoxWithFrictions );
@@ -156,7 +156,7 @@ void TGenerate::generateBrakes( const TGearBox & gearBox )
 		TGearBox gearBoxWithBrakes( gearBox );
 		NS_CORE TLinkArray vect_brakes;	//	Вектор тормозов
 		//	Заполняем вектор тормозов с учетом сгенерированного сочетания
-		for (int i = 0; i < vect_combi_brakes.size(); i++)
+		for ( size_t i = 0; i < vect_combi_brakes.size(); i++ )
 			vect_brakes.push_back( NS_CORE TLink( vect_all_FB[vect_combi_brakes[i]], NS_CORE TElement::BRAKE ) );
 		gearBoxWithBrakes.setBrakesToCode( vect_brakes );
 		//C.print();

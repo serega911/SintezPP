@@ -5,6 +5,7 @@
 #include "TIOFileManager.h"
 #include "TLoaderFromFile.h"
 #include "TRange.h"
+#include "TRangeArray.h"
 #include "TI.h"
 #include "GlobalDefines.h"
 
@@ -54,7 +55,7 @@ public:
 	const GeneralData&							getGeneralData() const;
 	const InitialData&							getInitialData() const;
 
-	void										setGlobalParameters(int w, int n);
+	void										setGlobalParameters( size_t w, size_t n );
 	void										addRangeK( const TRange& range );
 	void										addGearRatio( const double& i );
 

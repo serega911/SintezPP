@@ -31,7 +31,7 @@ void TK::print() const
 {
 	for ( auto &it : m_K )
 	{
-		TLog::log( it, false );
+		TLog::log( it.getValue(), false );
 		TLog::log( " ", false );
 	}
 }
@@ -44,7 +44,7 @@ size_t TK::size() const
 void TK::writeToFile(std::ostream& file) const
 {
 	for (auto& it : m_K)
-		file << it << ' ';
+		file << it.getValue() << ' ';
 }
 
 void TK::setValues( const TKValueArray& values )
@@ -60,7 +60,7 @@ bool TK::check() const
 		bool flag = false;
 		for ( size_t j = 0; j < initialData._ranges.size(); j++ )
 		{
-			if ( initialData._ranges[j].isInRange( m_K[i] ) )
+			if ( initialData._ranges[j].isInRange( m_K[i].getValue() ) )
 			{
 				flag = true;
 				break;
@@ -79,7 +79,11 @@ bool TK::loadFromFile(std::istream& in)
 {
 	m_K.resize( TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
 	for ( size_t i = 0; i < m_K.size(); i++ )
-		in >> m_K[i];
+	{
+		double value;
+		in >> value;
+		m_K[i] = TKValue( value );
+	}
 
 	return true;
 }

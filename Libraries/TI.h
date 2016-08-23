@@ -3,23 +3,24 @@
 #include <vector>
 
 #include "GlobalDefines.h"
+#include "TIValue.h"
+#include "TIValueArray.h"
 
 NS_CORE_START
 
-typedef double TIValue;							// передаточное отношение КПП
-typedef std::vector<TIValue> TIValueArray;		// контейнер передаточных отношений ПКП
+//typedef std::vector<TIValue> TIValueArray;		// контейнер передаточных отношений ПКП
 
 class TI
 {
 private:
 
 	TIValueArray								m_i;
-	static double								m_eps;
+	static TIValue								m_eps;
 
 public:
 
 	TI();
-	TI( const TIValueArray& i, double eps );
+	TI( const TIValueArray& i, TIValue eps );
 
 	size_t										size() const;
 

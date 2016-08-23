@@ -5,7 +5,7 @@
 NS_ARI_USING
 
 
-void System::addDefinedChain( const NS_CORE TChain& chain, const VariableValue & value, const int gear )
+void System::addDefinedChain( const NS_CORE TChain& chain, const VariableValue & value, const NS_CORE TGearNumber& gear )
 {
 	const auto & elements = chain.getElements();
 
@@ -21,7 +21,7 @@ void System::addDefinedChain( const NS_CORE TChain& chain, const VariableValue &
 	}
 }
 
-void System::addUndefinedChain( const NS_CORE TChain& chain, const VariableValue & value, const int gear )
+void System::addUndefinedChain( const NS_CORE TChain& chain, const VariableValue & value, const NS_CORE TGearNumber& gear )
 {
 	m_unknowns.emplace_back( UnknownVariable( value ) );
 	auto& unknown = m_unknowns[m_unknowns.size() - 1];
@@ -44,7 +44,7 @@ System::System()
 {
 }
 
-void System::addGearChains( const NS_CORE TChainArray& chains, const int gear, const double i )
+void System::addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGearNumber& gear, const NS_CORE TIValue i )
 {
 	for ( auto& chain : chains )
 	{
@@ -58,7 +58,7 @@ void System::addGearChains( const NS_CORE TChainArray& chains, const int gear, c
 		}
 		else if ( chain.find( NS_CORE TElement::OUTPUT ) )
 		{
-			addDefinedChain( chain, 1 / i, gear );
+			addDefinedChain( chain, 1 / i.getValue(), gear );
 		}
 		else
 		{
@@ -68,14 +68,14 @@ void System::addGearChains( const NS_CORE TChainArray& chains, const int gear, c
 	m_addedSetCount++;
 }
 
-VariablesSet & System::getVariablesSet( const int & gearN, const int & gearSetN )
+VariablesSet & System::getVariablesSet( const NS_CORE TGearNumber & gearN, const int & gearSetN )
 {
-	return m_sets.at( gearN ).at( gearSetN );
+	return m_sets.at( gearN.getValue() ).at( gearSetN );
 }
 
-const VariablesSet & System::getVariablesSet( const int & gearN, const int & gearSetN ) const
+const VariablesSet & System::getVariablesSet( const NS_CORE TGearNumber & gearN, const int & gearSetN ) const
 {
-	return m_sets.at( gearN ).at( gearSetN );
+	return m_sets.at( gearN.getValue() ).at( gearSetN );
 }
 
 UnknownVariableArray & System::getUnknownVariables()
@@ -101,7 +101,7 @@ void System::init( const NS_CORE TK& initialKValues )
 
 	for ( size_t planetaryGear = 0; planetaryGear < numberOfPlanetaryGears; planetaryGear++ )
 	{
-		m_unknowns.emplace_back( UnknownVariable( initialKValues[planetaryGear] ) );
+		m_unknowns.emplace_back( UnknownVariable( initialKValues[planetaryGear].getValue() ) );
 		auto& unknown = m_unknowns[m_unknowns.size() - 1];
 
 		for ( size_t gear = 0; gear < numberOfGears; gear++ )

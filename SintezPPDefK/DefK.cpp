@@ -78,7 +78,16 @@ void DefK::run()
 
 			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
 			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans );
+
+// 			auto realI = solveSelection.podModul( code, ans );
+// 			if ( !(core::TSingletons::getInstance()->getInitialData()._i == realI) )
+// 			{
+// 				code.print();
+// 				ans.print();
+// 				NS_CORE TLog::log( "" );
+// 			}
 		}
 
 	}
+	system( "pause" );
 }

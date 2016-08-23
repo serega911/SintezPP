@@ -32,16 +32,15 @@
     <ClCompile Include="MatrixOperations.cpp">
       <Filter>Files\Nuton\Matrix\MatrixOperations</Filter>
     </ClCompile>
-    <ClCompile Include="TI.cpp">
-      <Filter>Old</Filter>
-    </ClCompile>
-    <ClCompile Include="TK.cpp">
-      <Filter>Old</Filter>
-    </ClCompile>
     <ClCompile Include="DefKSimple.cpp">
       <Filter>Files\Simple</Filter>
     </ClCompile>
-    <ClCompile Include="DefKSelection.cpp" />
+    <ClCompile Include="TK.cpp">
+      <Filter>Files\Selection</Filter>
+    </ClCompile>
+    <ClCompile Include="DefKSelection.cpp">
+      <Filter>Files\Selection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Files">
@@ -73,9 +72,6 @@
     </Filter>
     <Filter Include="Files\Nuton\Matrix\MatrixOperations">
       <UniqueIdentifier>{ef7d0ff6-459d-4da5-a6ce-035a68b51cfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Old">
-      <UniqueIdentifier>{95bbfee6-c52a-4c59-a72e-f2ece7d537f0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Files\Simple">
       <UniqueIdentifier>{dd467c90-50db-4b5a-91ac-1cdede915a53}</UniqueIdentifier>
@@ -121,12 +117,6 @@
     <ClInclude Include="MatrixOperations.h">
       <Filter>Files\Nuton\Matrix\MatrixOperations</Filter>
     </ClInclude>
-    <ClInclude Include="TI.h">
-      <Filter>Old</Filter>
-    </ClInclude>
-    <ClInclude Include="TK.h">
-      <Filter>Old</Filter>
-    </ClInclude>
     <ClInclude Include="DefKSimple.h">
       <Filter>Files\Simple</Filter>
     </ClInclude>
@@ -134,6 +124,9 @@
       <Filter>Files\Nuton</Filter>
     </ClInclude>
     <ClInclude Include="DefKSelection.h">
+      <Filter>Files\Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="TK.h">
       <Filter>Files\Selection</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,7 +13,7 @@ VariableValue Variable::getValue() const
 	return m_value;
 }
 
-int Variable::getGear() const
+NS_CORE TGearNumber Variable::getGear() const
 {
 	return m_gear;
 }
@@ -33,7 +33,7 @@ void Variable::onChangeUnknownVariableValue( const VariableValue & newValue )
 	setValue( newValue );
 }
 
-void Variable::setElement( const NS_CORE TElement & element, const int gear )
+void Variable::setElement( const NS_CORE TElement & element, const NS_CORE TGearNumber& gear )
 {
 	m_element = element;
 	m_gear = gear;

@@ -42,15 +42,22 @@
     <ClInclude Include="..\Libraries\TGaus.h" />
     <ClInclude Include="..\Libraries\TGearBox.h" />
     <ClInclude Include="..\Libraries\TGearChanger.h" />
+    <ClInclude Include="..\Libraries\TGearNumber.h" />
     <ClInclude Include="..\Libraries\TI.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
+    <ClInclude Include="..\Libraries\TIValue.h" />
+    <ClInclude Include="..\Libraries\TIValueArray.h" />
     <ClInclude Include="..\Libraries\TK.h" />
+    <ClInclude Include="..\Libraries\TKValue.h" />
+    <ClInclude Include="..\Libraries\TKValueArray.h" />
     <ClInclude Include="..\Libraries\TLink.h" />
     <ClInclude Include="..\Libraries\TLog.h" />
     <ClInclude Include="..\Libraries\TRange.h" />
     <ClInclude Include="..\Libraries\TCombinations.h" />
     <ClInclude Include="..\Libraries\TLoaderFromFile.h" />
+    <ClInclude Include="..\Libraries\TRangeArray.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
+    <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\func_lib.inl" />

@@ -3,17 +3,17 @@
 
 #include "GlobalDefines.h"
 #include "IContainer.h"
+#include "TKValue.h"
+#include "TKValueArray.h"
 
 NS_CORE_START
-
-typedef double TKValue;							// внутреннее передаточное отношение ѕћ
-typedef std::vector<TKValue> TKValueArray;		// контейнер передаточных отношений
 
 class TK : public IContainer
 {
 private:
 
 protected:
+
 	TKValueArray								m_K;
 
 public:
