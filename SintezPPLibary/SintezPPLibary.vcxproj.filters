@@ -126,6 +126,9 @@
     <ClCompile Include="..\Libraries\TLoaderFromFile.cpp">
       <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\TKArray.h">
+      <Filter>StaticLib\types\TRange</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">

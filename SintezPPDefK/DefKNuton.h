@@ -2,7 +2,7 @@
 
 #include "../Libraries/GlobalDefines.h"
 
-#include "../Libraries/TK.h"
+#include "../Libraries/TKArray.h"
 #include "../Libraries/TI.h"
 
 #include "Jacobi.h"
@@ -28,7 +28,7 @@ private:
 public:
 
 	
-	NS_CORE TK									calculate( const NS_CORE TCode& code );
+	NS_CORE TKArray									calculate( const NS_CORE TCode& code );
 };
 
 NS_ARI_END

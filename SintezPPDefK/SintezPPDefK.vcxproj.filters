@@ -9,28 +9,28 @@
       <Filter>Files\Nuton</Filter>
     </ClCompile>
     <ClCompile Include="Variable.cpp">
-      <Filter>Files\Nuton\Variable</Filter>
+      <Filter>Files\Classes\Variable</Filter>
     </ClCompile>
     <ClCompile Include="System.cpp">
-      <Filter>Files\Nuton\System</Filter>
+      <Filter>Files\Classes\System</Filter>
     </ClCompile>
     <ClCompile Include="VariablesSet.cpp">
-      <Filter>Files\Nuton\VariablesSet</Filter>
+      <Filter>Files\Classes\VariablesSet</Filter>
     </ClCompile>
     <ClCompile Include="UnknownVariable.cpp">
-      <Filter>Files\Nuton\UnknownVariable</Filter>
+      <Filter>Files\Classes\UnknownVariable</Filter>
     </ClCompile>
     <ClCompile Include="Equations.cpp">
-      <Filter>Files\Nuton\Equations</Filter>
+      <Filter>Files\Classes\Equations</Filter>
     </ClCompile>
     <ClCompile Include="Jacobi.cpp">
-      <Filter>Files\Nuton\Jacobi</Filter>
+      <Filter>Files\Classes\Jacobi</Filter>
     </ClCompile>
     <ClCompile Include="Matrix.cpp">
-      <Filter>Files\Nuton\Matrix</Filter>
+      <Filter>Files\Classes\Matrix</Filter>
     </ClCompile>
     <ClCompile Include="MatrixOperations.cpp">
-      <Filter>Files\Nuton\Matrix\MatrixOperations</Filter>
+      <Filter>Files\Classes\Matrix\MatrixOperations</Filter>
     </ClCompile>
     <ClCompile Include="DefKSimple.cpp">
       <Filter>Files\Simple</Filter>
@@ -49,35 +49,38 @@
     <Filter Include="Files\Nuton">
       <UniqueIdentifier>{0fa87991-ca34-44b1-8494-d56495ca0fd7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Files\Nuton\Equations">
-      <UniqueIdentifier>{d7969ccf-7b5c-4a36-aba0-346a8f815990}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Nuton\System">
-      <UniqueIdentifier>{e0e0b677-cd4b-47ce-b376-a38163d80722}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Nuton\UnknownVariable">
-      <UniqueIdentifier>{a896f1df-dc08-4ac7-932c-2ed52046a935}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Nuton\Variable">
-      <UniqueIdentifier>{8d3f0654-5034-4afc-9243-34cf77c711e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Nuton\VariablesSet">
-      <UniqueIdentifier>{ad7bbd20-73ae-4683-a98a-bd4bc00665d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Nuton\Jacobi">
-      <UniqueIdentifier>{b85a5022-8e7f-46ee-9f0a-b56cd4903b66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Nuton\Matrix">
-      <UniqueIdentifier>{67813020-71a7-4c75-90bf-e1afd8d8563d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Nuton\Matrix\MatrixOperations">
-      <UniqueIdentifier>{ef7d0ff6-459d-4da5-a6ce-035a68b51cfc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Files\Simple">
       <UniqueIdentifier>{dd467c90-50db-4b5a-91ac-1cdede915a53}</UniqueIdentifier>
     </Filter>
     <Filter Include="Files\Selection">
       <UniqueIdentifier>{a6532836-5ad4-4a72-a4c5-3704c53aa542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes">
+      <UniqueIdentifier>{c7e761d6-eafe-4d75-bf20-38693c142b58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes\Equations">
+      <UniqueIdentifier>{d7969ccf-7b5c-4a36-aba0-346a8f815990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes\Jacobi">
+      <UniqueIdentifier>{b85a5022-8e7f-46ee-9f0a-b56cd4903b66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes\Matrix">
+      <UniqueIdentifier>{67813020-71a7-4c75-90bf-e1afd8d8563d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes\Matrix\MatrixOperations">
+      <UniqueIdentifier>{ef7d0ff6-459d-4da5-a6ce-035a68b51cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes\System">
+      <UniqueIdentifier>{e0e0b677-cd4b-47ce-b376-a38163d80722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes\UnknownVariable">
+      <UniqueIdentifier>{a896f1df-dc08-4ac7-932c-2ed52046a935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes\Variable">
+      <UniqueIdentifier>{8d3f0654-5034-4afc-9243-34cf77c711e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Classes\VariablesSet">
+      <UniqueIdentifier>{ad7bbd20-73ae-4683-a98a-bd4bc00665d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,46 +91,46 @@
       <Filter>Files\Nuton</Filter>
     </ClInclude>
     <ClInclude Include="Variable.h">
-      <Filter>Files\Nuton\Variable</Filter>
+      <Filter>Files\Classes\Variable</Filter>
     </ClInclude>
     <ClInclude Include="System.h">
-      <Filter>Files\Nuton\System</Filter>
+      <Filter>Files\Classes\System</Filter>
     </ClInclude>
     <ClInclude Include="VariablesSet.h">
-      <Filter>Files\Nuton\VariablesSet</Filter>
+      <Filter>Files\Classes\VariablesSet</Filter>
     </ClInclude>
     <ClInclude Include="UnknownVariable.h">
-      <Filter>Files\Nuton\UnknownVariable</Filter>
+      <Filter>Files\Classes\UnknownVariable</Filter>
     </ClInclude>
     <ClInclude Include="Equations.h">
-      <Filter>Files\Nuton\Equations</Filter>
+      <Filter>Files\Classes\Equations</Filter>
     </ClInclude>
     <ClInclude Include="VariablesSet_fwd.h">
-      <Filter>Files\Nuton\VariablesSet</Filter>
-    </ClInclude>
-    <ClInclude Include="Defines.h">
-      <Filter>Files\Nuton</Filter>
+      <Filter>Files\Classes\VariablesSet</Filter>
     </ClInclude>
     <ClInclude Include="Jacobi.h">
-      <Filter>Files\Nuton\Jacobi</Filter>
+      <Filter>Files\Classes\Jacobi</Filter>
     </ClInclude>
     <ClInclude Include="Matrix.h">
-      <Filter>Files\Nuton\Matrix</Filter>
+      <Filter>Files\Classes\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="MatrixOperations.h">
-      <Filter>Files\Nuton\Matrix\MatrixOperations</Filter>
+      <Filter>Files\Classes\Matrix\MatrixOperations</Filter>
     </ClInclude>
     <ClInclude Include="DefKSimple.h">
       <Filter>Files\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckAllPossibilities.h">
-      <Filter>Files\Nuton</Filter>
     </ClInclude>
     <ClInclude Include="DefKSelection.h">
       <Filter>Files\Selection</Filter>
     </ClInclude>
     <ClInclude Include="TK.h">
       <Filter>Files\Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckAllPossibilities.h">
+      <Filter>Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

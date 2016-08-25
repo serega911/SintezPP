@@ -55,6 +55,6 @@ public:
 			for ( size_t i = 0; i < iTarget.size(); i++ )
 				curI.push_back( iTarget[replace[i]] );
 
-		} while ( toCall( NS_CORE TI( curI, 0.001 ) ) && std::next_permutation( replace.begin(), replace.end() ) );
+		} while ( toCall( NS_CORE TI( curI,NS_CORE TIValue( 0.001 ) ) ) && std::next_permutation( replace.begin(), replace.end() ) );
 	}
 };

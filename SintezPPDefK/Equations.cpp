@@ -32,7 +32,7 @@ NS_ARI_USING
 		return dfDk;
 		break;
 	default:
-		//exception
+		NS_CORE TLog::warning( true, "wrong eMainElement value", NS_CORE TLog::CRITICAL, "Equations::getEquation" );
 		break;
 	}
  }
@@ -106,7 +106,7 @@ NS_ARI_USING
 		 return calcKValue( set );
 		 break;
 	 default:
-		 //exception
+		 NS_CORE TLog::warning( true, "wrong eMainElement value", NS_CORE TLog::CRITICAL, "Equations::calcOne" );
 		 break;
 	 }
  }

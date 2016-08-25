@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Libraries/GlobalDefines.h"
-#include "../Libraries/TK.h"
+#include "../Libraries/TKArray.h"
 #include "../Libraries/TI.h"
 
 #include "System.h"
@@ -19,7 +19,7 @@ private:
 
 public:
 
-	NS_CORE TK									calculate( const NS_CORE TCode& code );
+	NS_CORE TKArray								calculate( const NS_CORE TCode& code );
 
 };
 

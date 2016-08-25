@@ -60,7 +60,7 @@ bool TK::check() const
 		bool flag = false;
 		for ( size_t j = 0; j < initialData._ranges.size(); j++ )
 		{
-			if ( initialData._ranges[j].isInRange( m_K[i].getValue() ) )
+			if ( initialData._ranges[j].isInRange( m_K[i] ) )
 			{
 				flag = true;
 				break;

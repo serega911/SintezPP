@@ -46,7 +46,7 @@ TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCod
 
 TPlanetaryGearSet::Type ari::TKinematicSchemeBuilder::getPlanetaryGearSetType( const NS_CORE TKValue& k )
 {
-	return k.getAbs() > 2 ? TPlanetaryGearSet::Type::TYPE_DEFAULT : TPlanetaryGearSet::Type::TYPE_N;
+	return k.getAbs().getValue() > 2 ? TPlanetaryGearSet::Type::TYPE_DEFAULT : TPlanetaryGearSet::Type::TYPE_N;
 }
 
 void TKinematicSchemeBuilder::run()

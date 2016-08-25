@@ -2,6 +2,8 @@
 
 NS_CORE_USING
 
+const TRange::T core::TRange::s_eps = T( 0.0001 );
+
 TRange::TRange( const T beg, const T end )
 	: m_begin( beg )
 	, m_end( end )
@@ -20,10 +22,10 @@ TRange::T TRange::getEnd() const
 
 TRange::T TRange::getMid() const
 {
-	return ( m_begin + m_end ) / 2.0f;
+	return T( ( m_begin + m_end ).getValue() / 2.0f );
 }
 
 bool TRange::isInRange( const T value ) const
 {
-	return value >= m_begin && value <= m_end;
+	return value >= m_begin - s_eps && value <= m_end + s_eps;
 }

@@ -94,5 +94,5 @@ void TSingletons::addRangeK( const TRange& range )
 
 void TSingletons::addGearRatio( const double& i )
 {
-	m_initialData._i.push_back( i );
+	m_initialData._i.push_back( TIValue(i) );
 }

@@ -22,6 +22,7 @@
     <ClCompile Include="..\Libraries\TI.cpp" />
     <ClCompile Include="..\Libraries\TIOFileManager.cpp" />
     <ClCompile Include="..\Libraries\TK.cpp" />
+    <ClCompile Include="..\Libraries\TKArray.h" />
     <ClCompile Include="..\Libraries\TLink.cpp" />
     <ClCompile Include="..\Libraries\TLog.cpp" />
     <ClCompile Include="..\Libraries\TRange.cpp" />

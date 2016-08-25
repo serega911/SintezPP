@@ -10,26 +10,26 @@
 
 NS_ARI_USING
 
-NS_CORE TK DefKNuton::calculate( const NS_CORE TCode& code )
+NS_CORE TKArray DefKNuton::calculate( const NS_CORE TCode& code )
 {
 	NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, code );
 
 	const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	NS_CORE TK initial;
-	NS_CORE TK ans;
+	NS_CORE TKArray ans;
 
 	auto calcFuncPrenum = [&]( const NS_CORE TI& curI ) -> bool
 	{
 		NS_CORE TK k = findK( code, initial, curI );
 
-		if ( !ans.check() && k.size() > 0 )
+		if ( k.size() > 0 )
 		{
-			ans = k;
+			ans.emplace_back(k);
 			if ( k.check() )
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, ans );
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, k );
 		}
 			
-		return true/*!k.check()*/;
+		return true;
 	};
 
 	auto calcFuncK = [&]( const NS_CORE TK& init ) -> bool
@@ -37,7 +37,7 @@ NS_CORE TK DefKNuton::calculate( const NS_CORE TCode& code )
 		initial = init;
 		CheckAllPossibilities::checkAllRatiosPermutations( calcFuncPrenum );
 		
-		return true/*!ans.check()*/;
+		return true;
 	};
 
 	CheckAllPossibilities::checkAllInitialKValues( calcFuncK );
@@ -56,7 +56,7 @@ NS_CORE TK DefKNuton::findK( const NS_CORE TCode& code, const NS_CORE TK& initia
 	int i = 0;
 	do
 	{
-		system.addGearChains( gb.getChainsForCurrentGear(), i + 1, iTarget[i] );
+		system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE TGearNumber( i + 1 ), iTarget[i] );
 		i++;
 	} while ( gb.turnOnNextGear() );
 
@@ -83,10 +83,10 @@ Jacobi DefKNuton::createJacobian( const System & system )
 				for ( size_t k = 0; k < undefinedVar.size(); k++ )
 				{
 					auto undefVarListeners = undefinedVar[k].getAllListeners();
-					auto gearSetVariables = system.getVariablesSet( i, j );
+					auto gearSetVariables = system.getVariablesSet( NS_CORE TGearNumber( i ), j );
 					for ( const auto & variable : undefVarListeners )
 					{
-						if ( ( !gearSetVariables[variable->getElement().getElemN()].getDefined() ) && variable->getElement().getGearSetN() == j + 1 && variable->getGear() == i + 1 )
+						if ( ( !gearSetVariables[variable->getElement().getElemN()].getDefined() ) && variable->getElement().getGearSetN() == j + 1 && variable->getGear() == NS_CORE TGearNumber( i + 1 ) )
 						{
 							auto eq = Equations::getEquation( variable->getElement().getElemN() );
 							det.setEquation( i*initialData._numberOfPlanetaryGears + j, k, eq );
@@ -172,7 +172,7 @@ NS_CORE TK DefKNuton::getKValuesFromSystem( const System & system )
 	NS_CORE TKValueArray kValues;
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
-		kValues.push_back( system.getUnknownVariables()[i].getValue() );
+		kValues.push_back( NS_CORE TKValue( system.getUnknownVariables()[i].getValue() ) );
 	}
 	
 	NS_CORE TK ret;
@@ -190,7 +190,7 @@ MatrixLine DefKNuton::createRightParts( const System & system )
 	{
 		for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 		{
-			rightParts[i * initialData._numberOfPlanetaryGears + j] = -Equations::wyllys( system.getVariablesSet( i, j ) );
+			rightParts[i * initialData._numberOfPlanetaryGears + j] = -Equations::wyllys( system.getVariablesSet( NS_CORE TGearNumber( i ), j ) );
 		}
 	}
 
@@ -212,7 +212,7 @@ Matrix DefKNuton::createMatrix( const Jacobi& jacobian, const System & system )
 		{
 			for ( size_t k = 0; k < undefinedVar.size(); k++ )
 			{
-				ret.at( i*initialData._numberOfPlanetaryGears + j, k ) = jacobian[i*initialData._numberOfPlanetaryGears + j][k]( system.getVariablesSet( i, j ) );
+				ret.at( i*initialData._numberOfPlanetaryGears + j, k ) = jacobian[i*initialData._numberOfPlanetaryGears + j][k]( system.getVariablesSet( NS_CORE TGearNumber( i ), j ) );
 			}
 		}
 	}

@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "GlobalDefines.h"
+#include "TKValue.h"
 
 NS_CORE_START
 
@@ -10,7 +11,9 @@ class TRange
 {
 private:
 
-	typedef double T;
+	typedef TKValue T;
+
+	static const T								s_eps;
 
 	T											m_begin;
 	T											m_end;

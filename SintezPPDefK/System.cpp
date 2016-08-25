@@ -108,7 +108,7 @@ void System::init( const NS_CORE TK& initialKValues )
 		{
 			unknown.addListener( &( m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY] ) );
 			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setDefined( false );
-			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE TElement( NS_CORE eMainElement::EMPTY, planetaryGear + 1 ), gear + 1 );
+			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE TElement( NS_CORE eMainElement::EMPTY, planetaryGear + 1 ), NS_CORE TGearNumber( gear + 1 ) );
 		}
 	}
 }

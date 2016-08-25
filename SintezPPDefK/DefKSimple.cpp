@@ -7,13 +7,13 @@
 
 NS_ARI_USING
 
-NS_CORE TK ari::DefKSimple::calculate( const NS_CORE TCode& code )
+NS_CORE TKArray ari::DefKSimple::calculate( const NS_CORE TCode& code )
 {
 	NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, code );
 
 	const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	const NS_CORE TK initial( size );
-	NS_CORE TK ans;
+	NS_CORE TKArray ans;
 
 	auto calcFunc = [&]( const NS_CORE TI& curI ) -> bool
 	{
@@ -21,13 +21,13 @@ NS_CORE TK ari::DefKSimple::calculate( const NS_CORE TCode& code )
 		 
 		if ( k.size() != 0 )
 		{
-			ans = k;
+			ans.emplace_back( k );
 			if (k.check())
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, ans );
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, k );
 		}
 			
 
-		return true/*!k.check()*/;
+		return true;
 	};
 	
 	CheckAllPossibilities::checkAllRatiosPermutations( calcFunc );
@@ -46,7 +46,7 @@ NS_CORE TK DefKSimple::findK( const NS_CORE TCode& code, const NS_CORE TK& initi
 	int i = 0;
 	do
 	{
-		system.addGearChains( gb.getChainsForCurrentGear(), i + 1, iTarget[i] );
+		system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE TGearNumber( i + 1 ), iTarget[i] );
 		i++;
 	} while ( gb.turnOnNextGear() );
 
@@ -69,7 +69,7 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 			for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 			{
 
-				auto& gearSetVariables = system.getVariablesSet( i, j );
+				auto& gearSetVariables = system.getVariablesSet( NS_CORE TGearNumber( i ), j );
 
 				NS_CORE eMainElement undefElem;
 				size_t count = 0;
@@ -94,7 +94,7 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 
 					for ( auto& unknown : unknowns )
 					{
-						if ( unknown.findElementInListeners( NS_CORE TElement( undefElem, j + 1 ), i + 1 ) )
+						if ( unknown.findElementInListeners( NS_CORE TElement( undefElem, j + 1 ), NS_CORE TGearNumber( i + 1 ) ) )
 						{
 							unknown.setLastValue( value );
 						}
@@ -120,7 +120,7 @@ NS_CORE TK DefKSimple::getKValuesFromSystem( const System & system )
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
 		if ( system.getUnknownVariables()[i].getIsDefined() )
-			kValues.push_back( system.getUnknownVariables()[i].getValue() );
+			kValues.push_back( NS_CORE TKValue( system.getUnknownVariables()[i].getValue() ) );
 		else
 		{
 			kValues.clear();
