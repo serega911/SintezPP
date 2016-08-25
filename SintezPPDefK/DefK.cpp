@@ -48,11 +48,6 @@ void DefK::readInitialData()
 	}
 }
 
-bool ari::DefK::checkKArray( const NS_CORE TKArray& array )
-{
-	return true;
-}
-
 void DefK::run()
 { 
 	readInitialData();
@@ -64,11 +59,14 @@ void DefK::run()
 		DefKSimple solveSimple;
 		NS_CORE TKArray ans = solveSimple.calculate( code );
 
+#define  QUICK_SEARCH
+#ifndef QUICK_SEARCH 
 		if ( ans.size() == 0 )
 		{
 			DefKSelection solveSelection;
 			ans = solveSelection.calculate( code );
 		}
+#endif
 
 		for ( const auto& it : ans )
 		{

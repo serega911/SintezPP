@@ -25,7 +25,6 @@ NS_CORE TKArray ari::DefKSimple::calculate( const NS_CORE TCode& code )
 			if (k.check())
 				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, k );
 		}
-			
 
 		return true;
 	};
