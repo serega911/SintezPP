@@ -36,11 +36,12 @@ void DefK::readInitialData()
 		std::cin >> end;
 		NS_CORE TSingletons::getInstance()->addRangeK( NS_CORE TRange( NS_CORE TKValue( beg ), NS_CORE TKValue( end ) ) );
 	}
-	NS_CORE TLog::log( "Передаточные отношения. Максимально допустимое количество - ", false );
+	NS_CORE TLog::log( "Максимально допустимое количество передач - ", false );
 	NS_CORE TLog::log( NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears );
 	NS_CORE TLog::log( "Количество передач:	", false );
 	int n;
 	std::cin >> n;
+	NS_CORE TLog::log( "Передаточные отношения : ", false );
 	NS_CORE TSingletons::getInstance()->setNumberOfGears(n);
 	for ( size_t i = 0; i < NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears; i++ )
 	{
