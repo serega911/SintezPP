@@ -55,7 +55,8 @@ public:
 	const GeneralData&							getGeneralData() const;
 	const InitialData&							getInitialData() const;
 
-	void										setGlobalParameters( size_t w, size_t n );
+	void										setGlobalParameters( const size_t w, const size_t n );
+	void										setNumberOfGears( const size_t n );
 	void										addRangeK( const TRange& range );
 	void										addGearRatio( const double& i );
 

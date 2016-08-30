@@ -8,7 +8,7 @@ NS_ARI_USING
 
 NS_CORE TKArray DefKSelection::calculate( const NS_CORE TCode& Code )
 {
-	NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, Code );
+	//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, Code );
 
 	TK K( NS_CORE TKValue( 0.1 ) );
 	NS_CORE TKArray ans;
@@ -17,7 +17,7 @@ NS_CORE TKArray DefKSelection::calculate( const NS_CORE TCode& Code )
 		if ( core::TSingletons::getInstance()->getInitialData()._i == ret )
 		{
 			ans.emplace_back( K );
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, K );
+			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, K );
 			//break;
 		}
 	} while ( K.next() );

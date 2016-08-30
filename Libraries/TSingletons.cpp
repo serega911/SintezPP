@@ -79,12 +79,24 @@ const InitialData& TSingletons::getInitialData() const
 	return m_initialData;
 }
 
-void TSingletons::setGlobalParameters( size_t w, size_t n )
+void TSingletons::setGlobalParameters( const size_t w, const size_t n )
 {
 	m_initialData._w = w;
 	m_initialData._numberOfPlanetaryGears = n;
 	calculateNumbersOfElements();
 	getIOFileManager()->writeSolutionData();
+}
+
+void TSingletons::setNumberOfGears( const size_t n )
+{
+	if ( m_initialData._w > 2 )
+	{
+		m_initialData._numberOfGears = n;
+	}
+	else
+	{
+		TLog::warning( true, "W = 2. Can\'t set number of gears", TLog::NON_CRITICAL, "TSingletons::setNumberOfGears" );
+	}
 }
 
 void TSingletons::addRangeK( const TRange& range )

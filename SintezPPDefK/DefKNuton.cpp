@@ -12,7 +12,7 @@ NS_ARI_USING
 
 NS_CORE TKArray DefKNuton::calculate( const NS_CORE TCode& code )
 {
-	NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, code );
+	//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, code );
 
 	const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	NS_CORE TK initial;
@@ -25,8 +25,8 @@ NS_CORE TKArray DefKNuton::calculate( const NS_CORE TCode& code )
 		if ( k.size() > 0 )
 		{
 			ans.emplace_back(k);
-			if ( k.check() )
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, k );
+			//if ( k.check() )
+				//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, k );
 		}
 			
 		return true;

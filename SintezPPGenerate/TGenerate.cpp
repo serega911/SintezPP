@@ -97,7 +97,7 @@ void TGenerate::generateLinks( const TGearBox & gearBox )
 		{
 			if ( m_existingSchemes.findIn( gearBoxWithLinks.getChains() ) )
 			{
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_REPETTION, gearBoxWithLinks.getCode() );
+				//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_REPETTION, gearBoxWithLinks.getCode() );
 			}
 			else
 			{
@@ -107,7 +107,7 @@ void TGenerate::generateLinks( const TGearBox & gearBox )
 		}
 		else
 		{
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_0, gearBoxWithLinks.getCode() );
+			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_0, gearBoxWithLinks.getCode() );
 		}
 	} while (linksCombi.nextReplace(m_allLinks.size()-1));
 }
@@ -142,7 +142,7 @@ void TGenerate::generateFrictions( const TGearBox & gearBox )
 	}
 	else
 	{
-		NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_N, gearBox.getCode() );
+		//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_N, gearBox.getCode() );
 	}
 }
 
@@ -163,7 +163,9 @@ void TGenerate::generateBrakes( const TGearBox & gearBox )
 		if ( gearBoxWithBrakes.checkFree() )
 			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE, gearBoxWithBrakes.getCode() );
 		else
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_FREE, gearBoxWithBrakes.getCode() );
+		{
+			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_FREE, gearBoxWithBrakes.getCode() );
+		}
 	} while (vect_combi_brakes.nextReplace(vect_all_FB.size() - 1));
 }
 
