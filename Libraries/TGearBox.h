@@ -28,8 +28,8 @@ public:
 	TGearBox( const TCode& code );
 
 	const TCode&								getCode() const;
-	const TChainArray&								getChains() const;
-	TChainArray										getChainsForCurrentGear() const;
+	const TChainArray&							getChains() const;
+	TChainArray									getChainsForCurrentGear() const;
 
 	bool										createChains();
 

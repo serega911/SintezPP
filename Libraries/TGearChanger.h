@@ -16,7 +16,10 @@ private:
 	TLinkArray									m_drivingElements;
 	TCombinations								m_replacer;
 
-	TLinkArray									createVector( const TCombinations & replacer ) const;
+	std::vector<TLinkArray>						m_drivingElementsForAllGears;
+	size_t										m_gear;
+
+	//TLinkArray									createVector( const TCombinations & replacer ) const;
 
 public:
 

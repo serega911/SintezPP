@@ -22,8 +22,8 @@ NS_CORE TKArray ari::DefKSimple::calculate( const NS_CORE TCode& code )
 		if ( k.size() != 0 )
 		{
 			ans.emplace_back( k );
-			if (k.check())
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, k );
+			//if (k.check())
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, k );
 		}
 
 		return true;
@@ -103,6 +103,11 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 				{
 					countOfUncalculatedEquations++;
 				}
+				if ( isAllKValuesFinded( system ) )
+				{
+					NS_CORE TK ans = getKValuesFromSystem( system );
+					return ans;
+				}
 			}
 		}
 	} while ( countOfUncalculatedEquations != countOfEquations );
@@ -130,4 +135,17 @@ NS_CORE TK DefKSimple::getKValuesFromSystem( const System & system )
 	NS_CORE TK ret( kValues );
 
 	return ret;
+}
+
+bool ari::DefKSimple::isAllKValuesFinded( const System & system )
+{
+	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+
+	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
+	{
+		if ( !system.getUnknownVariables()[i].getIsDefined() )
+			return false;
+	}
+
+	return true;
 }
