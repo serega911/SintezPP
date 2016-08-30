@@ -1,20 +1,21 @@
 #pragma once
 
-#include <vector>
 #include "../Libraries/GlobalDefines.h"
+#include "../Libraries/IApplication.h"
 
 NS_ARI_START
 
-	class DefK
-	{
-	private:
+class DefK
+	: public NS_CORE IApplication
+{
+private:
 
-		void									readInitialData();
+	void										readInitialData() override;
 
-	public:
+public:
 
-		void									run();
+	void										run() override;
 
-	};
+};
 
 NS_ARI_END

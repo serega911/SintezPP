@@ -22,6 +22,7 @@
     <ClCompile Include="..\Libraries\TI.cpp" />
     <ClCompile Include="..\Libraries\TIOFileManager.cpp" />
     <ClCompile Include="..\Libraries\TK.cpp" />
+    <ClCompile Include="..\Libraries\TKArray.h" />
     <ClCompile Include="..\Libraries\TLink.cpp" />
     <ClCompile Include="..\Libraries\TLog.cpp" />
     <ClCompile Include="..\Libraries\TRange.cpp" />
@@ -33,7 +34,7 @@
     <ClInclude Include="..\Libraries\eMainElement.h" />
     <ClInclude Include="..\Libraries\func_lib.h" />
     <ClInclude Include="..\Libraries\GlobalDefines.h" />
-    <ClInclude Include="..\Libraries\GlobalTypes.h" />
+    <ClInclude Include="..\Libraries\IApplication.h" />
     <ClInclude Include="..\Libraries\IContainer.h" />
     <ClInclude Include="..\Libraries\TChain.h" />
     <ClInclude Include="..\Libraries\TCode.h" />
@@ -42,15 +43,22 @@
     <ClInclude Include="..\Libraries\TGaus.h" />
     <ClInclude Include="..\Libraries\TGearBox.h" />
     <ClInclude Include="..\Libraries\TGearChanger.h" />
+    <ClInclude Include="..\Libraries\TGearNumber.h" />
     <ClInclude Include="..\Libraries\TI.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
+    <ClInclude Include="..\Libraries\TIValue.h" />
+    <ClInclude Include="..\Libraries\TIValueArray.h" />
     <ClInclude Include="..\Libraries\TK.h" />
+    <ClInclude Include="..\Libraries\TKValue.h" />
+    <ClInclude Include="..\Libraries\TKValueArray.h" />
     <ClInclude Include="..\Libraries\TLink.h" />
     <ClInclude Include="..\Libraries\TLog.h" />
     <ClInclude Include="..\Libraries\TRange.h" />
     <ClInclude Include="..\Libraries\TCombinations.h" />
     <ClInclude Include="..\Libraries\TLoaderFromFile.h" />
+    <ClInclude Include="..\Libraries\TRangeArray.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
+    <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\func_lib.inl" />
@@ -97,11 +105,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

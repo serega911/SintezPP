@@ -16,7 +16,7 @@ public:
 
 	static CellType								determinant( const Matrix& matrix );
 	static Matrix								inverse( const Matrix& matrix );
-	static Matrix								minor( const Matrix& matrix, int i, int j );
+	static Matrix								minor( const Matrix& matrix, size_t i, size_t j );
 
 	static MatrixLine							multiple( const Matrix& matrix, const MatrixLine& vector );
 	static Matrix								multiple( const Matrix& matrix1, const Matrix& matrix2 );

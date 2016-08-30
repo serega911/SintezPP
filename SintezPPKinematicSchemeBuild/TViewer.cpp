@@ -45,7 +45,7 @@ void ari::TViewer::printKinematicScheme( const TKinematicScheme& scheme )
 
 	for ( int row = scheme[0].size()-1; row >= 0; row-- )
 	{
-		for ( auto col = 0; col < scheme.size(); col++ )
+		for ( size_t col = 0; col < scheme.size(); col++ )
 		{
 			if ( scheme[col][row].size() != 0 )
 			{
@@ -54,7 +54,7 @@ void ari::TViewer::printKinematicScheme( const TKinematicScheme& scheme )
 					currColorPos = 1;
 				else
 				{
-					for ( int color = 0; color < chains.size(); color++ )
+					for ( size_t color = 0; color < chains.size(); color++ )
 					{
 						if ( isChainsEqual( chains[color], scheme[col][row] ) )
 						{

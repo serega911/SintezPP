@@ -38,7 +38,7 @@ void TSingletons::calculateNumbersOfElements()
 				m_initialData._numberOfGears = 9;
 		}
 			break;
-		DEFAULT:
+		default:
 		{
 			TLog::warning( true, "Ошибка: Некорректное количество степеней свободы!", TLog::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
 		}
@@ -79,7 +79,7 @@ const InitialData& TSingletons::getInitialData() const
 	return m_initialData;
 }
 
-void TSingletons::setGlobalParameters( int w, int n )
+void TSingletons::setGlobalParameters( size_t w, size_t n )
 {
 	m_initialData._w = w;
 	m_initialData._numberOfPlanetaryGears = n;
@@ -94,5 +94,5 @@ void TSingletons::addRangeK( const TRange& range )
 
 void TSingletons::addGearRatio( const double& i )
 {
-	m_initialData._i.push_back( i );
+	m_initialData._i.push_back( TIValue(i) );
 }

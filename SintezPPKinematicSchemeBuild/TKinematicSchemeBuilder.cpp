@@ -33,7 +33,7 @@ TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCod
 
 	auto numberOfPlanetaryGears = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
-	for ( auto i = 0; i < numberOfPlanetaryGears; i++ )
+	for ( size_t i = 0; i < numberOfPlanetaryGears; i++ )
 	{
 		TPlanetaryGearSet set;
 		set.create( i + 1, getPlanetaryGearSetType( k[i] ) );
@@ -46,10 +46,10 @@ TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCod
 
 TPlanetaryGearSet::Type ari::TKinematicSchemeBuilder::getPlanetaryGearSetType( const NS_CORE TKValue& k )
 {
-	return abs( k ) > 2 ? TPlanetaryGearSet::Type::TYPE_DEFAULT : TPlanetaryGearSet::Type::TYPE_N;
+	return k.getAbs().getValue() > 2 ? TPlanetaryGearSet::Type::TYPE_DEFAULT : TPlanetaryGearSet::Type::TYPE_N;
 }
 
-void TKinematicSchemeBuilder::buildSchemes()
+void TKinematicSchemeBuilder::run()
 {
 	readInitialData();
 
@@ -70,7 +70,7 @@ void TKinematicSchemeBuilder::buildSchemes()
 
 		const auto& elements = code.getCode();
 
-		for ( int i = 0; i < elements.size(); i++ )
+		for ( size_t i = 0; i < elements.size(); i++ )
 		{
 			TPathBuilder pathBuilder;
 			auto path = pathBuilder.findPath( fakeScheme, elements[i] );

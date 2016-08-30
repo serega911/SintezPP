@@ -12,8 +12,8 @@ NS_ARI_START
 	typedef double FunctionValue;
 	typedef std::function<FunctionValue( const VariablesSet & )> Equation;
 
-	typedef double						CellType;
-	typedef std::vector<CellType>		MatrixLine;
-	typedef std::vector<MatrixLine>		MatrixTable;
+	typedef double								CellType;
+	typedef std::vector<CellType>				MatrixLine;
+	typedef std::vector<MatrixLine>				MatrixTable;
 
 NS_ARI_END

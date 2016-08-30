@@ -31,8 +31,8 @@ NS_ARI_USING
 	case NS_CORE eMainElement::EMPTY:
 		return dfDk;
 		break;
-	DEFAULT:
-		//exception
+	default:
+		NS_CORE TLog::warning( true, "wrong eMainElement value", NS_CORE TLog::CRITICAL, "Equations::getEquation" );
 		break;
 	}
  }
@@ -105,8 +105,8 @@ NS_ARI_USING
 	 case NS_CORE eMainElement::EMPTY:
 		 return calcKValue( set );
 		 break;
-	 DEFAULT:
-		 //exception
+	 default:
+		 NS_CORE TLog::warning( true, "wrong eMainElement value", NS_CORE TLog::CRITICAL, "Equations::calcOne" );
 		 break;
 	 }
  }

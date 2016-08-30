@@ -2,12 +2,12 @@
 
 NS_CORE_USING
 
-void TChainsContainer::add( const TChains& code )
+void TChainsContainer::add( const TChainArray& code )
 {
 	m_container.insert(code);
 }
 
-bool TChainsContainer::findIn( const TChains& code ) const
+bool TChainsContainer::findIn( const TChainArray& code ) const
 {
 	if (m_container.find(code) != m_container.end())
 	{

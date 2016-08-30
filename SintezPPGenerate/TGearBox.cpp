@@ -8,27 +8,27 @@ TGearBox::TGearBox( const NS_CORE TCode& code )
 {
 }
 
-void TGearBox::setLinksToCode( const NS_CORE TLinks& links )
+void TGearBox::setLinksToCode( const NS_CORE TLinkArray& links )
 {
 	getRefferenceToCode().setLinks( links );
 }
 
-void TGearBox::setFrictionsToCode( const NS_CORE TLinks& frictions )
+void TGearBox::setFrictionsToCode( const NS_CORE TLinkArray& frictions )
 {
 	getRefferenceToCode().setFrictions( frictions );
 }
 
-void TGearBox::setBrakesToCode( const NS_CORE TLinks& brakes )
+void TGearBox::setBrakesToCode( const NS_CORE TLinkArray& brakes )
 {
 	getRefferenceToCode().setBrakes( brakes );
 }
 
-NS_CORE TElements TGearBox::getElementsForBrakes() const
+NS_CORE TElementArray TGearBox::getElementsForBrakes() const
 {
 	const auto & chains = getChains();
 
-	NS_CORE TElements vect;
-	for ( auto i = 0; i < chains.size(); i++ )
+	NS_CORE TElementArray vect;
+	for ( size_t i = 0; i < chains.size(); i++ )
 	{
 		if ( !chains[i].find( NS_CORE TElement::INPUT ) && !chains[i].find( NS_CORE TElement::OUTPUT ) )
 		{
@@ -38,12 +38,12 @@ NS_CORE TElements TGearBox::getElementsForBrakes() const
 	return vect;
 }
 
-NS_CORE TElements TGearBox::getElementsForFrictions() const
+NS_CORE TElementArray TGearBox::getElementsForFrictions() const
 {
 	const auto & chains = getChains();
 
-	NS_CORE TElements vect;
-	for ( auto i = 0; i < chains.size(); i++ )
+	NS_CORE TElementArray vect;
+	for ( size_t i = 0; i < chains.size(); i++ )
 	{
 		vect.push_back( chains[i].getSomeElement() );
 	}
@@ -56,7 +56,7 @@ bool TGearBox::check() const
 	const auto & chains = getChains();
 
 	//проверки корректности кода
-	for ( auto i = 0; i < chains.size(); i++ )
+	for ( size_t i = 0; i < chains.size(); i++ )
 	{
 		//проверка связи вход-выход
 		if ( chains[i].find( NS_CORE TElement::INPUT ) && chains[i].find( NS_CORE TElement::OUTPUT ) )
@@ -85,10 +85,10 @@ bool TGearBox::checkFree() const
 
 	const auto& code = getCode().getCode();
 
-	for ( auto i = 0; i < 3 * NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears; i++ )
+	for ( size_t i = 0; i < 3 * NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears; i++ )
 	{
-		NS_CORE TCount count = 0;
-		for ( auto j = 0; j < code.size(); j++ )
+		size_t count = 0;
+		for ( size_t j = 0; j < code.size(); j++ )
 			if ( pred( code[j].getElem1(), i ) || pred( code[j].getElem2(), i ) )
 				count++;
 		if ( count == 0 )

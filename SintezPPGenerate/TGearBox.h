@@ -10,12 +10,12 @@ public:
 
 	TGearBox( const NS_CORE TCode& code );
 
-	void										setLinksToCode( const NS_CORE TLinks& links );						//	Установка связей
-	void										setFrictionsToCode( const NS_CORE TLinks& frictions );				//	Установка фрикционов
-	void										setBrakesToCode( const NS_CORE TLinks& brakes );					//	Установка тормозов
+	void										setLinksToCode( const NS_CORE TLinkArray& links );						//	Установка связей
+	void										setFrictionsToCode( const NS_CORE TLinkArray& frictions );				//	Установка фрикционов
+	void										setBrakesToCode( const NS_CORE TLinkArray& brakes );					//	Установка тормозов
 
-	NS_CORE TElements							getElementsForFrictions() const;
-	NS_CORE TElements							getElementsForBrakes() const;
+	NS_CORE TElementArray						getElementsForFrictions() const;
+	NS_CORE TElementArray						getElementsForBrakes() const;
 
 	bool										checkFree() const;
 	bool										check() const;

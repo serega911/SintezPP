@@ -6,20 +6,22 @@
 #include "../Libraries/TLink.h"
 #include "../Libraries/TChainsContainer.h"
 #include "../Libraries/GlobalDefines.h"
+#include "../Libraries/IApplication.h"
 
 
 NS_ARI_START
 
 class TGenerate
+	: public NS_CORE IApplication
 {
 private:
 
-	static const std::vector<NS_CORE eMainElement>	s_elements;
+	static const NS_CORE eMainElementArray	s_elements;
 
-	std::vector<NS_CORE TLink>					m_allLinks;
+	NS_CORE TLinkArray							m_allLinks;
 	NS_CORE TChainsContainer					m_existingSchemes;
 
-	void										readInitialData();
+	void										readInitialData() override;
 	void										generateInOut();
 	void										generateLinks( const TGearBox & gearBox );
 	void										generateFrictions( const TGearBox & gearBox );
@@ -27,7 +29,7 @@ private:
 
 public:
 
-	void										generate();
+	void										run() override;
 
 };
 

@@ -2,11 +2,15 @@
 
 #include <ostream>
 #include <istream>
+#include <vector>
 
 #include "TElement.h"
 #include "GlobalDefines.h"
 
 NS_CORE_START
+
+class TLink;
+typedef std::vector<TLink> TLinkArray;
 
 class TLink
 {

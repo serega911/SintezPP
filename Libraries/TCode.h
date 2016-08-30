@@ -4,20 +4,19 @@
 #include "IContainer.h"
 #include "TLink.h"
 #include "GlobalDefines.h"
-#include "GlobalTypes.h"
 
 NS_CORE_START
 
-typedef std::vector<TLink> TLinks;
+
 
 class TCode: public IContainer
 {
 private:
 
-	TLinks										m_code;													//	Вектор кода
-	TCount										m_links;												//	Количество связей
-	TCount										m_frictions;											//	Количество фрикционов
-	TCount										m_brakes;												//	Количество тормозов
+	TLinkArray									m_code;													//	Вектор кода
+	size_t										m_links;												//	Количество связей
+	size_t										m_frictions;											//	Количество фрикционов
+	size_t										m_brakes;												//	Количество тормозов
 
 public:
 
@@ -26,11 +25,11 @@ public:
 
 	void										setIn(const TElement & in);								//	Установка звена, связанного со входом
 	void										setOut(const TElement & out);							//	Установка звена, связанного со выходом
-	void										setLinks( const TLinks& links );						//	Установка связей
-	void										setFrictions( const TLinks& frictions );				//	Установка фрикционов
-	void										setBrakes( const TLinks& brakes );						//	Установка тормозов
+	void										setLinks( const TLinkArray& links );					//	Установка связей
+	void										setFrictions( const TLinkArray& frictions );			//	Установка фрикционов
+	void										setBrakes( const TLinkArray& brakes );					//	Установка тормозов
 
-	const TLinks&								getCode() const;
+	const TLinkArray&							getCode() const;
 
 	void										print() const;											//	Вывод объекта на экран
 		

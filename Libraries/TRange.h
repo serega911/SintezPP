@@ -1,6 +1,9 @@
 #pragma once
 
+#include <vector>
+
 #include "GlobalDefines.h"
+#include "TKValue.h"
 
 NS_CORE_START
 
@@ -8,19 +11,23 @@ class TRange
 {
 private:
 
-	double									m_begin;
-	double									m_end;
+	typedef TKValue T;
+
+	static const T								s_eps;
+
+	T											m_begin;
+	T											m_end;
 
 public:
 
 	TRange() = delete;
-	TRange( const double beg, const double end );
+	TRange( const T beg, const T end );
 
-	double									getBegin() const;
-	double									getEnd() const;
-	double									getMid() const;
-	bool									isInRange( const double value ) const;
-
+	T											getBegin() const;
+	T											getEnd() const;
+	T											getMid() const;
+	bool										isInRange( const T value ) const;
+	
 };
 
 NS_CORE_END

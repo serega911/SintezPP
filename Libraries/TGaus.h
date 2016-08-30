@@ -10,7 +10,7 @@ class TGaus
 {
 private:
 
-	std::vector<std::vector<double>>				m_system;
+	std::vector<std::vector<double>>			m_system;
 	std::vector<double>							m_solution;
 
 public:
@@ -19,9 +19,9 @@ public:
 
 	void										createSystem( const TCode & Code, const TK &k );
 
-	void										createSystemDrivers( const std::vector<TLink>& drivers );
+	void										createSystemDrivers( const TLinkArray& drivers );
 
-	std::vector<std::vector<double>>				getSystem() const;
+	std::vector<std::vector<double>>			getSystem() const;
 
 	const std::vector<double>&					getSolution() const;
 

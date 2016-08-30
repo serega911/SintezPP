@@ -4,10 +4,14 @@
 
 #include "Variable.h"
 #include "../Libraries/TElement.h"
+#include "../Libraries/TGearBox.h"
 #include <set>
 
 
 NS_ARI_START
+
+class UnknownVariable;
+typedef std::vector<UnknownVariable> UnknownVariableArray;
 
 class UnknownVariable
 {

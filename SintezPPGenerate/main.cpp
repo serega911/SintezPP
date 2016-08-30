@@ -7,7 +7,7 @@ NS_ARI_USING
 int main()
 {
 	TGenerate generator;
-	generator.generate();
+	generator.run();
 
 	return 0;
 }

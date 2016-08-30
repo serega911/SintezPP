@@ -10,7 +10,7 @@ CellType MatrixOperations::determinant( const Matrix& matrix )
 	else
 	{
 		double res = 0;
-		for ( int i = 0; i < size; i++ )
+		for ( size_t i = 0; i < size; i++ )
 		{
 			res += matrix[i][0] * ( determinant( minor( matrix, i, 0 )  ) )	*( i % 2 == 0 ? -1.0 : 1.0 );
 		}
@@ -31,7 +31,7 @@ MatrixLine operator*( const MatrixLine & line, const double & k )
 MatrixLine operator-( const MatrixLine & line1, const MatrixLine & line2 )
 {
 	auto ret = line1;
-	for ( auto i = 0; i < line2.size( ); i++ )
+	for ( size_t i = 0; i < line2.size(); i++ )
 	{
 		ret[i] -= line2[i];
 	}
@@ -42,7 +42,7 @@ MatrixLine operator-( const MatrixLine & line1, const MatrixLine & line2 )
 MatrixLine operator+( const MatrixLine & line1, const MatrixLine & line2 )
 {
 	auto ret = line1;
-	for ( auto i = 0; i < line2.size(); i++ )
+	for ( size_t i = 0; i < line2.size(); i++ )
 	{
 		ret[i] += line2[i];
 	}
@@ -53,7 +53,7 @@ MatrixLine operator+( const MatrixLine & line1, const MatrixLine & line2 )
 Matrix createSpecMatrix( const Matrix& native, const MatrixLine& right, const int pos )
 {
 	Matrix ret = native;
-	for ( auto i = 0; i < ret.getSize(); i++ )
+	for ( size_t i = 0; i < ret.getSize(); i++ )
 	{
 		ret.at( i, pos ) = right[i];
 	}
@@ -93,11 +93,11 @@ MatrixLine MatrixOperations::solveGaus( const Matrix& systemMatrix, const Matrix
 			}
 			right[i] /= system[i][i];
 		}
-  		else
-  		{
-  			right.clear( );
-  			return right;
-  		}
+		else
+		{
+			right.clear( );
+			return right;
+		}
 			
 		for ( int j = 0; j < n; ++j )
 		{
@@ -122,7 +122,7 @@ ari::MatrixLine ari::MatrixOperations::solveKramer( const Matrix& systemMatrix, 
 	auto det = determinant( systemMatrix );
 	if ( abs( det ) > 0.001 )
 	{
-		for ( auto i = 0; i < systemMatrix.getSize(); i++ )
+		for ( size_t i = 0; i < systemMatrix.getSize(); i++ )
 		{
 			auto currDet = determinant( createSpecMatrix( systemMatrix, rightParts, i ) );
 			ans[i] = currDet / det;
@@ -136,7 +136,7 @@ ari::MatrixLine ari::MatrixOperations::solveKramer( const Matrix& systemMatrix, 
 	return ans;
 }
 
-Matrix MatrixOperations::minor( const Matrix& matrix, int i, int j )
+Matrix MatrixOperations::minor( const Matrix& matrix, size_t i, size_t j )
 {
 	const auto size = matrix.getSize();
 	if ( i < size && j < size && i >= 0 && j >= 0 )
@@ -144,20 +144,20 @@ Matrix MatrixOperations::minor( const Matrix& matrix, int i, int j )
 		if ( size > 1 )
 		{
 			MatrixTable res( size - 1 );
-			for ( auto i = 0; i < size - 1; i++ )
+			for ( size_t i1 = 0; i1 < size - 1; i1++ )
 			{
-				res[i].resize( size - 1, 0 );
+				res[i1].resize( size - 1, 0 );
 			}
 
-			for ( int i1 = 0; i1 < size; i1++ )
+			for ( size_t i1 = 0; i1 < size; i1++ )
 			{
 
-				for ( int j1 = 0; j1 < size; j1++ )
+				for ( size_t j1 = 0; j1 < size; j1++ )
 				{
 					if ( i1 != i && j1 != j )
 					{
-						int it = ( i1 > i ) ? -1 : 0;
-						int jt = ( j1 > j ) ? -1 : 0;
+						size_t it = ( i1 > i ) ? -1 : 0;
+						size_t jt = ( j1 > j ) ? -1 : 0;
 						res[i1 + it][j1 + jt] = matrix[i1][j1];
 					}
 				}
@@ -165,21 +165,22 @@ Matrix MatrixOperations::minor( const Matrix& matrix, int i, int j )
 			return Matrix( res );
 		}
 	}
+	return Matrix( {} );
 }
 
 Matrix MatrixOperations::inverse( const Matrix& matrix )
 {
 	const auto size = matrix.getSize();
 	MatrixTable ret( size );
-	for ( auto i = 0; i < size; i++ )
+	for ( size_t i = 0; i < size; i++ )
 	{
 		ret[i].resize( size, 0 );
 	}
 
 	double d = determinant( matrix );
-	for ( int i = 0; i < size; i++ )
+	for ( size_t i = 0; i < size; i++ )
 	{
-		for ( int j = 0; j < size; j++ )
+		for ( size_t j = 0; j < size; j++ )
 		{
 			ret[i][j] = determinant( minor( matrix, j, i ) ) / d*( ( i + j ) % 2 == 0 ? -1.0 : 1.0 );
 		}
@@ -193,10 +194,10 @@ MatrixLine MatrixOperations::multiple( const Matrix& matrix, const MatrixLine& v
 	if ( vector.size() == size )
 	{
 		MatrixLine ret( size );
-		for ( int i = 0; i < size; i++ )
+		for ( size_t i = 0; i < size; i++ )
 		{
 			double val = 0;
-			for ( int j = 0; j < size; j++ )
+			for ( size_t j = 0; j < size; j++ )
 			{
 				val += matrix[i][j] * vector[j];
 			}
@@ -213,17 +214,17 @@ Matrix MatrixOperations::multiple( const Matrix& matrix1, const Matrix& matrix2 
 	if ( size == matrix2.getSize() )
 	{
 		MatrixTable res( size );
-		for ( auto i = 0; i < size; i++ )
+		for ( size_t i = 0; i < size; i++ )
 		{
 			res[i].resize( size, 0 );
 		}
 
-		for ( int i = 0; i < size; i++ )
+		for ( size_t i = 0; i < size; i++ )
 		{
-			for ( int j = 0; j < size; j++ )
+			for ( size_t j = 0; j < size; j++ )
 			{
 				double val = 0;
-				for ( int k = 0; k < size; k++ )
+				for ( size_t k = 0; k < size; k++ )
 				{
 					val += matrix1[k][i] * matrix2[j][k];
 				}
@@ -240,7 +241,7 @@ MatrixLine MatrixOperations::delta( const MatrixLine& vector1, const MatrixLine&
 	const auto size = vector1.size();
 	MatrixLine ret( size );
 
-	for ( auto i = 0; i < size; i++ )
+	for ( size_t i = 0; i < size; i++ )
 	{
 		ret[i] = vector1[i] - vector2[i];
 	}

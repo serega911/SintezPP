@@ -30,7 +30,7 @@ void TCode::setOut(const TElement & out)
 	m_code[1] = TLink(out, TElement::OUTPUT);
 }
 
-void TCode::setLinks( const TLinks& links )
+void TCode::setLinks( const TLinkArray& links )
 {
 	if (m_links)
 	{
@@ -40,7 +40,7 @@ void TCode::setLinks( const TLinks& links )
 	m_links = links.size();
 }
 
-void TCode::setFrictions( const TLinks& frictions )
+void TCode::setFrictions( const TLinkArray& frictions )
 {
 	if (m_frictions)
 	{
@@ -50,7 +50,7 @@ void TCode::setFrictions( const TLinks& frictions )
 	m_frictions = frictions.size();
 }
 
-void TCode::setBrakes( const TLinks& brakes )
+void TCode::setBrakes( const TLinkArray& brakes )
 {
 	if (m_brakes)
 	{
@@ -70,7 +70,7 @@ void TCode::print() const
 
 	const auto& generalData = TSingletons::getInstance()->getGeneralData();
 
-	for (auto i = 0; i < m_code.size(); i++)
+	for ( size_t i = 0; i < m_code.size(); i++ )
 	{
 		if ( i == 1 || i == 2 || i == 2 + generalData._numberOfLinks || i == 2 + generalData._numberOfLinks + generalData._numberOfFrictions )
 			TLog::log( "|", false );
@@ -87,7 +87,7 @@ size_t TCode::size() const
 
 void TCode::writeToFile(std::ostream& file) const
 {
-	for ( auto i = 0; i < m_code.size(); i++ )
+	for ( size_t i = 0; i < m_code.size(); i++ )
 	{
 		m_code[i].writeTofile( file );
 		file << ' ';
@@ -115,7 +115,7 @@ bool TCode::loadFromFile(std::istream& file)
 	return ret;
 }
 
-const std::vector<TLink>& TCode::getCode() const
+const TLinkArray& TCode::getCode() const
 {
 	return m_code;
 }

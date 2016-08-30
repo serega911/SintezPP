@@ -34,10 +34,10 @@ void DefK::readInitialData()
 		std::cin >> beg;
 		NS_CORE TLog::log( "Конец диапазона:	", false );
 		std::cin >> end;
-		NS_CORE TSingletons::getInstance()->addRangeK( NS_CORE TRange( beg, end ) );
+		NS_CORE TSingletons::getInstance()->addRangeK( NS_CORE TRange( NS_CORE TKValue( beg ), NS_CORE TKValue( end ) ) );
 	}
 	NS_CORE TLog::log( "Передаточные отношения:	", false );
-	for ( int i = 0; i < NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears; i++ )
+	for ( size_t i = 0; i < NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears; i++ )
 	{
 		double ratio = 0;
 		std::cin >> ratio;
@@ -56,29 +56,26 @@ void DefK::run()
 
 	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
 	{
-		
 		DefKSimple solveSimple;
-		NS_CORE TK ansSimple( solveSimple.calculate( code ) );
+		NS_CORE TKArray ans = solveSimple.calculate( code );
 
-		DefKNuton solveNuton;
-		NS_CORE TK ansNuton( solveNuton.calculate( code ) );
-
-		DefKSelection solveSelection;
-		NS_CORE TK ansSelection( solveSelection.calculate( code ) );
-
-		if ( ansSimple.check() || ansNuton.check() || ansSelection.check() )
+#define  QUICK_SEARCH
+#ifndef QUICK_SEARCH 
+		if ( ans.size() == 0 )
 		{
-			NS_CORE TK ans;
-			if ( ansSimple.check() )
-				ans = ansSimple;
-			else if ( ansNuton.check() )
-				ans = ansNuton;
-			else if ( ansSelection.check() )
-				ans = ansSelection;
-
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
-			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans );
+			DefKSelection solveSelection;
+			ans = solveSelection.calculate( code );
 		}
+#endif
 
+		for ( const auto& it : ans )
+		{
+			if ( it.check() )
+			{
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, it );
+			}
+		}
 	}
+	system( "pause" );
 }

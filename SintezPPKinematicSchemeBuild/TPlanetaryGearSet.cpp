@@ -10,7 +10,7 @@ const int										TPlanetaryGearSet::s_centerY = s_ySize / 2;
 
 void TPlanetaryGearSet::print()
 {
-	for ( auto yPos = 0; yPos < m_field.size( ); yPos++ )
+	for ( size_t yPos = 0; yPos < m_field.size(); yPos++ )
 	{
 		printLine( yPos );
 		std::cout << std::endl;
@@ -19,7 +19,7 @@ void TPlanetaryGearSet::print()
 
 void TPlanetaryGearSet::printLine( int yPos )
 {
-	for ( auto i = 0; i < m_field[yPos].size(); i++ )
+	for ( size_t i = 0; i < m_field[yPos].size(); i++ )
 	{
 		if ( m_field[yPos][i].size( ) != 0 )
 		{
@@ -67,12 +67,12 @@ void TPlanetaryGearSet::create( int gearSetN, Type type )
 	}
 }
 
-const std::vector<core::TChain>& TPlanetaryGearSet::operator[]( int xPos ) const
+const NS_CORE TChainArray& TPlanetaryGearSet::operator[]( int xPos ) const
 {
 	return m_field[xPos];
 }
 
-std::vector<core::TChain>& TPlanetaryGearSet::operator[]( int xPos )
+NS_CORE TChainArray& TPlanetaryGearSet::operator[]( int xPos )
 {
 	return m_field[xPos];
 }
@@ -145,7 +145,7 @@ void TPlanetaryGearSet::createTypeDefault( int gearSetN )
 
 void TPlanetaryGearSet::reverseX()
 {
-	for ( auto x = 0; x < m_field.size()/2; x++ )
+	for ( size_t x = 0; x < m_field.size() / 2; x++ )
 	{
 		std::swap( m_field[x], m_field[m_field.size() - 1 - x] );
 	}
@@ -153,9 +153,9 @@ void TPlanetaryGearSet::reverseX()
 
 void TPlanetaryGearSet::reverseY()
 {
-	for ( auto x = 0; x < m_field.size(); x++ )
-	for ( auto y = 0; y < m_field[x].size() / 2; y++ )
-	{
-		std::swap( m_field[x][y], m_field[x][m_field[x].size() - 1 - y] );
-	}
+	for ( size_t x = 0; x < m_field.size(); x++ )
+		for ( size_t y = 0; y < m_field[x].size() / 2; y++ )
+		{
+			std::swap( m_field[x][y], m_field[x][m_field[x].size() - 1 - y] );
+		}
 }

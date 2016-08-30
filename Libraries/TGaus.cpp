@@ -41,18 +41,18 @@ void TGaus::createSystem(const TCode & Code, const TK &k)
 		it.resize(3 * N + 1);
 	//в первые N строк записываем уравнения Виллиса. 
 	//Эти строки никогда не очищаем так как все значения всегда пишутся на одни и те же позиции
-	for (int i = 0; i < k.size(); i++){
+	for ( size_t i = 0; i < k.size(); i++ ){
 		m_system[i][3 * i] = 1;
-		m_system[i][3 * i + 1] = -k[i];
-		m_system[i][3 * i + 2] = k[i] - 1;
+		m_system[i][3 * i + 1] = -k[i].getValue();
+		m_system[i][3 * i + 2] = k[i].getValue() - 1;
 	}
 	//system("pause");
 	//очищаем уравнения
-	for (int i = N; i < N + L + 1; i++)
-		for (int j = 0; j < 3 * N + 1; j++)
+	for ( size_t i = N; i < N + L + 1; i++ )
+		for ( size_t j = 0; j < 3 * N + 1; j++ )
 			m_system[i][j] = 0;
 	//в следующие countSV строк записываем связи
-	for (int i = N, j = 2; i < N + L; i++, j++){
+	for ( size_t i = N, j = 2; i < N + L; i++, j++ ){
 		m_system[i][code[j].getElem1().getSerialNumber()] = 1;
 		m_system[i][code[j].getElem2().getSerialNumber()] = -1;
 	}
@@ -61,14 +61,14 @@ void TGaus::createSystem(const TCode & Code, const TK &k)
 	m_system[N + L][N * 3] = 1;
 }
 
-void TGaus::createSystemDrivers(const std::vector<TLink>& drivers)
+void TGaus::createSystemDrivers( const TLinkArray& drivers )
 {
 	auto N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	auto L = TSingletons::getInstance()->getGeneralData()._numberOfLinks;
-	for (int i = 0; i < drivers.size(); i++)
+	for ( size_t i = 0; i < drivers.size(); i++ )
 	{
 		TLink driver = drivers[i];
-		for (int j = 0; j < 3 * N + 1; j++)
+		for (size_t j = 0; j < 3 * N + 1; j++)
 		{
 			m_system[N + L + 1 + i][j] = 0;
 		}

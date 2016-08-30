@@ -6,6 +6,9 @@
 
 NS_CORE_START
 
+class TChain;
+typedef std::vector<TChain> TChainArray;
+
 class TChain
 {
 private:
@@ -28,7 +31,7 @@ public:
 	bool										checkElemByOnePlanetarySet() const;
 	const TElement&								getSomeElement() const;
 
-	int											size() const;
+	size_t											size() const;
 
 	bool										intersect(const TChain& chain) const;
 

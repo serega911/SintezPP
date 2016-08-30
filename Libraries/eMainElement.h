@@ -1,9 +1,13 @@
 #pragma once
 
+#include<vector>
 #include "GlobalDefines.h"
 #include "TLog.h"
 
 NS_CORE_START
+
+enum class eMainElement;
+typedef std::vector<eMainElement> eMainElementArray;
 
 enum class eMainElement
 {
@@ -28,7 +32,7 @@ inline eMainElement convernToMainElement( const char symbol )
 
 inline int convernToInt( const eMainElement& e )
 {
-	int ret;
+	int ret = 0;
 
 	switch ( e )
 	{
@@ -41,7 +45,7 @@ inline int convernToInt( const eMainElement& e )
 	case eMainElement::CARRIER:
 		ret = 3;
 		break;
-	DEFAULT:
+	default:
 		TLog::warning( true, "Wrong convertation from eMainElement to int.", TLog::CRITICAL, "inline int convernToInt( const eMainElement& e )" );
 		break;
 	}

@@ -13,17 +13,20 @@ class TGearChanger
 {
 private:
 
-	std::vector<TLink>							m_drivingElements;
+	TLinkArray									m_drivingElements;
 	TCombinations								m_replacer;
 
-	std::vector<TLink>							createVector(const TCombinations & replacer) const;
+	std::vector<TLinkArray>						m_drivingElementsForAllGears;
+	size_t										m_gear;
+
+	//TLinkArray									createVector( const TCombinations & replacer ) const;
 
 public:
 
 	TGearChanger() = delete;
 	TGearChanger(const TCode& code);
 
-	std::vector<TLink>							getDrivingElementsForGear() const;
+	TLinkArray									getDrivingElementsForGear() const;
 	bool										next();
 
 };

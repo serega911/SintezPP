@@ -73,7 +73,7 @@ const TElement& TChain::getSomeElement() const
 	return *(m_elements.begin());
 }
 
-int TChain::size() const
+size_t TChain::size() const
 {
 	return m_elements.size();
 }

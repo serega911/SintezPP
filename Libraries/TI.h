@@ -3,23 +3,26 @@
 #include <vector>
 
 #include "GlobalDefines.h"
-#include "GlobalTypes.h"
+#include "TIValue.h"
+#include "TIValueArray.h"
 
 NS_CORE_START
+
+//typedef std::vector<TIValue> TIValueArray;		// контейнер передаточных отношений ПКП
 
 class TI
 {
 private:
 
-	std::vector<TIValue>						m_i;
-	static double								m_eps;
+	TIValueArray								m_i;
+	static TIValue								m_eps;
 
 public:
 
 	TI();
-	TI(const std::vector<double>& i, double eps);
+	TI( const TIValueArray& i, TIValue eps );
 
-	int											size() const;
+	size_t										size() const;
 
 	const TIValue &								operator[]( size_t i ) const;
 	bool										operator==(const TI& obj) const; // outdated

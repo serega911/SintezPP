@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "TK.h"
+#include "../Libraries/TKArray.h"
 #include "../Libraries/TCode.h"
 #include "../Libraries/TI.h"
 #include "../Libraries/GlobalDefines.h"
@@ -13,13 +14,9 @@ class DefKSelection
 {
 public:
 
-	TK											calculate( const NS_CORE TCode& code );
+	NS_CORE TKArray								calculate( const NS_CORE TCode& code );
+	NS_CORE TI									podModul( const NS_CORE TCode & code, const NS_ARI TK &k );
 
-private:
-
-	bool										podModul( const NS_CORE TCode & code, const NS_ARI TK &k );
-
-	NS_CORE TI									m_iReal;
 
 };
 
