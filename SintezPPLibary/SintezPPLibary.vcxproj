@@ -15,6 +15,7 @@
     <ClCompile Include="..\Libraries\TChain.cpp" />
     <ClCompile Include="..\Libraries\TCode.cpp" />
     <ClCompile Include="..\Libraries\TChainsContainer.cpp" />
+    <ClCompile Include="..\Libraries\TCombinatorics.cpp" />
     <ClCompile Include="..\Libraries\TElement.cpp" />
     <ClCompile Include="..\Libraries\TGaus.cpp" />
     <ClCompile Include="..\Libraries\TGearBox.cpp" />
@@ -39,6 +40,8 @@
     <ClInclude Include="..\Libraries\TChain.h" />
     <ClInclude Include="..\Libraries\TCode.h" />
     <ClInclude Include="..\Libraries\TChainsContainer.h" />
+    <ClInclude Include="..\Libraries\TCombinatorics.h" />
+    <ClInclude Include="..\Libraries\TCombinatoricsValueArray.h" />
     <ClInclude Include="..\Libraries\TElement.h" />
     <ClInclude Include="..\Libraries\TGaus.h" />
     <ClInclude Include="..\Libraries\TGearBox.h" />

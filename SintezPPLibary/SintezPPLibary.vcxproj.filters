@@ -73,6 +73,9 @@
     <Filter Include="StaticLib\IApplication">
       <UniqueIdentifier>{7b534499-f692-4e07-9147-c81797d09da3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StaticLib\TSingletons\TCombinatorics">
+      <UniqueIdentifier>{7607c417-4a10-47a2-b56e-b81c2e1187f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Libraries\func_lib.cpp">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="..\Libraries\TKArray.h">
       <Filter>StaticLib\types\TRange</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TCombinatorics.cpp">
+      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +217,12 @@
       <Filter>StaticLib\types</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TRangeArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TCombinatorics.h">
+      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TCombinatoricsValueArray.h">
       <Filter>StaticLib\types</Filter>
     </ClInclude>
   </ItemGroup>

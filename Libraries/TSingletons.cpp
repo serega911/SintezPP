@@ -69,6 +69,11 @@ TLoaderFromFile* TSingletons::getLoaderFromFile()
 	return TLoaderFromFile::getInstance();
 }
 
+TCombinatorics* TSingletons::getCombinatorics()
+{
+	return TCombinatorics::getInstance();
+}
+
 const GeneralData& TSingletons::getGeneralData() const
 {
 	return m_generalData;
