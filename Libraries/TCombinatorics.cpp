@@ -1,13 +1,11 @@
 #include <algorithm>
 
 #include "TCombinatorics.h"
-#include "TCombinations.h"
 
 NS_CORE_USING
 
 TCombinatorics::TCombinatorics()
 {
-
 }
 
 bool core::TCombinatorics::nextOrderedSample( const size_t n, TCombinatoricsValueArray & mas )
@@ -67,38 +65,80 @@ TCombinatorics* TCombinatorics::getInstance()
 	return &obj;
 }
 
+void TCombinatorics::createPremutation( const size_t n )
+{
+	TCombinatoricsValueArray premutation;
+	premutation.resize( n );
+	for ( size_t i = 0; i < n; i++ )
+	{
+		premutation[i] = i;
+	}
+
+	do
+	{
+		m_premutations[n].emplace_back( premutation );
+	} while ( std::next_permutation( premutation.begin(), premutation.end() ) );
+}
+
+void core::TCombinatorics::createOrderedSample( std::pair<size_t, size_t> key )
+{
+	TCombinatoricsValueArray subset;
+	subset.resize( key.second, 0 );
+
+	do
+	{
+		m_orderedSamples[key].emplace_back( subset );
+	} while ( nextOrderedSample( key.first, subset ) );
+}
+
+void TCombinatorics::createSubset( std::pair<size_t, size_t> key )
+{
+	TCombinatoricsValueArray subset;
+	subset.resize( key.second );
+	for ( size_t i = 0; i < key.second; i++ )
+	{
+		subset[i] = i;
+	}
+
+	do
+	{
+		m_subsets[key].emplace_back( subset );
+	} while ( nextSubset( key.first, subset ) );
+}
+
+core::TCombinatorics::~TCombinatorics()
+{
+}
+
 bool core::TCombinatorics::getSubset( const size_t n, const size_t k, const size_t i, TCombinatoricsValueArray & mas )
 {
 	bool result = true;
 
-	auto key = std::pair<size_t, size_t>( n, k );
-	auto premutations = m_subsets.find( key );
-
-	if ( premutations == m_subsets.end() )
+	if ( n == 0 )
 	{
-		TCombinatoricsValueArray subset;
-		subset.resize( k );
-		for ( size_t i = 0; i < k; i++ )
-		{
-			subset[i] = i;
-		}
-
-		do
-		{
-			m_subsets[key].emplace_back( subset );
-		} while ( nextSubset( n, subset ) );
-
-		premutations = m_subsets.find( key );
-	}
-
-	if ( i < premutations->second.size() )
-	{
-		mas = premutations->second[i];
-		result = true;
+		result = false;
 	}
 	else
 	{
-		result = false;
+		auto key = std::pair<size_t, size_t>( n, k );
+
+		auto subset = m_subsets.find( key );
+
+		if ( subset == m_subsets.end() )
+		{
+			createSubset( key );
+			subset = m_subsets.find( key );
+		}
+
+		if ( i < subset->second.size() )
+		{
+			mas = subset->second[i];
+			result = true;
+		}
+		else
+		{
+			result = false;
+		}
 	}
 
 	return result;
@@ -108,33 +148,29 @@ bool core::TCombinatorics::getPremutation( const size_t n, const size_t i, TComb
 {
 	bool result = true;
 
-	auto premutations = m_premutations.find( n );
-
-	if ( premutations == m_premutations.end() )
+	if ( n == 0 )
 	{
-		TCombinatoricsValueArray premutation;
-		premutation.resize( n );
-		for ( size_t i = 0; i < n; i++ )
-		{
-			premutation[i] = i;
-		}
-			
-		do
-		{
-			m_premutations[n].emplace_back( premutation );
-		} while ( std::next_permutation( premutation.begin(), premutation.end() ) );
-
-		premutations = m_premutations.find( n );
-	}
-
-	if ( i < premutations->second.size() )
-	{
-		mas = premutations->second[i];
-		result = true;
+		result = false;
 	}
 	else
 	{
-		result = false;
+		auto premutations = m_premutations.find( n );
+
+		if ( premutations == m_premutations.end() )
+		{
+			createPremutation( n );
+			premutations = m_premutations.find( n );
+		}
+
+		if ( i < premutations->second.size() )
+		{
+			mas = premutations->second[i];
+			result = true;
+		}
+		else
+		{
+			result = false;
+		}
 	}
 
 	return result;
@@ -144,30 +180,30 @@ bool core::TCombinatorics::getOrderedSample( const size_t n, const size_t k, con
 {
 	bool result = true;
 
-	auto key = std::pair<size_t, size_t>( n, k );
-	auto orderedSamples = m_orderedSamples.find( key );
-
-	if ( orderedSamples == m_orderedSamples.end() )
+	if ( n == 0 )
 	{
-		TCombinatoricsValueArray subset;
-		subset.resize( k, 0 );
-
-		do
-		{
-			m_orderedSamples[key].emplace_back( subset );
-		} while ( nextOrderedSample( n, subset ) );
-
-		orderedSamples = m_orderedSamples.find( key );
-	}
-
-	if ( i < orderedSamples->second.size() )
-	{
-		mas = orderedSamples->second[i];
-		result = true;
+		result = false;
 	}
 	else
 	{
-		result = false;
+		auto key = std::pair<size_t, size_t>( n, k );
+		auto orderedSamples = m_orderedSamples.find( key );
+
+		if ( orderedSamples == m_orderedSamples.end() )
+		{
+			createOrderedSample( key );
+			orderedSamples = m_orderedSamples.find( key );
+		}
+
+		if ( i < orderedSamples->second.size() )
+		{
+			mas = orderedSamples->second[i];
+			result = true;
+		}
+		else
+		{
+			result = false;
+		}
 	}
 
 	return result;

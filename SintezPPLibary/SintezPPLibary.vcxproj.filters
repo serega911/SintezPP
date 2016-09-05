@@ -19,9 +19,6 @@
     <Filter Include="StaticLib\combinatorics">
       <UniqueIdentifier>{ba197f0a-bece-4fba-9aa0-fd0149da4763}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StaticLib\combinatorics\TCombinations">
-      <UniqueIdentifier>{30302844-96e7-47ea-98f6-9f7abfc42ad3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StaticLib\helpers">
       <UniqueIdentifier>{e5eb4133-3693-4018-b8a1-00a2f75fac44}</UniqueIdentifier>
     </Filter>
@@ -102,9 +99,6 @@
     <ClCompile Include="..\Libraries\TI.cpp">
       <Filter>StaticLib\TI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TCombinations.cpp">
-      <Filter>StaticLib\combinatorics\TCombinations</Filter>
-    </ClCompile>
     <ClCompile Include="..\Libraries\TRange.cpp">
       <Filter>StaticLib\types\TRange</Filter>
     </ClCompile>
@@ -163,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\TI.h">
       <Filter>StaticLib\TI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCombinations.h">
-      <Filter>StaticLib\combinatorics\TCombinations</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TRange.h">
       <Filter>StaticLib\types\TRange</Filter>

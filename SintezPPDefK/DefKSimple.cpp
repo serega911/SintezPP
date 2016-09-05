@@ -7,6 +7,11 @@
 
 NS_ARI_USING
 
+ari::DefKSimple::DefKSimple()
+	: m_isCanFind( true )
+{
+}
+
 NS_CORE TKArray ari::DefKSimple::calculate( const NS_CORE TCode& code )
 {
 	//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, code );
@@ -26,7 +31,7 @@ NS_CORE TKArray ari::DefKSimple::calculate( const NS_CORE TCode& code )
 			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, k );
 		}
 
-		return true;
+		return m_isCanFind;
 	};
 	
 	CheckAllPossibilities::checkAllRatiosPermutations( calcFunc );
@@ -59,10 +64,12 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 	const auto countOfEquations = initialData._numberOfGears * initialData._numberOfPlanetaryGears;
 
 	int countOfUncalculatedEquations;
+	int countOfUnsolvingEquations;
 
 	do
 	{
 		countOfUncalculatedEquations = 0;
+		countOfUnsolvingEquations = 0;
 		for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 		{
 			for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
@@ -103,6 +110,10 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 				{
 					countOfUncalculatedEquations++;
 				}
+
+				if ( count > 1 )
+					countOfUnsolvingEquations++;
+
 				if ( isAllKValuesFinded( system ) )
 				{
 					NS_CORE TK ans = getKValuesFromSystem( system );
@@ -110,6 +121,13 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 				}
 			}
 		}
+
+		if ( countOfUnsolvingEquations == countOfEquations )
+		{
+			m_isCanFind = false;
+			return NS_CORE TK();
+		}
+
 	} while ( countOfUncalculatedEquations != countOfEquations );
 
 	NS_CORE TK ans = getKValuesFromSystem( system );

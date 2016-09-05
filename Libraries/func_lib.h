@@ -6,10 +6,7 @@
 
 NS_CORE_START
 
-	bool										next_combination_repetition(std::vector<int>&, int=4, int=0);
 	void										SetColor(int, int);		
-	int											factorial(int);
-	int											C_n_k(int, int);		// RK: rename
 
 	template <class T>
 	void print(std::vector<T> vect, char* str = "");
