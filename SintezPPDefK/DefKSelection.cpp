@@ -1,6 +1,5 @@
 #include "DefKSelection.h"
 #include "../Libraries/TGaus.h"
-#include "../Libraries/TCombinations.h"
 #include "../Libraries/TGearChanger.h"
 #include "../Libraries/TSingletons.h"
 

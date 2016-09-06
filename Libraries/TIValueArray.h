@@ -1,4 +1,5 @@
 #pragma once
+#include "UserDefinedTypesMacros.h"
 #include <vector>
 
 NS_CORE_START
