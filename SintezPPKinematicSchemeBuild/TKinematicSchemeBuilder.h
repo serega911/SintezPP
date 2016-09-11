@@ -16,6 +16,9 @@ private:
 	TKinematicScheme							creatKinematicScheme( const core::TCode & code, const core::TK & k );
 	TPlanetaryGearSet::Type						getPlanetaryGearSetType( const NS_CORE TKValue& k );
 
+	bool										bildSchemeSlow( const core::TCode & code, const core::TK & k );
+	bool										bildSchemeQuick( const core::TCode & code, const core::TK & k );
+
 public:
 
 	void										run() override;

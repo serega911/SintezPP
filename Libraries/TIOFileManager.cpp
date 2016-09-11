@@ -113,6 +113,8 @@ void TIOFileManager::init()
 	m_fileNames[eOutputFileType::DONE_K_NUTON] = "done_K_nuton.pkp";
 	m_fileNames[eOutputFileType::DONE_K_SELECTION] = "done_K_selection.pkp";
 	m_fileNames[eOutputFileType::FAIL_NUTON] = "failed_Nuton.pkp";
+	m_fileNames[eOutputFileType::KIN_QUICK] = "kin_quick.pkp";
+	m_fileNames[eOutputFileType::KIN_SLOW] = "kin_slow.pkp";
 
 	const auto& initialData = TSingletons::getInstance()->getInitialData();
 	auto folder = "w" + std::to_string( initialData._w ) + "n" + std::to_string( initialData._numberOfPlanetaryGears );

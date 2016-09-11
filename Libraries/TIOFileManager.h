@@ -25,7 +25,9 @@ public:
 		FAIL_0,			// links from in to out or between elements of one planetary mechanism
 		FAIL_FREE,		// after setting frictions and brakes there are free elements
 		FAIL_REPETTION,	// scheme has already exist 
-		FAIL_NUTON		// Nuton algorithm failed
+		FAIL_NUTON,		// Nuton algorithm failed
+		KIN_QUICK,
+		KIN_SLOW
 	};
 
 	static TIOFileManager*						getInstance();

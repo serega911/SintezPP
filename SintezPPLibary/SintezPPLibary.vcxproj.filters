@@ -16,9 +16,6 @@
     <Filter Include="StaticLib\defines">
       <UniqueIdentifier>{d937ad96-2524-45b6-92d9-e1e2c551d04f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StaticLib\combinatorics">
-      <UniqueIdentifier>{ba197f0a-bece-4fba-9aa0-fd0149da4763}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StaticLib\helpers">
       <UniqueIdentifier>{e5eb4133-3693-4018-b8a1-00a2f75fac44}</UniqueIdentifier>
     </Filter>
@@ -72,6 +69,12 @@
     </Filter>
     <Filter Include="StaticLib\TSingletons\TCombinatorics">
       <UniqueIdentifier>{7607c417-4a10-47a2-b56e-b81c2e1187f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TSchemeCharacteristics">
+      <UniqueIdentifier>{453dc2ef-360d-4d8b-9e31-248e57c6ec36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TSchemeCharacteristics\KinematicSchemeData">
+      <UniqueIdentifier>{292c37b2-a437-4516-8c5b-3a5789b9960c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="..\Libraries\TCombinatorics.cpp">
       <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TSchemeCharacteristics.cpp">
+      <Filter>StaticLib\TSchemeCharacteristics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +221,12 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\TCombinatoricsValueArray.h">
       <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TSchemeCharacteristics.h">
+      <Filter>StaticLib\TSchemeCharacteristics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\KinematicSchemeData.h">
+      <Filter>StaticLib\TSchemeCharacteristics\KinematicSchemeData</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
