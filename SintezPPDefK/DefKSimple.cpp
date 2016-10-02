@@ -12,13 +12,13 @@ ari::DefKSimple::DefKSimple()
 {
 }
 
-NS_CORE TKArray ari::DefKSimple::calculate( const NS_CORE TCode& code )
+std::pair<NS_CORE TKArray, NS_CORE TIArray> DefKSimple::calculate( const NS_CORE TCode& code )
 {
 	//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, code );
 
 	const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	const NS_CORE TK initial( size );
-	NS_CORE TKArray ans;
+	std::pair<NS_CORE TKArray, NS_CORE TIArray> ans;
 
 	auto calcFunc = [&]( const NS_CORE TI& curI ) -> bool
 	{
@@ -26,7 +26,8 @@ NS_CORE TKArray ari::DefKSimple::calculate( const NS_CORE TCode& code )
 		 
 		if ( k.size() != 0 )
 		{
-			ans.emplace_back( k );
+			ans.first.emplace_back( k );
+			ans.second.emplace_back( curI );
 			//if (k.check())
 			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, k );
 		}

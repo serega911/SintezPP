@@ -15,7 +15,7 @@ private:
 
 public:
 
-	void										setKinematicScheneData( size_t radial, size_t axial );
+	void										setKinematicScheneData( const KinematicSchemeData& data );
 
 	virtual size_t								size() const override;
 	virtual void								writeToFile( std::ostream& file ) const override;

@@ -15,10 +15,11 @@ void core::TSchemeCharacteristics::writeToFile( std::ostream& file ) const
 bool core::TSchemeCharacteristics::loadFromFile( std::istream& file )
 {
 	file >> m_kinematicSchemeData._axialRoads >> m_kinematicSchemeData._radialRoads;
+
+	return true;
 }
 
-void core::TSchemeCharacteristics::setKinematicScheneData( size_t radial, size_t axial )
+void core::TSchemeCharacteristics::setKinematicScheneData( const KinematicSchemeData& data )
 {
-	m_kinematicSchemeData._radialRoads = radial;
-	m_kinematicSchemeData._axialRoads = axial;
+	m_kinematicSchemeData = data;
 }

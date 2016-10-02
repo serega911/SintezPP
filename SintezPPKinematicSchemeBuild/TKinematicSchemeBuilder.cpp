@@ -2,6 +2,7 @@
 #include <iostream>
 #include "TPathBuilder.h"
 #include "TViewer.h"
+#include "../Libraries/TSchemeCharacteristics.h"
 #include "../Libraries/TSingletons.h"
 #include "../Libraries/TCombinatoricsValueArray.h"
 #include "../Libraries/TCode.h"
@@ -45,7 +46,15 @@ TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCod
 	return scheme;
 }
 
-bool TKinematicSchemeBuilder::bildSchemeSlow( const core::TCode & code, const core::TK & k )
+NS_CORE KinematicSchemeData TKinematicSchemeBuilder::calcKinemaricSchemeCharacteristics( const TKinematicScheme& scheme )
+{
+	NS_CORE KinematicSchemeData ret = NS_CORE KinematicSchemeData::s_empty;
+
+	ret = scheme.getKinemaricSchemeCharacteristics();
+	return ret;
+}
+
+NS_CORE KinematicSchemeData TKinematicSchemeBuilder::bildSchemeSlow( const core::TCode & code, const core::TK & k )
 {
 	bool res = false;
 
@@ -80,15 +89,15 @@ bool TKinematicSchemeBuilder::bildSchemeSlow( const core::TCode & code, const co
 		if ( finded )
 		{
 			TViewer::printKinematicScheme( scheme );
-			res = true;
-			break;
+			return calcKinemaricSchemeCharacteristics( scheme );
 		}
 	}
 
-	return res;
+	return NS_CORE KinematicSchemeData::s_empty;
 }
 
-bool ari::TKinematicSchemeBuilder::bildSchemeQuick( const core::TCode & code, const core::TK & k )
+
+NS_CORE KinematicSchemeData ari::TKinematicSchemeBuilder::bildSchemeQuick( const core::TCode & code, const core::TK & k )
 {
 	bool res = false;
 
@@ -124,13 +133,11 @@ bool ari::TKinematicSchemeBuilder::bildSchemeQuick( const core::TCode & code, co
 		{
 
 			TViewer::printKinematicScheme( scheme );
-			//system( "pause" );
-			res = true;
-			break;
+			return calcKinemaricSchemeCharacteristics( scheme );
 		}
 	}
 
-	return res;
+	return NS_CORE KinematicSchemeData::s_empty;
 }
 
 TPlanetaryGearSet::Type ari::TKinematicSchemeBuilder::getPlanetaryGearSetType( const NS_CORE TKValue& k )
@@ -150,11 +157,24 @@ void TKinematicSchemeBuilder::run()
 
 	while ( core::TSingletons::getInstance()->getLoaderFromFile()->load( containers, core::TIOFileManager::eOutputFileType::DONE_K ) )
 	{
-		if ( bildSchemeSlow( code, k ) )
+		NS_CORE KinematicSchemeData res;
+		if ( NS_CORE KinematicSchemeData::s_empty != ( res = bildSchemeSlow( code, k ) ) )
+		{
 			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::KIN_SLOW, code );
+			NS_CORE TSchemeCharacteristics sc;
+			sc.setKinematicScheneData( res );
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::KIN_SLOW, sc );
+		}
+			
 
-		if ( bildSchemeQuick( code, k ) )
+		if ( NS_CORE KinematicSchemeData::s_empty != ( res = bildSchemeQuick( code, k ) ) )
+		{
 			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::KIN_QUICK, code );
+			NS_CORE TSchemeCharacteristics sc;
+			sc.setKinematicScheneData( res );
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::KIN_QUICK, sc );
+		}
+			
 	}
 }
 

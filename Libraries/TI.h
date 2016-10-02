@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include "IContainer.h"
 #include "GlobalDefines.h"
 #include "TIValue.h"
 #include "TIValueArray.h"
@@ -10,7 +11,7 @@ NS_CORE_START
 
 //typedef std::vector<TIValue> TIValueArray;		// контейнер передаточных отношений ПКП
 
-class TI
+class TI : public IContainer
 {
 private:
 
@@ -22,8 +23,6 @@ public:
 	TI();
 	TI( const TIValueArray& i, TIValue eps );
 
-	size_t										size() const;
-
 	const TIValue &								operator[]( size_t i ) const;
 	bool										operator==(const TI& obj) const; // outdated
 	void										operator=(const TI& obj);
@@ -33,6 +32,11 @@ public:
 	void										print() const;
 
 	bool										findIn( TIValue value ) const;
+
+	size_t										size() const override;
+
+	void										writeToFile( std::ostream& file ) const override;
+	bool										loadFromFile( std::istream& file ) override;
 
 };
 

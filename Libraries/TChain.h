@@ -31,13 +31,15 @@ public:
 	bool										checkElemByOnePlanetarySet() const;
 	const TElement&								getSomeElement() const;
 
-	size_t											size() const;
+	size_t										size() const;
 
 	bool										intersect(const TChain& chain) const;
 
 	const std::set<TElement>&					getElements() const;
 
 	friend bool operator<(const TChain& chain1, const TChain& chain2);
+	friend bool operator==( const TChain& chain1, const TChain& chain2 );
+	friend bool operator!=( const TChain& chain1, const TChain& chain2 );
 };
 
 NS_CORE_END

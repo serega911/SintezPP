@@ -114,3 +114,34 @@ size_t TKinematicScheme::size() const
 {
 	return TPlanetaryGearSet::s_xSize * m_field.size();
 }
+
+NS_CORE KinematicSchemeData TKinematicScheme::getKinemaricSchemeCharacteristics() const
+{
+	NS_CORE KinematicSchemeData result;
+	const auto center = TPlanetaryGearSet::s_centerX;
+
+	int maxCount = 0;
+
+	for ( size_t i = 0; i < m_field.size(); i++ )
+	{
+		auto elem = m_field[i][center][0];
+		int count = 0;
+
+		for ( size_t j = 1; j < m_field[i][center].size(); j++ )
+		{
+			if ( m_field[i][center][j] != elem && m_field[i][center][j].size() > 0 && m_field[i][center][j] != NS_CORE TChain(NS_CORE TElement::EMPTY) )
+			{
+				elem = m_field[i][center][j];
+				count++;
+			}
+		}
+
+		if ( count > maxCount )
+			maxCount = count;
+	}
+
+	result._radialRoads = maxCount;
+
+
+	return result;
+}

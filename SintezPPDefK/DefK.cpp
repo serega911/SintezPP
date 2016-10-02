@@ -68,9 +68,9 @@ void DefK::run()
 	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
 	{
 		DefKSimple solveSimple;
-		NS_CORE TKArray ans = solveSimple.calculate( code );
+		auto ans = solveSimple.calculate( code );
 		NS_CORE TLog::log( ".", false );
-//#define  QUICK_SEARCH
+#define  QUICK_SEARCH
 #ifndef QUICK_SEARCH 
 		if ( ans.size() == 0 )
 		{
@@ -80,12 +80,18 @@ void DefK::run()
 		}
 #endif
 
-		for ( const auto& it : ans )
+		bool isWrited = false;
+		for ( size_t i = 0; i < ans.first.size(); i++ )
 		{
-			if ( it.check() )
+			if ( ans.first[i].check() )
 			{
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, it );
+				if ( !isWrited )
+				{
+					NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
+					isWrited = true;
+				}
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans.second[i] );
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans.first[i] );	
 			}
 		}
 	}

@@ -49,6 +49,7 @@
     <ClInclude Include="..\Libraries\TGearChanger.h" />
     <ClInclude Include="..\Libraries\TGearNumber.h" />
     <ClInclude Include="..\Libraries\TI.h" />
+    <ClInclude Include="..\Libraries\TIArray.h" />
     <ClInclude Include="..\Libraries\TIOFileManager.h" />
     <ClInclude Include="..\Libraries\TIValue.h" />
     <ClInclude Include="..\Libraries\TIValueArray.h" />

@@ -22,6 +22,17 @@ size_t TI::size() const
 	return m_i.size();
 }
 
+bool core::TI::loadFromFile( std::istream& file )
+{
+	return false;
+}
+
+void core::TI::writeToFile( std::ostream& file ) const
+{
+	for ( auto& it : m_i )
+		file << it.getValue() << ' ';
+}
+
 const TIValue & TI::operator[]( size_t i ) const
 {
 	return m_i.at( i );

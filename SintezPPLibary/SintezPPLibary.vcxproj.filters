@@ -126,14 +126,14 @@
     <ClCompile Include="..\Libraries\TLoaderFromFile.cpp">
       <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TKArray.h">
-      <Filter>StaticLib\types\TRange</Filter>
-    </ClCompile>
     <ClCompile Include="..\Libraries\TCombinatorics.cpp">
       <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TSchemeCharacteristics.cpp">
       <Filter>StaticLib\TSchemeCharacteristics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TKArray.h">
+      <Filter>StaticLib\types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\KinematicSchemeData.h">
       <Filter>StaticLib\TSchemeCharacteristics\KinematicSchemeData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TIArray.h">
+      <Filter>StaticLib\types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
