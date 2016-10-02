@@ -2,6 +2,7 @@
 
 #include "../Libraries/GlobalDefines.h"
 #include "../Libraries/TKArray.h"
+#include "../Libraries/TIArray.h"
 #include "../Libraries/TI.h"
 
 #include "System.h"
@@ -24,7 +25,7 @@ public:
 
 	DefKSimple();
 
-	NS_CORE TKArray								calculate( const NS_CORE TCode& code );
+	std::pair<NS_CORE TKArray, NS_CORE TIArray>	calculate( const NS_CORE TCode& code );
 
 };
 

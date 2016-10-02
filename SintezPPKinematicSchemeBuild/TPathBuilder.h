@@ -28,6 +28,10 @@ private:
 	TCordinates									findStartCell();
 	void										printField();
 
+ 	bool										checkIsNear( const TCordinates& cord, const int elem );
+
+	void										addRestrictions();
+
 public:
 
 	TPathBuilder();

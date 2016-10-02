@@ -2,7 +2,9 @@
 #include <iostream>
 #include "TPathBuilder.h"
 #include "TViewer.h"
+#include "../Libraries/TSchemeCharacteristics.h"
 #include "../Libraries/TSingletons.h"
+#include "../Libraries/TCombinatoricsValueArray.h"
 #include "../Libraries/TCode.h"
 #include "../Libraries/TK.h"
 #include "../Libraries/IContainer.h"
@@ -44,6 +46,100 @@ TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCod
 	return scheme;
 }
 
+NS_CORE KinematicSchemeData TKinematicSchemeBuilder::calcKinemaricSchemeCharacteristics( const TKinematicScheme& scheme )
+{
+	NS_CORE KinematicSchemeData ret = NS_CORE KinematicSchemeData::s_empty;
+
+	ret = scheme.getKinemaricSchemeCharacteristics();
+	return ret;
+}
+
+NS_CORE KinematicSchemeData TKinematicSchemeBuilder::bildSchemeSlow( const core::TCode & code, const core::TK & k )
+{
+	bool res = false;
+
+	code.print();
+	const auto& elements = code.getCode();
+
+	size_t num = 0;
+	NS_CORE TCombinatoricsValueArray combi;
+	TKinematicScheme schemeEthalon = creatKinematicScheme( code, k );
+
+	while ( NS_CORE TSingletons::getInstance()->getCombinatorics()->getPremutation( elements.size(), num++, combi ) )
+	{
+		TKinematicScheme scheme( schemeEthalon );
+		bool finded = true;
+
+		for ( size_t i = 0; i < elements.size(); i++ )
+		{
+
+			TPathBuilder pathBuilder;
+			auto path = pathBuilder.findPath( scheme, elements[combi[i]] );
+			if ( path.size() != 0 )
+			{
+				scheme.addRoute( path, elements[combi[i]] );
+			}
+			else
+			{
+				finded = false;
+				break;
+			}
+		}
+
+		if ( finded )
+		{
+			TViewer::printKinematicScheme( scheme );
+			return calcKinemaricSchemeCharacteristics( scheme );
+		}
+	}
+
+	return NS_CORE KinematicSchemeData::s_empty;
+}
+
+
+NS_CORE KinematicSchemeData ari::TKinematicSchemeBuilder::bildSchemeQuick( const core::TCode & code, const core::TK & k )
+{
+	bool res = false;
+
+	code.print();
+	auto elements = code.getCode();
+	auto size = elements.size();
+	TKinematicScheme schemeEthalon = creatKinematicScheme( code, k );
+	size_t num = 0;
+
+	while ( num++ < size*size )
+	{
+		TKinematicScheme scheme( schemeEthalon );
+		bool finded = true;
+
+		for ( size_t i = 0; i < elements.size(); i++ )
+		{
+
+			TPathBuilder pathBuilder;
+			auto path = pathBuilder.findPath( scheme, elements[i] );
+			if ( path.size() != 0 )
+			{
+				scheme.addRoute( path, elements[i] );
+			}
+			else
+			{
+				finded = false;
+				std::swap( elements[i], elements[i - 1] );
+				break;
+			}
+		}
+
+		if ( finded )
+		{
+
+			TViewer::printKinematicScheme( scheme );
+			return calcKinemaricSchemeCharacteristics( scheme );
+		}
+	}
+
+	return NS_CORE KinematicSchemeData::s_empty;
+}
+
 TPlanetaryGearSet::Type ari::TKinematicSchemeBuilder::getPlanetaryGearSetType( const NS_CORE TKValue& k )
 {
 	return k.getAbs().getValue() > 2 ? TPlanetaryGearSet::Type::TYPE_DEFAULT : TPlanetaryGearSet::Type::TYPE_N;
@@ -61,31 +157,24 @@ void TKinematicSchemeBuilder::run()
 
 	while ( core::TSingletons::getInstance()->getLoaderFromFile()->load( containers, core::TIOFileManager::eOutputFileType::DONE_K ) )
 	{
-		TKinematicScheme scheme = creatKinematicScheme(code,k);
-		TKinematicScheme fakeScheme = creatKinematicScheme(code,k);
-
-		//system( "cls" );
-		//scheme.print();
-		//system( "pause" );
-
-		const auto& elements = code.getCode();
-
-		for ( size_t i = 0; i < elements.size(); i++ )
+		NS_CORE KinematicSchemeData res;
+		if ( NS_CORE KinematicSchemeData::s_empty != ( res = bildSchemeSlow( code, k ) ) )
 		{
-			TPathBuilder pathBuilder;
-			auto path = pathBuilder.findPath( fakeScheme, elements[i] );
-			if ( path.size() != 0 )
-			{
-				scheme.addRoute( path, elements[i] );
-				fakeScheme.addFakeRoute( path, elements[i] );
-			}
-			//system( "cls" );
-			//scheme.print();
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::KIN_SLOW, code );
+			NS_CORE TSchemeCharacteristics sc;
+			sc.setKinematicScheneData( res );
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::KIN_SLOW, sc );
 		}
-		code.print();
-		TViewer::printKinematicScheme( scheme );
-		system( "pause" );
-		//k.print();
+			
+
+		if ( NS_CORE KinematicSchemeData::s_empty != ( res = bildSchemeQuick( code, k ) ) )
+		{
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::KIN_QUICK, code );
+			NS_CORE TSchemeCharacteristics sc;
+			sc.setKinematicScheneData( res );
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::KIN_QUICK, sc );
+		}
+			
 	}
 }
 

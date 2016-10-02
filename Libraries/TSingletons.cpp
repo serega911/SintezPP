@@ -86,9 +86,20 @@ const InitialData& TSingletons::getInitialData() const
 
 void TSingletons::setGlobalParameters( const size_t w, const size_t n )
 {
-	m_initialData._w = w;
-	m_initialData._numberOfPlanetaryGears = n;
-	calculateNumbersOfElements();
+	//m_initialData._w = w;
+	//m_initialData._numberOfPlanetaryGears = n;
+	//calculateNumbersOfElements();
+	m_initialData._w = 3;
+	m_initialData._numberOfPlanetaryGears = 2;
+	m_initialData._numberOfGears = 4;
+
+	//m_initialData._ranges.emplace_back( TRange( TKValue( -5.0 ), TKValue (- 2.0) ) );
+	//m_initialData._ranges.emplace_back( TRange( TKValue( 2.0 ), TKValue(5.0) ) );
+
+	m_generalData._numberOfBrakes = 2;
+	m_generalData._numberOfFrictions = 2;
+	m_generalData._numberOfLinks = 2 * m_initialData._numberOfPlanetaryGears - m_initialData._w;
+
 	getIOFileManager()->writeSolutionData();
 }
 

@@ -5,6 +5,7 @@
 #include "../Libraries/TK.h"
 #include "../Libraries/TGearBox.h"
 #include "../Libraries/GlobalDefines.h"
+#include "../Libraries/KinematicSchemeData.h"
 #include "TCordinates.h"
 #include "TViewer_fwd.h"
 #include <vector>
@@ -35,6 +36,8 @@ public:
 
 	void										create( const NS_CORE TCode& code, const NS_CORE TK & k );
 	size_t										size() const;
+
+	NS_CORE KinematicSchemeData					getKinemaricSchemeCharacteristics() const;
 
 };
 

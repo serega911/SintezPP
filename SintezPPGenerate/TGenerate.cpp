@@ -123,8 +123,8 @@ void TGenerate::generateFrictions( const TGearBox & gearBox )
 
 	const auto& generalData = NS_CORE TSingletons::getInstance()->getGeneralData();
 
-	if ( vect_all_FB.size() == generalData._numberOfBrakes + generalData._numberOfFrictions + 2 )
-	{
+	//if ( vect_all_FB.size() == generalData._numberOfBrakes + generalData._numberOfFrictions + 2 )
+	//{
 		NS_CORE TLinkArray vect_all_frict;				//	Вектор всех возможных фрикционов
 		NS_CORE TCombinatoricsValueArray vect_combi_frict;			//	Вектор сочетаний фрикционов
 		NS_CORE TLinkArray vect_frict;					//	Вектор фрикционов
@@ -148,11 +148,11 @@ void TGenerate::generateFrictions( const TGearBox & gearBox )
 			gearBoxWithFrictions.setFrictionsToCode( vect_frict );
 			generateBrakes( gearBoxWithFrictions );
 		}
-	}
-	else
-	{
+	//}
+	//else
+	//{
 		//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_N, gearBox.getCode() );
-	}
+	//}
 }
 
 void TGenerate::generateBrakes( const TGearBox & gearBox )

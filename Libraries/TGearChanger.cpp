@@ -28,8 +28,12 @@ TGearChanger::TGearChanger( const TCode& code )
 	{
 		if ( 2 == initialData._numberOfPlanetaryGears )
 		{
-			driveElemPostions = { { startPosFrictions,		startPosBrakes }
-								, { startPosFrictions + 1,	startPosBrakes } };
+			//driveElemPostions = { { startPosFrictions, startPosBrakes }
+			//, { startPosFrictions + 1, startPosBrakes } };			
+			driveElemPostions = { { startPosFrictions, startPosBrakes }
+								, { startPosFrictions, startPosBrakes + 1 }
+								, { startPosFrictions + 1, startPosBrakes }
+								, { startPosFrictions + 1, startPosBrakes + 1 } };
 		}
 		else if( 3 == initialData._numberOfPlanetaryGears )
 		{

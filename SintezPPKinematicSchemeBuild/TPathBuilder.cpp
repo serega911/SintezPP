@@ -70,21 +70,27 @@ bool TPathBuilder::spreadWave()
 			auto neighbors = cord.getNeighbors();
 			for ( auto& neighbor : neighbors )
 			{
+				int value = m_field[cord.m_x][cord.m_y] + 1;
+
 				if ( m_field[neighbor.second.m_x][neighbor.second.m_y] == m_empty )
 				{
-					m_field[neighbor.second.m_x][neighbor.second.m_y] = ni;
+					m_field[neighbor.second.m_x][neighbor.second.m_y] = value;				
 					nextWave.insert( neighbor.second );
 				}
+
 				else if ( m_field[neighbor.second.m_x][neighbor.second.m_y] == m_start )
 				{
 					return true;
 				}
 			}
+			//system( "pause" );
 		}
-				//system( "cls" );
-				//printField();
-		currentWave = nextWave;
+		
+		currentWave = nextWave;	
 		nextWave.clear();
+
+		//system( "cls" );
+		//printField();
 		ni++;
 	}
 	return false;
@@ -106,13 +112,45 @@ void TPathBuilder::printField()
 				std::cout << 'w';
 			else
 				std::cout << '.';
+
 		}
 		std::cout << std::endl;
 	}
 }
 
+void ari::TPathBuilder::addRestrictions()
+{
+	for ( int i = 1; i < m_field.size() - 1; i++ )
+	{
+		for ( int j = 0; j < m_field[i].size() - 1; j++ )
+		{
+			if (m_field[i][j] != m_wall && 
+				m_field[i][j] != m_start &&
+				m_field[i][j] != m_finish &&
+				checkIsNear( TCordinates( i, j ), m_wall ) && 
+				!checkIsNear( TCordinates( i, j ), m_start ) && 
+				!checkIsNear( TCordinates( i, j ), m_finish ))
+			{
+				m_field[i][j] = m_start - 1;
+			}
+		}
+	}
+}
+
+bool ari::TPathBuilder::checkIsNear( const TCordinates& cord, const int elem )
+ {
+ 	auto neighbours = cord.getNeighbors();
+ 	for ( const auto &neighbour : neighbours )
+ 	{
+ 		if ( m_field[neighbour.second.m_x][neighbour.second.m_y] == elem )
+ 			return true;
+ 	}
+ 	return false;
+ }
+
 TPathBuilder::TPathBuilder()
 {
+
 }
 
 TCordinatesArray TPathBuilder::findPath()
@@ -136,10 +174,12 @@ TCordinatesArray TPathBuilder::findPath()
 			current = next;
 		}
 
+		auto min = m_field[current.m_x][current.m_y];
 		for ( auto& neighbor : neighbors )
 		{
-			if ( m_field[neighbor.second.m_x][neighbor.second.m_y] < m_field[current.m_x][current.m_y] && m_field[neighbor.second.m_x][neighbor.second.m_y] != m_empty )
+			if ( m_field[neighbor.second.m_x][neighbor.second.m_y] < min && m_field[neighbor.second.m_x][neighbor.second.m_y] != m_empty )
 			{
+				min = m_field[neighbor.second.m_x][neighbor.second.m_y];
 				current = neighbor.second;
 				direction = neighbor.first;
 			}
@@ -190,10 +230,18 @@ TCordinatesArray TPathBuilder::findPath( const TKinematicScheme & scheme, core::
 	m_empty = maxX * maxY + 1;
 	m_wall = maxX * maxY + 2;
 	initField( scheme, link );
+	addRestrictions();
 	if ( spreadWave() )
 	{
 		return findPath();
-
+	}
+	else
+	{
+		initField( scheme, link );
+		if ( spreadWave() )
+		{
+			return findPath();
+		}
 	}
 	return{};
 }

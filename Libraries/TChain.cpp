@@ -93,6 +93,16 @@ const std::set<TElement>& TChain::getElements() const
 	return m_elements;
 }
 
+bool NS_CORE operator==( const TChain& chain1, const TChain& chain2 )
+{
+	return chain1.m_elements == chain2.m_elements;
+}
+
+bool NS_CORE operator!=( const TChain& chain1, const TChain& chain2 )
+{
+	return chain1.m_elements != chain2.m_elements;
+}
+
 bool NS_CORE operator<( const TChain& chain1, const TChain& chain2 )
 {
 	return chain1.m_elements < chain2.m_elements;
