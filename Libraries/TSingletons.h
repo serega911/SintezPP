@@ -40,7 +40,7 @@ private:
 
 	TSingletons&								operator=( TSingletons& ) = delete;
 
-	void										calculateNumbersOfElements();
+	//void										calculateNumbersOfElements();
 
 	GeneralData									m_generalData;
 	InitialData									m_initialData;
@@ -57,7 +57,7 @@ public:
 	const GeneralData&							getGeneralData() const;
 	const InitialData&							getInitialData() const;
 
-	void										setGlobalParameters( const size_t w, const size_t n );
+	void										setGlobalParameters( const size_t w, const size_t n, const size_t d );
 	void										setNumberOfGears( const size_t n );
 	void										addRangeK( const TRange& range );
 	void										addGearRatio( const double& i );

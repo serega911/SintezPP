@@ -51,7 +51,8 @@ NS_CORE TK DefKSimple::findK( const NS_CORE TCode& code, const NS_CORE TK& initi
 	int i = 0;
 	do
 	{
-		system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE TGearNumber( i + 1 ), iTarget[i] );
+		if ( !system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE TGearNumber( i + 1 ), iTarget[i] ) )
+			return NS_CORE TK();
 		i++;
 	} while ( gb.turnOnNextGear() );
 

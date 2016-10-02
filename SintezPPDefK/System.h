@@ -34,7 +34,7 @@ public:
 	System();
 
 	void										init( const NS_CORE TK& initialKValues );
-	void										addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGearNumber& gear, const NS_CORE TIValue i );
+	bool										addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGearNumber& gear, const NS_CORE TIValue i );
 
 	VariablesSet &								getVariablesSet( const NS_CORE TGearNumber& gearN, const int & gearSetN );
 	const VariablesSet &						getVariablesSet( const NS_CORE TGearNumber& gearN, const int & gearSetN ) const;

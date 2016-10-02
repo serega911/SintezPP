@@ -5,17 +5,18 @@
 
 NS_ARI_USING
 
-NS_CORE TKArray DefKSelection::calculate( const NS_CORE TCode& Code )
+std::pair<NS_CORE TKArray, NS_CORE TIArray> DefKSelection::calculate( const NS_CORE TCode& Code )
 {
 	//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, Code );
 
 	TK K( NS_CORE TKValue( 0.1 ) );
-	NS_CORE TKArray ans;
+	std::pair<NS_CORE TKArray, NS_CORE TIArray> ans;
 	do{
 		auto ret = podModul( Code, K );
 		if ( core::TSingletons::getInstance()->getInitialData()._i == ret )
 		{
-			ans.emplace_back( K );
+			ans.first.emplace_back( K );
+			ans.second.emplace_back( ret );
 			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, K );
 			//break;
 		}

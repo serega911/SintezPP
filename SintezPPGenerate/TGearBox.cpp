@@ -50,7 +50,7 @@ NS_CORE TElementArray TGearBox::getElementsForFrictions() const
 	return vect;
 }
 
-bool TGearBox::check() const
+bool TGearBox::check( const eCheckObject target ) const
 {
 	auto N = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	const auto & chains = getChains();
@@ -59,12 +59,12 @@ bool TGearBox::check() const
 	for ( size_t i = 0; i < chains.size(); i++ )
 	{
 		//проверка связи вход-выход
-		if ( chains[i].find( NS_CORE TElement::INPUT ) && chains[i].find( NS_CORE TElement::OUTPUT ) )
+		if ( ( eCheckObject::ALL == target || eCheckObject::IN_OUT_CONNECTION == target ) && chains[i].find( NS_CORE TElement::INPUT ) && chains[i].find( NS_CORE TElement::OUTPUT ) )
 		{
 			return false;
 		}
 		//проверка связей между элементами одного ряда
-		if ( !chains[i].checkElemByOnePlanetarySet() )
+		if ( ( eCheckObject::ALL == target || eCheckObject::ONE_PM_CONNECTION == target ) && !chains[i].checkElemByOnePlanetarySet() )
 		{
 			return false;
 		}

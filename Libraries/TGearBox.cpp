@@ -49,11 +49,11 @@ TChainArray core::TGearBox::getChainsForCurrentGear() const
 	}
 
 	//поиск цепочек связей
-	for ( size_t i = 0; i < chains.size() - 1; i++ )
+	for ( size_t i = 0; i < chains.size(); i++ )
 	{
-		for ( size_t j = i + 1; j < chains.size(); j++ )
+		for ( size_t j = 0; j < chains.size(); j++ )
 		{
-			if ( chains[i].intersect( chains[j] ) )
+			if ( j != i && chains[i].intersect( chains[j] ) )
 			{
 				chains[i].addChainToChain( chains[j] );
 				chains[j].clear();
@@ -108,23 +108,25 @@ bool TGearBox::createChains()
 		for ( const auto& elem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 		{
 			size_t b = 0;
-			for ( size_t j = 0; j < size; j++ ){
-				if (TElement(elem, i) == code[j].getElem1() || TElement(elem, i) == code[j].getElem2())
+			TElement element( elem, i );
+			for ( size_t j = 0; j < size; j++ )
+			{
+				if ( element == code[j].getElem1() || element == code[j].getElem2() )
 				{
 					b++;
 				}
 			}
-			if (b == 0 && TElement(elem, i) != in && TElement(elem, i) != out){
+			if ( b == 0 && element != in && element != out ){
 				m_chains.resize(m_chains.size() + 1);
-				m_chains[m_chains.size() - 1].addElementToChain(TElement(elem, i));
+				m_chains[m_chains.size() - 1].addElementToChain( element );
 				b = 0;
 			}
 		}
 	}
 	//поиск цепочек связей
-	for ( size_t i = 0; i < m_chains.size() - 1; i++ ){
-		for ( size_t j = i + 1; j < m_chains.size(); j++ ){
-			if (m_chains[i].intersect(m_chains[j]))
+	for ( size_t i = 0; i < m_chains.size(); i++ ){
+		for ( size_t j = 0; j < m_chains.size(); j++ ){
+			if ( i != j && m_chains[i].intersect(m_chains[j]))
 			{
 				m_chains[i].addChainToChain(m_chains[j]);
 				m_chains[j].clear();

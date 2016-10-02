@@ -15,14 +15,17 @@ void DefK::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Определение К.  ====" );
 
-	int W;
-	int N;
+	size_t w;
+	size_t n;
+	size_t d;
 	NS_CORE TLog::log( "\t\t\tИсходные данные." );
 	NS_CORE TLog::log( "Число степеней свободы:	", false );
-	std::cin >> W;
+	std::cin >> w;
 	NS_CORE TLog::log( "Количество ПМ:		", false );
-	std::cin >> N;
-	NS_CORE TSingletons::getInstance()->setGlobalParameters( W, N );
+	std::cin >> n;
+	NS_CORE TLog::log( "Количество элементов управления:	", false );
+	std::cin >> d;
+	NS_CORE TSingletons::getInstance()->setGlobalParameters( w, n, d );
 
 	int countIntervals = 0;
 	NS_CORE TLog::log( "Количество диапазонов : ", false );
@@ -37,13 +40,17 @@ void DefK::readInitialData()
 		NS_CORE TSingletons::getInstance()->addRangeK( NS_CORE TRange( NS_CORE TKValue( beg ), NS_CORE TKValue( end ) ) );
 	}
 
-	if ( W > 2 )
+	if ( w > 2 )
 	{
 		NS_CORE TLog::log( "Максимально допустимое количество передач - ", false );
 		NS_CORE TLog::log( NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears );
 		NS_CORE TLog::log( "Количество передач:	", false );
-		int n;
-		std::cin >> n;
+		int n1;
+		std::cin >> n1;
+		NS_CORE TSingletons::getInstance()->setNumberOfGears( n1 );
+	}
+	else
+	{
 		NS_CORE TSingletons::getInstance()->setNumberOfGears( n );
 	}
 
@@ -68,11 +75,11 @@ void DefK::run()
 	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
 	{
 		DefKSimple solveSimple;
-		auto ans = solveSimple.calculate( code );
+		std::pair<NS_CORE TKArray, NS_CORE TIArray> ans = solveSimple.calculate( code );
 		NS_CORE TLog::log( ".", false );
 #define  QUICK_SEARCH
 #ifndef QUICK_SEARCH 
-		if ( ans.size() == 0 )
+		if ( ans.first.size() == 0 )
 		{
 			NS_CORE TLog::log( "#", false );
 			DefKSelection solveSelection;
@@ -81,9 +88,13 @@ void DefK::run()
 #endif
 
 		bool isWrited = false;
+		
+
 		for ( size_t i = 0; i < ans.first.size(); i++ )
 		{
-			if ( ans.first[i].check() )
+			auto realI = DefKSelection::podModul( code, ans.first[i] );
+
+			if ( ans.first[i].check() && ans.second[i] == realI )
 			{
 				if ( !isWrited )
 				{
@@ -91,6 +102,7 @@ void DefK::run()
 					isWrited = true;
 				}
 				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans.second[i] );
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, realI );
 				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans.first[i] );	
 			}
 		}
