@@ -89,6 +89,11 @@ NS_ARI_USING
 		 );
  }
 
+ bool ari::Equations::check( const VariablesSet & set )
+ {
+	 return abs( set[NS_CORE eMainElement::EMPTY].getValue() ) > 0.0001 && abs( wyllys( set ) ) < 0.0001;
+ }
+
  ari::FunctionValue ari::Equations::calcOne( const NS_CORE eMainElement elem, const VariablesSet & set )
  {
 	 switch ( elem )

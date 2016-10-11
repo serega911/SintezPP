@@ -17,14 +17,17 @@ void ari::TKinematicSchemeBuilder::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Просмотр.  ====\n\n" );
 	//	Исходные данные
-	int W = 0;
-	int N = 0;
+	int w = 0;
+	int n = 0;
+	int d = 0;
 	NS_CORE TLog::log( "\t\t\tИсходные данные." );
 	NS_CORE TLog::log( "Число степеней свободы:	", false );
-	std::cin >> W;
+	std::cin >> w;
 	NS_CORE TLog::log( "Количество ПМ:		", false );
-	std::cin >> N;
-	NS_CORE TSingletons::getInstance()->setGlobalParameters( W, N );
+	std::cin >> n;
+	NS_CORE TLog::log( "Количество элементов управления:	", false );
+	std::cin >> d;
+	NS_CORE TSingletons::getInstance()->setGlobalParameters( w, n, d );
 }
 
 TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCode & code, const core::TK & k )

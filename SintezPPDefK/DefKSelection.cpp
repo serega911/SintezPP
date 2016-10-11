@@ -5,21 +5,29 @@
 
 NS_ARI_USING
 
-std::pair<NS_CORE TKArray, NS_CORE TIArray> DefKSelection::calculate( const NS_CORE TCode& Code )
+NS_CORE TKArray	 DefKSelection::calculate( const NS_CORE TCode& Code )
 {
-	//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, Code );
-
 	TK K( NS_CORE TKValue( 0.1 ) );
-	std::pair<NS_CORE TKArray, NS_CORE TIArray> ans;
+	NS_CORE TKArray	 ans;
+	bool isSolutionExist = false;
+	size_t failedCount = 0;
+	const size_t failedLimit = 5;
+	size_t calculated = 0;
+
 	do{
 		auto ret = podModul( Code, K );
 		if ( core::TSingletons::getInstance()->getInitialData()._i == ret )
 		{
-			ans.first.emplace_back( K );
-			ans.second.emplace_back( ret );
-			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SELECTION, K );
-			//break;
+			ans.emplace_back( K );
 		}
+		else if ( core::TSingletons::getInstance()->getInitialData()._numberOfGears > countOfDifferent( core::TSingletons::getInstance()->getInitialData()._i ) )
+		{
+			if ( failedCount < failedLimit )
+				failedCount++;
+			else
+				break;
+		}
+		
 	} while ( K.next() );
 
 	return ans;
@@ -53,4 +61,28 @@ NS_CORE TI DefKSelection::podModul( const NS_CORE TCode & code, const TK &k )
 	} while ( gearChanger.next() );
 
 	return tmpI;
+}
+
+size_t ari::DefKSelection::countOfDifferent( const NS_CORE TI& calculatedI )
+{
+	size_t ret = 0;
+	bool isUnique = true;
+	for ( int i = 0; i < calculatedI.size() - 1; i++ )
+	{
+		isUnique = true;
+		for ( int j = i + 1; j < calculatedI.size(); j++ )
+		{
+			if ( calculatedI[i] == calculatedI[j] )
+			{
+				isUnique = false;
+				break;
+			}
+		}
+		if ( isUnique )
+		{
+			ret++;
+		}
+	}
+
+	return ++ret;
 }

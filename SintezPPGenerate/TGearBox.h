@@ -8,7 +8,7 @@ class TGearBox : public NS_CORE TGearBox
 	typedef NS_CORE TGearBox Parent;
 public:
 
-	enum eCheckObject
+	enum eCheckTarget
 	{
 		IN_OUT_CONNECTION,
 		ONE_PM_CONNECTION,
@@ -26,7 +26,7 @@ public:
 	NS_CORE TElementArray						getElementsForBrakes() const;
 
 	bool										checkFree() const;
-	bool										check( const eCheckObject target ) const;
+	bool										check( const eCheckTarget target ) const;
 
 };
 

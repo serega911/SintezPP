@@ -117,7 +117,8 @@ void TIOFileManager::init()
 	m_fileNames[eOutputFileType::KIN_SLOW] = "kin_slow.pkp";
 
 	const auto& initialData = TSingletons::getInstance()->getInitialData();
-	auto folder = "w" + std::to_string( initialData._w ) + "n" + std::to_string( initialData._numberOfPlanetaryGears );
+	const auto& generalData = TSingletons::getInstance()->getGeneralData();
+	auto folder = "w" + std::to_string( initialData._w ) + "n" + std::to_string( initialData._numberOfPlanetaryGears ) + "d" + std::to_string( generalData._numberOfFrictions + generalData._numberOfBrakes );
 
 	m_containingFolder = s_globalFolder + "\\" + folder;
 

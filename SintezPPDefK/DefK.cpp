@@ -75,11 +75,11 @@ void DefK::run()
 	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
 	{
 		DefKSimple solveSimple;
-		std::pair<NS_CORE TKArray, NS_CORE TIArray> ans = solveSimple.calculate( code );
+		NS_CORE TKArray	 ans = solveSimple.calculate( code );
 		NS_CORE TLog::log( ".", false );
 #define  QUICK_SEARCH
 #ifndef QUICK_SEARCH 
-		if ( ans.first.size() == 0 )
+		if ( !solveSimple.getIsCanFind() )
 		{
 			NS_CORE TLog::log( "#", false );
 			DefKSelection solveSelection;
@@ -90,22 +90,22 @@ void DefK::run()
 		bool isWrited = false;
 		
 
-		for ( size_t i = 0; i < ans.first.size(); i++ )
+		for ( size_t i = 0; i < ans.size(); i++ )
 		{
-			auto realI = DefKSelection::podModul( code, ans.first[i] );
+			auto realI = DefKSelection::podModul( code, ans[i] );
 
-			if ( ans.first[i].check() && ans.second[i] == realI )
+			if ( ans[i].check() )
 			{
 				if ( !isWrited )
 				{
 					NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
 					isWrited = true;
 				}
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans.second[i] );
 				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, realI );
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans.first[i] );	
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans[i] );	
 			}
 		}
-	}
+		
+	}	
 	system( "pause" );
 }

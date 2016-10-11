@@ -28,6 +28,7 @@ public:
 	static FunctionValue						calcWEpicyclic( const VariablesSet & set );
 	static FunctionValue						calcWCarrirer( const VariablesSet & set );
 	static FunctionValue						calcKValue( const VariablesSet & set );
+	static bool									check( const VariablesSet & set );
 	static FunctionValue						calcOne( const NS_CORE eMainElement elem, const VariablesSet & set );
 
 	static const Equation						getEquation( const NS_CORE eMainElement & elem );

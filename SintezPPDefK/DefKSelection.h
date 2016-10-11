@@ -15,9 +15,9 @@ class DefKSelection
 {
 public:
 
-	std::pair<NS_CORE TKArray, NS_CORE TIArray>	calculate( const NS_CORE TCode& code );
+	NS_CORE TKArray								calculate( const NS_CORE TCode& code );
 	static NS_CORE TI							podModul( const NS_CORE TCode & code, const NS_ARI TK &k );
-
+	static size_t								countOfDifferent( const NS_CORE TI& i);
 
 };
 
