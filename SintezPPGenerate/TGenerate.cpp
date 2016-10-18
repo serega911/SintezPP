@@ -12,14 +12,7 @@ void TGenerate::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n" );
 	//	Исходные данные
-	size_t W = 0;
-	size_t N = 0;
-	NS_CORE TLog::log( "\t\t\tИсходные данные." );
-	NS_CORE TLog::log( "Число степеней свободы:	", false );
-	std::cin >> W;
-	NS_CORE TLog::log( "Количество ПМ:		", false );
-	std::cin >> N;
-	NS_CORE TSingletons::getInstance()->setGlobalParameters( W, N );
+	readWND();
 
 	auto generalData = NS_CORE TSingletons::getInstance()->getGeneralData();
 	NS_CORE TLog::log( "Количество связей:	" + std::to_string( generalData._numberOfLinks ) );
@@ -97,7 +90,7 @@ void TGenerate::generateLinks( const TGearBox & gearBox )
 			links.push_back(m_allLinks[linksCombi[i]]);
 		gearBoxWithLinks.setLinksToCode( links );
 		gearBoxWithLinks.createChains();
-		if ( gearBoxWithLinks.check() )
+		if ( gearBoxWithLinks.check(TGearBox::ALL) )
 		{
 			if ( m_existingSchemes.findIn( gearBoxWithLinks.getChains() ) )
 			{
@@ -111,7 +104,7 @@ void TGenerate::generateLinks( const TGearBox & gearBox )
 		}
 		else
 		{
-			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_0, gearBoxWithLinks.getCode() );
+			NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_0, gearBoxWithLinks.getCode() );
 		}
 	}
 }
@@ -123,11 +116,11 @@ void TGenerate::generateFrictions( const TGearBox & gearBox )
 
 	const auto& generalData = NS_CORE TSingletons::getInstance()->getGeneralData();
 
-	//if ( vect_all_FB.size() == generalData._numberOfBrakes + generalData._numberOfFrictions + 2 )
-	//{
-		NS_CORE TLinkArray vect_all_frict;				//	Вектор всех возможных фрикционов
+// 	if ( vect_all_FB.size() == generalData._numberOfBrakes + generalData._numberOfFrictions + 2 )
+// 	{
+		NS_CORE TLinkArray vect_all_frict;							//	Вектор всех возможных фрикционов
 		NS_CORE TCombinatoricsValueArray vect_combi_frict;			//	Вектор сочетаний фрикционов
-		NS_CORE TLinkArray vect_frict;					//	Вектор фрикционов
+		NS_CORE TLinkArray vect_frict;								//	Вектор фрикционов
 		for ( size_t i = 0; i < vect_all_FB.size(); i++ )
 			for ( size_t j = i + 1; j < vect_all_FB.size(); j++ )
 				vect_all_frict.push_back( NS_CORE TLink( vect_all_FB[i], vect_all_FB[j] ) );
@@ -146,13 +139,18 @@ void TGenerate::generateFrictions( const TGearBox & gearBox )
 			for ( size_t i = 0; i < vect_combi_frict.size(); i++ )
 				vect_frict.push_back(vect_all_frict[vect_combi_frict[i]]);
 			gearBoxWithFrictions.setFrictionsToCode( vect_frict );
-			generateBrakes( gearBoxWithFrictions );
+			
+			if ( gearBoxWithFrictions.check( TGearBox::ALL ) )
+			{
+				generateBrakes( gearBoxWithFrictions );
+			}
+			
 		}
-	//}
-	//else
-	//{
-		//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_N, gearBox.getCode() );
-	//}
+// 	}
+// 	else
+// 	{
+// 		NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_N, gearBox.getCode() );
+// 	}
 }
 
 void TGenerate::generateBrakes( const TGearBox & gearBox )

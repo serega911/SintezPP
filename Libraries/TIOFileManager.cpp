@@ -6,14 +6,21 @@
 
 NS_CORE_USING
 
-const std::string								TIOFileManager::s_globalFolder = "..\\Results";
+const std::string								TIOFileManager::s_resultsFolder = "..\\Results";
+
+const std::string								TIOFileManager::s_settingsFolder = "..\\Settings";
 
 std::string TIOFileManager::getFolder()
 {
-	return s_globalFolder;
+	return s_resultsFolder;
 }
 
-void TIOFileManager::writeToFile(eOutputFileType type, const IContainer & container)
+const std::string& TIOFileManager::getFolder( eOutputFileType type )
+{
+	return type == eOutputFileType::SETTINGS ? s_settingsFolder : m_containingFolder;
+}
+
+void TIOFileManager::writeToFile( eOutputFileType type, const IIOItem & container )
 {
 	auto file = m_oFiles.find(type);
 	if (file != m_oFiles.end())
@@ -24,7 +31,7 @@ void TIOFileManager::writeToFile(eOutputFileType type, const IContainer & contai
 	else
 	{
 		std::ofstream* out = new std::ofstream;
-		std::string fullName = m_containingFolder + "\\" + m_fileNames.at(type);
+		std::string fullName = getFolder(type) + "\\" + m_fileNames.at( type );
 		out->open(fullName.c_str(), std::ofstream::out);
 		m_oFiles.insert({type, out});
 		container.writeToFile(*out);
@@ -32,22 +39,31 @@ void TIOFileManager::writeToFile(eOutputFileType type, const IContainer & contai
 }
 
 
-bool TIOFileManager::loadFromFile(eOutputFileType type, IContainer & container)
+bool TIOFileManager::loadFromFile(eOutputFileType type, IIOItem & container)
 {
+	bool result;
+
 	auto file = m_iFiles.find(type);
 	if (file != m_iFiles.end())
 	{
-		return container.loadFromFile( *( file->second ) );
+		result = container.loadFromFile( *( file->second ) );
 	}
 	else
 	{
-		std::string fullName = m_containingFolder + "\\" + m_fileNames.at( type );
+		std::string fullName = getFolder( type ) + "\\" + m_fileNames.at( type );
 		std::ifstream* in = new std::ifstream( fullName.c_str() );
 
-		m_iFiles.insert( { type, in } );
-
-		return container.loadFromFile( *in );
+		if ( in->good() )
+		{
+			m_iFiles.insert( { type, in } );
+			result = container.loadFromFile( *in );
+		}
+		else
+		{
+			result = false;
+		}
 	}
+	return result;
 }
 
 void TIOFileManager::writeSolutionData()
@@ -115,12 +131,16 @@ void TIOFileManager::init()
 	m_fileNames[eOutputFileType::FAIL_NUTON] = "failed_Nuton.pkp";
 	m_fileNames[eOutputFileType::KIN_QUICK] = "kin_quick.pkp";
 	m_fileNames[eOutputFileType::KIN_SLOW] = "kin_slow.pkp";
+	m_fileNames[eOutputFileType::K_TEST] = "done_test.pkp";
+	m_fileNames[eOutputFileType::SETTINGS] = "settings.txt";
 
 	const auto& initialData = TSingletons::getInstance()->getInitialData();
-	auto folder = "w" + std::to_string( initialData._w ) + "n" + std::to_string( initialData._numberOfPlanetaryGears );
+	const auto& generalData = TSingletons::getInstance()->getGeneralData();
+	auto folder = "w" + std::to_string( initialData._w ) + "n" + std::to_string( initialData._numberOfPlanetaryGears ) + "d" + std::to_string( generalData._numberOfFrictions + generalData._numberOfBrakes );
 
-	m_containingFolder = s_globalFolder + "\\" + folder;
+	m_containingFolder = s_resultsFolder + "\\" + folder;
 
-	_mkdir(s_globalFolder.c_str());
+	_mkdir(s_resultsFolder.c_str());
+	_mkdir(s_settingsFolder.c_str());
 	_mkdir(m_containingFolder.c_str());
 }

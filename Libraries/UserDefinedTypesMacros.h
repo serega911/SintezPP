@@ -14,7 +14,7 @@ public:																																			\
 	inline friend typeName		operator+( const typeName& obj1, const typeName& obj2 )		{ return typeName(obj1.m_value + obj2.m_value); }	\
 	inline friend bool			operator<( const typeName& obj1, const typeName& obj2 )		{ return obj1.m_value < obj2.m_value; }				\
 	inline friend bool			operator>( const typeName& obj1, const typeName& obj2 )		{ return obj1.m_value > obj2.m_value; }				\
-	inline friend bool			operator==( const typeName& obj1, const typeName& obj2 )	{ return obj1.m_value == obj2.m_value; }			\
+	inline friend bool			operator==( const typeName& obj1, const typeName& obj2 )	{ return abs(obj1.m_value - obj2.m_value) < 0.00001; }			\
 	inline friend bool			operator<=( const typeName& obj1, const typeName& obj2 )	{ return obj1.m_value <= obj2.m_value; }			\
 	inline friend bool			operator>=( const typeName& obj1, const typeName& obj2 )	{ return obj1.m_value >= obj2.m_value; }			\
 	inline friend bool			operator!=( const typeName& obj1, const typeName& obj2 )	{ return obj1.m_value != obj2.m_value; }			\

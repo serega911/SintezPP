@@ -29,31 +29,15 @@ const TChainArray& TGearBox::getChains() const
 }
 
 
-TChainArray core::TGearBox::getChainsForCurrentGear() const
+
+void TGearBox::makeChains( TChainArray &chains ) const
 {
-	auto chains = getChains();
-	auto drivingElements = m_gearChanger.getDrivingElementsForGear();
-
-	chains.resize( chains.size() + drivingElements.size() );
-
-	for ( size_t i = 0; i < drivingElements.size(); i++ )
-	{
-		if ( drivingElements[i].getElem2() == NS_CORE TElement::BRAKE )
-		{
-			chains[chains.size() - i - 1].addElementToChain( drivingElements[i].getElem1() );
-		}
-		else
-		{
-			chains[chains.size() - i - 1].addLinkToChain( drivingElements[i] );
-		}
-	}
-
 	//поиск цепочек связей
-	for ( size_t i = 0; i < chains.size() - 1; i++ )
+	for ( size_t i = 0; i < chains.size(); i++ )
 	{
-		for ( size_t j = i + 1; j < chains.size(); j++ )
+		for ( size_t j = 0; j < chains.size(); j++ )
 		{
-			if ( chains[i].intersect( chains[j] ) )
+			if ( j != i && chains[i].intersect( chains[j] ) )
 			{
 				chains[i].addChainToChain( chains[j] );
 				chains[j].clear();
@@ -69,21 +53,22 @@ TChainArray core::TGearBox::getChainsForCurrentGear() const
 			i = i - 1;
 		}
 	}
-	//добавляем тормоза
-	for ( size_t i = 0; i < drivingElements.size(); i++ )
-	{
-		if ( drivingElements[i].getElem2() == NS_CORE TElement::BRAKE )
-		{
-			for ( size_t j = 0; j < chains.size(); j++ )
-			{
-				if ( chains[j].find( drivingElements[i].getElem1() ) )
-				{
-					chains[j].addElementToChain( NS_CORE TElement::BRAKE );
-				}
-			}
-		}
-	}
+	//упорядочиваем
 	std::sort( chains.begin(), chains.end() );
+}
+
+TChainArray TGearBox::getChainsForCurrentGear() const
+{
+	auto chains = getChains();
+	auto drivingElements = m_gearChanger.getDrivingElementsForGear();
+
+	chains.resize( chains.size() + drivingElements.size() );
+
+	for ( size_t i = 0; i < drivingElements.size(); i++ )
+		chains[chains.size() - i - 1].addLinkToChain( drivingElements[i] );
+
+	makeChains( chains );
+
 	return chains;
 }
 
@@ -92,53 +77,45 @@ bool TGearBox::createChains()
 	 const auto& code = m_code.getCode();
 
 	//Создаем начальные цепочки (каждая связь делается цепочкой)
+	const auto size = TSingletons::getInstance()->getGeneralData()._numberOfLinks + 2;
+
+	if ( size > code.size() )
+		return false;
+
 	m_chains.clear();
-	auto size = TSingletons::getInstance()->getGeneralData()._numberOfLinks + 2;
-	m_chains.resize(size);
-	 
-	for ( size_t i = 0; i < m_chains.size(); i++ ){
+	m_chains.resize(size); 
+	for ( size_t i = 0; i < size; i++ ){
 		m_chains[i].addLinkToChain(code[i]);
 	}
+
 	//поиск элементов, свободных от связей и создание цепочек, которые их содержат
 	size_t N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	auto in = code[0].getElem1();
 	auto out = code[1].getElem1();
-	for (TGearSetNumber i = 1; i <= N; i++)
+	
+	for ( const auto& elem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 	{
-		for ( const auto& elem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
+		for ( TGearSetNumber i = 1; i <= N; i++ )
 		{
 			size_t b = 0;
-			for ( size_t j = 0; j < size; j++ ){
-				if (TElement(elem, i) == code[j].getElem1() || TElement(elem, i) == code[j].getElem2())
+			TElement element( elem, i );
+			for ( size_t j = 0; j < size; j++ )
+			{
+				if ( element == code[j].getElem1() || element == code[j].getElem2() )
 				{
 					b++;
+					break;
 				}
 			}
-			if (b == 0 && TElement(elem, i) != in && TElement(elem, i) != out){
-				m_chains.resize(m_chains.size() + 1);
-				m_chains[m_chains.size() - 1].addElementToChain(TElement(elem, i));
-				b = 0;
-			}
-		}
-	}
-	//поиск цепочек связей
-	for ( size_t i = 0; i < m_chains.size() - 1; i++ ){
-		for ( size_t j = i + 1; j < m_chains.size(); j++ ){
-			if (m_chains[i].intersect(m_chains[j]))
+			if ( b == 0 && element != in && element != out )
 			{
-				m_chains[i].addChainToChain(m_chains[j]);
-				m_chains[j].clear();
+				m_chains.emplace_back( element );
 			}
 		}
 	}
-	//удаление пустых цепочек
-	for ( size_t i = 0; i < m_chains.size(); i++ ){
-		if (m_chains[i].size() == 0){
-			m_chains.erase(m_chains.begin() + i);
-			i = i - 1;
-		}
-	}
-	std::sort(m_chains.begin(), m_chains.end());
+	//поиск цепочек связей, удаление пустых цепочек
+	makeChains( m_chains );
+
 	return true;
 }
 

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <map>
 
-#include "IContainer.h"
+#include "IIOItem.h"
 #include "GlobalDefines.h"
 
 NS_CORE_START
@@ -27,7 +27,9 @@ public:
 		FAIL_REPETTION,	// scheme has already exist 
 		FAIL_NUTON,		// Nuton algorithm failed
 		KIN_QUICK,
-		KIN_SLOW
+		KIN_SLOW,
+		SETTINGS,
+		K_TEST
 	};
 
 	static TIOFileManager*						getInstance();
@@ -37,8 +39,8 @@ public:
 
 	static std::string							getFolder();
 
-	void										writeToFile(eOutputFileType type, const IContainer & container);
-	bool										loadFromFile(eOutputFileType type, IContainer & container);
+	void										writeToFile(eOutputFileType type, const IIOItem & container);
+	bool										loadFromFile(eOutputFileType type, IIOItem & container);
 		
 	void										writeSolutionData();
 
@@ -51,11 +53,13 @@ private:
 	TIOFileManager&								operator=(TIOFileManager&) = delete;
 
 
-	static const std::string					s_globalFolder;
-	std::string									m_containingFolder;
-		
-	std::map<eOutputFileType, std::ofstream*>	m_oFiles;
+	static const std::string					s_resultsFolder;
+	static const std::string					s_settingsFolder;
 
+	const std::string&							getFolder( eOutputFileType type );
+
+	std::string									m_containingFolder;
+	std::map<eOutputFileType, std::ofstream*>	m_oFiles;
 	std::map<eOutputFileType, std::ifstream*>	m_iFiles;
 		
 };

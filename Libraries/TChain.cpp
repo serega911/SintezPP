@@ -82,7 +82,7 @@ bool TChain::intersect(const TChain& chain) const
 {
 	for (auto& it : m_elements)
 	{
-		if (chain.find(it))
+		if ( it != TElement::BRAKE && chain.find( it ) )
 			return true;
 	}
 	return false;

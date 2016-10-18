@@ -14,8 +14,6 @@ class DefKSimple
 {
 private:
 
-	bool										m_isCanFind;
-
 	NS_CORE TK									findK( const NS_CORE TCode& code, const NS_CORE TK& initialKValues, const NS_CORE TI& iTarget );
 	NS_CORE TK									solveSimple( System& system );
 	NS_CORE TK									getKValuesFromSystem( const System & system );
@@ -25,7 +23,7 @@ public:
 
 	DefKSimple();
 
-	std::pair<NS_CORE TKArray, NS_CORE TIArray>	calculate( const NS_CORE TCode& code );
+	NS_CORE TKArray								calculate( const NS_CORE TCode& code );
 
 };
 

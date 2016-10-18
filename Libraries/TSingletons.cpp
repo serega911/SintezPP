@@ -9,45 +9,45 @@ TSingletons::TSingletons()
 {
 }
 
-void TSingletons::calculateNumbersOfElements()
-{
-	if ( m_initialData._w != 0 && m_initialData._numberOfPlanetaryGears != 0 )
-	{
-		switch ( m_initialData._w )
-		{
-		case 2:
-		{
-			m_generalData._numberOfBrakes = m_initialData._numberOfPlanetaryGears;
-			m_generalData._numberOfFrictions = 0;	// для двухстепенных блокировочный фрикцион не считаем
-			m_generalData._numberOfLinks = 2 * m_initialData._numberOfPlanetaryGears - m_initialData._w;
-			m_initialData._numberOfGears = m_generalData._numberOfBrakes;
-		}
-			break;
-		case 3:
-		{
-			TLog::warning( m_initialData._numberOfPlanetaryGears == 1, "Ошибка: Один планетарный ряд при трех степенях свободы!", TLog::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
-
-			m_generalData._numberOfBrakes = m_initialData._numberOfPlanetaryGears - 1;
-			m_generalData._numberOfFrictions = 2;
-			m_generalData._numberOfLinks = 2 * m_initialData._numberOfPlanetaryGears - m_initialData._w;
-			if ( m_initialData._numberOfPlanetaryGears == 2 )
-				m_initialData._numberOfGears = 2;
-			else if ( m_initialData._numberOfPlanetaryGears == 3 )
-				m_initialData._numberOfGears = 5;
-			else if ( m_initialData._numberOfPlanetaryGears == 4 )
-				m_initialData._numberOfGears = 9;
-		}
-			break;
-		default:
-		{
-			TLog::warning( true, "Ошибка: Некорректное количество степеней свободы!", TLog::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
-		}
-			break;
-			
-		}
-		m_generalData._numberOfActuatedDrivingElements = m_initialData._w - 1;
-	}
-}
+// void TSingletons::calculateNumbersOfElements()
+// {
+// 	if ( m_initialData._w != 0 && m_initialData._numberOfPlanetaryGears != 0 )
+// 	{
+// 		switch ( m_initialData._w )
+// 		{
+// 		case 2:
+// 		{
+// 			m_generalData._numberOfBrakes = m_initialData._numberOfPlanetaryGears;
+// 			m_generalData._numberOfFrictions = 0;	// для двухстепенных блокировочный фрикцион не считаем
+// 			m_generalData._numberOfLinks = 2 * m_initialData._numberOfPlanetaryGears - m_initialData._w;
+// 			m_initialData._numberOfGears = m_generalData._numberOfBrakes;
+// 		}
+// 			break;
+// 		case 3:
+// 		{
+// 			TLog::warning( m_initialData._numberOfPlanetaryGears == 1, "Ошибка: Один планетарный ряд при трех степенях свободы!", TLog::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
+// 
+// 			m_generalData._numberOfBrakes = m_initialData._numberOfPlanetaryGears - 1;
+// 			m_generalData._numberOfFrictions = 2;
+// 			m_generalData._numberOfLinks = 2 * m_initialData._numberOfPlanetaryGears - m_initialData._w;
+// 			if ( m_initialData._numberOfPlanetaryGears == 2 )
+// 				m_initialData._numberOfGears = 2;
+// 			else if ( m_initialData._numberOfPlanetaryGears == 3 )
+// 				m_initialData._numberOfGears = 5;
+// 			else if ( m_initialData._numberOfPlanetaryGears == 4 )
+// 				m_initialData._numberOfGears = 9;
+// 		}
+// 			break;
+// 		default:
+// 		{
+// 			TLog::warning( true, "Ошибка: Некорректное количество степеней свободы!", TLog::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
+// 		}
+// 			break;
+// 			
+// 		}
+// 		m_generalData._numberOfActuatedDrivingElements = m_initialData._w - 1;
+// 	}
+// }
 
 TSingletons* TSingletons::getInstance()
 {
@@ -74,6 +74,11 @@ TCombinatorics* TSingletons::getCombinatorics()
 	return TCombinatorics::getInstance();
 }
 
+TSettings* core::TSingletons::getSettings()
+{
+	return TSettings::getInstance();
+}
+
 const GeneralData& TSingletons::getGeneralData() const
 {
 	return m_generalData;
@@ -84,28 +89,33 @@ const InitialData& TSingletons::getInitialData() const
 	return m_initialData;
 }
 
-void TSingletons::setGlobalParameters( const size_t w, const size_t n )
+void TSingletons::setGlobalParameters( const size_t w, const size_t n, const size_t d )
 {
-	//m_initialData._w = w;
-	//m_initialData._numberOfPlanetaryGears = n;
-	//calculateNumbersOfElements();
-	m_initialData._w = 3;
-	m_initialData._numberOfPlanetaryGears = 2;
-	m_initialData._numberOfGears = 4;
 
-	//m_initialData._ranges.emplace_back( TRange( TKValue( -5.0 ), TKValue (- 2.0) ) );
-	//m_initialData._ranges.emplace_back( TRange( TKValue( 2.0 ), TKValue(5.0) ) );
+	m_initialData._w = w;
+	m_initialData._numberOfPlanetaryGears = n;
 
-	m_generalData._numberOfBrakes = 2;
-	m_generalData._numberOfFrictions = 2;
+	if (w > 2)
+		m_generalData._numberOfFrictions = 2;
+	else	
+		m_generalData._numberOfFrictions = 0;
+	
+	m_generalData._numberOfBrakes = d - m_generalData._numberOfFrictions;
+	m_generalData._numberOfActuatedDrivingElements = w - 1;
+
 	m_generalData._numberOfLinks = 2 * m_initialData._numberOfPlanetaryGears - m_initialData._w;
 
+	getIOFileManager()->init();
 	getIOFileManager()->writeSolutionData();
 }
 
 void TSingletons::setNumberOfGears( const size_t n )
 {
 	if ( m_initialData._w > 2 )
+	{
+		m_initialData._numberOfGears = n;
+	}
+	else if ( m_initialData._w == 2 && n == m_initialData._numberOfPlanetaryGears )
 	{
 		m_initialData._numberOfGears = n;
 	}

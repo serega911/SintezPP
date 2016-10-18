@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IContainer.h"
+#include "IIOItem.h"
 #include "TIOFileManager.h"
 #include "GlobalDefines.h"
 #include <vector>
@@ -19,7 +19,7 @@ private:
 public:
 
 	static TLoaderFromFile*						getInstance();
-	bool										load( std::vector<IContainer*> & conteiners, const TIOFileManager::eOutputFileType & file );
+	bool										load( std::vector<IIOItem*> & conteiners, const TIOFileManager::eOutputFileType & file );
 	
 };
 

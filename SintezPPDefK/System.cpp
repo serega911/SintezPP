@@ -44,8 +44,24 @@ System::System()
 {
 }
 
-void System::addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGearNumber& gear, const NS_CORE TIValue i )
+bool System::addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGearNumber& gear, const NS_CORE TIValue i )
 {
+	for ( auto& chain : chains )
+	{
+		if ( chain.find( NS_CORE TElement::INPUT ) && chain.find( NS_CORE TElement::BRAKE ) )
+		{
+			return false;
+		}
+		else if ( chain.find( NS_CORE TElement::BRAKE ) && chain.find( NS_CORE TElement::OUTPUT ) )
+		{
+			return false;
+		}
+		else if ( chain.find( NS_CORE TElement::INPUT ) && chain.find( NS_CORE TElement::OUTPUT ) && i != NS_CORE TIValue( 1 ) )
+		{
+			return false;
+		}
+	}
+
 	for ( auto& chain : chains )
 	{
 		if ( chain.find( NS_CORE TElement::INPUT ) )
@@ -58,7 +74,7 @@ void System::addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGe
 		}
 		else if ( chain.find( NS_CORE TElement::OUTPUT ) )
 		{
-			addDefinedChain( chain, 1 / i.getValue(), gear );
+			addDefinedChain( chain, 1.0f / i.getValue(), gear );
 		}
 		else
 		{
@@ -66,6 +82,7 @@ void System::addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGe
 		}
 	}
 	m_addedSetCount++;
+	return true;
 }
 
 VariablesSet & System::getVariablesSet( const NS_CORE TGearNumber & gearN, const int & gearSetN )

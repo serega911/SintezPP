@@ -8,17 +8,15 @@
 NS_ARI_USING
 
 ari::DefKSimple::DefKSimple()
-	: m_isCanFind( true )
 {
 }
 
-std::pair<NS_CORE TKArray, NS_CORE TIArray> DefKSimple::calculate( const NS_CORE TCode& code )
+NS_CORE TKArray	 DefKSimple::calculate( const NS_CORE TCode& code )
 {
-	//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, code );
 
 	const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	const NS_CORE TK initial( size );
-	std::pair<NS_CORE TKArray, NS_CORE TIArray> ans;
+	NS_CORE TKArray	 ans;
 
 	auto calcFunc = [&]( const NS_CORE TI& curI ) -> bool
 	{
@@ -26,13 +24,10 @@ std::pair<NS_CORE TKArray, NS_CORE TIArray> DefKSimple::calculate( const NS_CORE
 		 
 		if ( k.size() != 0 )
 		{
-			ans.first.emplace_back( k );
-			ans.second.emplace_back( curI );
-			//if (k.check())
-			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_SIMPLE, k );
+			ans.emplace_back( k );
 		}
 
-		return m_isCanFind;
+		return true;// !k.check();
 	};
 	
 	CheckAllPossibilities::checkAllRatiosPermutations( calcFunc );
@@ -51,88 +46,75 @@ NS_CORE TK DefKSimple::findK( const NS_CORE TCode& code, const NS_CORE TK& initi
 	int i = 0;
 	do
 	{
-		system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE TGearNumber( i + 1 ), iTarget[i] );
+		if ( !system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE TGearNumber( i + 1 ), iTarget[i] ) )
+			return NS_CORE TK();
 		i++;
 	} while ( gb.turnOnNextGear() );
 
+	
 	return solveSimple( system );
 }
+
+std::vector<NS_CORE eMainElement> findOneUndefElem(const VariablesSet& set)
+{
+	std::vector<NS_CORE eMainElement> ans;
+	
+	static const auto elements = { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER, NS_CORE eMainElement::EMPTY };
+	ans.reserve( elements.size() );
+
+	//считаем количество неизвестных в уравнении
+	for ( const auto & elem : elements )
+	{
+		if ( set[elem].getDefined() == false )
+		{
+			ans.emplace_back(elem);
+		}
+	}
+
+	return ans;
+}
+
 
 NS_CORE TK DefKSimple::solveSimple( System& system )
 {
 	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
-	const auto elements = { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER, NS_CORE eMainElement::EMPTY };
 	const auto countOfEquations = initialData._numberOfGears * initialData._numberOfPlanetaryGears;
-
-	int countOfUncalculatedEquations;
-	int countOfUnsolvingEquations;
+	auto& unknowns = system.getUnknownVariables();
+	int solvedCount = 0;
 
 	do
 	{
-		countOfUncalculatedEquations = 0;
-		countOfUnsolvingEquations = 0;
+		solvedCount = 0;
 		for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 		{
 			for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 			{
-
 				auto& gearSetVariables = system.getVariablesSet( NS_CORE TGearNumber( i ), j );
-
-				NS_CORE eMainElement undefElem;
-				size_t count = 0;
-
-				//считаем количество неизвестных в уравнении
-				for ( const auto & elem : elements )
-				{
-					if ( gearSetVariables[elem].getDefined() == false )
-					{
-						count++;
-						undefElem = elem;
-					}
-				}
-
+				const auto undefElements = findOneUndefElem( gearSetVariables );
 				//если неизвестное одно - можем его найти
-				VariableValue value;
-				if ( 1 == count )
+				if ( undefElements.size() == 1 )
 				{
-					value = Equations::calcOne( undefElem, gearSetVariables );
+					solvedCount++;
+					VariableValue value = Equations::calcOne( undefElements[0], gearSetVariables );
+
 					//отмечаем как известное
-					auto& unknowns = system.getUnknownVariables();
-
 					for ( auto& unknown : unknowns )
-					{
-						if ( unknown.findElementInListeners( NS_CORE TElement( undefElem, j + 1 ), NS_CORE TGearNumber( i + 1 ) ) )
-						{
+						if ( unknown.findElementInListeners( NS_CORE TElement( undefElements[0], j + 1 ), NS_CORE TGearNumber( i + 1 ) ) )
 							unknown.setLastValue( value );
-						}
-					}
-				}
-				else
-				{
-					countOfUncalculatedEquations++;
-				}
 
-				if ( count > 1 )
-					countOfUnsolvingEquations++;
-
-				if ( isAllKValuesFinded( system ) )
-				{
-					NS_CORE TK ans = getKValuesFromSystem( system );
-					return ans;
+					//проверяем всё ли мы нашли
+					if ( isAllKValuesFinded( system ) )
+						return getKValuesFromSystem( system );
 				}
 			}
 		}
+	} while ( solvedCount != 0 );
 
-		if ( countOfUnsolvingEquations == countOfEquations )
-		{
-			m_isCanFind = false;
-			return NS_CORE TK();
-		}
+	if ( isAllKValuesFinded( system ) )
+		return getKValuesFromSystem( system );
+	else
+		return NS_CORE TK();
 
-	} while ( countOfUncalculatedEquations != countOfEquations );
-
-	NS_CORE TK ans = getKValuesFromSystem( system );
-	return ans;
 }
 
 NS_CORE TK DefKSimple::getKValuesFromSystem( const System & system )
@@ -160,10 +142,31 @@ bool ari::DefKSimple::isAllKValuesFinded( const System & system )
 {
 	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
 
+	// check K values
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
 		if ( !system.getUnknownVariables()[i].getIsDefined() )
 			return false;
+	}
+
+	// check all system
+	for ( size_t i = 0; i < initialData._numberOfGears; i++ )
+	{
+		for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
+		{
+			auto& gearSetVariables = system.getVariablesSet( NS_CORE TGearNumber( i ), j );
+			const auto undefElements = findOneUndefElem( gearSetVariables );
+
+			if ( 0 == undefElements.size() )
+			{
+				if ( !Equations::check( gearSetVariables ) )
+					return false;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 
 	return true;

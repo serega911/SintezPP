@@ -3,6 +3,7 @@
 #include "DefKNuton.h"
 #include "DefKSimple.h"
 #include "DefKSelection.h"
+#include "TK.h"
 
 #include "../Libraries/TSingletons.h"
 #include "../Libraries/TLog.h"
@@ -15,14 +16,7 @@ void DefK::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Определение К.  ====" );
 
-	int W;
-	int N;
-	NS_CORE TLog::log( "\t\t\tИсходные данные." );
-	NS_CORE TLog::log( "Число степеней свободы:	", false );
-	std::cin >> W;
-	NS_CORE TLog::log( "Количество ПМ:		", false );
-	std::cin >> N;
-	NS_CORE TSingletons::getInstance()->setGlobalParameters( W, N );
+	readWND();
 
 	int countIntervals = 0;
 	NS_CORE TLog::log( "Количество диапазонов : ", false );
@@ -37,14 +31,16 @@ void DefK::readInitialData()
 		NS_CORE TSingletons::getInstance()->addRangeK( NS_CORE TRange( NS_CORE TKValue( beg ), NS_CORE TKValue( end ) ) );
 	}
 
-	if ( W > 2 )
+	if ( NS_CORE TSingletons::getInstance()->getInitialData()._w > 2 )
 	{
-		NS_CORE TLog::log( "Максимально допустимое количество передач - ", false );
-		NS_CORE TLog::log( NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears );
 		NS_CORE TLog::log( "Количество передач:	", false );
 		int n;
 		std::cin >> n;
 		NS_CORE TSingletons::getInstance()->setNumberOfGears( n );
+	}
+	else
+	{
+		NS_CORE TSingletons::getInstance()->setNumberOfGears( NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
 	}
 
 	NS_CORE TLog::log( "Передаточные отношения : ", false );
@@ -59,6 +55,62 @@ void DefK::readInitialData()
 	}
 }
 
+void ari::DefK::calcExample()
+{
+	readWND();
+	if ( NS_CORE TSingletons::getInstance()->getInitialData()._w > 2 )
+	{
+		NS_CORE TLog::log( "Количество передач:	", false );
+		int n;
+		std::cin >> n;
+		NS_CORE TSingletons::getInstance()->setNumberOfGears( n );
+	}
+	else
+	{
+		NS_CORE TSingletons::getInstance()->setNumberOfGears( NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
+	}
+
+	const auto &initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+	
+	NS_CORE TKValueArray kValues;
+	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
+		kValues.push_back( NS_CORE TKValue( 2 ) );
+	ari::TK k = NS_CORE TK( kValues );
+
+	NS_CORE TCode code;
+	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
+	{
+		auto realI = DefKSelection::podModul( code, k );
+
+		if (realI.size() > 0 )
+		{
+			int unique = 1;
+			for ( int i = 0; i < realI.size() - 1; i++ )
+			{
+				bool finded = false;
+				for ( int j = i + 1; j < realI.size(); j++ )
+				{
+					if ( realI[i] == realI[j] )
+					{
+						finded = true;
+						break;
+					}
+				}
+
+				if ( !finded )
+				{
+					unique++;
+				}
+
+			}
+			if ( unique == initialData._numberOfGears )
+			{
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::K_TEST, code );
+			}
+		}	
+	}
+}
+
 void DefK::run()
 { 
 	readInitialData();
@@ -68,32 +120,34 @@ void DefK::run()
 	while ( NS_CORE TSingletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE TIOFileManager::eOutputFileType::DONE, code ) )
 	{
 		DefKSimple solveSimple;
-		auto ans = solveSimple.calculate( code );
+		NS_CORE TKArray	 ans = solveSimple.calculate( code );
 		NS_CORE TLog::log( ".", false );
-#define  QUICK_SEARCH
-#ifndef QUICK_SEARCH 
-		if ( ans.size() == 0 )
+
+		if ( !NS_CORE TSingletons::getInstance()->getSettings()->getDefKSettings()._calcKQuick && ans.size() == 0)
 		{
 			NS_CORE TLog::log( "#", false );
 			DefKSelection solveSelection;
 			ans = solveSelection.calculate( code );
 		}
-#endif
+		
 
 		bool isWrited = false;
-		for ( size_t i = 0; i < ans.first.size(); i++ )
+		for ( size_t i = 0; i < ans.size(); i++ )
 		{
-			if ( ans.first[i].check() )
+			auto realI = DefKSelection::podModul( code, ans[i] );
+
+			if ( ans[i].check() )
 			{
 				if ( !isWrited )
 				{
 					NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, code );
 					isWrited = true;
 				}
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans.second[i] );
-				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans.first[i] );	
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, realI );
+				NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K, ans[i] );	
 			}
 		}
-	}
+		
+	}	
 	system( "pause" );
 }

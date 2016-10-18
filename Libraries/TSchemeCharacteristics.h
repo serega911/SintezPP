@@ -1,13 +1,13 @@
 #pragma once
 
 #include "GlobalDefines.h"
-#include "IContainer.h"
+#include "IIOItem.h"
 #include "KinematicSchemeData.h"
 
 NS_CORE_START
 
 class TSchemeCharacteristics
-	: public IContainer
+	: public IIOItem
 {
 private:
 
@@ -17,7 +17,7 @@ public:
 
 	void										setKinematicScheneData( const KinematicSchemeData& data );
 
-	virtual size_t								size() const override;
+	size_t										size() const;
 	virtual void								writeToFile( std::ostream& file ) const override;
 	virtual bool								loadFromFile( std::istream& file ) override;
 

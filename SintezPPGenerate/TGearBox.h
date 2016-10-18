@@ -8,6 +8,14 @@ class TGearBox : public NS_CORE TGearBox
 	typedef NS_CORE TGearBox Parent;
 public:
 
+	enum eCheckTarget
+	{
+		IN_OUT_CONNECTION,
+		ONE_PM_CONNECTION,
+		ALL
+	};
+
+
 	TGearBox( const NS_CORE TCode& code );
 
 	void										setLinksToCode( const NS_CORE TLinkArray& links );						//	Установка связей
@@ -18,7 +26,7 @@ public:
 	NS_CORE TElementArray						getElementsForBrakes() const;
 
 	bool										checkFree() const;
-	bool										check() const;
+	bool										check( const eCheckTarget target ) const;
 
 };
 

@@ -85,7 +85,10 @@ bool TI::operator==( const TI& obj ) const
 			for ( auto& jt : obj.m_i )
 			{
 				if ( ( it - jt ).getAbs() <= m_eps )
+				{
 					finded = true;
+					break;
+				}
 			}
 			if ( finded == false )
 				return false;
