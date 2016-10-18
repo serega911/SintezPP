@@ -2,13 +2,13 @@
 #include <vector>
 
 #include "GlobalDefines.h"
-#include "IContainer.h"
+#include "IIOItem.h"
 #include "TKValue.h"
 #include "TKValueArray.h"
 
 NS_CORE_START
 
-class TK : public IContainer
+class TK : public IIOItem
 {
 private:
 
@@ -25,7 +25,7 @@ public:
 	const TKValue								operator[]( size_t i ) const;
 
 	void										print() const;
-	size_t										size() const override;
+	size_t										size() const;
 
 	void										writeToFile( std::ostream& file ) const override;
 	bool										loadFromFile( std::istream& file ) override;

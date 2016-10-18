@@ -27,7 +27,7 @@ NS_CORE TKArray	 DefKSimple::calculate( const NS_CORE TCode& code )
 			ans.emplace_back( k );
 		}
 
-		return true;
+		return true;// !k.check();
 	};
 	
 	CheckAllPossibilities::checkAllRatiosPermutations( calcFunc );

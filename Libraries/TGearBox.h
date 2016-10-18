@@ -9,8 +9,6 @@
 
 NS_CORE_START
 
-//typedef size_t TGearNumber;						// номер передачи
-
 class TGearBox
 {
 private:
@@ -18,6 +16,9 @@ private:
 	TCode										m_code;
 	TChainArray									m_chains;
 	TGearChanger								m_gearChanger;
+
+	void										makeChains( TChainArray &chains ) const;
+	
 	
 protected:
 
@@ -27,11 +28,11 @@ public:
 
 	TGearBox( const TCode& code );
 
+	bool										createChains();
+
 	const TCode&								getCode() const;
 	const TChainArray&							getChains() const;
 	TChainArray									getChainsForCurrentGear() const;
-
-	bool										createChains();
 
 	bool										turnOnNextGear();
 };

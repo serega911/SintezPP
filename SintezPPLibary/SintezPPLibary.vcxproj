@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Libraries\ApplicationBase.cpp" />
     <ClCompile Include="..\Libraries\func_lib.cpp" />
     <ClCompile Include="..\Libraries\TChain.cpp" />
     <ClCompile Include="..\Libraries\TCode.cpp" />
@@ -26,17 +27,20 @@
     <ClCompile Include="..\Libraries\TKArray.h" />
     <ClCompile Include="..\Libraries\TLink.cpp" />
     <ClCompile Include="..\Libraries\TLog.cpp" />
+    <ClCompile Include="..\Libraries\TParser.cpp" />
     <ClCompile Include="..\Libraries\TRange.cpp" />
     <ClCompile Include="..\Libraries\TLoaderFromFile.cpp" />
     <ClCompile Include="..\Libraries\TSchemeCharacteristics.cpp" />
+    <ClCompile Include="..\Libraries\TSettings.cpp" />
+    <ClCompile Include="..\Libraries\TSettingsItem.cpp" />
     <ClCompile Include="..\Libraries\TSingletons.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\eMainElement.h" />
     <ClInclude Include="..\Libraries\func_lib.h" />
     <ClInclude Include="..\Libraries\GlobalDefines.h" />
-    <ClInclude Include="..\Libraries\IApplication.h" />
-    <ClInclude Include="..\Libraries\IContainer.h" />
+    <ClInclude Include="..\Libraries\ApplicationBase.h" />
+    <ClInclude Include="..\Libraries\IIOItem.h" />
     <ClInclude Include="..\Libraries\KinematicSchemeData.h" />
     <ClInclude Include="..\Libraries\TChain.h" />
     <ClInclude Include="..\Libraries\TCode.h" />
@@ -58,10 +62,14 @@
     <ClInclude Include="..\Libraries\TKValueArray.h" />
     <ClInclude Include="..\Libraries\TLink.h" />
     <ClInclude Include="..\Libraries\TLog.h" />
+    <ClInclude Include="..\Libraries\TParser.h" />
+    <ClInclude Include="..\Libraries\TParser_fwd.h" />
     <ClInclude Include="..\Libraries\TRange.h" />
     <ClInclude Include="..\Libraries\TLoaderFromFile.h" />
     <ClInclude Include="..\Libraries\TRangeArray.h" />
     <ClInclude Include="..\Libraries\TSchemeCharacteristics.h" />
+    <ClInclude Include="..\Libraries\TSettings.h" />
+    <ClInclude Include="..\Libraries\TSettingsItem.h" />
     <ClInclude Include="..\Libraries\TSingletons.h" />
     <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
   </ItemGroup>

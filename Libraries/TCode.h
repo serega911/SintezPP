@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "IContainer.h"
+#include "IIOItem.h"
 #include "TLink.h"
 #include "GlobalDefines.h"
 
@@ -9,7 +9,7 @@ NS_CORE_START
 
 
 
-class TCode: public IContainer
+class TCode: public IIOItem
 {
 private:
 
@@ -36,7 +36,7 @@ public:
 	// IContainer
 	void										writeToFile( std::ostream& ) const override;
 	bool										loadFromFile( std::istream& ) override;
-	size_t										size() const override;
+	size_t										size() const;
 
 };
 

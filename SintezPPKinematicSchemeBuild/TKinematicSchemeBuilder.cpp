@@ -7,7 +7,7 @@
 #include "../Libraries/TCombinatoricsValueArray.h"
 #include "../Libraries/TCode.h"
 #include "../Libraries/TK.h"
-#include "../Libraries/IContainer.h"
+#include "../Libraries/IIOItem.h"
 
 
 NS_ARI_USING
@@ -17,17 +17,7 @@ void ari::TKinematicSchemeBuilder::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Просмотр.  ====\n\n" );
 	//	Исходные данные
-	int w = 0;
-	int n = 0;
-	int d = 0;
-	NS_CORE TLog::log( "\t\t\tИсходные данные." );
-	NS_CORE TLog::log( "Число степеней свободы:	", false );
-	std::cin >> w;
-	NS_CORE TLog::log( "Количество ПМ:		", false );
-	std::cin >> n;
-	NS_CORE TLog::log( "Количество элементов управления:	", false );
-	std::cin >> d;
-	NS_CORE TSingletons::getInstance()->setGlobalParameters( w, n, d );
+	readWND();
 }
 
 TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCode & code, const core::TK & k )
@@ -154,7 +144,7 @@ void TKinematicSchemeBuilder::run()
 
 	core::TCode code;
 	core::TK k;
-	std::vector<core::IContainer*> containers;
+	std::vector<core::IIOItem*> containers;
 	containers.push_back( &code );
 	containers.push_back( &k );
 

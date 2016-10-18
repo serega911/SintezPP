@@ -9,6 +9,7 @@
 #include "TI.h"
 #include "GlobalDefines.h"
 #include "TCombinatorics.h"
+#include "TSettings.h"
 
 NS_CORE_START
 
@@ -53,6 +54,7 @@ public:
 	TIOFileManager*								getIOFileManager();
 	TLoaderFromFile*							getLoaderFromFile();
 	TCombinatorics*								getCombinatorics();
+	TSettings*									getSettings();
 
 	const GeneralData&							getGeneralData() const;
 	const InitialData&							getInitialData() const;

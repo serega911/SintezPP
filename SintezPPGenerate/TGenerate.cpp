@@ -12,17 +12,7 @@ void TGenerate::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE TLog::log( "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n" );
 	//	Исходные данные
-	size_t w = 0;
-	size_t n = 0;
-	size_t d = 0;
-	NS_CORE TLog::log( "\t\t\tИсходные данные." );
-	NS_CORE TLog::log( "Число степеней свободы:			", false );
-	std::cin >> w;
-	NS_CORE TLog::log( "Количество ПМ:				", false );
-	std::cin >> n;
-	NS_CORE TLog::log( "Количество элементов управления:	", false );
-	std::cin >> d;
-	NS_CORE TSingletons::getInstance()->setGlobalParameters( w, n, d );
+	readWND();
 
 	auto generalData = NS_CORE TSingletons::getInstance()->getGeneralData();
 	NS_CORE TLog::log( "Количество связей:	" + std::to_string( generalData._numberOfLinks ) );
@@ -150,7 +140,6 @@ void TGenerate::generateFrictions( const TGearBox & gearBox )
 				vect_frict.push_back(vect_all_frict[vect_combi_frict[i]]);
 			gearBoxWithFrictions.setFrictionsToCode( vect_frict );
 			
-			gearBoxWithFrictions.createChains();
 			if ( gearBoxWithFrictions.check( TGearBox::ALL ) )
 			{
 				generateBrakes( gearBoxWithFrictions );

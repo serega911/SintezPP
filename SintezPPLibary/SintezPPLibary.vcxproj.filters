@@ -34,9 +34,6 @@
     <Filter Include="StaticLib\types\TRange">
       <UniqueIdentifier>{af7269da-8292-434d-9901-7fca7f67c125}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StaticLib\IContainer">
-      <UniqueIdentifier>{6f93237f-bd21-4863-8623-7f863a8f7a45}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StaticLib\TGearBox">
       <UniqueIdentifier>{d40f7cf8-4111-4d3c-9e34-6b1460331784}</UniqueIdentifier>
     </Filter>
@@ -64,9 +61,6 @@
     <Filter Include="StaticLib\helpers\TLoaderFromFile">
       <UniqueIdentifier>{0e513cb3-4563-46bc-9295-73420db2c631}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StaticLib\IApplication">
-      <UniqueIdentifier>{7b534499-f692-4e07-9147-c81797d09da3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StaticLib\TSingletons\TCombinatorics">
       <UniqueIdentifier>{7607c417-4a10-47a2-b56e-b81c2e1187f3}</UniqueIdentifier>
     </Filter>
@@ -75,6 +69,21 @@
     </Filter>
     <Filter Include="StaticLib\TSchemeCharacteristics\KinematicSchemeData">
       <UniqueIdentifier>{292c37b2-a437-4516-8c5b-3a5789b9960c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\ApplicationBase">
+      <UniqueIdentifier>{7b534499-f692-4e07-9147-c81797d09da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TParser">
+      <UniqueIdentifier>{d3e53746-e3a1-4018-aa20-d5f04f086845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TSingletons\TSettings">
+      <UniqueIdentifier>{988de9f7-1b2e-40d7-b385-62e9ab36a54c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\IIOItem">
+      <UniqueIdentifier>{6f93237f-bd21-4863-8623-7f863a8f7a45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TSettingsItem">
+      <UniqueIdentifier>{1c0d32d7-996b-4516-80c9-f6f827bf28f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +144,18 @@
     <ClCompile Include="..\Libraries\TKArray.h">
       <Filter>StaticLib\types</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\ApplicationBase.cpp">
+      <Filter>StaticLib\ApplicationBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TParser.cpp">
+      <Filter>StaticLib\TParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TSettings.cpp">
+      <Filter>StaticLib\TSingletons\TSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\TSettingsItem.cpp">
+      <Filter>StaticLib\TSettingsItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
@@ -167,9 +188,6 @@
     <ClInclude Include="..\Libraries\TRange.h">
       <Filter>StaticLib\types\TRange</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\IContainer.h">
-      <Filter>StaticLib\IContainer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\TIOFileManager.h">
       <Filter>StaticLib\helpers\TIOFileManager</Filter>
     </ClInclude>
@@ -185,17 +203,11 @@
     <ClInclude Include="..\Libraries\TGaus.h">
       <Filter>StaticLib\helpers\TGaus</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TGearBox.h">
-      <Filter>StaticLib\TGearBox</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\TChainsContainer.h">
       <Filter>StaticLib\TCodeContainer</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TLoaderFromFile.h">
       <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\IApplication.h">
-      <Filter>StaticLib\IApplication</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
     <ClInclude Include="..\Libraries\TKValue.h">
@@ -230,6 +242,27 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\TIArray.h">
       <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TGearBox.h">
+      <Filter>StaticLib\TGearBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\ApplicationBase.h">
+      <Filter>StaticLib\ApplicationBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TParser.h">
+      <Filter>StaticLib\TParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TSettings.h">
+      <Filter>StaticLib\TSingletons\TSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IIOItem.h">
+      <Filter>StaticLib\IIOItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TSettingsItem.h">
+      <Filter>StaticLib\TSettingsItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TParser_fwd.h">
+      <Filter>StaticLib\TParser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

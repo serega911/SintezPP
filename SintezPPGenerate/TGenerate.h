@@ -6,13 +6,13 @@
 #include "../Libraries/TLink.h"
 #include "../Libraries/TChainsContainer.h"
 #include "../Libraries/GlobalDefines.h"
-#include "../Libraries/IApplication.h"
+#include "../Libraries/ApplicationBase.h"
 
 
 NS_ARI_START
 
 class TGenerate
-	: public NS_CORE IApplication
+	: public NS_CORE ApplicationBase
 {
 private:
 

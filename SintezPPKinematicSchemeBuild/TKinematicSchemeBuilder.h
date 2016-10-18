@@ -2,13 +2,13 @@
 
 #include "TKinematicScheme.h"
 #include"../Libraries/GlobalDefines.h"
-#include "../Libraries/IApplication.h"
+#include "../Libraries/ApplicationBase.h"
 #include "../Libraries/KinematicSchemeData.h"
 
 NS_ARI_START
 
 class TKinematicSchemeBuilder
-	: public NS_CORE IApplication
+	: public NS_CORE ApplicationBase
 {
 
 private:

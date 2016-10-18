@@ -74,6 +74,11 @@ TCombinatorics* TSingletons::getCombinatorics()
 	return TCombinatorics::getInstance();
 }
 
+TSettings* core::TSingletons::getSettings()
+{
+	return TSettings::getInstance();
+}
+
 const GeneralData& TSingletons::getGeneralData() const
 {
 	return m_generalData;
@@ -100,6 +105,7 @@ void TSingletons::setGlobalParameters( const size_t w, const size_t n, const siz
 
 	m_generalData._numberOfLinks = 2 * m_initialData._numberOfPlanetaryGears - m_initialData._w;
 
+	getIOFileManager()->init();
 	getIOFileManager()->writeSolutionData();
 }
 

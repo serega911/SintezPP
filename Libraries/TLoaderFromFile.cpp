@@ -14,7 +14,7 @@ TLoaderFromFile* TLoaderFromFile::getInstance()
 	return &loader;
 }
 
-bool TLoaderFromFile::load( std::vector<IContainer*> & conteiners, const TIOFileManager::eOutputFileType & file )
+bool TLoaderFromFile::load( std::vector<IIOItem*> & conteiners, const TIOFileManager::eOutputFileType & file )
 {
 	for ( size_t i = 0; i < conteiners.size(); i++ )
 	{
