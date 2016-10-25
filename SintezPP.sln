@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPKinematicSchemeBuil
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{70106352-CB3B-440E-9936-746D380F2ECA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPGenerate", "SintezPPGenerate\SintezPPGenerate.vcxproj", "{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -36,6 +38,10 @@ Global
 		{70106352-CB3B-440E-9936-746D380F2ECA}.Debug|Win32.Build.0 = Debug|Win32
 		{70106352-CB3B-440E-9936-746D380F2ECA}.Release|Win32.ActiveCfg = Release|Win32
 		{70106352-CB3B-440E-9936-746D380F2ECA}.Release|Win32.Build.0 = Release|Win32
+		{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}.Debug|Win32.Build.0 = Debug|Win32
+		{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}.Release|Win32.ActiveCfg = Release|Win32
+		{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

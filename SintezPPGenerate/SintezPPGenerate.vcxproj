@@ -78,6 +78,11 @@
     <ClInclude Include="TGearBox.h" />
     <ClInclude Include="TGenerate.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
+      <Project>{57148835-c16b-4085-994e-3443132160a9}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
