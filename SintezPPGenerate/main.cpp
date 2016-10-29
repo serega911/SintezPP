@@ -1,4 +1,4 @@
-#include "TGenerate.h"
+#include "Generate.h"
 
 #pragma comment(lib, "../Libraries/SintezPPLibary.lib")
 
@@ -6,7 +6,7 @@ NS_ARI_USING
 
 int main()
 {
-	TGenerate generator;
+	Generate generator;
 	generator.run();
 
 	return 0;

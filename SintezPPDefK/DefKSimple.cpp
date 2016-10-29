@@ -3,7 +3,7 @@
 #include "CheckAllPossibilities.h"
 #include "DefKSimple.h"
 #include "Equations.h"
-#include "../Libraries/TSingletons.h"
+#include "../Libraries/Singletons.h"
 
 NS_ARI_USING
 
@@ -11,16 +11,16 @@ ari::DefKSimple::DefKSimple()
 {
 }
 
-NS_CORE TKArray	 DefKSimple::calculate( const NS_CORE TCode& code )
+NS_CORE InternalGearRatioArray	 DefKSimple::calculate( const NS_CORE Code& code )
 {
 
-	const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
-	const NS_CORE TK initial( size );
-	NS_CORE TKArray	 ans;
+	const auto size = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	const NS_CORE InternalGearRatios initial( size );
+	NS_CORE InternalGearRatioArray	 ans;
 
-	auto calcFunc = [&]( const NS_CORE TI& curI ) -> bool
+	auto calcFunc = [&]( const NS_CORE Ratios& curI ) -> bool
 	{
-		NS_CORE TK k = findK( code, initial, curI );
+		NS_CORE InternalGearRatios k = findK( code, initial, curI );
 		 
 		if ( k.size() != 0 )
 		{
@@ -35,19 +35,19 @@ NS_CORE TKArray	 DefKSimple::calculate( const NS_CORE TCode& code )
 	return ans;
 }
 
-NS_CORE TK DefKSimple::findK( const NS_CORE TCode& code, const NS_CORE TK& initialKValues, const NS_CORE TI& iTarget )
+NS_CORE InternalGearRatios DefKSimple::findK( const NS_CORE Code& code, const NS_CORE InternalGearRatios& initialKValues, const NS_CORE Ratios& iTarget )
 {
 	System system;
 	system.init( initialKValues );
 
-	NS_CORE TGearBox gb( code );
+	NS_CORE GearBox gb( code );
 	gb.createChains();
 
 	int i = 0;
 	do
 	{
-		if ( !system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE TGearNumber( i + 1 ), iTarget[i] ) )
-			return NS_CORE TK();
+		if ( !system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE GearNumber( i + 1 ), iTarget[i] ) )
+			return NS_CORE InternalGearRatios();
 		i++;
 	} while ( gb.turnOnNextGear() );
 
@@ -75,9 +75,9 @@ std::vector<NS_CORE eMainElement> findOneUndefElem(const VariablesSet& set)
 }
 
 
-NS_CORE TK DefKSimple::solveSimple( System& system )
+NS_CORE InternalGearRatios DefKSimple::solveSimple( System& system )
 {
-	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 	const auto countOfEquations = initialData._numberOfGears * initialData._numberOfPlanetaryGears;
 	auto& unknowns = system.getUnknownVariables();
 	int solvedCount = 0;
@@ -89,7 +89,7 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 		{
 			for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 			{
-				auto& gearSetVariables = system.getVariablesSet( NS_CORE TGearNumber( i ), j );
+				auto& gearSetVariables = system.getVariablesSet( NS_CORE GearNumber( i ), j );
 				const auto undefElements = findOneUndefElem( gearSetVariables );
 				//если неизвестное одно - можем его найти
 				if ( undefElements.size() == 1 )
@@ -99,33 +99,33 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 
 					//отмечаем как известное
 					for ( auto& unknown : unknowns )
-						if ( unknown.findElementInListeners( NS_CORE TElement( undefElements[0], NS_CORE TGearSetNumber(j + 1) ), NS_CORE TGearNumber( i + 1 ) ) )
+						if ( unknown.findElementInListeners( NS_CORE Element( undefElements[0], NS_CORE GearSetNumber(j + 1) ), NS_CORE GearNumber( i + 1 ) ) )
 							unknown.setLastValue( value );
 
 					//проверяем всё ли мы нашли
 					if ( isAllKValuesFinded( system ) )
-						return getKValuesFromSystem( system );
+						return geInternalGearRatioValuesFromSystem( system );
 				}
 			}
 		}
 	} while ( solvedCount != 0 );
 
 	if ( isAllKValuesFinded( system ) )
-		return getKValuesFromSystem( system );
+		return geInternalGearRatioValuesFromSystem( system );
 	else
-		return NS_CORE TK();
+		return NS_CORE InternalGearRatios();
 
 }
 
-NS_CORE TK DefKSimple::getKValuesFromSystem( const System & system )
+NS_CORE InternalGearRatios DefKSimple::geInternalGearRatioValuesFromSystem( const System & system )
 {
-	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
-	NS_CORE TKValueArray kValues;
+	NS_CORE InternalGearRatioValueArray kValues;
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
 		if ( system.getUnknownVariables()[i].getIsDefined() )
-			kValues.push_back( NS_CORE TKValue( system.getUnknownVariables()[i].getValue() ) );
+			kValues.push_back( NS_CORE InternalGearRatioValue( system.getUnknownVariables()[i].getValue() ) );
 		else
 		{
 			kValues.clear();
@@ -133,14 +133,14 @@ NS_CORE TK DefKSimple::getKValuesFromSystem( const System & system )
 		}
 	}
 
-	NS_CORE TK ret( kValues );
+	NS_CORE InternalGearRatios ret( kValues );
 
 	return ret;
 }
 
 bool ari::DefKSimple::isAllKValuesFinded( const System & system )
 {
-	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
 	// check K values
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
@@ -154,7 +154,7 @@ bool ari::DefKSimple::isAllKValuesFinded( const System & system )
 	{
 		for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 		{
-			auto& gearSetVariables = system.getVariablesSet( NS_CORE TGearNumber( i ), j );
+			auto& gearSetVariables = system.getVariablesSet( NS_CORE GearNumber( i ), j );
 			const auto undefElements = findOneUndefElem( gearSetVariables );
 
 			if ( 0 == undefElements.size() )

@@ -3,8 +3,8 @@
 #include "../Libraries/GlobalDefines.h"
 
 #include "Variable.h"
-#include "../Libraries/TElement.h"
-#include "../Libraries/TGearBox.h"
+#include "../Libraries/Element.h"
+#include "../Libraries/GearBox.h"
 #include <set>
 
 
@@ -35,7 +35,7 @@ public:
 	void										deleteListener( Variable* listener );
 	const std::set<Variable*>					getAllListeners() const;
 
-	bool										findElementInListeners( const NS_CORE TElement & element, const NS_CORE TGearNumber gear );
+	bool										findElementInListeners( const NS_CORE Element & element, const NS_CORE GearNumber gear );
 
 	bool										getIsDefined() const;
 	void										setLastValue( const VariableValue & value );

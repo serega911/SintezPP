@@ -90,188 +90,191 @@
     <ClCompile Include="..\Libraries\func_lib.cpp">
       <Filter>StaticLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TCode.cpp">
-      <Filter>StaticLib\TGearBox\TCode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TLink.cpp">
-      <Filter>StaticLib\TGearBox\TLink</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TElement.cpp">
-      <Filter>StaticLib\TGearBox\TElement</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TChain.cpp">
-      <Filter>StaticLib\TGearBox\TChain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TSingletons.cpp">
-      <Filter>StaticLib\TSingletons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TK.cpp">
-      <Filter>StaticLib\TK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TI.cpp">
-      <Filter>StaticLib\TI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TRange.cpp">
-      <Filter>StaticLib\types\TRange</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TIOFileManager.cpp">
-      <Filter>StaticLib\helpers\TIOFileManager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TGearChanger.cpp">
-      <Filter>StaticLib\TGearBox\TGearChanger</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TLog.cpp">
-      <Filter>StaticLib\helpers\TLog</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TGaus.cpp">
-      <Filter>StaticLib\helpers\TGaus</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TGearBox.cpp">
-      <Filter>StaticLib\TGearBox</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TChainsContainer.cpp">
-      <Filter>StaticLib\TChainsContainer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TLoaderFromFile.cpp">
-      <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TCombinatorics.cpp">
-      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TSchemeCharacteristics.cpp">
-      <Filter>StaticLib\TSchemeCharacteristics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\TKArray.h">
-      <Filter>StaticLib\types</Filter>
-    </ClCompile>
     <ClCompile Include="..\Libraries\ApplicationBase.cpp">
       <Filter>StaticLib\ApplicationBase</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TParser.cpp">
+    <ClCompile Include="..\Libraries\GearBox.cpp">
+      <Filter>StaticLib\TGearBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Gaus.cpp">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\IOFileManager.cpp">
+      <Filter>StaticLib\helpers\TIOFileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\LoaderFromFile.cpp">
+      <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Log.cpp">
+      <Filter>StaticLib\helpers\TLog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\ChainsContainer.cpp">
+      <Filter>StaticLib\TChainsContainer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Chain.cpp">
+      <Filter>StaticLib\TGearBox\TChain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Code.cpp">
+      <Filter>StaticLib\TGearBox\TCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Element.cpp">
+      <Filter>StaticLib\TGearBox\TElement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\GearChanger.cpp">
+      <Filter>StaticLib\TGearBox\TGearChanger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Link.cpp">
+      <Filter>StaticLib\TGearBox\TLink</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Ratios.cpp">
+      <Filter>StaticLib\TI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Parser.cpp">
       <Filter>StaticLib\TParser</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TSettings.cpp">
+    <ClCompile Include="..\Libraries\SchemeCharacteristics.cpp">
+      <Filter>StaticLib\TSchemeCharacteristics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\SettingsItem.cpp">
+      <Filter>StaticLib\TSettingsItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Combinatorics.cpp">
+      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Settings.cpp">
       <Filter>StaticLib\TSingletons\TSettings</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\TSettingsItem.cpp">
-      <Filter>StaticLib\TSettingsItem</Filter>
+    <ClCompile Include="..\Libraries\Singletons.cpp">
+      <Filter>StaticLib\TSingletons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\InternalGearRatioArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\InternalGearRatios.cpp">
+      <Filter>StaticLib\TK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\Range.cpp">
+      <Filter>StaticLib\types\TRange</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\func_lib.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TCode.h">
-      <Filter>StaticLib\TGearBox\TCode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TLink.h">
-      <Filter>StaticLib\TGearBox\TLink</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TElement.h">
-      <Filter>StaticLib\TGearBox\TElement</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TChain.h">
-      <Filter>StaticLib\TGearBox\TChain</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\eMainElement.h">
       <Filter>StaticLib\enums</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TSingletons.h">
-      <Filter>StaticLib\TSingletons</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TK.h">
-      <Filter>StaticLib\TK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TI.h">
-      <Filter>StaticLib\TI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TRange.h">
-      <Filter>StaticLib\types\TRange</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TIOFileManager.h">
-      <Filter>StaticLib\helpers\TIOFileManager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TGearChanger.h">
-      <Filter>StaticLib\TGearBox\TGearChanger</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TLog.h">
-      <Filter>StaticLib\helpers\TLog</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\GlobalDefines.h">
       <Filter>StaticLib\defines</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TGaus.h">
-      <Filter>StaticLib\helpers\TGaus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TChainsContainer.h">
-      <Filter>StaticLib\TChainsContainer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TLoaderFromFile.h">
-      <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
-    <ClInclude Include="..\Libraries\TKValue.h">
-      <Filter>StaticLib\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TKValueArray.h">
-      <Filter>StaticLib\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TIValue.h">
-      <Filter>StaticLib\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TIValueArray.h">
-      <Filter>StaticLib\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TGearNumber.h">
-      <Filter>StaticLib\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TRangeArray.h">
-      <Filter>StaticLib\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCombinatorics.h">
-      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TCombinatoricsValueArray.h">
-      <Filter>StaticLib\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TSchemeCharacteristics.h">
-      <Filter>StaticLib\TSchemeCharacteristics</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\KinematicSchemeData.h">
       <Filter>StaticLib\TSchemeCharacteristics\KinematicSchemeData</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TIArray.h">
-      <Filter>StaticLib\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TGearBox.h">
-      <Filter>StaticLib\TGearBox</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\ApplicationBase.h">
       <Filter>StaticLib\ApplicationBase</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TParser.h">
-      <Filter>StaticLib\TParser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\TSettings.h">
-      <Filter>StaticLib\TSingletons\TSettings</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\IIOItem.h">
       <Filter>StaticLib\IIOItem</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TSettingsItem.h">
-      <Filter>StaticLib\TSettingsItem</Filter>
+    <ClInclude Include="..\Libraries\eMainElementArray.h">
+      <Filter>StaticLib\types</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TParser_fwd.h">
+    <ClInclude Include="..\Libraries\GearBox.h">
+      <Filter>StaticLib\TGearBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Gaus.h">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IOFileManager.h">
+      <Filter>StaticLib\helpers\TIOFileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\LoaderFromFile.h">
+      <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Log.h">
+      <Filter>StaticLib\helpers\TLog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\ChainsContainer.h">
+      <Filter>StaticLib\TChainsContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Chain.h">
+      <Filter>StaticLib\TGearBox\TChain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Code.h">
+      <Filter>StaticLib\TGearBox\TCode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Element.h">
+      <Filter>StaticLib\TGearBox\TElement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\GearChanger.h">
+      <Filter>StaticLib\TGearBox\TGearChanger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Link.h">
+      <Filter>StaticLib\TGearBox\TLink</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Ratios.h">
+      <Filter>StaticLib\TI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Parser.h">
       <Filter>StaticLib\TParser</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TElementArray.h">
+    <ClInclude Include="..\Libraries\Parser_fwd.h">
+      <Filter>StaticLib\TParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\SchemeCharacteristics.h">
+      <Filter>StaticLib\TSchemeCharacteristics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\SettingsItem.h">
+      <Filter>StaticLib\TSettingsItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Combinatorics.h">
+      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Settings.h">
+      <Filter>StaticLib\TSingletons\TSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Singletons.h">
+      <Filter>StaticLib\TSingletons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\ChainArray.h">
       <Filter>StaticLib\types</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TGearSetNumber.h">
+    <ClInclude Include="..\Libraries\CombinatoricsValueArray.h">
       <Filter>StaticLib\types</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\TChainArray.h">
+    <ClInclude Include="..\Libraries\ElementArray.h">
       <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\GearNumber.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\GearSetNumber.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\RatiosArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\RatioValue.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\RatioValueArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\InternalGearRatios.h">
+      <Filter>StaticLib\TK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\InternalGearRatioValue.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\InternalGearRatioValueArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\RangeArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Range.h">
+      <Filter>StaticLib\types\TRange</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

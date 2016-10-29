@@ -69,13 +69,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TCordinates.cpp" />
-    <ClCompile Include="TKinematicScheme.cpp" />
-    <ClCompile Include="TKinematicSchemeBuilder.cpp" />
-    <ClCompile Include="TPathBuilder.cpp" />
-    <ClCompile Include="TPlanetaryGearSet.cpp" />
-    <ClCompile Include="TRoute.cpp" />
-    <ClCompile Include="TViewer.cpp" />
+    <ClCompile Include="Cordinates.cpp" />
+    <ClCompile Include="KinematicScheme.cpp" />
+    <ClCompile Include="KinematicSchemeBuilder.cpp" />
+    <ClCompile Include="PathBuilder.cpp" />
+    <ClCompile Include="PlanetaryGearSet.cpp" />
+    <ClCompile Include="Route.cpp" />
+    <ClCompile Include="Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
@@ -85,13 +85,13 @@
   <ItemGroup>
     <ClInclude Include="Defines.h" />
     <ClInclude Include="eDirection.h" />
-    <ClInclude Include="TCordinates.h" />
-    <ClInclude Include="TKinematicScheme.h" />
-    <ClInclude Include="TKinematicSchemeBuilder.h" />
-    <ClInclude Include="TPathBuilder.h" />
-    <ClInclude Include="TPlanetaryGearSet.h" />
-    <ClInclude Include="TRoute.h" />
-    <ClInclude Include="TViewer.h" />
+    <ClInclude Include="Cordinates.h" />
+    <ClInclude Include="KinematicScheme.h" />
+    <ClInclude Include="KinematicSchemeBuilder.h" />
+    <ClInclude Include="PathBuilder.h" />
+    <ClInclude Include="PlanetaryGearSet.h" />
+    <ClInclude Include="Route.h" />
+    <ClInclude Include="Viewer.h" />
     <ClInclude Include="TViewer_fwd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

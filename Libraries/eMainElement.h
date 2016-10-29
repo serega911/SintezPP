@@ -2,12 +2,9 @@
 
 #include<vector>
 #include "GlobalDefines.h"
-#include "TLog.h"
+#include "Log.h"
 
 NS_CORE_START
-
-enum class eMainElement;
-typedef std::vector<eMainElement> eMainElementArray;
 
 enum class eMainElement
 {
@@ -46,7 +43,7 @@ inline int convernToInt( const eMainElement& e )
 		ret = 3;
 		break;
 	default:
-		TLog::warning( true, "Wrong convertation from eMainElement to int.", TLog::CRITICAL, "inline int convernToInt( const eMainElement& e )" );
+		Log::warning( true, "Wrong convertation from eMainElement to int.", Log::CRITICAL, "inline int convernToInt( const eMainElement& e )" );
 		break;
 	}
 

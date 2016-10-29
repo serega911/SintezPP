@@ -4,8 +4,8 @@
 
 #include "Defines.h"
 
-#include "../Libraries/TElement.h"
-#include "../Libraries/TGearNumber.h"
+#include "../Libraries/Element.h"
+#include "../Libraries/GearNumber.h"
 
 
 NS_ARI_START
@@ -16,19 +16,19 @@ private:
 
 	VariableValue								m_value;
 	bool										m_isDefined;
-	NS_CORE TElement							m_element;
-	NS_CORE TGearNumber							m_gear;
+	NS_CORE Element							m_element;
+	NS_CORE GearNumber							m_gear;
 
 public:
 
 	void										setDefined( bool isDefined );
 	void										setValue( const VariableValue & value );
-	void										setElement( const NS_CORE TElement & element, const NS_CORE TGearNumber& gear );
+	void										setElement( const NS_CORE Element & element, const NS_CORE GearNumber& gear );
 
-	NS_CORE TElement							getElement() const;
+	NS_CORE Element							getElement() const;
 	bool										getDefined() const;
 	VariableValue								getValue() const;
-	NS_CORE TGearNumber							getGear() const;
+	NS_CORE GearNumber							getGear() const;
 
 	void										onChangeUnknownVariableValue( const VariableValue & newValue );
 };

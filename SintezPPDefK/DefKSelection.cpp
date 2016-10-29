@@ -1,14 +1,14 @@
 #include "DefKSelection.h"
-#include "../Libraries/TGaus.h"
-#include "../Libraries/TGearChanger.h"
-#include "../Libraries/TSingletons.h"
+#include "../Libraries/Gaus.h"
+#include "../Libraries/GearChanger.h"
+#include "../Libraries/Singletons.h"
 
 NS_ARI_USING
 
-NS_CORE TKArray	 DefKSelection::calculate( const NS_CORE TCode& Code )
+NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Code )
 {
-	TK K( NS_CORE TKValue( 0.1 ) );
-	NS_CORE TKArray	 ans;
+	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.1 ) );
+	NS_CORE InternalGearRatioArray	 ans;
 	bool isSolutionExist = false;
 	size_t failedCount = 0;
 	const size_t failedLimit = 5;
@@ -16,11 +16,11 @@ NS_CORE TKArray	 DefKSelection::calculate( const NS_CORE TCode& Code )
 
 	do{
 		auto ret = podModul( Code, K );
-		if ( core::TSingletons::getInstance()->getInitialData()._i == ret )
+		if ( core::Singletons::getInstance()->getInitialData()._i == ret )
 		{
 			ans.emplace_back( K );
 		}
-		else if ( core::TSingletons::getInstance()->getInitialData()._numberOfGears > countOfDifferent( core::TSingletons::getInstance()->getInitialData()._i ) )
+		else if ( core::Singletons::getInstance()->getInitialData()._numberOfGears > countOfDifferent( core::Singletons::getInstance()->getInitialData()._i ) )
 		{
 			if ( failedCount < failedLimit )
 				failedCount++;
@@ -33,29 +33,29 @@ NS_CORE TKArray	 DefKSelection::calculate( const NS_CORE TCode& Code )
 	return ans;
 }
 
-NS_CORE TI DefKSelection::podModul( const NS_CORE TCode & code, const TK &k )
+NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const InternalGearRatios &k )
 {
-	NS_CORE TGearChanger gearChanger( code );
-	NS_CORE TI tmpI( NS_CORE TIValueArray(), NS_CORE TIValue( 0.001 ) );	//вектор для полученных передаточных отношений при данном наборе K
+	NS_CORE GearChanger gearChanger( code );
+	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.001 ) );	//вектор для полученных передаточных отношений при данном наборе K
 	do
 	{
-		NS_CORE TGaus gaus;
+		NS_CORE Gaus gaus;
 		gaus.createSystem( code, k );
 		gaus.createSystemDrivers( gearChanger.getDrivingElementsForGear() );
 		gaus.solve();
 		if ( gaus.getSolution().size() == 0 )
 		{
-			return NS_CORE TI();
+			return NS_CORE Ratios();
 		}
 		const auto codeValues = code.getCode();
 		double calculatedI = gaus.getSolution()[codeValues[1].getElem1().getSerialNumber()];
-		if ( abs( calculatedI ) > 0.001 && core::TSingletons::getInstance()->getInitialData()._i.findIn( NS_CORE TIValue( 1.0 / calculatedI ) ) )
+		if ( abs( calculatedI ) > 0.001 && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( 1.0 / calculatedI ) ) )
 		{
-			tmpI.push_back( NS_CORE TIValue( 1.0 / calculatedI ) );
+			tmpI.push_back( NS_CORE RatioValue( 1.0 / calculatedI ) );
 		}
 		else
 		{
-			return NS_CORE TI();
+			return NS_CORE Ratios();
 		}
 
 	} while ( gearChanger.next() );
@@ -63,7 +63,7 @@ NS_CORE TI DefKSelection::podModul( const NS_CORE TCode & code, const TK &k )
 	return tmpI;
 }
 
-size_t ari::DefKSelection::countOfDifferent( const NS_CORE TI& calculatedI )
+size_t ari::DefKSelection::countOfDifferent( const NS_CORE Ratios& calculatedI )
 {
 	size_t ret = 0;
 	bool isUnique = true;

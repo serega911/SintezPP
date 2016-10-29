@@ -1,6 +1,6 @@
 #include "Jacobi.h"
 #include "Equations.h"
-#include "../Libraries/TLog.h"
+#include "../Libraries/Log.h"
 #include <iostream>
 
 NS_ARI_USING
@@ -26,7 +26,7 @@ void Jacobi::setSize( size_t size )
 
 void Jacobi::setEquation( size_t i, size_t j, const Equation & eq )
 {
-	NS_CORE TLog::warning( i >= m_size && j >= m_size, "i,j out of range.", NS_CORE TLog::CRITICAL, "Determinant.cpp" );
+	NS_CORE Log::warning( i >= m_size && j >= m_size, "i,j out of range.", NS_CORE Log::CRITICAL, "Determinant.cpp" );
 	m_determinant.at( i ).at( j ) = eq;
 }
 

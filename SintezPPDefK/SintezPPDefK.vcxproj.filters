@@ -35,10 +35,10 @@
     <ClCompile Include="DefKSimple.cpp">
       <Filter>Files\Simple</Filter>
     </ClCompile>
-    <ClCompile Include="TK.cpp">
+    <ClCompile Include="DefKSelection.cpp">
       <Filter>Files\Selection</Filter>
     </ClCompile>
-    <ClCompile Include="DefKSelection.cpp">
+    <ClCompile Include="InternalGearRatios.cpp">
       <Filter>Files\Selection</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,14 +123,14 @@
     <ClInclude Include="DefKSelection.h">
       <Filter>Files\Selection</Filter>
     </ClInclude>
-    <ClInclude Include="TK.h">
-      <Filter>Files\Selection</Filter>
-    </ClInclude>
     <ClInclude Include="CheckAllPossibilities.h">
       <Filter>Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalGearRatios.h">
+      <Filter>Files\Selection</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

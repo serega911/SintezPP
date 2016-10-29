@@ -3,24 +3,24 @@
 #include "Matrix.h"
 #include "MatrixOperations.h"
 #include "CheckAllPossibilities.h"
-#include "../Libraries/TGearChanger.h"
-#include "../Libraries/TSingletons.h"
+#include "../Libraries/GearChanger.h"
+#include "../Libraries/Singletons.h"
 
 #include <iostream>
 
 NS_ARI_USING
 
-NS_CORE TKArray DefKNuton::calculate( const NS_CORE TCode& code )
+NS_CORE InternalGearRatioArray DefKNuton::calculate( const NS_CORE Code& code )
 {
 	//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, code );
 
-	const auto size = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
-	NS_CORE TK initial;
-	NS_CORE TKArray ans;
+	const auto size = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	NS_CORE InternalGearRatios initial;
+	NS_CORE InternalGearRatioArray ans;
 
-	auto calcFuncPrenum = [&]( const NS_CORE TI& curI ) -> bool
+	auto calcFuncPrenum = [&]( const NS_CORE Ratios& curI ) -> bool
 	{
-		NS_CORE TK k = findK( code, initial, curI );
+		NS_CORE InternalGearRatios k = findK( code, initial, curI );
 
 		if ( k.size() > 0 )
 		{
@@ -32,7 +32,7 @@ NS_CORE TKArray DefKNuton::calculate( const NS_CORE TCode& code )
 		return true;
 	};
 
-	auto calcFuncK = [&]( const NS_CORE TK& init ) -> bool
+	auto calcFuncK = [&]( const NS_CORE InternalGearRatios& init ) -> bool
 	{
 		initial = init;
 		CheckAllPossibilities::checkAllRatiosPermutations( calcFuncPrenum );
@@ -45,18 +45,18 @@ NS_CORE TKArray DefKNuton::calculate( const NS_CORE TCode& code )
 	return ans;
 }
 
-NS_CORE TK DefKNuton::findK( const NS_CORE TCode& code, const NS_CORE TK& initialKValues, const NS_CORE TI& iTarget )
+NS_CORE InternalGearRatios DefKNuton::findK( const NS_CORE Code& code, const NS_CORE InternalGearRatios& initialKValues, const NS_CORE Ratios& iTarget )
 {
 	System system;
 	system.init( initialKValues );
 
-	NS_CORE TGearBox gb( code );
+	NS_CORE GearBox gb( code );
 	gb.createChains();
 
 	int i = 0;
 	do
 	{
-		system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE TGearNumber( i + 1 ), iTarget[i] );
+		system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE GearNumber( i + 1 ), iTarget[i] );
 		i++;
 	} while ( gb.turnOnNextGear() );
 
@@ -71,7 +71,7 @@ Jacobi DefKNuton::createJacobian( const System & system )
 	
 	auto undefinedVar = system.getUnknownVariables();
 
-	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
 	if ( initialData._numberOfGears * initialData._numberOfPlanetaryGears == undefinedVar.size() )
 	{
@@ -83,10 +83,10 @@ Jacobi DefKNuton::createJacobian( const System & system )
 				for ( size_t k = 0; k < undefinedVar.size(); k++ )
 				{
 					auto undefVarListeners = undefinedVar[k].getAllListeners();
-					auto gearSetVariables = system.getVariablesSet( NS_CORE TGearNumber( i ), j );
+					auto gearSetVariables = system.getVariablesSet( NS_CORE GearNumber( i ), j );
 					for ( const auto & variable : undefVarListeners )
 					{
-						if ( ( !gearSetVariables[variable->getElement().getElemN()].getDefined() ) && variable->getElement().getGearSetN().getValue() == j + 1 && variable->getGear() == NS_CORE TGearNumber( i + 1 ) )
+						if ( ( !gearSetVariables[variable->getElement().getElemN()].getDefined() ) && variable->getElement().getGearSetN().getValue() == j + 1 && variable->getGear() == NS_CORE GearNumber( i + 1 ) )
 						{
 							auto eq = Equations::getEquation( variable->getElement().getElemN() );
 							det.setEquation( i*initialData._numberOfPlanetaryGears + j, k, eq );
@@ -119,7 +119,7 @@ double DefKNuton::calcNorm( const MatrixLine& delta )
 	return norm;
 }
 
-NS_CORE TK DefKNuton::solveNuton( const Jacobi& jacobian, System& system )
+NS_CORE InternalGearRatios DefKNuton::solveNuton( const Jacobi& jacobian, System& system )
 {
 	const double eps = 0.001;
 	const int maxIterCount = 100;
@@ -156,26 +156,26 @@ NS_CORE TK DefKNuton::solveNuton( const Jacobi& jacobian, System& system )
 		}
 	} while ( !notFinded && norm >= eps );
 
-	NS_CORE TK ans;
+	NS_CORE InternalGearRatios ans;
 	if ( !notFinded )
 	{
-		ans = getKValuesFromSystem( system );
+		ans = geInternalGearRatioValuesFromSystem( system );
 	}
 
 	return ans;
 }
 
-NS_CORE TK DefKNuton::getKValuesFromSystem( const System & system )
+NS_CORE InternalGearRatios DefKNuton::geInternalGearRatioValuesFromSystem( const System & system )
 {
-	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
-	NS_CORE TKValueArray kValues;
+	NS_CORE InternalGearRatioValueArray kValues;
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
-		kValues.push_back( NS_CORE TKValue( system.getUnknownVariables()[i].getValue() ) );
+		kValues.push_back( NS_CORE InternalGearRatioValue( system.getUnknownVariables()[i].getValue() ) );
 	}
 	
-	NS_CORE TK ret;
+	NS_CORE InternalGearRatios ret;
 	ret.setValues( kValues );
 
 	return ret;
@@ -183,14 +183,14 @@ NS_CORE TK DefKNuton::getKValuesFromSystem( const System & system )
 
 MatrixLine DefKNuton::createRightParts( const System & system )
 {
-	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
 	MatrixLine rightParts( initialData._numberOfGears *initialData._numberOfPlanetaryGears );
 	for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 	{
 		for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 		{
-			rightParts[i * initialData._numberOfPlanetaryGears + j] = -Equations::wyllys( system.getVariablesSet( NS_CORE TGearNumber( i ), j ) );
+			rightParts[i * initialData._numberOfPlanetaryGears + j] = -Equations::wyllys( system.getVariablesSet( NS_CORE GearNumber( i ), j ) );
 		}
 	}
 
@@ -204,7 +204,7 @@ Matrix DefKNuton::createMatrix( const Jacobi& jacobian, const System & system )
 	Matrix ret( size );
 	auto undefinedVar = system.getUnknownVariables();
 
-	const auto& initialData = NS_CORE TSingletons::getInstance()->getInitialData();
+	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 	
 	for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 	{
@@ -212,7 +212,7 @@ Matrix DefKNuton::createMatrix( const Jacobi& jacobian, const System & system )
 		{
 			for ( size_t k = 0; k < undefinedVar.size(); k++ )
 			{
-				ret.at( i*initialData._numberOfPlanetaryGears + j, k ) = jacobian[i*initialData._numberOfPlanetaryGears + j][k]( system.getVariablesSet( NS_CORE TGearNumber( i ), j ) );
+				ret.at( i*initialData._numberOfPlanetaryGears + j, k ) = jacobian[i*initialData._numberOfPlanetaryGears + j][k]( system.getVariablesSet( NS_CORE GearNumber( i ), j ) );
 			}
 		}
 	}
