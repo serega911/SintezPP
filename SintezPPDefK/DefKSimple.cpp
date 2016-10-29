@@ -99,7 +99,7 @@ NS_CORE TK DefKSimple::solveSimple( System& system )
 
 					//отмечаем как известное
 					for ( auto& unknown : unknowns )
-						if ( unknown.findElementInListeners( NS_CORE TElement( undefElements[0], j + 1 ), NS_CORE TGearNumber( i + 1 ) ) )
+						if ( unknown.findElementInListeners( NS_CORE TElement( undefElements[0], NS_CORE TGearSetNumber(j + 1) ), NS_CORE TGearNumber( i + 1 ) ) )
 							unknown.setLastValue( value );
 
 					//проверяем всё ли мы нашли

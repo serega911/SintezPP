@@ -5,13 +5,9 @@
 
 #include "eMainElement.h"
 #include "GlobalDefines.h"
+#include "TGearSetNumber.h"
 
 NS_CORE_START
-
-class TElement;
-typedef std::vector<TElement> TElementArray;
-typedef size_t TGearSetNumber;					// номер планетарного ряда
-
 
 class TElement
 {

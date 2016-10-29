@@ -31,7 +31,7 @@ TKinematicScheme TKinematicSchemeBuilder::creatKinematicScheme( const core::TCod
 	for ( size_t i = 0; i < numberOfPlanetaryGears; i++ )
 	{
 		TPlanetaryGearSet set;
-		set.create( i + 1, getPlanetaryGearSetType( k[i] ) );
+		set.create( NS_CORE TGearSetNumber(i + 1), getPlanetaryGearSetType( k[i] ) );
 		scheme.addGearSet( set );
 	}
 

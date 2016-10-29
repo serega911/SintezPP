@@ -13,7 +13,7 @@ void System::addDefinedChain( const NS_CORE TChain& chain, const VariableValue &
 	{
 		if ( elem != NS_CORE TElement::INPUT && elem != NS_CORE TElement::OUTPUT && elem != NS_CORE TElement::BRAKE )
 		{
-			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN() - 1][elem.getElemN()];
+			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN().getValue() - 1][elem.getElemN()];
 			variable.setDefined( true );
 			variable.setElement( elem, gear );
 			variable.setValue( value );
@@ -31,7 +31,7 @@ void System::addUndefinedChain( const NS_CORE TChain& chain, const VariableValue
 	{
 		if ( elem != NS_CORE TElement::INPUT && elem != NS_CORE TElement::OUTPUT && elem != NS_CORE TElement::BRAKE )
 		{
-			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN() - 1][elem.getElemN()];
+			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN().getValue() - 1][elem.getElemN()];
 			variable.setDefined( false );
 			variable.setElement( elem, gear );
 			unknown.addListener( &variable );
@@ -125,7 +125,7 @@ void System::init( const NS_CORE TK& initialKValues )
 		{
 			unknown.addListener( &( m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY] ) );
 			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setDefined( false );
-			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE TElement( NS_CORE eMainElement::EMPTY, planetaryGear + 1 ), NS_CORE TGearNumber( gear + 1 ) );
+			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE TElement( NS_CORE eMainElement::EMPTY, NS_CORE TGearSetNumber(planetaryGear + 1) ), NS_CORE TGearNumber( gear + 1 ) );
 		}
 	}
 }

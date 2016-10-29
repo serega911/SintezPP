@@ -3,10 +3,10 @@
 
 NS_CORE_USING
 
-const TElement TElement::INPUT =		TElement(eMainElement::INPUT, 0);
-const TElement TElement::OUTPUT =		TElement(eMainElement::OUTPUT, 0);
-const TElement TElement::BRAKE =		TElement(eMainElement::BRAKE, 0);
-const TElement TElement::EMPTY =		TElement(eMainElement::EMPTY, 0);
+const TElement TElement::INPUT =		TElement(eMainElement::INPUT, TGearSetNumber(0));
+const TElement TElement::OUTPUT =		TElement( eMainElement::OUTPUT, TGearSetNumber( 0 ) );
+const TElement TElement::BRAKE =		TElement( eMainElement::BRAKE, TGearSetNumber( 0 ) );
+const TElement TElement::EMPTY =		TElement( eMainElement::EMPTY, TGearSetNumber( 0 ) );
 
 TElement::TElement( const eMainElement& elemN, const TGearSetNumber& gearSetN )
 	: m_elemN( elemN )
@@ -15,7 +15,7 @@ TElement::TElement( const eMainElement& elemN, const TGearSetNumber& gearSetN )
 }
 
 TElement::TElement()
-	: TElement( eMainElement::EMPTY, 0 )
+	: TElement( eMainElement::EMPTY, TGearSetNumber(0) )
 {
 }
 
@@ -36,7 +36,7 @@ TGearSetNumber TElement::getGearSetN() const
 
 int TElement::getSerialNumber() const
 {
-	return ( m_gearSetN - 1 ) * 3 + convernToInt( m_elemN ) - 1;
+	return ( m_gearSetN.getValue() - 1 ) * 3 + convernToInt( m_elemN ) - 1;
 }
 
 bool NS_CORE operator<( const TElement& elem1, const TElement& elem2 )
@@ -58,12 +58,12 @@ bool NS_CORE operator!=( const TElement& elem1, const TElement& elem2 )
 void TElement::print() const
 {
 	TLog::log( std::string( 1, convernToSymbol( m_elemN ) ), false );
-	TLog::log( std::to_string( m_gearSetN ), false );
+	TLog::log( std::to_string( m_gearSetN.getValue() ), false );
 }
 
 void TElement::writeTofile( std::ostream& file ) const
 {
-	file << convernToSymbol( m_elemN ) << m_gearSetN;
+	file << convernToSymbol( m_elemN ) << m_gearSetN.getValue();
 }
 
 bool TElement::loadFromFile( std::istream& file )

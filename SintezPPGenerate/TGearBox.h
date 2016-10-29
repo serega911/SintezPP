@@ -1,5 +1,6 @@
 #include "../Libraries/GlobalDefines.h"
 #include "../Libraries/TGearBox.h"
+#include "../Libraries/TElementArray.h"
 
 NS_ARI_START
 

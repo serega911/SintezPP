@@ -3,6 +3,8 @@
 #include <vector>
 #include "../Libraries/TChain.h"
 #include "../Libraries/GlobalDefines.h"
+#include "../Libraries/TGearSetNumber.h"
+#include "../Libraries/TChainArray.h"
 
 NS_ARI_START
 
@@ -10,7 +12,7 @@ class TPlanetaryGearSet
 {
 public:
 
-	typedef std::vector<std::vector<core::TChain>> Field;
+	typedef std::vector<NS_CORE TChainArray> Field;
 
 	enum class Type
 	{
@@ -32,8 +34,8 @@ private:
 	NS_CORE TGearSetNumber						m_gearSetN;
 
 	void										resetField();
-	void										createTypeN( int gearSetN );
-	void										createTypeDefault( int gearSetN );
+	void										createTypeN( NS_CORE TGearSetNumber gearSetN );
+	void										createTypeDefault( NS_CORE TGearSetNumber gearSetN );
 	void										reverseX();
 	void										reverseY();
 public:
@@ -41,7 +43,7 @@ public:
 	void										print();
 	void										printLine( int xPos );
 
-	void										create( int gearSetN, Type type );
+	void										create( NS_CORE TGearSetNumber gearSetN, Type type );
 
 	NS_CORE TChainArray&						operator[]( int xPos );
 	const NS_CORE TChainArray&					operator[]( int xPos ) const;

@@ -14,6 +14,7 @@ private:
 
 	TLoaderFromFile();
 	TLoaderFromFile( const TLoaderFromFile& ) = delete;
+
 	TLoaderFromFile&							operator=( TLoaderFromFile& ) = delete;
 
 public:

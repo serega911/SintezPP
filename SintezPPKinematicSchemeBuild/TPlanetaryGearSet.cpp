@@ -39,7 +39,7 @@ void TPlanetaryGearSet::printLine( int yPos )
 	}
 }
 
-void TPlanetaryGearSet::create( int gearSetN, Type type )
+void TPlanetaryGearSet::create( NS_CORE TGearSetNumber gearSetN, Type type )
 {
 	m_gearSetN = gearSetN;
 	resetField();
@@ -88,7 +88,7 @@ void TPlanetaryGearSet::resetField()
 	}
 }
 
-void TPlanetaryGearSet::createTypeN( int gearSetN )
+void TPlanetaryGearSet::createTypeN( NS_CORE TGearSetNumber gearSetN )
 {
 	for ( auto y = s_centerY - 1; y < s_centerY + 2; y++ )
 	{
@@ -116,7 +116,7 @@ void TPlanetaryGearSet::createTypeN( int gearSetN )
 	// # # # # # # # # #			->x	^y
 }
 
-void TPlanetaryGearSet::createTypeDefault( int gearSetN )
+void TPlanetaryGearSet::createTypeDefault( NS_CORE TGearSetNumber gearSetN )
 {
 	m_field[s_centerX][s_centerY + 2].addElementToChain( core::TElement( core::eMainElement::EPICYCLIC_GEAR, gearSetN ) );
 	m_field[s_centerX][s_centerY + 1].addElementToChain( core::TElement::EMPTY );

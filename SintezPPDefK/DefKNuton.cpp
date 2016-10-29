@@ -86,7 +86,7 @@ Jacobi DefKNuton::createJacobian( const System & system )
 					auto gearSetVariables = system.getVariablesSet( NS_CORE TGearNumber( i ), j );
 					for ( const auto & variable : undefVarListeners )
 					{
-						if ( ( !gearSetVariables[variable->getElement().getElemN()].getDefined() ) && variable->getElement().getGearSetN() == j + 1 && variable->getGear() == NS_CORE TGearNumber( i + 1 ) )
+						if ( ( !gearSetVariables[variable->getElement().getElemN()].getDefined() ) && variable->getElement().getGearSetN().getValue() == j + 1 && variable->getGear() == NS_CORE TGearNumber( i + 1 ) )
 						{
 							auto eq = Equations::getEquation( variable->getElement().getElemN() );
 							det.setEquation( i*initialData._numberOfPlanetaryGears + j, k, eq );

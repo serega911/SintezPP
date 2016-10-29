@@ -89,13 +89,13 @@ bool TGearBox::createChains()
 	}
 
 	//поиск элементов, свободных от связей и создание цепочек, которые их содержат
-	size_t N = TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	const TGearSetNumber N (TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears);
 	auto in = code[0].getElem1();
 	auto out = code[1].getElem1();
 	
 	for ( const auto& elem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 	{
-		for ( TGearSetNumber i = 1; i <= N; i++ )
+		for ( TGearSetNumber i(1); i <= N; i++ )
 		{
 			size_t b = 0;
 			TElement element( elem, i );

@@ -1,4 +1,5 @@
-#include "../Libraries/TChain.h"
+#include "TChain.h"
+#include "TSingletons.h"
 #include <algorithm>
 
 core::TChain::TChain( const TElement& element )
@@ -44,7 +45,8 @@ bool TChain::find(const TElement & element) const
 
 bool TChain::checkElemByOnePlanetarySet() const
 {
-	for (int i = 1; i <= 3; i++)
+	const TGearSetNumber N (TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears);
+	for (TGearSetNumber i (1); i <= N; i++)
 	{
 		int count = 0;
 		for (auto &it : m_elements)

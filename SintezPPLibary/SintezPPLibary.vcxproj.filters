@@ -43,9 +43,6 @@
     <Filter Include="StaticLib\TGearBox\TCode">
       <UniqueIdentifier>{40847248-2770-494c-9321-5321e9a913d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StaticLib\TCodeContainer">
-      <UniqueIdentifier>{10ceea58-d367-411b-8d13-7615e41967f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StaticLib\TK">
       <UniqueIdentifier>{2e09055c-341d-466e-8cc4-da514c27ae6b}</UniqueIdentifier>
     </Filter>
@@ -84,6 +81,9 @@
     </Filter>
     <Filter Include="StaticLib\TSettingsItem">
       <UniqueIdentifier>{1c0d32d7-996b-4516-80c9-f6f827bf28f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\TChainsContainer">
+      <UniqueIdentifier>{10ceea58-d367-411b-8d13-7615e41967f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +130,7 @@
       <Filter>StaticLib\TGearBox</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TChainsContainer.cpp">
-      <Filter>StaticLib\TCodeContainer</Filter>
+      <Filter>StaticLib\TChainsContainer</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\TLoaderFromFile.cpp">
       <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
@@ -204,7 +204,7 @@
       <Filter>StaticLib\helpers\TGaus</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TChainsContainer.h">
-      <Filter>StaticLib\TCodeContainer</Filter>
+      <Filter>StaticLib\TChainsContainer</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\TLoaderFromFile.h">
       <Filter>StaticLib\helpers\TLoaderFromFile</Filter>
@@ -263,6 +263,15 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\TParser_fwd.h">
       <Filter>StaticLib\TParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TElementArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TGearSetNumber.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\TChainArray.h">
+      <Filter>StaticLib\types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

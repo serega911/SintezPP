@@ -6,6 +6,7 @@
 #include "TChain.h"
 #include "TGearChanger.h"
 #include "TGearNumber.h"
+#include "TChainArray.h"
 
 NS_CORE_START
 

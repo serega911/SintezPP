@@ -36,7 +36,7 @@ void TGenerate::run()
 			{
 				for ( const auto& mElem2 : s_elements )
 				{
-					m_allLinks.push_back( NS_CORE TLink( NS_CORE TElement( mElem1, i ), NS_CORE TElement( mElem2, j ) ) );
+					m_allLinks.push_back( NS_CORE TLink( NS_CORE TElement( mElem1, NS_CORE TGearSetNumber( i ) ), NS_CORE TElement( mElem2, NS_CORE TGearSetNumber( j ) ) ) );
 				}
 			}
 		}
@@ -57,8 +57,8 @@ void TGenerate::generateInOut()
 			{
 				for ( const auto& outElem : s_elements )
 				{
-					NS_CORE TElement elemIn( inElem, i );
-					NS_CORE TElement elemOut( outElem, j );
+					NS_CORE TElement elemIn( inElem, NS_CORE TGearSetNumber( i ) );
+					NS_CORE TElement elemOut( outElem, NS_CORE TGearSetNumber( j ) );
 					if (elemIn != elemOut)
 					{
 						NS_CORE TCode code;
