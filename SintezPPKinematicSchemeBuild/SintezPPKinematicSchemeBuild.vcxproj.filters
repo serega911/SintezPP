@@ -28,56 +28,56 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TKinematicSchemeBuilder.cpp">
-      <Filter>Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TCordinates.cpp">
+    <ClCompile Include="Cordinates.cpp">
       <Filter>Files\TCordinates</Filter>
     </ClCompile>
-    <ClCompile Include="TRoute.cpp">
-      <Filter>Files\TRoute</Filter>
-    </ClCompile>
-    <ClCompile Include="TPlanetaryGearSet.cpp">
-      <Filter>Files\TPlanetaryGearSet</Filter>
-    </ClCompile>
-    <ClCompile Include="TKinematicScheme.cpp">
+    <ClCompile Include="KinematicScheme.cpp">
       <Filter>Files\TKinematicScheme</Filter>
     </ClCompile>
-    <ClCompile Include="TPathBuilder.cpp">
+    <ClCompile Include="PathBuilder.cpp">
       <Filter>Files\TPathBuilder</Filter>
     </ClCompile>
-    <ClCompile Include="TViewer.cpp">
+    <ClCompile Include="PlanetaryGearSet.cpp">
+      <Filter>Files\TPlanetaryGearSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Route.cpp">
+      <Filter>Files\TRoute</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewer.cpp">
       <Filter>Files\TViewer</Filter>
+    </ClCompile>
+    <ClCompile Include="KinematicSchemeBuilder.cpp">
+      <Filter>Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TKinematicSchemeBuilder.h">
-      <Filter>Files</Filter>
-    </ClInclude>
     <ClInclude Include="Defines.h" />
     <ClInclude Include="eDirection.h">
       <Filter>Files\eDirection</Filter>
     </ClInclude>
-    <ClInclude Include="TCordinates.h">
-      <Filter>Files\TCordinates</Filter>
-    </ClInclude>
-    <ClInclude Include="TRoute.h">
-      <Filter>Files\TRoute</Filter>
-    </ClInclude>
-    <ClInclude Include="TPlanetaryGearSet.h">
-      <Filter>Files\TPlanetaryGearSet</Filter>
-    </ClInclude>
-    <ClInclude Include="TKinematicScheme.h">
-      <Filter>Files\TKinematicScheme</Filter>
-    </ClInclude>
-    <ClInclude Include="TPathBuilder.h">
-      <Filter>Files\TPathBuilder</Filter>
-    </ClInclude>
-    <ClInclude Include="TViewer.h">
-      <Filter>Files\TViewer</Filter>
-    </ClInclude>
     <ClInclude Include="TViewer_fwd.h">
       <Filter>Files\TViewer</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordinates.h">
+      <Filter>Files\TCordinates</Filter>
+    </ClInclude>
+    <ClInclude Include="KinematicScheme.h">
+      <Filter>Files\TKinematicScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="PathBuilder.h">
+      <Filter>Files\TPathBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetaryGearSet.h">
+      <Filter>Files\TPlanetaryGearSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Route.h">
+      <Filter>Files\TRoute</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewer.h">
+      <Filter>Files\TViewer</Filter>
+    </ClInclude>
+    <ClInclude Include="KinematicSchemeBuilder.h">
+      <Filter>Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,19 +1,19 @@
 #include "System.h"
 
-#include "../Libraries/TSingletons.h"
+#include "../Libraries/Singletons.h"
 
 NS_ARI_USING
 
 
-void System::addDefinedChain( const NS_CORE TChain& chain, const VariableValue & value, const NS_CORE TGearNumber& gear )
+void System::addDefinedChain( const NS_CORE Chain& chain, const VariableValue & value, const NS_CORE GearNumber& gear )
 {
 	const auto & elements = chain.getElements();
 
 	for ( auto & elem : elements )
 	{
-		if ( elem != NS_CORE TElement::INPUT && elem != NS_CORE TElement::OUTPUT && elem != NS_CORE TElement::BRAKE )
+		if ( elem != NS_CORE Element::INPUT && elem != NS_CORE Element::OUTPUT && elem != NS_CORE Element::BRAKE )
 		{
-			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN() - 1][elem.getElemN()];
+			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN().getValue() - 1][elem.getElemN()];
 			variable.setDefined( true );
 			variable.setElement( elem, gear );
 			variable.setValue( value );
@@ -21,7 +21,7 @@ void System::addDefinedChain( const NS_CORE TChain& chain, const VariableValue &
 	}
 }
 
-void System::addUndefinedChain( const NS_CORE TChain& chain, const VariableValue & value, const NS_CORE TGearNumber& gear )
+void System::addUndefinedChain( const NS_CORE Chain& chain, const VariableValue & value, const NS_CORE GearNumber& gear )
 {
 	m_unknowns.emplace_back( UnknownVariable( value ) );
 	auto& unknown = m_unknowns[m_unknowns.size() - 1];
@@ -29,9 +29,9 @@ void System::addUndefinedChain( const NS_CORE TChain& chain, const VariableValue
 
 	for ( auto & elem : elements )
 	{
-		if ( elem != NS_CORE TElement::INPUT && elem != NS_CORE TElement::OUTPUT && elem != NS_CORE TElement::BRAKE )
+		if ( elem != NS_CORE Element::INPUT && elem != NS_CORE Element::OUTPUT && elem != NS_CORE Element::BRAKE )
 		{
-			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN() - 1][elem.getElemN()];
+			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN().getValue() - 1][elem.getElemN()];
 			variable.setDefined( false );
 			variable.setElement( elem, gear );
 			unknown.addListener( &variable );
@@ -44,19 +44,19 @@ System::System()
 {
 }
 
-bool System::addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGearNumber& gear, const NS_CORE TIValue i )
+bool System::addGearChains( const NS_CORE ChainArray& chains, const NS_CORE GearNumber& gear, const NS_CORE RatioValue i )
 {
 	for ( auto& chain : chains )
 	{
-		if ( chain.find( NS_CORE TElement::INPUT ) && chain.find( NS_CORE TElement::BRAKE ) )
+		if ( chain.find( NS_CORE Element::INPUT ) && chain.find( NS_CORE Element::BRAKE ) )
 		{
 			return false;
 		}
-		else if ( chain.find( NS_CORE TElement::BRAKE ) && chain.find( NS_CORE TElement::OUTPUT ) )
+		else if ( chain.find( NS_CORE Element::BRAKE ) && chain.find( NS_CORE Element::OUTPUT ) )
 		{
 			return false;
 		}
-		else if ( chain.find( NS_CORE TElement::INPUT ) && chain.find( NS_CORE TElement::OUTPUT ) && i != NS_CORE TIValue( 1 ) )
+		else if ( chain.find( NS_CORE Element::INPUT ) && chain.find( NS_CORE Element::OUTPUT ) && i != NS_CORE RatioValue( 1 ) )
 		{
 			return false;
 		}
@@ -64,15 +64,15 @@ bool System::addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGe
 
 	for ( auto& chain : chains )
 	{
-		if ( chain.find( NS_CORE TElement::INPUT ) )
+		if ( chain.find( NS_CORE Element::INPUT ) )
 		{
 			addDefinedChain( chain, 1.0f, gear );
 		}
-		else if ( chain.find( NS_CORE TElement::BRAKE ) )
+		else if ( chain.find( NS_CORE Element::BRAKE ) )
 		{
 			addDefinedChain( chain, 0.0f, gear );
 		}
-		else if ( chain.find( NS_CORE TElement::OUTPUT ) )
+		else if ( chain.find( NS_CORE Element::OUTPUT ) )
 		{
 			addDefinedChain( chain, 1.0f / i.getValue(), gear );
 		}
@@ -85,12 +85,12 @@ bool System::addGearChains( const NS_CORE TChainArray& chains, const NS_CORE TGe
 	return true;
 }
 
-VariablesSet & System::getVariablesSet( const NS_CORE TGearNumber & gearN, const int & gearSetN )
+VariablesSet & System::getVariablesSet( const NS_CORE GearNumber & gearN, const int & gearSetN )
 {
 	return m_sets.at( gearN.getValue() ).at( gearSetN );
 }
 
-const VariablesSet & System::getVariablesSet( const NS_CORE TGearNumber & gearN, const int & gearSetN ) const
+const VariablesSet & System::getVariablesSet( const NS_CORE GearNumber & gearN, const int & gearSetN ) const
 {
 	return m_sets.at( gearN.getValue() ).at( gearSetN );
 }
@@ -105,10 +105,10 @@ const UnknownVariableArray & System::getUnknownVariables() const
 	return m_unknowns;
 }
 
-void System::init( const NS_CORE TK& initialKValues )
+void System::init( const NS_CORE InternalGearRatios& initialKValues )
 {
-	auto numberOfPlanetaryGears = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
-	auto numberOfGears = NS_CORE TSingletons::getInstance()->getInitialData()._numberOfGears;
+	auto numberOfPlanetaryGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	auto numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
 
 	m_sets.resize( numberOfGears );
 	for ( auto&it : m_sets )
@@ -125,7 +125,7 @@ void System::init( const NS_CORE TK& initialKValues )
 		{
 			unknown.addListener( &( m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY] ) );
 			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setDefined( false );
-			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE TElement( NS_CORE eMainElement::EMPTY, planetaryGear + 1 ), NS_CORE TGearNumber( gear + 1 ) );
+			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE Element( NS_CORE eMainElement::EMPTY, NS_CORE GearSetNumber(planetaryGear + 1) ), NS_CORE GearNumber( gear + 1 ) );
 		}
 	}
 }

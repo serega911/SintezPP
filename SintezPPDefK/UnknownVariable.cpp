@@ -36,7 +36,7 @@ const std::set<Variable*> UnknownVariable::getAllListeners() const
 	return m_listeners;
 }
 
-bool UnknownVariable::findElementInListeners( const NS_CORE TElement & element, const NS_CORE TGearNumber gear )
+bool UnknownVariable::findElementInListeners( const NS_CORE Element & element, const NS_CORE GearNumber gear )
 {
 	bool result = false;
 	for ( const auto & listener : m_listeners )

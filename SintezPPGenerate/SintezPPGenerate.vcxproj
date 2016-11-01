@@ -71,12 +71,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TGearBox.cpp" />
-    <ClCompile Include="TGenerate.cpp" />
+    <ClCompile Include="GearBox.cpp" />
+    <ClCompile Include="Generate.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TGearBox.h" />
-    <ClInclude Include="TGenerate.h" />
+    <ClInclude Include="GearBox.h" />
+    <ClInclude Include="Generate.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">

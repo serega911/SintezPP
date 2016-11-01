@@ -2,11 +2,11 @@
 
 #include <vector>
 
-#include "TK.h"
-#include "../Libraries/TKArray.h"
-#include "../Libraries/TIArray.h"
-#include "../Libraries/TCode.h"
-#include "../Libraries/TI.h"
+#include "InternalGearRatios.h"
+#include "../Libraries/InternalGearRatioArray.h"
+#include "../Libraries/RatiosArray.h"
+#include "../Libraries/Code.h"
+#include "../Libraries/Ratios.h"
 #include "../Libraries/GlobalDefines.h"
 
 NS_ARI_START
@@ -15,9 +15,9 @@ class DefKSelection
 {
 public:
 
-	NS_CORE TKArray								calculate( const NS_CORE TCode& code );
-	static NS_CORE TI							podModul( const NS_CORE TCode & code, const NS_ARI TK &k );
-	static size_t								countOfDifferent( const NS_CORE TI& i);
+	NS_CORE InternalGearRatioArray								calculate( const NS_CORE Code& code );
+	static NS_CORE Ratios							podModul( const NS_CORE Code & code, const NS_ARI InternalGearRatios &k );
+	static size_t								countOfDifferent( const NS_CORE Ratios& i);
 
 };
 

@@ -1,11 +1,11 @@
 #include <iostream>
-#include "TKinematicSchemeBuilder.h"
+#include "KinematicSchemeBuilder.h"
 
 
 
 int main()
 {
-	ari::TKinematicSchemeBuilder schemeBuilder;
+	ari::KinematicSchemeBuilder schemeBuilder;
 	schemeBuilder.run();
 	system("pause");
 }
