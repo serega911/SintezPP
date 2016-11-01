@@ -171,5 +171,3 @@ bool core::Combinatorics::nextSubset( const size_t n, CombinatoricsValueArray & 
 	mas = tmp;
 	return true;
 }
-
-

@@ -29,7 +29,8 @@ public:
 		KIN_QUICK,
 		KIN_SLOW,
 		SETTINGS,
-		K_TEST
+		K_TEST,
+		K_TEST_LOG
 	};
 
 	static IOFileManager*						getInstance();

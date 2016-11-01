@@ -72,40 +72,55 @@ void ari::DefK::calcExample()
 
 	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
 	
-	NS_CORE InternalGearRatioValueArray kValues;
+	NS_CORE InternalGearRatioValueArray kValues[3];
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
-		kValues.push_back( NS_CORE InternalGearRatioValue( 2 ) );
-	ari::InternalGearRatios k = NS_CORE InternalGearRatios( kValues );
+	{
+		kValues[0].push_back( NS_CORE InternalGearRatioValue( 2 ) );
+		kValues[1].push_back( NS_CORE InternalGearRatioValue( 3 ) );
+		kValues[2].push_back( NS_CORE InternalGearRatioValue( -2 ) );
+	}
+	ari::InternalGearRatios initialK[] =	{ 
+										NS_CORE InternalGearRatios( kValues[0] ),
+										NS_CORE InternalGearRatios( kValues[1] ),
+										NS_CORE InternalGearRatios( kValues[2] )
+									};
+
 
 	NS_CORE Code code;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
 	{
-		auto realI = DefKSelection::podModul( code, k );
-
-		if (realI.size() > 0 )
+		for ( const auto &k : initialK )
 		{
-			int unique = 1;
-			for ( int i = 0; i < realI.size() - 1; i++ )
+			auto realI = DefKSelection::podModul( code, k );
+
+			if ( realI.size() > 0 )
 			{
-				bool finded = false;
-				for ( int j = i + 1; j < realI.size(); j++ )
+				int unique = 1;
+				for ( int i = 0; i < realI.size() - 1; i++ )
 				{
-					if ( realI[i] == realI[j] )
+					bool finded = false;
+					for ( int j = i + 1; j < realI.size(); j++ )
 					{
-						finded = true;
-						break;
+						if ( realI[i] == realI[j] )
+						{
+							finded = true;
+							break;
+						}
 					}
-				}
 
-				if ( !finded )
+					if ( !finded )
+					{
+						unique++;
+					}
+
+				}
+				if ( unique == initialData._numberOfGears )
 				{
-					unique++;
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST, code );
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, code );
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, realI );
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, k );
 				}
-
-			}
-			if ( unique == initialData._numberOfGears )
-			{
-				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST, code );
 			}
 		}	
 	}
