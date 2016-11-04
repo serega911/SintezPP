@@ -89,6 +89,8 @@ void ari::DefK::calcExample()
 	NS_CORE Code code;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
 	{
+		bool isWrited = false;
+
 		for ( const auto &k : initialK )
 		{
 			auto realI = DefKSelection::podModul( code, k );
@@ -116,8 +118,12 @@ void ari::DefK::calcExample()
 				}
 				if ( unique == initialData._numberOfGears )
 				{
-					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST, code );
-					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, code );
+					if (!isWrited)
+					{
+						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile(NS_CORE IOFileManager::eOutputFileType::K_TEST, code);
+						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile(NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, code);
+						isWrited = true;
+					}
 					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, realI );
 					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, k );
 				}
