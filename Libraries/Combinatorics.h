@@ -33,7 +33,12 @@ public:
 
 	bool										getPremutation( const size_t n, const size_t i, CombinatoricsValueArray & mas );						//перестановки
 	bool										getSubset( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas );			//сочетания
-	bool										getOrderedSample( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas );		//размещения
+	bool										getOrderedSample( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas );		//размещения с повторениями
+
+	size_t										getPremutationsCount( const size_t n );
+	size_t										getSubsetsCount( const size_t n, const size_t k  );
+	size_t										getOrderedSamplesCount( const size_t n, const size_t k );
+
 
 	~Combinatorics();
 };

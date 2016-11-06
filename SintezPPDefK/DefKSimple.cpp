@@ -3,6 +3,7 @@
 #include "CheckAllPossibilities.h"
 #include "DefKSimple.h"
 #include "Equations.h"
+#include "GearBox.h"
 #include "../Libraries/Singletons.h"
 
 NS_ARI_USING
@@ -40,7 +41,7 @@ NS_CORE InternalGearRatios DefKSimple::findK( const NS_CORE Code& code, const NS
 	System system;
 	system.init( initialKValues );
 
-	NS_CORE GearBox gb( code );
+	GearBox gb( code );
 	gb.createChains();
 
 	int i = 0;

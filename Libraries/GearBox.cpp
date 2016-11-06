@@ -8,7 +8,6 @@ NS_CORE_USING
 
 GearBox::GearBox( const Code& code )
 	: m_code( code )
-	, m_gearChanger( code )
 {
 }
 
@@ -55,21 +54,6 @@ void GearBox::makeChains( ChainArray &chains ) const
 	}
 	//упорядочиваем
 	std::sort( chains.begin(), chains.end() );
-}
-
-ChainArray GearBox::getChainsForCurrentGear() const
-{
-	auto chains = getChains();
-	auto drivingElements = m_gearChanger.getDrivingElementsForGear();
-
-	chains.resize( chains.size() + drivingElements.size() );
-
-	for ( size_t i = 0; i < drivingElements.size(); i++ )
-		chains[chains.size() - i - 1].addLinkToChain( drivingElements[i] );
-
-	makeChains( chains );
-
-	return chains;
 }
 
 bool GearBox::createChains()
@@ -119,8 +103,5 @@ bool GearBox::createChains()
 	return true;
 }
 
-bool core::GearBox::turnOnNextGear()
-{
-	return m_gearChanger.next();
-}
+
 

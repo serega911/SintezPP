@@ -42,6 +42,21 @@ inline bool getCombi( T key, std::map<T, std::vector<CombinatoricsValueArray>>& 
 	}
 }
 
+template <typename T>
+inline size_t getCombiCount( T key, std::map<T, std::vector<CombinatoricsValueArray>>& container, const std::function<void()>& toCall )
+{
+	auto subset = container.find( key );
+
+	if ( subset == container.end() )
+	{
+		toCall();
+	}
+
+	subset = container.find( key );
+
+	return subset->second.size();
+}
+
 bool core::Combinatorics::getSubset( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas )
 {
 	if ( 0 == n )
@@ -78,6 +93,23 @@ bool core::Combinatorics::getOrderedSample( const size_t n, const size_t k, cons
 		auto key = std::pair<size_t, size_t>( n, k );
 		return getCombi( key, m_orderedSamples, std::bind( &Combinatorics::createOrderedSample, this, key ), mas, i );
 	}
+}
+
+size_t core::Combinatorics::getPremutationsCount( const size_t n )
+{
+	return getCombiCount( n, m_premutations, std::bind( &Combinatorics::createPremutation, this, n ) );
+}
+
+size_t core::Combinatorics::getSubsetsCount( const size_t n, const size_t k )
+{
+	auto key = std::pair<size_t, size_t>( n, k );
+	return getCombiCount( key, m_subsets, std::bind( &Combinatorics::createSubset, this, key ) );
+}
+
+size_t core::Combinatorics::getOrderedSamplesCount( const size_t n, const size_t k )
+{
+	auto key = std::pair<size_t, size_t>( n, k );
+	return getCombiCount( key, m_orderedSamples, std::bind( &Combinatorics::createOrderedSample, this, key ) );
 }
 
 void Combinatorics::createPremutation( const size_t n )
