@@ -67,9 +67,6 @@
     <Filter Include="StaticLib\TSchemeCharacteristics\KinematicSchemeData">
       <UniqueIdentifier>{292c37b2-a437-4516-8c5b-3a5789b9960c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StaticLib\ApplicationBase">
-      <UniqueIdentifier>{7b534499-f692-4e07-9147-c81797d09da3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StaticLib\TParser">
       <UniqueIdentifier>{d3e53746-e3a1-4018-aa20-d5f04f086845}</UniqueIdentifier>
     </Filter>
@@ -85,13 +82,19 @@
     <Filter Include="StaticLib\TChainsContainer">
       <UniqueIdentifier>{10ceea58-d367-411b-8d13-7615e41967f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Checked">
+      <UniqueIdentifier>{f42d8b97-fbf6-4ebb-9f36-d58d5d72f369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Checked\ApplicationBase">
+      <UniqueIdentifier>{7b534499-f692-4e07-9147-c81797d09da3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Libraries\func_lib.cpp">
       <Filter>StaticLib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\ApplicationBase.cpp">
-      <Filter>StaticLib\ApplicationBase</Filter>
+      <Filter>Checked\ApplicationBase</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\GearBox.cpp">
       <Filter>StaticLib\TGearBox</Filter>
@@ -167,12 +170,11 @@
     <ClInclude Include="..\Libraries\GlobalDefines.h">
       <Filter>StaticLib\defines</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
     <ClInclude Include="..\Libraries\KinematicSchemeData.h">
       <Filter>StaticLib\TSchemeCharacteristics\KinematicSchemeData</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\ApplicationBase.h">
-      <Filter>StaticLib\ApplicationBase</Filter>
+      <Filter>Checked\ApplicationBase</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\IIOItem.h">
       <Filter>StaticLib\IIOItem</Filter>
@@ -275,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\Range.h">
       <Filter>StaticLib\types\TRange</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h">
+      <Filter>StaticLib\defines</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

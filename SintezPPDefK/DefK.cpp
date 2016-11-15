@@ -100,21 +100,23 @@ void ari::DefK::calcExample()
 				int unique = 1;
 				for ( int i = 0; i < realI.size() - 1; i++ )
 				{
-					bool finded = false;
-					for ( int j = i + 1; j < realI.size(); j++ )
+					if ( realI[i] != NS_CORE RatioValue( 0 ) )
 					{
-						if ( realI[i] == realI[j] )
+						bool finded = false;
+						for ( int j = i + 1; j < realI.size(); j++ )
 						{
-							finded = true;
-							break;
+							if ( realI[i] == realI[j] )
+							{
+								finded = true;
+								break;
+							}
+						}
+
+						if ( !finded )
+						{
+							unique++;
 						}
 					}
-
-					if ( !finded )
-					{
-						unique++;
-					}
-
 				}
 				if ( unique == initialData._numberOfGears )
 				{

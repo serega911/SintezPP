@@ -2,11 +2,6 @@
 
 NS_ARI_USING
 
-// GearBox::GearBox( const NS_CORE Code& code, const size_t combiNumber )
-// 	: Parent( code ), m_gearChanger( code, combiNumber )
-// {
-// 
-// }
 GearBox::GearBox( const NS_CORE Code& code )
 : Parent( code ), m_gearChanger( code )
 {
