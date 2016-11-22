@@ -47,8 +47,9 @@ NS_CORE InternalGearRatios DefKSimple::findK( const NS_CORE Code& code, const NS
 	int i = 0;
 	do
 	{
-		if ( !system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE GearNumber( i + 1 ), iTarget[i] ) )
-			return NS_CORE InternalGearRatios();
+		if ( iTarget[i] != NS_CORE RatioValue( 0.0 ) )
+			if ( !system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE GearNumber( i + 1 ), iTarget[i] ) )
+				return NS_CORE InternalGearRatios();
 		i++;
 	} while ( gb.turnOnNextGear() );
 
@@ -79,14 +80,14 @@ std::vector<NS_CORE eMainElement> findOneUndefElem(const VariablesSet& set)
 NS_CORE InternalGearRatios DefKSimple::solveSimple( System& system )
 {
 	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
-	const auto countOfEquations = initialData._numberOfGears * initialData._numberOfPlanetaryGears;
+	const auto countOfEquations = initialData._realNumberOfGears * initialData._numberOfPlanetaryGears;
 	auto& unknowns = system.getUnknownVariables();
 	int solvedCount = 0;
 
 	do
 	{
 		solvedCount = 0;
-		for ( size_t i = 0; i < initialData._numberOfGears; i++ )
+		for ( size_t i = 0; i < initialData._realNumberOfGears; i++ )
 		{
 			for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 			{

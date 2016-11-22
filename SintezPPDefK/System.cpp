@@ -108,7 +108,7 @@ const UnknownVariableArray & System::getUnknownVariables() const
 void System::init( const NS_CORE InternalGearRatios& initialKValues )
 {
 	auto numberOfPlanetaryGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
-	auto numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
+	auto numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._realNumberOfGears;
 
 	m_sets.resize( numberOfGears );
 	for ( auto&it : m_sets )

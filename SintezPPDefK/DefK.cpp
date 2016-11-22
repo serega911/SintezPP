@@ -16,8 +16,6 @@ void DefK::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE Log::log( "====  Синтез планетарных передач с тремя степенями свободы. Определение К.  ====" );
 
-	readWND();
-
 	int countIntervals = 0;
 	NS_CORE Log::log( "Количество диапазонов : ", false );
 	std::cin >> countIntervals;
@@ -31,60 +29,43 @@ void DefK::readInitialData()
 		NS_CORE Singletons::getInstance()->addRangeK( NS_CORE Range( NS_CORE InternalGearRatioValue( beg ), NS_CORE InternalGearRatioValue( end ) ) );
 	}
 
-	if ( NS_CORE Singletons::getInstance()->getInitialData()._w > 2 )
-	{
-		NS_CORE Log::log( "Количество передач:	", false );
-		int n;
-		std::cin >> n;
-		NS_CORE Singletons::getInstance()->setNumberOfGears( n );
-	}
-	else
-	{
-		NS_CORE Singletons::getInstance()->setNumberOfGears( NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	}
+	const size_t numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
+	NS_CORE Log::log( "Количество передач:	" + std::to_string( numberOfGears ) );
 
 	NS_CORE Log::log( "Передаточные отношения : ", false );
-	for ( size_t i = 0; i < NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears; i++ )
+	for ( size_t i = 0; i < numberOfGears; i++ )
 	{
 		double ratio = 0;
 		std::cin >> ratio;
 		if ( ratio != 0 )
 			NS_CORE Singletons::getInstance()->addGearRatio( ratio );
 		else
+		{
+			for ( size_t j = i; j < numberOfGears; j++ )
+				NS_CORE Singletons::getInstance()->addGearRatio( 0 );
 			break;
+		}
 	}
 }
 
 void ari::DefK::calcExample()
 {
-	readWND();
-	if ( NS_CORE Singletons::getInstance()->getInitialData()._w > 2 )
-	{
-		NS_CORE Log::log( "Количество передач:	", false );
-		int n;
-		std::cin >> n;
-		NS_CORE Singletons::getInstance()->setNumberOfGears( n );
-	}
-	else
-	{
-		NS_CORE Singletons::getInstance()->setNumberOfGears( NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	}
+
+	NS_CORE Log::log( "Количество передач:	" + std::to_string(NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears) );
 
 	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
 	
-	NS_CORE InternalGearRatioValueArray kValues[3];
+	const size_t testKSize = NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._testsCount;
+	std::vector<NS_CORE InternalGearRatioValueArray> kValues(testKSize);
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
 	{
-		kValues[0].push_back( NS_CORE InternalGearRatioValue( 2 ) );
-		kValues[1].push_back( NS_CORE InternalGearRatioValue( 3 ) );
-		kValues[2].push_back( NS_CORE InternalGearRatioValue( -2 ) );
+		for ( int j = 0; j < testKSize; j++ )
+			kValues[j].emplace_back( NS_CORE InternalGearRatioValue( ( rand() % 30 ) / 10.0 + 2 ) );
 	}
-	ari::InternalGearRatios initialK[] =	{ 
-										NS_CORE InternalGearRatios( kValues[0] ),
-										NS_CORE InternalGearRatios( kValues[1] ),
-										NS_CORE InternalGearRatios( kValues[2] )
-									};
 
+	std::vector<ari::InternalGearRatios> initialK;
+	for ( int j = 0; j < testKSize; j++ )
+		initialK.emplace_back( NS_CORE InternalGearRatios( kValues[j] ) );
 
 	NS_CORE Code code;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
@@ -136,6 +117,14 @@ void ari::DefK::calcExample()
 
 void DefK::run()
 { 
+	readWND();
+
+	if ( NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._doTest )
+	{
+		calcExample();
+		return;
+	}
+
 	readInitialData();
 
 	NS_CORE Code code;

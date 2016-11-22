@@ -5,6 +5,7 @@
 
 NS_ARI_USING
 
+
 NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Code )
 {
 	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.1 ) );
@@ -14,13 +15,15 @@ NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Co
 	const size_t failedLimit = 5;
 	size_t calculated = 0;
 
+	const size_t gearsCount = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
+
 	do{
 		auto ret = podModul( Code, K );
-		if ( core::Singletons::getInstance()->getInitialData()._i == ret )
+		if ( NS_CORE Singletons::getInstance()->getInitialData()._i == ret )
 		{
 			ans.emplace_back( K );
 		}
-		else if ( core::Singletons::getInstance()->getInitialData()._numberOfGears > countOfDifferent( core::Singletons::getInstance()->getInitialData()._i ) )
+		else if ( gearsCount > countOfDifferent( ret ) )
 		{
 			if ( failedCount < failedLimit )
 				failedCount++;
@@ -47,16 +50,18 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 		{
 			return NS_CORE Ratios();
 		}
+
 		const auto codeValues = code.getCode();
 		double calculatedI = gaus.getSolution()[codeValues[1].getElem1().getSerialNumber()];
+		
 		if ( abs( calculatedI ) > 0.001 && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( 1.0 / calculatedI ) ) )
 		{
 			tmpI.push_back( NS_CORE RatioValue( 1.0 / calculatedI ) );
 		}
-		else
-		{
-			return NS_CORE Ratios();
-		}
+		//else
+		//{
+		//	return NS_CORE Ratios();
+		//}
 
 	} while ( gearChanger.next() );
 
@@ -67,22 +72,27 @@ size_t ari::DefKSelection::countOfDifferent( const NS_CORE Ratios& calculatedI )
 {
 	size_t ret = 0;
 	bool isUnique = true;
-	for ( int i = 0; i < calculatedI.size() - 1; i++ )
+	const int size = calculatedI.size();
+
+	for ( int i = 0; i < size; i++ )
 	{
-		isUnique = true;
-		for ( int j = i + 1; j < calculatedI.size(); j++ )
+		if ( calculatedI[i] != NS_CORE RatioValue( 0 ) )
 		{
-			if ( calculatedI[i] == calculatedI[j] )
+			isUnique = true;
+			for ( int j = i + 1; j < calculatedI.size(); j++ )
 			{
-				isUnique = false;
-				break;
+				if ( calculatedI[i] == calculatedI[j] )
+				{
+					isUnique = false;
+					break;
+				}
 			}
-		}
-		if ( isUnique )
-		{
-			ret++;
+			if ( isUnique )
+			{
+				ret++;
+			}
 		}
 	}
 
-	return ++ret;
+	return ret;
 }

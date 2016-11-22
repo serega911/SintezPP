@@ -55,7 +55,6 @@ private:
 
 
 	static const std::string					s_resultsFolder;
-	static const std::string					s_settingsFolder;
 
 	const std::string&							getFolder( eOutputFileType type );
 

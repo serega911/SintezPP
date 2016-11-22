@@ -8,8 +8,6 @@ NS_CORE_USING
 
 const std::string								IOFileManager::s_resultsFolder = "..\\Results";
 
-const std::string								IOFileManager::s_settingsFolder = "..\\Settings";
-
 std::string IOFileManager::getFolder()
 {
 	return s_resultsFolder;
@@ -17,7 +15,7 @@ std::string IOFileManager::getFolder()
 
 const std::string& IOFileManager::getFolder( eOutputFileType type )
 {
-	return type == eOutputFileType::SETTINGS ? s_settingsFolder : m_containingFolder;
+	return m_containingFolder;// type == eOutputFileType::SETTINGS ? s_settingsFolder : m_containingFolder;
 }
 
 void IOFileManager::writeToFile( eOutputFileType type, const IIOItem & container )
@@ -142,6 +140,5 @@ void IOFileManager::init()
 	m_containingFolder = s_resultsFolder + "\\" + folder;
 
 	_mkdir(s_resultsFolder.c_str());
-	_mkdir(s_settingsFolder.c_str());
 	_mkdir(m_containingFolder.c_str());
 }
