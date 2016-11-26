@@ -45,11 +45,15 @@ NS_CORE InternalGearRatios DefKSimple::findK( const NS_CORE Code& code, const NS
 	gb.createChains();
 
 	int i = 0;
+	int gear = 0;
 	do
 	{
 		if ( iTarget[i] != NS_CORE RatioValue( 0.0 ) )
-			if ( !system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE GearNumber( i + 1 ), iTarget[i] ) )
+		{
+			gear++;
+			if ( !system.addGearChains( gb.getChainsForCurrentGear(), NS_CORE GearNumber( gear ), iTarget[i] ) )
 				return NS_CORE InternalGearRatios();
+		}
 		i++;
 	} while ( gb.turnOnNextGear() );
 
@@ -152,7 +156,7 @@ bool ari::DefKSimple::isAllKValuesFinded( const System & system )
 	}
 
 	// check all system
-	for ( size_t i = 0; i < initialData._numberOfGears; i++ )
+	for ( size_t i = 0; i < initialData._realNumberOfGears; i++ )
 	{
 		for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )
 		{
