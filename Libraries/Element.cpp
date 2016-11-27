@@ -8,6 +8,11 @@ const Element Element::OUTPUT =		Element( eMainElement::OUTPUT, GearSetNumber( 0
 const Element Element::BRAKE =		Element( eMainElement::BRAKE, GearSetNumber( 0 ) );
 const Element Element::EMPTY =		Element( eMainElement::EMPTY, GearSetNumber( 0 ) );
 
+bool core::Element::isCentral() const
+{
+	return isCentralElement( m_elemN );
+}
+
 Element::Element( const eMainElement& elemN, const GearSetNumber& gearSetN )
 	: m_elemN( elemN )
 	, m_gearSetN( gearSetN )

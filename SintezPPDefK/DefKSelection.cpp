@@ -49,7 +49,6 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 		if ( gaus.getSolution().size() == 0 )
 		{
 			continue;
-			//return NS_CORE Ratios();
 		}
 
 		const auto codeValues = code.getCode();
@@ -59,10 +58,6 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 		{
 			tmpI.push_back( NS_CORE RatioValue( 1.0 / calculatedI ) );
 		}
-		//else
-		//{
-		//	return NS_CORE Ratios();
-		//}
 
 	} while ( gearChanger.next() );
 
@@ -80,7 +75,8 @@ size_t ari::DefKSelection::countOfDifferent( const NS_CORE Ratios& calculatedI )
 		if ( calculatedI[i] != NS_CORE RatioValue( 0 ) )
 		{
 			isUnique = true;
-			for ( int j = i + 1; j < calculatedI.size(); j++ )
+			const int calcISize = calculatedI.size();
+			for ( int j = i + 1; j < calcISize; j++ )
 			{
 				if ( calculatedI[i] == calculatedI[j] )
 				{

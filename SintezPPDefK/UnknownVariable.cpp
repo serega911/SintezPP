@@ -31,7 +31,7 @@ void UnknownVariable::deleteListener( Variable* listener )
 	m_listeners.erase( listener );
 }
 
-const std::set<Variable*> UnknownVariable::getAllListeners() const
+const std::set<Variable*>& UnknownVariable::getAllListeners() const
 {
 	return m_listeners;
 }

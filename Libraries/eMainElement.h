@@ -50,4 +50,9 @@ inline int convernToInt( const eMainElement& e )
 	return ret;
 }
 
+inline bool isCentralElement( const eMainElement& e )
+{
+	return e == eMainElement::SUN_GEAR || e == eMainElement::EPICYCLIC_GEAR || e == eMainElement::CARRIER;
+}
+
 NS_CORE_END

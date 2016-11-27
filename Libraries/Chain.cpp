@@ -55,7 +55,7 @@ bool Chain::find(const Element & element) const
 bool Chain::checkElemByOnePlanetarySet() const
 {
 	const GearSetNumber N (Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears);
-	for (GearSetNumber i (1); i <= N; i++)
+	for ( GearSetNumber i(1); i <= N; i++ )
 	{
 		int count = 0;
 		for (auto &it : m_elements)
@@ -68,6 +68,16 @@ bool Chain::checkElemByOnePlanetarySet() const
 			return false;
 		}
 	}
+	return true;
+}
+
+bool core::Chain::checkIsChainCorrect() const
+{
+	if ( find( NS_CORE Element::INPUT ) && find( NS_CORE Element::BRAKE ) )
+		return false;
+	else if ( find( NS_CORE Element::BRAKE ) && find( NS_CORE Element::OUTPUT ) )
+		return false;
+
 	return true;
 }
 

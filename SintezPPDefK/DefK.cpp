@@ -76,15 +76,16 @@ void ari::DefK::calcExample()
 		{
 			auto realI = DefKSelection::podModul( code, k );
 
-			if ( realI.size() > 0 )
+			const size_t iSize = realI.size();
+			if ( iSize > 0 )
 			{
 				int unique = 1;
-				for ( int i = 0; i < realI.size() - 1; i++ )
+				for ( int i = 0; i < iSize - 1; i++ )
 				{
 					if ( realI[i] != NS_CORE RatioValue( 0 ) )
 					{
 						bool finded = false;
-						for ( int j = i + 1; j < realI.size(); j++ )
+						for ( int j = i + 1; j < iSize; j++ )
 						{
 							if ( realI[i] == realI[j] )
 							{
@@ -144,7 +145,9 @@ void DefK::run()
 		
 
 		bool isWrited = false;
-		for ( size_t i = 0; i < ans.size(); i++ )
+		const size_t ansSize = ans.size();
+
+		for ( size_t i = 0; i < ansSize; i++ )
 		{
 			auto realI = DefKSelection::podModul( code, ans[i] );
 

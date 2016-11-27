@@ -26,7 +26,7 @@ public:
 
 	GearBox( const Code& code );
 
-	bool										createChains();
+	void										createChains();
 
 	const Code&									getCode() const;
 	const ChainArray&							getChains() const;

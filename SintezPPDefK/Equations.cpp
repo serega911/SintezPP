@@ -59,10 +59,14 @@ NS_ARI_USING
 
  FunctionValue Equations::calcWEpicyclic( const VariablesSet & set )
  {
+	 const auto z = set[NS_CORE eMainElement::EMPTY].getValue();
+
+	 NS_CORE Log::warning( z == 0, "division by ZERO", NS_CORE Log::CRITICAL, "Equations::calcWEpicyclic" );
+
 	 return (
 		 set[NS_CORE eMainElement::SUN_GEAR].getValue() +
 		 set[NS_CORE eMainElement::CARRIER].getValue() * ( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f )
-		 ) / set[NS_CORE eMainElement::EMPTY].getValue();
+		 ) / z;
  }
 
  FunctionValue Equations::calcWSun( const VariablesSet & set )
@@ -73,20 +77,23 @@ NS_ARI_USING
 
  FunctionValue Equations::calcWCarrirer( const VariablesSet & set )
  {
+	 const auto z = set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
+
+	 NS_CORE Log::warning( z == 0, "division by ZERO", NS_CORE Log::CRITICAL, "Equations::calcWCarrirer" );
+	 
 	 return (
 		 -set[NS_CORE eMainElement::SUN_GEAR].getValue()
 		 + set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
-		 ) / ( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f );
+		 ) / z;
  }
 
  FunctionValue Equations::calcKValue( const VariablesSet & set )
  {
-	 return
-		 (
-		 set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::SUN_GEAR].getValue()
-		 ) / (
-		 set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue()
-		 );
+	 const auto z = set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() ;
+
+	 NS_CORE Log::warning( z == 0, "division by ZERO", NS_CORE Log::CRITICAL, "Equations::calcKValue" );
+
+	 return ( set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::SUN_GEAR].getValue() ) / z;
  }
 
  bool ari::Equations::check( const VariablesSet & set )

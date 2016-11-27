@@ -57,7 +57,6 @@ NS_CORE InternalGearRatios DefKSimple::findK( const NS_CORE Code& code, const NS
 		i++;
 	} while ( gb.turnOnNextGear() );
 
-	
 	return solveSimple( system );
 }
 
@@ -110,20 +109,20 @@ NS_CORE InternalGearRatios DefKSimple::solveSimple( System& system )
 
 					//проверяем всё ли мы нашли
 					if ( isAllKValuesFinded( system ) )
-						return geInternalGearRatioValuesFromSystem( system );
+						return getInternalGearRatioValuesFromSystem( system );
 				}
 			}
 		}
 	} while ( solvedCount != 0 );
 
 	if ( isAllKValuesFinded( system ) )
-		return geInternalGearRatioValuesFromSystem( system );
+		return getInternalGearRatioValuesFromSystem( system );
 	else
 		return NS_CORE InternalGearRatios();
 
 }
 
-NS_CORE InternalGearRatios DefKSimple::geInternalGearRatioValuesFromSystem( const System & system )
+NS_CORE InternalGearRatios DefKSimple::getInternalGearRatioValuesFromSystem( const System & system )
 {
 	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 

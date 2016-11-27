@@ -32,6 +32,8 @@ public:
 	static const Element						BRAKE;
 	static const Element						EMPTY;
 
+	bool										isCentral() const;
+
 	friend bool									operator<( const Element& elem1, const Element& elem2 );
 	friend bool									operator==( const Element& elem1, const Element& elem2 );
 	friend bool									operator!=( const Element& elem1, const Element& elem2 );

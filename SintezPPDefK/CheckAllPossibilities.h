@@ -27,7 +27,8 @@ public:
 		combinator->getOrderedSample( rangesSize, size, combiNum++, combi );
 		do{
 			NS_CORE InternalGearRatioValueArray initialK;
-			for ( size_t i = 0; i < combi.size(); i++ )
+			const  size_t combiSize = combi.size();
+			for ( size_t i = 0; i < combiSize; i++ )
 				initialK.push_back( ranges[combi[i]].getMid() );
 
 			initial.setValues( initialK );
