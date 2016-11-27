@@ -31,10 +31,11 @@ const ChainArray& GearBox::getChains() const
 
 void GearBox::makeChains( ChainArray &chains ) const
 {
+	const size_t chainsSize = chains.size();
 	//поиск цепочек связей
-	for ( size_t i = 0; i < chains.size(); i++ )
+	for ( size_t i = 0; i < chainsSize; i++ )
 	{
-		for ( size_t j = 0; j < chains.size(); j++ )
+		for ( size_t j = 0; j < chainsSize; j++ )
 		{
 			if ( j != i && chains[i].intersect( chains[j] ) )
 			{
@@ -44,14 +45,16 @@ void GearBox::makeChains( ChainArray &chains ) const
 		}
 	}
 	//удаление пустых цепочек
-	for ( size_t i = 0; i < chains.size(); i++ )
+	/*for ( size_t i = 0; i < chains.size(); i++ )
 	{
 		if ( chains[i].size() == 0 )
 		{
 			chains.erase( chains.begin() + i );
 			i = i - 1;
 		}
-	}
+	}*/
+	const NS_CORE Chain emptyChain;
+	chains.erase( remove( chains.begin(), chains.end(), emptyChain ), chains.end() );
 	//упорядочиваем
 	std::sort( chains.begin(), chains.end() );
 }

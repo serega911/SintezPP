@@ -9,21 +9,20 @@
 
 NS_CORE_START
 
-//typedef std::vector<RatioValue> RatioValueArray;		// контейнер передаточных отношений ПКП
 
 class Ratios : public IIOItem
 {
 private:
 
 	RatioValueArray								m_i;
-	static RatioValue								m_eps;
+	static RatioValue							m_eps;
 
 public:
 
 	Ratios();
 	Ratios( const RatioValueArray& i, RatioValue eps );
 
-	const RatioValue &								operator[]( size_t i ) const;
+	const RatioValue &							operator[]( size_t i ) const;
 	bool										operator==(const Ratios& obj) const; // outdated
 	void										operator=(const Ratios& obj);
 

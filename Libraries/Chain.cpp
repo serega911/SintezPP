@@ -15,17 +15,29 @@ Chain::Chain()
 
 void Chain::addLinkToChain(const Link & link)
 {
-	m_elements.insert(link.getElem1());
-	m_elements.insert(link.getElem2());
+	const auto& elem1 = link.getElem1();
+	const auto& elem2 = link.getElem2();
+
+	const bool condition = m_elements.size() != 0 && !( find( elem1 ) || find( elem2 ) );
+	Log::warning( condition, "Chains dont't contain one ofelements!", Log::CRITICAL, "TChain::addLinkToChain()" );
+
+	m_elements.insert( elem1 );
+	m_elements.insert( elem2 );
 }
 
 void Chain::addElementToChain(const Element & elem)
 {
+	const bool condition = m_elements.size() != 0;
+	Log::warning( condition, "Chains is not mpty!", Log::CRITICAL, "TChain::addElementToChain()" );
+
 	m_elements.insert(elem);
 }
 
 void Chain::addChainToChain(const Chain & chain)
 {
+	const bool condition = !intersect( chain );
+	Log::warning( condition, "Chains dont't contain one ofelements!", Log::CRITICAL, "TChain::addChainToChain()" );
+
 	for (auto& it : chain.m_elements)
 		m_elements.insert(it);
 }
@@ -37,10 +49,7 @@ void Chain::clear()
 
 bool Chain::find(const Element & element) const
 {
-	if ( m_elements.find( element ) != m_elements.end() )
-		return true;
-	else
-		return false;
+	return m_elements.find( element ) != m_elements.end();
 }
 
 bool Chain::checkElemByOnePlanetarySet() const

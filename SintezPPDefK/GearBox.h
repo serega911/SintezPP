@@ -17,7 +17,6 @@ private:
 
 public:
 
-	//GearBox( const NS_CORE Code& code, const size_t combiNumber );
 	GearBox( const NS_CORE Code& code );
 
 	NS_CORE ChainArray							getChainsForCurrentGear() const;

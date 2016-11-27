@@ -48,7 +48,8 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 		gaus.solve();
 		if ( gaus.getSolution().size() == 0 )
 		{
-			return NS_CORE Ratios();
+			continue;
+			//return NS_CORE Ratios();
 		}
 
 		const auto codeValues = code.getCode();
