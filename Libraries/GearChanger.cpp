@@ -15,8 +15,10 @@ GearChanger::GearChanger( const Code& code )
 		initDriveElemPositions();
 	}
 
-	m_drivingElementsForAllGears.resize( m_driveElemPostions.size() );
-	for ( size_t i = 0; i < m_driveElemPostions.size(); i++ )
+	const size_t drElemPosSize = m_driveElemPostions.size();
+
+	m_drivingElementsForAllGears.resize( drElemPosSize );
+	for ( size_t i = 0; i < drElemPosSize; i++ )
 	{
 		m_drivingElementsForAllGears[i].resize( m_driveElemPostions[i].size() );
 		for ( size_t j = 0; j < m_driveElemPostions[i].size(); j++ )
@@ -66,7 +68,8 @@ void GearChanger::initDriveElemPositions()
 			while ( NS_CORE Singletons::getInstance()->getCombinatorics()->getSubset( generalData._numberOfBrakes, generalData._numberOfActuatedDrivingElements, i++, combi ) )
 			{
 				std::vector<size_t> brakesPos;
-				for ( size_t i = 0; i < combi.size(); i++ )
+				const size_t combiSize = combi.size();
+				for ( size_t i = 0; i < combiSize; i++ )
 					brakesPos.push_back( startPosBrakes + combi[i] );
 				m_driveElemPostions.push_back( brakesPos );
 			}
@@ -80,7 +83,7 @@ void GearChanger::initDriveElemPositions()
 
 TLinkArray GearChanger::getDrivingElementsForGear() const
 {
-	return m_drivingElementsForAllGears[m_gear];
+	return m_drivingElementsForAllGears.at(m_gear);
 }
 
 bool GearChanger::next()

@@ -15,7 +15,7 @@ private:
 	LoaderFromFile();
 	LoaderFromFile( const LoaderFromFile& ) = delete;
 
-	LoaderFromFile&							operator=( LoaderFromFile& ) = delete;
+	LoaderFromFile&								operator=( LoaderFromFile& ) = delete;
 
 public:
 

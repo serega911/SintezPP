@@ -55,4 +55,9 @@ inline bool isCentralElement( const eMainElement& e )
 	return e == eMainElement::SUN_GEAR || e == eMainElement::EPICYCLIC_GEAR || e == eMainElement::CARRIER;
 }
 
+inline bool isAdditionalElement( const  eMainElement& e )
+{
+	return e == eMainElement::INPUT || e == eMainElement::OUTPUT || e == eMainElement::BRAKE;
+}
+
 NS_CORE_END

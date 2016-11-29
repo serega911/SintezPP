@@ -1,5 +1,4 @@
 #include "InternalGearRatios.h"
-#include "../Libraries/func_lib.h"
 #include "../Libraries/Singletons.h"
 #include <iostream>
 #include <algorithm>

@@ -1,6 +1,5 @@
 #include "Viewer.h"
 #include "../Libraries/GearBox.h"
-#include "../Libraries/func_lib.h"
 #include <algorithm>
 
 NS_ARI_USING
@@ -65,7 +64,7 @@ void ari::Viewer::printKinematicScheme( const KinematicScheme& scheme )
 				}
 
 
-				core::SetColor( s_colors[currColorPos], 0 );
+				//core::SetColor( s_colors[currColorPos], 0 );
 				std::cout << '#';
 			}
 			else

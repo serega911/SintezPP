@@ -90,9 +90,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Libraries\func_lib.cpp">
-      <Filter>StaticLib</Filter>
-    </ClCompile>
     <ClCompile Include="..\Libraries\ApplicationBase.cpp">
       <Filter>Checked\ApplicationBase</Filter>
     </ClCompile>
@@ -161,9 +158,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Libraries\func_lib.h">
-      <Filter>StaticLib</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\eMainElement.h">
       <Filter>StaticLib\enums</Filter>
     </ClInclude>
@@ -281,10 +275,5 @@
     <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h">
       <Filter>StaticLib\defines</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Libraries\func_lib.inl">
-      <Filter>StaticLib</Filter>
-    </None>
   </ItemGroup>
 </Project>

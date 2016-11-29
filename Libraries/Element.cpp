@@ -34,11 +34,6 @@ GearSetNumber Element::getGearSetN() const
 	return m_gearSetN;
 }
 
-// int TElement::getSerialNumber() const
-// {
-// 	return ( m_gearSetN - 1 ) * 3 + convernToInt( m_elemN ) - 1;
-// }
-
 int Element::getSerialNumber() const
 {
 	return ( m_gearSetN.getValue() - 1 ) * 3 + convernToInt( m_elemN ) - 1;

@@ -1,6 +1,5 @@
 #include "../Libraries/Gaus.h"
 #include "../Libraries/Singletons.h"
-#include "../Libraries/func_lib.h"
 
 NS_CORE_USING
 

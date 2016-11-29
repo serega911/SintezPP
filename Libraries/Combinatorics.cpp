@@ -65,7 +65,7 @@ bool core::Combinatorics::getSubset( const size_t n, const size_t k, const size_
 	}
 	else
 	{
-		auto key = std::pair<size_t, size_t>( n, k );
+		const auto key = std::pair<size_t, size_t>( n, k );
 		return getCombi( key, m_subsets, std::bind( &Combinatorics::createSubset, this, key ), mas, i );
 	}
 }
@@ -90,7 +90,7 @@ bool core::Combinatorics::getOrderedSample( const size_t n, const size_t k, cons
 	}
 	else
 	{
-		auto key = std::pair<size_t, size_t>( n, k );
+		const auto key = std::pair<size_t, size_t>( n, k );
 		return getCombi( key, m_orderedSamples, std::bind( &Combinatorics::createOrderedSample, this, key ), mas, i );
 	}
 }
@@ -127,7 +127,7 @@ void Combinatorics::createPremutation( const size_t n )
 	} while ( std::next_permutation( premutation.begin(), premutation.end() ) );
 }
 
-void core::Combinatorics::createOrderedSample( std::pair<size_t, size_t> key )
+void core::Combinatorics::createOrderedSample( const std::pair<size_t, size_t> key )
 {
 	CombinatoricsValueArray subset;
 	subset.resize( key.second, 0 );
@@ -138,7 +138,7 @@ void core::Combinatorics::createOrderedSample( std::pair<size_t, size_t> key )
 	} while ( nextOrderedSample( key.first, subset ) );
 }
 
-void Combinatorics::createSubset( std::pair<size_t, size_t> key )
+void Combinatorics::createSubset( const std::pair<size_t, size_t> key )
 {
 	CombinatoricsValueArray subset;
 	subset.resize( key.second );

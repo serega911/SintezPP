@@ -22,9 +22,9 @@ private:
 	bool										nextSubset( const size_t n, CombinatoricsValueArray & mas );
 	bool										nextOrderedSample( const size_t n, CombinatoricsValueArray & mas );
 
- 	void										createSubset( std::pair<size_t, size_t> key );
+ 	void										createSubset( const std::pair<size_t, size_t> key );
  	void										createPremutation( const size_t n );
- 	void										createOrderedSample( std::pair<size_t, size_t> key );
+ 	void										createOrderedSample( const std::pair<size_t, size_t> key );
 
 
 public:

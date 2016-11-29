@@ -13,12 +13,12 @@ std::string IOFileManager::getFolder()
 	return s_resultsFolder;
 }
 
-const std::string& IOFileManager::getFolder( eOutputFileType type )
+const std::string& IOFileManager::getFolder( const eOutputFileType type )
 {
 	return m_containingFolder;// type == eOutputFileType::SETTINGS ? s_settingsFolder : m_containingFolder;
 }
 
-void IOFileManager::writeToFile( eOutputFileType type, const IIOItem & container )
+void IOFileManager::writeToFile( const eOutputFileType type, const IIOItem & container )
 {
 	auto file = m_oFiles.find(type);
 	if (file != m_oFiles.end())
@@ -37,7 +37,7 @@ void IOFileManager::writeToFile( eOutputFileType type, const IIOItem & container
 }
 
 
-bool IOFileManager::loadFromFile(eOutputFileType type, IIOItem & container)
+bool IOFileManager::loadFromFile(const eOutputFileType type, IIOItem & container)
 {
 	bool result;
 

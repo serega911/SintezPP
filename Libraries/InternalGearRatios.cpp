@@ -2,7 +2,6 @@
 #include <algorithm>
 
 #include "InternalGearRatios.h"
-#include "func_lib.h"
 #include "Singletons.h"
 #include "Log.h"
 
@@ -55,10 +54,13 @@ void InternalGearRatios::setValues( const InternalGearRatioValueArray& values )
 bool InternalGearRatios::check() const
 {
 	const auto& initialData = Singletons::getInstance()->getInitialData();
-	for ( size_t i = 0; i < m_K.size(); i++ )
+	const size_t kSize = m_K.size();
+	const size_t rangesSize = initialData._ranges.size();
+
+	for ( size_t i = 0; i < kSize; i++ )
 	{
 		bool flag = false;
-		for ( size_t j = 0; j < initialData._ranges.size(); j++ )
+		for ( size_t j = 0; j < rangesSize; j++ )
 		{
 			if ( initialData._ranges[j].isInRange( m_K[i] ) )
 			{
@@ -73,12 +75,14 @@ bool InternalGearRatios::check() const
 		}
 	}
 
-	return true && m_K.size();
+	return kSize;
 }
 bool InternalGearRatios::loadFromFile(std::istream& in)
 {
-	m_K.resize( Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	for ( size_t i = 0; i < m_K.size(); i++ )
+	const size_t kSize = Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	m_K.resize( kSize );
+
+	for ( size_t i = 0; i < kSize; i++ )
 	{
 		double value;
 		in >> value;

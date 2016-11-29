@@ -1,7 +1,6 @@
 #include <algorithm>
 
 #include "Code.h"
-#include "func_lib.h"
 #include "Singletons.h"
 #include "Log.h"
 
@@ -62,15 +61,14 @@ void Code::setBrakes( const TLinkArray& brakes )
 
 void Code::print() const
 {
-	SetColor(15, 2);
-	Log::log( "==================================================" );
-	SetColor(15, 0);
+	Log::log( "==================================================", true, Log::WHITE, Log::GREEN );
 	Log::log( "Длина вектора кода:			" + std::to_string( m_code.size() ) );
 	Log::log( "--------------------------------------------------" );
 
 	const auto& generalData = Singletons::getInstance()->getGeneralData();
 
-	for ( size_t i = 0; i < m_code.size(); i++ )
+	const size_t size = m_code.size();
+	for ( size_t i = 0; i < size; i++ )
 	{
 		if ( i == 1 || i == 2 || i == 2 + generalData._numberOfLinks || i == 2 + generalData._numberOfLinks + generalData._numberOfFrictions )
 			Log::log( "|", false );

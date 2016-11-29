@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Libraries\ApplicationBase.cpp" />
-    <ClCompile Include="..\Libraries\func_lib.cpp" />
     <ClCompile Include="..\Libraries\Chain.cpp" />
     <ClCompile Include="..\Libraries\Code.cpp" />
     <ClCompile Include="..\Libraries\ChainsContainer.cpp" />
@@ -38,7 +37,6 @@
   <ItemGroup>
     <ClInclude Include="..\Libraries\eMainElement.h" />
     <ClInclude Include="..\Libraries\eMainElementArray.h" />
-    <ClInclude Include="..\Libraries\func_lib.h" />
     <ClInclude Include="..\Libraries\GlobalDefines.h" />
     <ClInclude Include="..\Libraries\ApplicationBase.h" />
     <ClInclude Include="..\Libraries\IIOItem.h" />
@@ -76,9 +74,6 @@
     <ClInclude Include="..\Libraries\SettingsItem.h" />
     <ClInclude Include="..\Libraries\Singletons.h" />
     <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Libraries\func_lib.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57148835-C16B-4085-994E-3443132160A9}</ProjectGuid>

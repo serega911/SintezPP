@@ -40,8 +40,8 @@ public:
 
 	static std::string							getFolder();
 
-	void										writeToFile(eOutputFileType type, const IIOItem & container);
-	bool										loadFromFile(eOutputFileType type, IIOItem & container);
+	void										writeToFile(const eOutputFileType type, const IIOItem & container);
+	bool										loadFromFile(const eOutputFileType type, IIOItem & container);
 		
 	void										writeSolutionData();
 
@@ -56,7 +56,7 @@ private:
 
 	static const std::string					s_resultsFolder;
 
-	const std::string&							getFolder( eOutputFileType type );
+	const std::string&							getFolder( const eOutputFileType type );
 
 	std::string									m_containingFolder;
 	std::map<eOutputFileType, std::ofstream*>	m_oFiles;
