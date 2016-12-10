@@ -54,6 +54,9 @@
     <ClInclude Include="..\Libraries\GearChanger.h" />
     <ClInclude Include="..\Libraries\GearNumber.h" />
     <ClInclude Include="..\Libraries\GearSetNumber.h" />
+    <ClInclude Include="..\Libraries\NumberBase.h" />
+    <ClInclude Include="..\Libraries\NumberFloat.h" />
+    <ClInclude Include="..\Libraries\NumberInt.h" />
     <ClInclude Include="..\Libraries\Ratios.h" />
     <ClInclude Include="..\Libraries\RatiosArray.h" />
     <ClInclude Include="..\Libraries\IOFileManager.h" />

@@ -33,6 +33,7 @@ public:
 	static const Element						EMPTY;
 
 	bool										isCentral() const;
+	bool										isAdditional() const;
 
 	friend bool									operator<( const Element& elem1, const Element& elem2 );
 	friend bool									operator==( const Element& elem1, const Element& elem2 );

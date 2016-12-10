@@ -11,7 +11,7 @@ void System::addDefinedChain( const NS_CORE Chain& chain, const VariableValue & 
 
 	for ( auto & elem : elements )
 	{
-		if ( elem.isCentral() || elem != NS_CORE Element::EMPTY )
+		if ( elem.isCentral() || elem == NS_CORE Element::EMPTY )
 		{
 			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN().getValue() - 1][elem.getElemN()];
 			variable.setDefined( true );
@@ -29,7 +29,7 @@ void System::addUndefinedChain( const NS_CORE Chain& chain, const VariableValue 
 
 	for ( auto & elem : elements )
 	{
-		if ( elem.isCentral() || elem != NS_CORE Element::EMPTY )
+		if ( elem.isCentral() || elem == NS_CORE Element::EMPTY )
 		{
 			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN().getValue() - 1][elem.getElemN()];
 			variable.setDefined( false );
