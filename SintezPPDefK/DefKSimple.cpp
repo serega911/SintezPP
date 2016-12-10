@@ -102,6 +102,13 @@ NS_CORE InternalGearRatios DefKSimple::solveSimple( System& system )
 					solvedCount++;
 					VariableValue value = Equations::calcOne( undefElements[0], gearSetVariables );
 
+					//проверяем удачно ли прошли вычисления
+					if ( !Equations::getStatusOK() )
+					{
+						Equations::resetStatusOK();
+						return NS_CORE InternalGearRatios();
+					}
+
 					//отмечаем как известное
 					for ( auto& unknown : unknowns )
 						if ( unknown.findElementInListeners( NS_CORE Element( undefElements[0], NS_CORE GearSetNumber(j + 1) ), NS_CORE GearNumber( i + 1 ) ) )

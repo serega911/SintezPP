@@ -5,7 +5,11 @@
 
 #include "GlobalDefines.h"
 
+
+
 NS_CORE_START
+
+#define HERE std::string(__FILE__) + ": " + __FUNCTION__ + " "  + std::to_string(__LINE__)
 
 class Log
 {

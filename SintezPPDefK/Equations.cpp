@@ -3,6 +3,8 @@
 
 NS_ARI_USING
 
+bool Equations::s_statusOK = true;
+
  FunctionValue Equations::wyllys( const VariablesSet & set )
  {
 	 return set[NS_CORE eMainElement::SUN_GEAR].getValue()
@@ -32,9 +34,33 @@ NS_ARI_USING
 		return dfDk;
 		break;
 	default:
-		NS_CORE Log::warning( true, "wrong eMainElement value", NS_CORE Log::CRITICAL, "Equations::getEquation" );
+		NS_CORE Log::warning( true, "wrong eMainElement value", NS_CORE Log::CRITICAL, HERE );
 		break;
 	}
+ }
+
+ void Equations::resetStatusOK()
+ {
+	 s_statusOK = true;
+ }
+
+ bool Equations::getStatusOK()
+ {
+	 return s_statusOK;
+ }
+
+ void Equations::setStatusFail()
+ {
+	 s_statusOK = false;
+ }
+
+ void ari::Equations::processBadCondition( const bool condition, const std::string & message /*= "" */ )
+ {
+	 if ( condition )
+	 {
+		 NS_CORE Log::warning( condition, message, NS_CORE Log::NON_CRITICAL, HERE );
+		 setStatusFail();
+	 }
  }
 
  FunctionValue Equations::dfDk( const VariablesSet & set )
@@ -61,7 +87,7 @@ NS_ARI_USING
  {
 	 const auto z = set[NS_CORE eMainElement::EMPTY].getValue();
 
-	 NS_CORE Log::warning( z == 0, "division by ZERO", NS_CORE Log::CRITICAL, "Equations::calcWEpicyclic" );
+	 processBadCondition( z == 0, "division by ZERO" );
 
 	 return (
 		 set[NS_CORE eMainElement::SUN_GEAR].getValue() +
@@ -79,7 +105,7 @@ NS_ARI_USING
  {
 	 const auto z = set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
 
-	 NS_CORE Log::warning( z == 0, "division by ZERO", NS_CORE Log::CRITICAL, "Equations::calcWCarrirer" );
+	 processBadCondition( z == 0, "division by ZERO" );
 	 
 	 return (
 		 -set[NS_CORE eMainElement::SUN_GEAR].getValue()
@@ -91,7 +117,7 @@ NS_ARI_USING
  {
 	 const auto z = set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() ;
 
-	 NS_CORE Log::warning( z == 0, "division by ZERO", NS_CORE Log::CRITICAL, "Equations::calcKValue" );
+	 processBadCondition( z == 0, "division by ZERO");
 
 	 return ( set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::SUN_GEAR].getValue() ) / z;
  }
@@ -118,7 +144,7 @@ NS_ARI_USING
 		 return calcKValue( set );
 		 break;
 	 default:
-		 NS_CORE Log::warning( true, "wrong eMainElement value", NS_CORE Log::CRITICAL, "Equations::calcOne" );
+		 NS_CORE Log::warning( true, "wrong eMainElement value", NS_CORE Log::CRITICAL, HERE );
 		 break;
 	 }
  }
