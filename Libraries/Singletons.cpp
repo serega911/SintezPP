@@ -80,7 +80,7 @@ void Singletons::setGlobalParameters( const size_t w, const size_t n, const size
 		break;
 	default:
 		{
-			Log::warning( true, "Ошибка: Некорректное количество степеней свободы!", Log::CRITICAL, "TSingletons::calculateNumbersOfElements()" );
+			Log::warning( true, "Ошибка: Некорректное количество степеней свободы!", Log::CRITICAL, HERE );
 		}
 		break;
 	}

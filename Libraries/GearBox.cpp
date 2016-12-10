@@ -23,7 +23,7 @@ Code& GearBox::getRefferenceToCode()
 
 const ChainArray& GearBox::getChains() const
 {
-	Log::warning( m_chains.size() == 0, "There is no chains!", Log::CRITICAL, "TGearBox::getChains()" );
+	Log::warning( m_chains.size() == 0, "There is no chains!", Log::CRITICAL, HERE );
 	return m_chains;
 }
 
@@ -54,7 +54,7 @@ void GearBox::createChains()
 	const auto& code = m_code.getCode();
 	const auto codeSize = Singletons::getInstance()->getGeneralData()._numberOfLinks + 2;
 
-	Log::warning( codeSize > code.size(), "Unexpected size!", Log::CRITICAL, "TGearBox::createChains()" );
+	Log::warning( codeSize > code.size(), "Unexpected size!", Log::CRITICAL, HERE );
 
 	//Создаем начальные цепочки (каждая связь делается цепочкой)
 	m_chains.clear();

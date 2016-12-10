@@ -43,7 +43,7 @@ inline int convernToInt( const eMainElement& e )
 		ret = 3;
 		break;
 	default:
-		Log::warning( true, "Wrong convertation from eMainElement to int.", Log::CRITICAL, "inline int convernToInt( const eMainElement& e )" );
+		Log::warning( true, "Wrong convertation from eMainElement to int.", Log::CRITICAL, HERE );
 		break;
 	}
 

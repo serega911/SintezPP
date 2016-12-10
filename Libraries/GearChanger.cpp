@@ -77,7 +77,7 @@ void GearChanger::initDriveElemPositions()
 	}
 	else
 	{
-		Log::warning( true, "W = 1 and W > 3 isn\'t implemented", Log::CRITICAL, "TGearChanger::TGearChanger( const TCode& code )" );
+		Log::warning( true, "W = 1 and W > 3 isn\'t implemented", Log::CRITICAL, HERE );
 	}
 }
 
