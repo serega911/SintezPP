@@ -17,9 +17,10 @@ struct InitialData
 {
 	size_t										_w;									//	число степеней свободы
 	size_t										_numberOfGears;						//	Количество реализуемых передач без прямой
+	size_t										_realNumberOfGears;					//  Количество введенных пользователем передач
 	size_t										_numberOfPlanetaryGears;			//	Количество планетарных рядов
 	RangeArray									_ranges;
-	Ratios											_i;
+	Ratios										_i;
 };
 
 struct GeneralData
@@ -39,9 +40,7 @@ private:
 	Singletons();
 	Singletons( const Singletons& ) = delete;
 
-	Singletons&								operator=( Singletons& ) = delete;
-
-	//void										calculateNumbersOfElements();
+	Singletons&									operator=( Singletons& ) = delete;
 
 	GeneralData									m_generalData;
 	InitialData									m_initialData;
@@ -60,7 +59,6 @@ public:
 	const InitialData&							getInitialData() const;
 
 	void										setGlobalParameters( const size_t w, const size_t n, const size_t d );
-	void										setNumberOfGears( const size_t n );
 	void										addRangeK( const Range& range );
 	void										addGearRatio( const double& i );
 

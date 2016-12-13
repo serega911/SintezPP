@@ -4,7 +4,7 @@
 #include "GlobalDefines.h"
 #include "Code.h"
 #include "Chain.h"
-#include "GearChanger.h"
+
 #include "GearNumber.h"
 #include "ChainArray.h"
 
@@ -16,26 +16,21 @@ private:
 
 	Code										m_code;
 	ChainArray									m_chains;
-	GearChanger								m_gearChanger;
-
-	void										makeChains( ChainArray &chains ) const;
-	
 	
 protected:
 
+	void										makeChains( ChainArray &chains ) const;
 	Code&										getRefferenceToCode();
 
 public:
 
 	GearBox( const Code& code );
 
-	bool										createChains();
+	void										createChains();
 
-	const Code&								getCode() const;
+	const Code&									getCode() const;
 	const ChainArray&							getChains() const;
-	ChainArray									getChainsForCurrentGear() const;
 
-	bool										turnOnNextGear();
 };
 
 NS_CORE_END

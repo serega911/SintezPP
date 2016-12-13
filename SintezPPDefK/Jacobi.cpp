@@ -26,7 +26,7 @@ void Jacobi::setSize( size_t size )
 
 void Jacobi::setEquation( size_t i, size_t j, const Equation & eq )
 {
-	NS_CORE Log::warning( i >= m_size && j >= m_size, "i,j out of range.", NS_CORE Log::CRITICAL, "Determinant.cpp" );
+	NS_CORE Log::warning( i >= m_size && j >= m_size, "i,j out of range.", NS_CORE Log::CRITICAL, HERE );
 	m_determinant.at( i ).at( j ) = eq;
 }
 

@@ -14,7 +14,7 @@ private:
 
 protected:
 
-	InternalGearRatioValueArray								m_K;
+	InternalGearRatioValueArray					m_K;
 
 public:
 

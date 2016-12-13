@@ -16,8 +16,8 @@ class Link
 {
 private:
 
-	Element									m_elem1;
-	Element									m_elem2;
+	Element										m_elem1;
+	Element										m_elem2;
 
 public:
 

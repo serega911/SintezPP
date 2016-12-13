@@ -18,11 +18,9 @@ public:
 	void										solve();
 
 	void										createSystem( const Code & Code, const InternalGearRatios &k );
-
 	void										createSystemDrivers( const TLinkArray& drivers );
 
 	std::vector<std::vector<double>>			getSystem() const;
-
 	const std::vector<double>&					getSolution() const;
 
 };

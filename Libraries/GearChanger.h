@@ -16,6 +16,10 @@ private:
 	std::vector<TLinkArray>						m_drivingElementsForAllGears;
 	size_t										m_gear;
 
+	static std::vector<std::vector<size_t>>		m_driveElemPostions;
+
+	void										initDriveElemPositions();
+
 public:
 
 	GearChanger() = delete;

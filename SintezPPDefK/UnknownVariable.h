@@ -33,7 +33,7 @@ public:
 
 	void										addListener( Variable* listener );
 	void										deleteListener( Variable* listener );
-	const std::set<Variable*>					getAllListeners() const;
+	const std::set<Variable*>&					getAllListeners() const;
 
 	bool										findElementInListeners( const NS_CORE Element & element, const NS_CORE GearNumber gear );
 

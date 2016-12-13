@@ -43,11 +43,21 @@ inline int convernToInt( const eMainElement& e )
 		ret = 3;
 		break;
 	default:
-		Log::warning( true, "Wrong convertation from eMainElement to int.", Log::CRITICAL, "inline int convernToInt( const eMainElement& e )" );
+		Log::warning( true, "Wrong convertation from eMainElement to int.", Log::CRITICAL, HERE );
 		break;
 	}
 
 	return ret;
+}
+
+inline bool isCentralElement( const eMainElement& e )
+{
+	return e == eMainElement::SUN_GEAR || e == eMainElement::EPICYCLIC_GEAR || e == eMainElement::CARRIER;
+}
+
+inline bool isAdditionalElement( const  eMainElement& e )
+{
+	return e == eMainElement::INPUT || e == eMainElement::OUTPUT || e == eMainElement::BRAKE;
 }
 
 NS_CORE_END

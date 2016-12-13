@@ -73,6 +73,7 @@
     <ClInclude Include="DefKNuton.h" />
     <ClInclude Include="DefKSelection.h" />
     <ClInclude Include="DefKSimple.h" />
+    <ClInclude Include="GearBox.h" />
     <ClInclude Include="Jacobi.h" />
     <ClInclude Include="Equations.h" />
     <ClInclude Include="Defines.h" />
@@ -90,6 +91,7 @@
     <ClCompile Include="DefKNuton.cpp" />
     <ClCompile Include="DefKSelection.cpp" />
     <ClCompile Include="DefKSimple.cpp" />
+    <ClCompile Include="GearBox.cpp" />
     <ClCompile Include="Jacobi.cpp" />
     <ClCompile Include="Equations.cpp" />
     <ClCompile Include="main.cpp" />
@@ -100,6 +102,11 @@
     <ClCompile Include="UnknownVariable.cpp" />
     <ClCompile Include="Variable.cpp" />
     <ClCompile Include="VariablesSet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
+      <Project>{57148835-c16b-4085-994e-3443132160a9}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

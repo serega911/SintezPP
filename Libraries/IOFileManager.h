@@ -29,7 +29,8 @@ public:
 		KIN_QUICK,
 		KIN_SLOW,
 		SETTINGS,
-		K_TEST
+		K_TEST,
+		K_TEST_LOG
 	};
 
 	static IOFileManager*						getInstance();
@@ -39,8 +40,8 @@ public:
 
 	static std::string							getFolder();
 
-	void										writeToFile(eOutputFileType type, const IIOItem & container);
-	bool										loadFromFile(eOutputFileType type, IIOItem & container);
+	void										writeToFile(const eOutputFileType type, const IIOItem & container);
+	bool										loadFromFile(const eOutputFileType type, IIOItem & container);
 		
 	void										writeSolutionData();
 
@@ -54,9 +55,8 @@ private:
 
 
 	static const std::string					s_resultsFolder;
-	static const std::string					s_settingsFolder;
 
-	const std::string&							getFolder( eOutputFileType type );
+	const std::string&							getFolder( const eOutputFileType type );
 
 	std::string									m_containingFolder;
 	std::map<eOutputFileType, std::ofstream*>	m_oFiles;

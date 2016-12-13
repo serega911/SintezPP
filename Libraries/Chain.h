@@ -26,6 +26,7 @@ public:
 	bool										find(const Element & element) const;
 
 	bool										checkElemByOnePlanetarySet() const;
+	bool										checkIsChainCorrect() const;
 	const Element&								getSomeElement() const;
 
 	size_t										size() const;

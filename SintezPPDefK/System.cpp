@@ -11,7 +11,7 @@ void System::addDefinedChain( const NS_CORE Chain& chain, const VariableValue & 
 
 	for ( auto & elem : elements )
 	{
-		if ( elem != NS_CORE Element::INPUT && elem != NS_CORE Element::OUTPUT && elem != NS_CORE Element::BRAKE )
+		if ( elem.isCentral() || elem == NS_CORE Element::EMPTY )
 		{
 			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN().getValue() - 1][elem.getElemN()];
 			variable.setDefined( true );
@@ -29,7 +29,7 @@ void System::addUndefinedChain( const NS_CORE Chain& chain, const VariableValue 
 
 	for ( auto & elem : elements )
 	{
-		if ( elem != NS_CORE Element::INPUT && elem != NS_CORE Element::OUTPUT && elem != NS_CORE Element::BRAKE )
+		if ( elem.isCentral() || elem == NS_CORE Element::EMPTY )
 		{
 			auto& variable = m_sets[m_addedSetCount][elem.getGearSetN().getValue() - 1][elem.getElemN()];
 			variable.setDefined( false );
@@ -108,7 +108,7 @@ const UnknownVariableArray & System::getUnknownVariables() const
 void System::init( const NS_CORE InternalGearRatios& initialKValues )
 {
 	auto numberOfPlanetaryGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
-	auto numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
+	auto numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._realNumberOfGears;
 
 	m_sets.resize( numberOfGears );
 	for ( auto&it : m_sets )

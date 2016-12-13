@@ -3,7 +3,7 @@
 #include "Matrix.h"
 #include "MatrixOperations.h"
 #include "CheckAllPossibilities.h"
-#include "../Libraries/GearChanger.h"
+#include "GearBox.h"
 #include "../Libraries/Singletons.h"
 
 #include <iostream>
@@ -50,7 +50,7 @@ NS_CORE InternalGearRatios DefKNuton::findK( const NS_CORE Code& code, const NS_
 	System system;
 	system.init( initialKValues );
 
-	NS_CORE GearBox gb( code );
+	GearBox gb( code );
 	gb.createChains();
 
 	int i = 0;

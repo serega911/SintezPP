@@ -27,8 +27,6 @@ private:
 	void										addDefinedChain( const NS_CORE Chain& chain, const VariableValue & value, const NS_CORE GearNumber& gear );
 	void										addUndefinedChain( const NS_CORE Chain& chain, const VariableValue & value, const NS_CORE GearNumber& gear );
 
-
-
 public:
 
 	System();

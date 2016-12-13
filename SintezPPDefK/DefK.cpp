@@ -16,8 +16,6 @@ void DefK::readInitialData()
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE Log::log( "====  Синтез планетарных передач с тремя степенями свободы. Определение К.  ====" );
 
-	readWND();
-
 	int countIntervals = 0;
 	NS_CORE Log::log( "Количество диапазонов : ", false );
 	std::cin >> countIntervals;
@@ -31,81 +29,88 @@ void DefK::readInitialData()
 		NS_CORE Singletons::getInstance()->addRangeK( NS_CORE Range( NS_CORE InternalGearRatioValue( beg ), NS_CORE InternalGearRatioValue( end ) ) );
 	}
 
-	if ( NS_CORE Singletons::getInstance()->getInitialData()._w > 2 )
-	{
-		NS_CORE Log::log( "Количество передач:	", false );
-		int n;
-		std::cin >> n;
-		NS_CORE Singletons::getInstance()->setNumberOfGears( n );
-	}
-	else
-	{
-		NS_CORE Singletons::getInstance()->setNumberOfGears( NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	}
+	const size_t numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
+	NS_CORE Log::log( "Количество передач:	" + std::to_string( numberOfGears ) );
 
 	NS_CORE Log::log( "Передаточные отношения : ", false );
-	for ( size_t i = 0; i < NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears; i++ )
+	for ( size_t i = 0; i < numberOfGears; i++ )
 	{
 		double ratio = 0;
 		std::cin >> ratio;
 		if ( ratio != 0 )
 			NS_CORE Singletons::getInstance()->addGearRatio( ratio );
 		else
+		{
+			for ( size_t j = i; j < numberOfGears; j++ )
+				NS_CORE Singletons::getInstance()->addGearRatio( 0 );
 			break;
+		}
 	}
 }
 
 void ari::DefK::calcExample()
 {
-	readWND();
-	if ( NS_CORE Singletons::getInstance()->getInitialData()._w > 2 )
-	{
-		NS_CORE Log::log( "Количество передач:	", false );
-		int n;
-		std::cin >> n;
-		NS_CORE Singletons::getInstance()->setNumberOfGears( n );
-	}
-	else
-	{
-		NS_CORE Singletons::getInstance()->setNumberOfGears( NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
-	}
+
+	NS_CORE Log::log( "Количество передач:	" + std::to_string(NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears) );
 
 	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
 	
-	NS_CORE InternalGearRatioValueArray kValues;
+	const size_t testKSize = NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._testsCount;
+	std::vector<NS_CORE InternalGearRatioValueArray> kValues(testKSize);
 	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
-		kValues.push_back( NS_CORE InternalGearRatioValue( 2 ) );
-	ari::InternalGearRatios k = NS_CORE InternalGearRatios( kValues );
+	{
+		for ( int j = 0; j < testKSize; j++ )
+			kValues[j].emplace_back( NS_CORE InternalGearRatioValue( ( rand() % 30 ) / 10.0 + 2 ) );
+	}
+
+	std::vector<ari::InternalGearRatios> initialK;
+	for ( int j = 0; j < testKSize; j++ )
+		initialK.emplace_back( NS_CORE InternalGearRatios( kValues[j] ) );
 
 	NS_CORE Code code;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
 	{
-		auto realI = DefKSelection::podModul( code, k );
+		bool isWrited = false;
 
-		if (realI.size() > 0 )
+		for ( const auto &k : initialK )
 		{
-			int unique = 1;
-			for ( int i = 0; i < realI.size() - 1; i++ )
+			auto realI = DefKSelection::podModul( code, k );
+
+			const size_t iSize = realI.size();
+			if ( iSize > 0 )
 			{
-				bool finded = false;
-				for ( int j = i + 1; j < realI.size(); j++ )
+				int unique = 1;
+				for ( int i = 0; i < iSize - 1; i++ )
 				{
-					if ( realI[i] == realI[j] )
+					if ( realI[i] != NS_CORE RatioValue( 0 ) )
 					{
-						finded = true;
-						break;
+						bool finded = false;
+						for ( int j = i + 1; j < iSize; j++ )
+						{
+							if ( realI[i] == realI[j] )
+							{
+								finded = true;
+								break;
+							}
+						}
+
+						if ( !finded )
+						{
+							unique++;
+						}
 					}
 				}
-
-				if ( !finded )
+				if ( unique == initialData._numberOfGears )
 				{
-					unique++;
+					if (!isWrited)
+					{
+						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile(NS_CORE IOFileManager::eOutputFileType::K_TEST, code);
+						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile(NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, code);
+						isWrited = true;
+					}
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, realI );
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, k );
 				}
-
-			}
-			if ( unique == initialData._numberOfGears )
-			{
-				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST, code );
 			}
 		}	
 	}
@@ -113,6 +118,14 @@ void ari::DefK::calcExample()
 
 void DefK::run()
 { 
+	readWND();
+
+	if ( NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._doTest )
+	{
+		calcExample();
+		return;
+	}
+
 	readInitialData();
 
 	NS_CORE Code code;
@@ -132,7 +145,9 @@ void DefK::run()
 		
 
 		bool isWrited = false;
-		for ( size_t i = 0; i < ans.size(); i++ )
+		const size_t ansSize = ans.size();
+
+		for ( size_t i = 0; i < ansSize; i++ )
 		{
 			auto realI = DefKSelection::podModul( code, ans[i] );
 

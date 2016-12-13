@@ -22,9 +22,9 @@ private:
 	bool										nextSubset( const size_t n, CombinatoricsValueArray & mas );
 	bool										nextOrderedSample( const size_t n, CombinatoricsValueArray & mas );
 
- 	void										createSubset( std::pair<size_t, size_t> key );
+ 	void										createSubset( const std::pair<size_t, size_t> key );
  	void										createPremutation( const size_t n );
- 	void										createOrderedSample( std::pair<size_t, size_t> key );
+ 	void										createOrderedSample( const std::pair<size_t, size_t> key );
 
 
 public:
@@ -33,7 +33,12 @@ public:
 
 	bool										getPremutation( const size_t n, const size_t i, CombinatoricsValueArray & mas );						//перестановки
 	bool										getSubset( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas );			//сочетания
-	bool										getOrderedSample( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas );		//размещения
+	bool										getOrderedSample( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas );		//размещения с повторениями
+
+	size_t										getPremutationsCount( const size_t n );
+	size_t										getSubsetsCount( const size_t n, const size_t k  );
+	size_t										getOrderedSamplesCount( const size_t n, const size_t k );
+
 
 	~Combinatorics();
 };

@@ -14,16 +14,16 @@ class DefKSimple
 {
 private:
 
-	NS_CORE InternalGearRatios									findK( const NS_CORE Code& code, const NS_CORE InternalGearRatios& initialKValues, const NS_CORE Ratios& iTarget );
-	NS_CORE InternalGearRatios									solveSimple( System& system );
-	NS_CORE InternalGearRatios									geInternalGearRatioValuesFromSystem( const System & system );
+	NS_CORE InternalGearRatios					findK( const NS_CORE Code& code, const NS_CORE InternalGearRatios& initialKValues, const NS_CORE Ratios& iTarget );
+	NS_CORE InternalGearRatios					solveSimple( System& system );
+	NS_CORE InternalGearRatios					getInternalGearRatioValuesFromSystem( const System & system );
 	bool										isAllKValuesFinded( const System & system );
 
 public:
 
 	DefKSimple();
 
-	NS_CORE InternalGearRatioArray								calculate( const NS_CORE Code& code );
+	NS_CORE InternalGearRatioArray				calculate( const NS_CORE Code& code );
 
 };
 

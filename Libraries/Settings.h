@@ -14,12 +14,22 @@ public:
 	{
 		bool				_calcKQuick;
 		bool				_doTest;
+		size_t				_testsCount;
+	};
+
+	struct GeneralSettings
+	{
+		bool				_gearChangerUseTwoFrictions;
+		bool				_gearChangerUseTwoBrakes;
 	};
 
 private:
 
 	static const std::string					s_calcKQuick;
 	static const std::string					s_doTest;
+	static const std::string					s_twoFrictions;
+	static const std::string					s_twoBrakes;
+	static const std::string					s_testsCount;
 
 	bool										loadSettingsFromFile();
 	void										saveSettingsToFile();
@@ -27,6 +37,7 @@ private:
 	void										generateDefaultSettings();
 
 	DefKSettings								m_defKSettings;
+	GeneralSettings								m_generalSettings;
 
 	Settings();
 	Settings( const Settings& ) = delete;
@@ -36,6 +47,7 @@ public:
 	static Settings*							getInstance();
 
 	const DefKSettings&							getDefKSettings() const;
+	const GeneralSettings&						getGeneralSettings() const;
 
 };
 

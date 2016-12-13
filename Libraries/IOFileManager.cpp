@@ -8,19 +8,17 @@ NS_CORE_USING
 
 const std::string								IOFileManager::s_resultsFolder = "..\\Results";
 
-const std::string								IOFileManager::s_settingsFolder = "..\\Settings";
-
 std::string IOFileManager::getFolder()
 {
 	return s_resultsFolder;
 }
 
-const std::string& IOFileManager::getFolder( eOutputFileType type )
+const std::string& IOFileManager::getFolder( const eOutputFileType type )
 {
-	return type == eOutputFileType::SETTINGS ? s_settingsFolder : m_containingFolder;
+	return m_containingFolder;// type == eOutputFileType::SETTINGS ? s_settingsFolder : m_containingFolder;
 }
 
-void IOFileManager::writeToFile( eOutputFileType type, const IIOItem & container )
+void IOFileManager::writeToFile( const eOutputFileType type, const IIOItem & container )
 {
 	auto file = m_oFiles.find(type);
 	if (file != m_oFiles.end())
@@ -39,7 +37,7 @@ void IOFileManager::writeToFile( eOutputFileType type, const IIOItem & container
 }
 
 
-bool IOFileManager::loadFromFile(eOutputFileType type, IIOItem & container)
+bool IOFileManager::loadFromFile(const eOutputFileType type, IIOItem & container)
 {
 	bool result;
 
@@ -132,6 +130,7 @@ void IOFileManager::init()
 	m_fileNames[eOutputFileType::KIN_QUICK] = "kin_quick.pkp";
 	m_fileNames[eOutputFileType::KIN_SLOW] = "kin_slow.pkp";
 	m_fileNames[eOutputFileType::K_TEST] = "done_test.pkp";
+	m_fileNames[eOutputFileType::K_TEST_LOG] = "done_test_log.pkp";
 	m_fileNames[eOutputFileType::SETTINGS] = "settings.txt";
 
 	const auto& initialData = Singletons::getInstance()->getInitialData();
@@ -141,6 +140,5 @@ void IOFileManager::init()
 	m_containingFolder = s_resultsFolder + "\\" + folder;
 
 	_mkdir(s_resultsFolder.c_str());
-	_mkdir(s_settingsFolder.c_str());
 	_mkdir(m_containingFolder.c_str());
 }
