@@ -5,17 +5,23 @@ NS_CORE_START
 
 class ApplicationBase
 {
-private:
-
-	virtual void								readInitialData() = 0;
-
 public:
+
+	struct UIGeneralData
+	{
+		size_t _w;
+		size_t _n;
+		size_t _d;
+	};
+
+	void										readUIGeneralData();
+	void										setUIGeneralData( const UIGeneralData& data );
+
+	void										showParams();
 
 	virtual void								run() = 0;
 
-protected:
 
-	void										readWND();
 
 };
 

@@ -7,22 +7,9 @@ NS_ARI_USING
 
 const NS_CORE eMainElementArray Generate::s_elements = { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER };
 
-void Generate::readInitialData()
-{
-	setlocale( LC_ALL, "Russian" );
-	NS_CORE Log::log( "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n" );
-	//	Исходные данные
-	readWND();
-
-	auto generalData = NS_CORE Singletons::getInstance()->getGeneralData();
-	NS_CORE Log::log( "Количество связей:	" + std::to_string( generalData._numberOfLinks ) );
-	NS_CORE Log::log( "Количество фрикционов:	" + std::to_string( generalData._numberOfFrictions ) );
-	NS_CORE Log::log( "Количество тормозов:	" + std::to_string( generalData._numberOfBrakes ) );
-}
-
 void Generate::run()
 {
-	readInitialData();
+	showParams();
 
 	auto N = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 

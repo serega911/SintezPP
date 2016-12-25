@@ -12,12 +12,12 @@
 
 NS_ARI_USING
 
-void ari::KinematicSchemeBuilder::readInitialData()
+void ari::KinematicSchemeBuilder::readUISpecialData()
 {
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE Log::log( "====  Синтез планетарных передач с тремя степенями свободы. Просмотр.  ====\n\n" );
 	//	Исходные данные
-	readWND();
+	readUIGeneralData();
 }
 
 KinematicScheme KinematicSchemeBuilder::creatKinematicScheme( const core::Code & code, const core::InternalGearRatios & k )
@@ -140,7 +140,7 @@ PlanetaryGearSet::Type ari::KinematicSchemeBuilder::getPlanetaryGearSetType( con
 
 void KinematicSchemeBuilder::run()
 {
-	readInitialData();
+	readUISpecialData();
 
 	core::Code code;
 	core::InternalGearRatios k;

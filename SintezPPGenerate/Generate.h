@@ -20,9 +20,9 @@ private:
 	static const NS_CORE eMainElementArray	s_elements;
 
 	NS_CORE TLinkArray							m_allLinks;
-	NS_CORE ChainsContainer					m_existingSchemes;
+	NS_CORE ChainsContainer						m_existingSchemes;
 
-	void										readInitialData() override;
+	
 	void										generateInOut();
 	void										generateLinks( const GearBox & gearBox );
 	void										generateFrictions( const GearBox & gearBox );

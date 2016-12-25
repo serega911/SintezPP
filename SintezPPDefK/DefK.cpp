@@ -11,42 +11,7 @@
 NS_ARI_USING
 
 
-void DefK::readInitialData()
-{
-	setlocale( LC_ALL, "Russian" );
-	NS_CORE Log::log( "====  Синтез планетарных передач с тремя степенями свободы. Определение К.  ====" );
 
-	int countIntervals = 0;
-	NS_CORE Log::log( "Количество диапазонов : ", false );
-	std::cin >> countIntervals;
-	for ( int i = 0; i < countIntervals; i++ )
-	{
-		double beg, end;
-		NS_CORE Log::log( "Начало диапазона:	", false );
-		std::cin >> beg;
-		NS_CORE Log::log( "Конец диапазона:	", false );
-		std::cin >> end;
-		NS_CORE Singletons::getInstance()->addRangeK( NS_CORE Range( NS_CORE InternalGearRatioValue( beg ), NS_CORE InternalGearRatioValue( end ) ) );
-	}
-
-	const size_t numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
-	NS_CORE Log::log( "Количество передач:	" + std::to_string( numberOfGears ) );
-
-	NS_CORE Log::log( "Передаточные отношения : ", false );
-	for ( size_t i = 0; i < numberOfGears; i++ )
-	{
-		double ratio = 0;
-		std::cin >> ratio;
-		if ( ratio != 0 )
-			NS_CORE Singletons::getInstance()->addGearRatio( ratio );
-		else
-		{
-			for ( size_t j = i; j < numberOfGears; j++ )
-				NS_CORE Singletons::getInstance()->addGearRatio( 0 );
-			break;
-		}
-	}
-}
 
 void ari::DefK::calcExample()
 {
@@ -116,17 +81,62 @@ void ari::DefK::calcExample()
 	}
 }
 
+void ari::DefK::readUISpecialData()
+{
+	int countIntervals = 0;
+	NS_CORE Log::log( "Количество диапазонов : ", false );
+	std::cin >> countIntervals;
+	for ( int i = 0; i < countIntervals; i++ )
+	{
+		double beg, end;
+		NS_CORE Log::log( "Начало диапазона:	", false );
+		std::cin >> beg;
+		NS_CORE Log::log( "Конец диапазона:	", false );
+		std::cin >> end;
+		NS_CORE Singletons::getInstance()->addRangeK( NS_CORE Range( NS_CORE InternalGearRatioValue( beg ), NS_CORE InternalGearRatioValue( end ) ) );
+	}
+
+	const size_t numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
+	NS_CORE Log::log( "Количество передач:	" + std::to_string( numberOfGears ) );
+
+	NS_CORE Log::log( "Передаточные отношения : ", false );
+	for ( size_t i = 0; i < numberOfGears; i++ )
+	{
+		double ratio = 0;
+		std::cin >> ratio;
+		if ( ratio != 0 )
+			NS_CORE Singletons::getInstance()->addGearRatio( ratio );
+		else
+		{
+			for ( size_t j = i; j < numberOfGears; j++ )
+				NS_CORE Singletons::getInstance()->addGearRatio( 0 );
+			break;
+		}
+	}
+}
+
+void ari::DefK::setUISpecialData( const UISpecialData& data )
+{
+	for ( int i = 0; i < data._ranges.size(); i++ )
+		NS_CORE Singletons::getInstance()->addRangeK( NS_CORE Range( NS_CORE InternalGearRatioValue( data._ranges[i].first ), NS_CORE InternalGearRatioValue( data._ranges[i].second ) ) );
+
+	const size_t numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
+	size_t i = 0;
+	for ( i = 0; i < data._i.size(); i++ )
+		NS_CORE Singletons::getInstance()->addGearRatio(data._i[i]);
+	for ( size_t j = i; j < numberOfGears; j++ )
+		NS_CORE Singletons::getInstance()->addGearRatio( 0 );
+}
+
 void DefK::run()
 { 
-	readWND();
+	showParams();
 
 	if ( NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._doTest )
 	{
 		calcExample();
 		return;
 	}
-
-	readInitialData();
 
 	NS_CORE Code code;
 
