@@ -11,6 +11,9 @@
     <ClCompile Include="TestBase.cpp">
       <Filter>TestBase</Filter>
     </ClCompile>
+    <ClCompile Include="TestDefK.cpp">
+      <Filter>TestBase\TestDefK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestGlue.h" />
@@ -23,6 +26,9 @@
     <ClInclude Include="Command.h">
       <Filter>Command</Filter>
     </ClInclude>
+    <ClInclude Include="TestDefK.h">
+      <Filter>TestBase\TestDefK</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="TestBase">
@@ -33,6 +39,9 @@
     </Filter>
     <Filter Include="Command">
       <UniqueIdentifier>{9361e6c4-596a-4485-8945-0fb219bc2c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestBase\TestDefK">
+      <UniqueIdentifier>{cafaa8af-8ee8-4c08-8b85-ccb41f5db965}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

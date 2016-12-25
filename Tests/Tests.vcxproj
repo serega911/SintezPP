@@ -71,6 +71,7 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestBase.cpp" />
+    <ClCompile Include="TestDefK.cpp" />
     <ClCompile Include="TestGenerate.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +82,7 @@
   <ItemGroup>
     <ClInclude Include="Command.h" />
     <ClInclude Include="TestBase.h" />
+    <ClInclude Include="TestDefK.h" />
     <ClInclude Include="TestGenerate.h" />
     <ClInclude Include="TestGlue.h" />
   </ItemGroup>
