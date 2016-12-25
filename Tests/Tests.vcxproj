@@ -68,12 +68,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Command.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestBase.cpp" />
+    <ClCompile Include="TestGenerate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
       <Project>{57148835-c16b-4085-994e-3443132160a9}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="TestBase.h" />
+    <ClInclude Include="TestGenerate.h" />
+    <ClInclude Include="TestGlue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -82,19 +82,16 @@
     <Filter Include="StaticLib\TChainsContainer">
       <UniqueIdentifier>{10ceea58-d367-411b-8d13-7615e41967f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Checked">
-      <UniqueIdentifier>{f42d8b97-fbf6-4ebb-9f36-d58d5d72f369}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Checked\ApplicationBase">
-      <UniqueIdentifier>{7b534499-f692-4e07-9147-c81797d09da3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StaticLib\types\NumberBase">
       <UniqueIdentifier>{b075a506-32bd-4db2-89ff-73055833a5f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\ApplicationBase">
+      <UniqueIdentifier>{7b534499-f692-4e07-9147-c81797d09da3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Libraries\ApplicationBase.cpp">
-      <Filter>Checked\ApplicationBase</Filter>
+      <Filter>StaticLib\ApplicationBase</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\GearBox.cpp">
       <Filter>StaticLib\TGearBox</Filter>
@@ -171,7 +168,7 @@
       <Filter>StaticLib\TSchemeCharacteristics\KinematicSchemeData</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\ApplicationBase.h">
-      <Filter>Checked\ApplicationBase</Filter>
+      <Filter>StaticLib\ApplicationBase</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\IIOItem.h">
       <Filter>StaticLib\IIOItem</Filter>

@@ -19,6 +19,7 @@ private:
 public:
 
 	SettingsItem( const std::string & key, const std::string & val );
+	SettingsItem( const std::string & line );
 	SettingsItem();
 
 	virtual void								writeToFile( std::ostream& file ) const override;

@@ -58,7 +58,7 @@ bool Equations::s_statusOK = true;
  {
 	 if ( condition )
 	 {
-		 NS_CORE Log::warning( condition, message, NS_CORE Log::NON_CRITICAL, HERE );
+		 //NS_CORE Log::warning( condition, message, NS_CORE Log::NON_CRITICAL, HERE );
 		 setStatusFail();
 	 }
  }

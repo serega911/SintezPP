@@ -2,5 +2,37 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestGenerate.cpp">
+      <Filter>TestBase\TestGenerate</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBase.cpp">
+      <Filter>TestBase</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TestGlue.h" />
+    <ClInclude Include="TestBase.h">
+      <Filter>TestBase</Filter>
+    </ClInclude>
+    <ClInclude Include="TestGenerate.h">
+      <Filter>TestBase\TestGenerate</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="TestBase">
+      <UniqueIdentifier>{3d0fb0f7-ade6-4173-93b6-d44ccff7abe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestBase\TestGenerate">
+      <UniqueIdentifier>{bb8c8ff7-42f7-464b-8383-56d84b2e31fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command">
+      <UniqueIdentifier>{9361e6c4-596a-4485-8945-0fb219bc2c33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

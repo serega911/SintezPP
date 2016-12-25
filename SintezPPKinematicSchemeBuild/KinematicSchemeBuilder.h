@@ -13,8 +13,8 @@ class KinematicSchemeBuilder
 
 private:
 
-	void										readInitialData() override;
-	KinematicScheme							creatKinematicScheme( const core::Code & code, const core::InternalGearRatios & k );
+	void										readUISpecialData();
+	KinematicScheme								creatKinematicScheme( const core::Code & code, const core::InternalGearRatios & k );
 	PlanetaryGearSet::Type						getPlanetaryGearSetType( const NS_CORE InternalGearRatioValue& k );
 
 	NS_CORE KinematicSchemeData					calcKinemaricSchemeCharacteristics( const KinematicScheme& scheme );

@@ -9,6 +9,11 @@ SettingsItem::SettingsItem( const std::string & key, const std::string & val )
 
 }
 
+core::SettingsItem::SettingsItem( const std::string & line )
+{
+	*this = Parser::parse( line );
+}
+
 const std::string& SettingsItem::getValue() const
 {
 	return m_value;
