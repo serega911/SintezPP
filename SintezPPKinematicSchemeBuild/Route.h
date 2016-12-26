@@ -11,15 +11,15 @@ class Route
 {
 private:
 
-	std::vector<Cordinates>					m_route;
+	std::vector<Cordinate>					m_route;
 
 public:
 
 	size_t										size();
 
-	void										addCordinates( const Cordinates & cordinates );
+	void										addCordinates( const Cordinate & cordinates );
 
-	Cordinates									operator[]( size_t pos );
+	Cordinate									operator[]( size_t pos );
 
 };
 

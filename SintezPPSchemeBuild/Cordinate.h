@@ -7,7 +7,6 @@
 NS_ARI_START
 
 struct Cordinate;
-typedef std::vector<Cordinate> TCordinatesArray;
 
 struct Cordinate
 {
@@ -22,8 +21,10 @@ struct Cordinate
 	Cordinate									getTopNeighbor() const;
 	Cordinate									getBottomNeighbor() const;
 
-	std::map<eDirection, Cordinate>			getNeighbors() const;
+	std::map<eDirection, Cordinate>				getNeighbors() const;
 
+	friend Cordinate							operator+( const Cordinate & cord1, const Cordinate& cord2 );
+	friend Cordinate							operator-( const Cordinate & cord1, const Cordinate& cord2 );
 	friend bool									operator<( const Cordinate & cord1, const Cordinate& cord2 );
 };
 

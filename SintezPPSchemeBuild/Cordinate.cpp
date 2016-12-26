@@ -1,4 +1,4 @@
-#include "Cordinates.h"
+#include "Cordinate.h"
 
 NS_ARI_USING
 
@@ -47,4 +47,14 @@ std::map<eDirection, Cordinate> Cordinate::getNeighbors( ) const
 bool NS_ARI operator<( const Cordinate & cord1, const Cordinate& cord2 )
 {
 	return cord1.m_x == cord2.m_x ? cord1.m_y < cord2.m_y : cord1.m_x < cord2.m_x;	
+}
+
+Cordinate NS_ARI operator+( const Cordinate & cord1, const Cordinate& cord2 )
+{
+	return Cordinate( cord1.m_x + cord2.m_x, cord1.m_y + cord2.m_y );
+}
+
+Cordinate NS_ARI operator-( const Cordinate & cord1, const Cordinate& cord2 )
+{
+	return Cordinate( cord1.m_x - cord2.m_x, cord1.m_y - cord2.m_y );
 }
