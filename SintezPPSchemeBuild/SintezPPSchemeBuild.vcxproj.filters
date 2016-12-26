@@ -17,6 +17,9 @@
     <ClCompile Include="Display.cpp">
       <Filter>Display</Filter>
     </ClCompile>
+    <ClCompile Include="Scheme.cpp">
+      <Filter>Scheme</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tests">
@@ -36,6 +39,9 @@
     </Filter>
     <Filter Include="Display">
       <UniqueIdentifier>{df4e4a18-b050-4c38-90ce-18d08adde454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheme">
+      <UniqueIdentifier>{253b378e-067e-4fcd-a710-8f90f0f454ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="Display.h">
       <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="Scheme.h">
+      <Filter>Scheme</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

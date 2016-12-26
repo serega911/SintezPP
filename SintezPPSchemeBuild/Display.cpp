@@ -13,7 +13,7 @@ Display::~Display()
 {
 }
 
-void cursorPositionSet( const Cordinate & cord )
+void ari::Display::cursorPositionSet( const Cordinate & cord )
 {
 	static HANDLE hConsole = GetStdHandle( STD_OUTPUT_HANDLE );
 	COORD position = { cord.m_x, -cord.m_y };

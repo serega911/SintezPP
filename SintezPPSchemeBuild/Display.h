@@ -8,7 +8,12 @@ NS_ARI_START
 
 class Display
 {
+private:
+
+	void cursorPositionSet( const Cordinate & cord );
+
 public:
+
 	Display();
 	~Display();
 

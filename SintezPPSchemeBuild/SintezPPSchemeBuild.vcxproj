@@ -69,6 +69,7 @@
     <ClCompile Include="GearSet.cpp" />
     <ClCompile Include="GearSetFactory.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scheme.cpp" />
     <ClCompile Include="Tester.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +79,7 @@
     <ClInclude Include="eGearSetType.h" />
     <ClInclude Include="GearSet.h" />
     <ClInclude Include="GearSetFactory.h" />
+    <ClInclude Include="Scheme.h" />
     <ClInclude Include="Tester.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

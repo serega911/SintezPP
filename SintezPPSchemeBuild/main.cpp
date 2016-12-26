@@ -5,10 +5,9 @@
 #include "Display.h"
 
 
-void printGearSet( ari::GearSet set )
+void printGearSet( ari::GearSet set, ari::Cordinate anchor )
 {
 	ari::Display disp;
-	ari::Cordinate anchor = set.getAnchor();
 
 	const auto& cords = set.get();
 
@@ -33,10 +32,18 @@ int main()
 {
 	ari::GearSetFactory factory;
 
-	ari::GearSet set1 = factory.createGearSet( ari::eGearSetType::TYPE_N_REVERSE );
-	set1.setAnchor( ari::Cordinate( 5, -10 ) );
+	ari::GearSet set1 = factory.createGearSet( ari::eGearSetType::TYPE_DEFAULT );
+	ari::GearSet set2 = factory.createGearSet( ari::eGearSetType::TYPE_N );
+	ari::GearSet set3 = factory.createGearSet( ari::eGearSetType::TYPE_N_REVERSE );
+	ari::GearSet set4 = factory.createGearSet( ari::eGearSetType::TYPE_U );
+	ari::GearSet set5 = factory.createGearSet( ari::eGearSetType::TYPE_U_REVERSE );
 
-	printGearSet( set1 );
+
+	printGearSet( set1, ari::Cordinate( 5, -10 ) );
+	printGearSet( set2, ari::Cordinate( 15, -10 ) );
+	printGearSet( set3, ari::Cordinate( 25, -10 ) );
+	printGearSet( set4, ari::Cordinate( 35, -10 ) );
+	printGearSet( set5, ari::Cordinate( 45, -10 ) );
 
 	system( "pause" );
 	return 0;
