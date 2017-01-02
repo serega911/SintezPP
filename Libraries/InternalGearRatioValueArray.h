@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "InternalGearRatioValue.h"
 
 NS_CORE_START
 

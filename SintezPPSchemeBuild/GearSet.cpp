@@ -10,8 +10,7 @@ ari::GearSet::GearSet( const Cordinate& anchor )
 
 void ari::GearSet::addCord( const Cordinate& cord, NS_CORE eMainElement elem )
 {
-	ISchemeCell_p cell( new GearSetCell( cord + m_anchor, elem ) );
-	m_cords.push_back( cell );
+	m_cords.push_back( GearSetCell::create( cord + m_anchor, elem ) );
 }
 
 const GearSet::Cordinates& ari::GearSet::getCordsWorldSpace() const

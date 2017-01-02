@@ -8,31 +8,30 @@ NS_ARI_USING
 /*  > - x
 	^ - y
 	*/
-GearSetFactory::GearSetFactory()
-{
-}
 
-
-GearSetFactory::~GearSetFactory()
+GearSet_p GearSetFactory::createGearSet( const NS_CORE InternalGearRatioValue ratio, const Cordinate& anchor )
 {
-}
+	eGearSetType type = getType( ratio );
 
-std::shared_ptr<ISchemeElement> ari::GearSetFactory::createGearSet( eGearSetType type, const Cordinate& anchor )
-{
 	switch ( type )
 	{
-	case ari::eGearSetType::TYPE_N:			return createCustom( anchor, false, false );	break;
-	case ari::eGearSetType::TYPE_N_REVERSE:	return createCustom( anchor, true, false );		break;
-	case ari::eGearSetType::TYPE_U:			return createCustom( anchor, false, true );		break;
-	case ari::eGearSetType::TYPE_U_REVERSE:	return createCustom( anchor, true, true );		break;
-	case ari::eGearSetType::TYPE_DEFAULT:	return createStandart( anchor );				break;
-	default:																				break;
+	case eGearSetType::TYPE_N:			return createCustom( anchor, false, false );	break;
+	case eGearSetType::TYPE_N_REVERSE:	return createCustom( anchor, true, false );		break;
+	case eGearSetType::TYPE_U:			return createCustom( anchor, false, true );		break;
+	case eGearSetType::TYPE_U_REVERSE:	return createCustom( anchor, true, true );		break;
+	case eGearSetType::TYPE_DEFAULT:	return createStandart( anchor );				break;
+	default:																			break;
 	}
 }
 
-std::shared_ptr<ISchemeElement> GearSetFactory::createStandart( const Cordinate& anchor )
+ari::eGearSetType ari::GearSetFactory::getType( const NS_CORE InternalGearRatioValue ratio )
 {
-	std::shared_ptr<GearSet> set( new GearSet( anchor ) );
+	return ratio.getAbs().getValue() < 2 ? eGearSetType::TYPE_N : eGearSetType::TYPE_DEFAULT;
+}
+
+GearSet_p GearSetFactory::createStandart( const Cordinate& anchor )
+{
+	GearSet_p set( new GearSet( anchor ) );
 
 	set->addCord( Cordinate(0, -2), NS_CORE eMainElement::SUN_GEAR );
 	set->addCord( Cordinate( 0, 2 ), NS_CORE eMainElement::EPICYCLIC_GEAR );
@@ -46,9 +45,9 @@ std::shared_ptr<ISchemeElement> GearSetFactory::createStandart( const Cordinate&
 	return set;
 }
 
-std::shared_ptr<ISchemeElement> GearSetFactory::createCustom( const Cordinate& anchor, const bool flipX, const bool flipY )
+GearSet_p GearSetFactory::createCustom( const Cordinate& anchor, const bool flipX, const bool flipY )
 {
-	std::shared_ptr<GearSet> set( new GearSet( anchor ) );
+	GearSet_p set( new GearSet( anchor ) );
 
 	int xK = flipX ? -1 : 1;
 	int yK = flipY ? -1 : 1;

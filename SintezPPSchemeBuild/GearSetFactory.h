@@ -2,7 +2,10 @@
 
 #include <memory>
 
-#include "ISchemeElement.h"
+#include "../Libraries/InternalGearRatioValue.h"
+
+
+#include "GearSet.h"
 #include "Cordinate.h"
 #include "eGearSetType.h"
 
@@ -13,15 +16,14 @@ class GearSetFactory
 {
 private:
 
-	std::shared_ptr<ISchemeElement>					createStandart( const Cordinate& anchor );
-	std::shared_ptr<ISchemeElement>					createCustom( const Cordinate& anchor, const bool flipX, const bool flipY );
-
+	static eGearSetType							getType( const NS_CORE InternalGearRatioValue ratio );
+	static GearSet_p							createStandart( const Cordinate& anchor );
+	static GearSet_p							createCustom( const Cordinate& anchor, const bool flipX, const bool flipY );
 
 public:
-	GearSetFactory();
-	~GearSetFactory();
 
-	std::shared_ptr<ISchemeElement>					createGearSet( eGearSetType type, const Cordinate& anchor );
+	static GearSet_p							createGearSet( const NS_CORE InternalGearRatioValue ratio, const Cordinate& anchor );
+
 };
 
 NS_CORE_END

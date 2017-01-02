@@ -5,8 +5,7 @@ NS_ARI_USING
 
 void ari::Link::addCord( const Cordinate& cord )
 {
-	ISchemeCell_p cell(new LinkCell(cord, this));
-	m_cells.emplace_back( cell );
+	m_cells.emplace_back( LinkCell::create( cord, this ) );
 }
 
 bool ari::Link::isConsist( const NS_CORE eMainElement& elem )
@@ -17,4 +16,14 @@ bool ari::Link::isConsist( const NS_CORE eMainElement& elem )
 const ISchemeElement::Cordinates& ari::Link::getCordsWorldSpace() const
 {
 	return m_cells;
+}
+
+void ari::Link::addElem( const NS_CORE eMainElement& elem )
+{
+	m_elements.insert( elem );
+}
+
+Link_p ari::Link::create()
+{
+	return Link_p( new Link );
 }

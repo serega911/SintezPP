@@ -17,3 +17,8 @@ ari::LinkCell::LinkCell( const Cordinate& cord, Link* parent )
 	: m_cord(cord), m_parent(parent)
 {
 }
+
+ari::LinkCell_p ari::LinkCell::create( const Cordinate& cord, Link* parent )
+{
+	return LinkCell_p( new LinkCell( cord, parent ) );
+}

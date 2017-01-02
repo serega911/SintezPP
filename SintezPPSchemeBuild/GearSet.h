@@ -1,8 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "ISchemeElement.h"
+#include "eGearSetType.h"
 
 NS_ARI_START
 
@@ -14,6 +16,7 @@ private:
 
 	Cordinates									m_cords;
 	Cordinate									m_anchor;
+	eGearSetType								m_type;
 
 	GearSet( const Cordinate& anchor );
 	GearSet() = delete;
@@ -26,6 +29,8 @@ public:
 
 	~GearSet();
 };
+
+typedef std::shared_ptr<GearSet> GearSet_p;
 
 NS_ARI_END
 

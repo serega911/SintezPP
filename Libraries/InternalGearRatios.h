@@ -22,7 +22,7 @@ public:
 	InternalGearRatios( const size_t size );
 	InternalGearRatios();
 
-	const InternalGearRatioValue								operator[]( size_t i ) const;
+	const InternalGearRatioValue				operator[]( size_t i ) const;
 
 	void										print() const;
 	size_t										size() const;

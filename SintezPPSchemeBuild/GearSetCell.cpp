@@ -17,3 +17,8 @@ const Cordinate& ari::GearSetCell::getCord() const
 {
 	return m_cord;
 }
+
+ari::GearSetCell_p ari::GearSetCell::create( const Cordinate& cord, NS_CORE eMainElement elem )
+{
+	return GearSetCell_p( new GearSetCell( cord, elem ) );
+}
