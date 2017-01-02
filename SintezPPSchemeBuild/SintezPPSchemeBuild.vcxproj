@@ -67,7 +67,10 @@
     <ClCompile Include="Cordinate.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="GearSet.cpp" />
+    <ClCompile Include="GearSetCell.cpp" />
     <ClCompile Include="GearSetFactory.cpp" />
+    <ClCompile Include="Link.cpp" />
+    <ClCompile Include="LinkCell.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scheme.cpp" />
     <ClCompile Include="Tester.cpp" />
@@ -78,9 +81,20 @@
     <ClInclude Include="eDirection.h" />
     <ClInclude Include="eGearSetType.h" />
     <ClInclude Include="GearSet.h" />
+    <ClInclude Include="GearSetCell.h" />
     <ClInclude Include="GearSetFactory.h" />
+    <ClInclude Include="ISchemeCell.h" />
+    <ClInclude Include="ISchemeElement.h" />
+    <ClInclude Include="Link.h" />
+    <ClInclude Include="LinkCell.h" />
+    <ClInclude Include="Link_fwd.h" />
     <ClInclude Include="Scheme.h" />
     <ClInclude Include="Tester.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
+      <Project>{57148835-c16b-4085-994e-3443132160a9}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

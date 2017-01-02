@@ -6,13 +6,10 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="Cordinate.cpp">
-      <Filter>GearSet\Cordinates</Filter>
+      <Filter>Scheme\Cordinates</Filter>
     </ClCompile>
     <ClCompile Include="GearSetFactory.cpp">
-      <Filter>GearSet\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="GearSet.cpp">
-      <Filter>GearSet\GearSet</Filter>
+      <Filter>Scheme\GearSet\GearSetFactory</Filter>
     </ClCompile>
     <ClCompile Include="Display.cpp">
       <Filter>Display</Filter>
@@ -20,22 +17,22 @@
     <ClCompile Include="Scheme.cpp">
       <Filter>Scheme</Filter>
     </ClCompile>
+    <ClCompile Include="Link.cpp">
+      <Filter>Scheme\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="GearSetCell.cpp">
+      <Filter>Scheme\GearSet\GearSetCell</Filter>
+    </ClCompile>
+    <ClCompile Include="GearSet.cpp">
+      <Filter>Scheme\GearSet</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkCell.cpp">
+      <Filter>Scheme\Link\LinkCell</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tests">
       <UniqueIdentifier>{d0c15c79-ce65-4c39-bb82-47753f97647a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GearSet">
-      <UniqueIdentifier>{5c0d5d76-5463-48fb-8f15-d22340904b85}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GearSet\Cordinates">
-      <UniqueIdentifier>{4e2c4e26-41e7-4b2a-a5ca-95da44569e65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GearSet\Factory">
-      <UniqueIdentifier>{ba749842-dbd2-4f23-bab7-b17bdc42b715}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GearSet\GearSet">
-      <UniqueIdentifier>{ec47c5be-1878-4339-b002-e63c789e2a6b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Display">
       <UniqueIdentifier>{df4e4a18-b050-4c38-90ce-18d08adde454}</UniqueIdentifier>
@@ -43,30 +40,69 @@
     <Filter Include="Scheme">
       <UniqueIdentifier>{253b378e-067e-4fcd-a710-8f90f0f454ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scheme\GearSet">
+      <UniqueIdentifier>{5c0d5d76-5463-48fb-8f15-d22340904b85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheme\GearSet\GearSetCell">
+      <UniqueIdentifier>{b0976ea0-338a-4604-8b17-d73f2dbaa229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheme\GearSet\GearSetFactory">
+      <UniqueIdentifier>{ba749842-dbd2-4f23-bab7-b17bdc42b715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheme\Cordinates">
+      <UniqueIdentifier>{4e2c4e26-41e7-4b2a-a5ca-95da44569e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheme\Link">
+      <UniqueIdentifier>{8f9d1364-8c0c-4d2f-a97e-8cec1431b094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheme\Interfaces">
+      <UniqueIdentifier>{6627fdb5-3b4f-4427-8e4c-bbba954fb209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheme\Link\LinkCell">
+      <UniqueIdentifier>{fa963e3e-8792-497b-b916-a2156067364e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tester.h">
       <Filter>Tests</Filter>
     </ClInclude>
-    <ClInclude Include="eDirection.h">
-      <Filter>GearSet</Filter>
-    </ClInclude>
     <ClInclude Include="Cordinate.h">
-      <Filter>GearSet\Cordinates</Filter>
+      <Filter>Scheme\Cordinates</Filter>
     </ClInclude>
     <ClInclude Include="GearSetFactory.h">
-      <Filter>GearSet\Factory</Filter>
+      <Filter>Scheme\GearSet\GearSetFactory</Filter>
     </ClInclude>
     <ClInclude Include="eGearSetType.h">
-      <Filter>GearSet\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="GearSet.h">
-      <Filter>GearSet\GearSet</Filter>
+      <Filter>Scheme\GearSet\GearSetFactory</Filter>
     </ClInclude>
     <ClInclude Include="Display.h">
       <Filter>Display</Filter>
     </ClInclude>
     <ClInclude Include="Scheme.h">
+      <Filter>Scheme</Filter>
+    </ClInclude>
+    <ClInclude Include="Link.h">
+      <Filter>Scheme\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="GearSetCell.h">
+      <Filter>Scheme\GearSet\GearSetCell</Filter>
+    </ClInclude>
+    <ClInclude Include="GearSet.h">
+      <Filter>Scheme\GearSet</Filter>
+    </ClInclude>
+    <ClInclude Include="ISchemeElement.h">
+      <Filter>Scheme\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ISchemeCell.h">
+      <Filter>Scheme\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkCell.h">
+      <Filter>Scheme\Link\LinkCell</Filter>
+    </ClInclude>
+    <ClInclude Include="Link_fwd.h">
+      <Filter>Scheme\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="eDirection.h">
       <Filter>Scheme</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,38 +2,27 @@
 
 #include <vector>
 
-#include "../Libraries/GlobalDefines.h"
-#include "../Libraries/eMainElement.h"
-
-#include "Cordinate.h"
+#include "ISchemeElement.h"
 
 NS_ARI_START
 
-class GearSet
+class GearSet: public ISchemeElement
 {
 private:
 
-	struct Cell
-	{
-		NS_CORE eMainElement	_element;
-		Cordinate				_cord;
-	};
-
-	typedef std::vector<Cell> Cordinates;
 	friend class GearSetFactory;
 
-	Cordinate									m_anchor;
 	Cordinates									m_cords;
+	Cordinate									m_anchor;
 
-	GearSet();
-	void										addCord( const Cordinate& cord, NS_CORE eMainElement elem);
+	GearSet( const Cordinate& anchor );
+	GearSet() = delete;
+
+	void										addCord( const Cordinate& cord, NS_CORE eMainElement elem );
 
 public:
 	
-	void										setAnchor( const Cordinate& cord );
-
-	const Cordinate&							getAnchor() const;
-	const Cordinates&							get() const;
+	virtual const Cordinates&					getCordsWorldSpace() const override;
 
 	~GearSet();
 };

@@ -6,8 +6,6 @@
 
 NS_ARI_START
 
-struct Cordinate;
-
 struct Cordinate
 {
 	Cordinate( int x, int y );

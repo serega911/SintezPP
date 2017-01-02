@@ -4,6 +4,7 @@
 
 #include "../Libraries/GlobalDefines.h"
 #include "../Libraries/Code.h"
+#include "../Libraries/Chain.h"
 #include "../Libraries/Link.h"
 
 NS_ARI_START
@@ -12,7 +13,13 @@ class Scheme
 {
 private:
 
-	NS_CORE ChainArray							m_chains;
+	struct Link
+	{
+		NS_CORE Link	_link;
+		NS_CORE Chain	_chains;
+	};
+
+	std::vector<Link>							m_links;
 
 public:
 	Scheme(const NS_CORE Code& code);

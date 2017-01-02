@@ -1,31 +1,25 @@
 #include "GearSet.h"
+#include "GearSetCell.h"
 
 NS_ARI_USING
 
-GearSet::GearSet()
+ari::GearSet::GearSet( const Cordinate& anchor )
+	: m_anchor(anchor)
 {
 }
 
-void GearSet::addCord( const Cordinate& cord, NS_CORE eMainElement elem )
+void ari::GearSet::addCord( const Cordinate& cord, NS_CORE eMainElement elem )
 {
-	m_cords.push_back( { elem, cord } );
+	ISchemeCell_p cell( new GearSetCell( cord + m_anchor, elem ) );
+	m_cords.push_back( cell );
 }
 
-const GearSet::Cordinates& ari::GearSet::get() const
+const GearSet::Cordinates& ari::GearSet::getCordsWorldSpace() const
 {
 	return m_cords;
-}
-
-void ari::GearSet::setAnchor( const Cordinate& cord )
-{
-	m_anchor = cord;
-}
-
-const Cordinate& ari::GearSet::getAnchor() const
-{
-	return m_anchor;
 }
 
 GearSet::~GearSet()
 {
 }
+
