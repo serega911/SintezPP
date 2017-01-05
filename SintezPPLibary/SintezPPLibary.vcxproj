@@ -35,6 +35,7 @@
     <ClCompile Include="..\Libraries\Singletons.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Libraries\eColor.h" />
     <ClInclude Include="..\Libraries\eMainElement.h" />
     <ClInclude Include="..\Libraries\eMainElementArray.h" />
     <ClInclude Include="..\Libraries\GlobalDefines.h" />

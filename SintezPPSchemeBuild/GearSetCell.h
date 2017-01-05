@@ -12,17 +12,17 @@ class GearSetCell : public ISchemeCell
 {
 private:
 
-	NS_CORE eMainElement						m_element;
+	NS_CORE Element								m_element;
 	Cordinate									m_cord;
 
-	GearSetCell( const Cordinate& cord, NS_CORE eMainElement elem );
+	GearSetCell( const Cordinate& cord, NS_CORE Element elem );
 
 public:
 
-	static GearSetCell_p						create( const Cordinate& cord, NS_CORE eMainElement elem );
+	static GearSetCell_p						create( const Cordinate& cord, NS_CORE Element elem );
 
 	virtual const Cordinate&					getCord() const override;
-	virtual bool								isConsist( const NS_CORE eMainElement& obj ) const override;
+	virtual bool								isConsist( const NS_CORE Element& obj ) const override;
 
 };
 

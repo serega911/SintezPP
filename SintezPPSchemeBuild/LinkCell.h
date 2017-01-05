@@ -26,7 +26,7 @@ public:
 	static LinkCell_p							create( const Cordinate& cord, Link* parent );
 
 	virtual const Cordinate&					getCord() const override;
-	virtual bool								isConsist( const NS_CORE eMainElement& elem ) const override;
+	virtual bool								isConsist( const NS_CORE Element& elem ) const override;
 
 };
 

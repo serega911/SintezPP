@@ -8,7 +8,7 @@ ari::GearSet::GearSet( const Cordinate& anchor )
 {
 }
 
-void ari::GearSet::addCord( const Cordinate& cord, NS_CORE eMainElement elem )
+void ari::GearSet::addCord( const Cordinate& cord, NS_CORE Element elem )
 {
 	m_cords.push_back( GearSetCell::create( cord + m_anchor, elem ) );
 }

@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "../Libraries/InternalGearRatioValue.h"
+#include "../Libraries/GearSetNumber.h"
 
 
 #include "GearSet.h"
@@ -17,12 +18,12 @@ class GearSetFactory
 private:
 
 	static eGearSetType							getType( const NS_CORE InternalGearRatioValue ratio );
-	static GearSet_p							createStandart( const Cordinate& anchor );
-	static GearSet_p							createCustom( const Cordinate& anchor, const bool flipX, const bool flipY );
+	static GearSet_p							createStandart( const Cordinate& anchor, const NS_CORE GearSetNumber & num );
+	static GearSet_p							createCustom( const Cordinate& anchor, const NS_CORE GearSetNumber & num, const bool flipX, const bool flipY );
 
 public:
 
-	static GearSet_p							createGearSet( const NS_CORE InternalGearRatioValue ratio, const Cordinate& anchor );
+	static GearSet_p							createGearSet( const NS_CORE InternalGearRatioValue ratio, const NS_CORE GearSetNumber & num, const Cordinate& anchor );
 
 };
 

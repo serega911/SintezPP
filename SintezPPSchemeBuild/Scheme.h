@@ -1,19 +1,19 @@
 #pragma once
 
-#include <vector>
-
 #include "../Libraries/GlobalDefines.h"
-#include "../Libraries/Code.h"
 
-#include "Link.h"
+#include "IScheme.h"
 #include "GearSet.h"
-#include "Display.h"
+#include "Link.h"
 #include "../Libraries/InternalGearRatios.h"
-#include "../Libraries/Link.h"
 
 NS_ARI_START
 
-class Scheme
+class Scheme;
+
+typedef std::shared_ptr<Scheme> Scheme_p;
+
+class Scheme : public IScheme
 {
 private:
 
@@ -24,17 +24,22 @@ private:
 	std::vector<Link_p>							m_links;
 	std::vector<ISchemeElement_p>				m_staticElements;
 
-	void										printElement( NS_ARI ISchemeElement_p set, const Display& disp );
-
-public:
+	void										printElement( NS_ARI ISchemeElement_p set, const IDisplay_p& disp ) const;
+	void										addElementsToLink( Link_p & link, const NS_CORE Link& elements );
 
 	Scheme( const NS_CORE InternalGearRatios k );
 
-	void										print( const Display& disp );
+public:
 
-	void										clear();
-	void										addLink( const std::vector<Cordinate>& trace, const NS_CORE Link& link );
-	void										addFriction( const std::vector<Cordinate>& trace, const NS_CORE Link& link );
+	static Scheme_p								create( const NS_CORE InternalGearRatios k );
+
+	virtual void								print( const IDisplay_p& disp ) const override;
+
+	virtual void								clear() override;
+	virtual void								addLink( const std::vector<Cordinate>& trace, const NS_CORE Link& link ) override;
+	virtual void								addFriction( const std::vector<Cordinate>& trace, const NS_CORE Link& link ) override;
+
+	virtual std::vector<ISchemeElement_p>		getAllElements() const override; 
 
 };
 

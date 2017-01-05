@@ -8,7 +8,7 @@ const Cordinate& ari::LinkCell::getCord() const
 	return m_cord;
 }
 
-bool ari::LinkCell::isConsist( const NS_CORE eMainElement& elem ) const
+bool ari::LinkCell::isConsist( const NS_CORE Element& elem ) const
 {
 	return m_parent->isConsist( elem );
 }

@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "../Libraries/GlobalDefines.h"
-#include "../Libraries/eMainElement.h"
+#include "../Libraries/Element.h"
 
 #include "Cordinate.h"
 
@@ -16,7 +16,7 @@ class ISchemeCell
 public:
 
 	virtual const Cordinate&					getCord() const = 0;
-	virtual bool								isConsist( const NS_CORE eMainElement& obj ) const = 0;
+	virtual bool								isConsist( const NS_CORE Element& obj ) const = 0;
 
 };
 

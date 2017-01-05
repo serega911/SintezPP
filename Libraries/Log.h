@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "GlobalDefines.h"
+#include "eColor.h"
 
 
 
@@ -21,18 +22,10 @@ public:
 		,CRITICAL
 	};
 
-	enum eColor
-	{
-		BLACK
-		,WHITE
-		,RED
-		,GREEN
-		,BLUE
-		,YELLOW
-	};
+	
 
 	template<class T>
-	static void log( const T& message, const bool isEndlNedded = true, const eColor font = WHITE, const eColor back = BLACK )
+	static void log( const T& message, const bool isEndlNedded = true, const eColor font = eColor::WHITE, const eColor back = eColor::BLACK )
 	{
 		bool change = false;
 		if ( back != s_defaultBackColor || font != s_defaultFontColor )

@@ -29,6 +29,12 @@
     <ClCompile Include="LinkCell.cpp">
       <Filter>Scheme\Link\LinkCell</Filter>
     </ClCompile>
+    <ClCompile Include="SchemeBuilderSwapPrev.cpp">
+      <Filter>SchemeBuilderSwapPrev</Filter>
+    </ClCompile>
+    <ClCompile Include="PathBuilderLee.cpp">
+      <Filter>PathBuilderLee</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tests">
@@ -60,6 +66,12 @@
     </Filter>
     <Filter Include="Scheme\Link\LinkCell">
       <UniqueIdentifier>{fa963e3e-8792-497b-b916-a2156067364e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SchemeBuilderSwapPrev">
+      <UniqueIdentifier>{c51e9756-e1e3-4a65-832f-a6ea02589df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PathBuilderLee">
+      <UniqueIdentifier>{0967886d-0c9c-4180-b5d8-848225d530c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +116,24 @@
     </ClInclude>
     <ClInclude Include="eDirection.h">
       <Filter>Scheme</Filter>
+    </ClInclude>
+    <ClInclude Include="IDisplay.h">
+      <Filter>Scheme\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IScheme.h">
+      <Filter>Scheme\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IPathBuildStartegy.h">
+      <Filter>Scheme\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ISchemeBuildStartegy.h">
+      <Filter>Scheme\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="SchemeBuilderSwapPrev.h">
+      <Filter>SchemeBuilderSwapPrev</Filter>
+    </ClInclude>
+    <ClInclude Include="PathBuilderLee.h">
+      <Filter>PathBuilderLee</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,17 +1,11 @@
 #include <windows.h>
 #include <iostream>
+#include "../Libraries/Log.h"
+
 #include "Display.h"
 
 NS_ARI_USING
 
-Display::Display()
-{
-}
-
-
-Display::~Display()
-{
-}
 
 void ari::Display::cursorPositionSet( const Cordinate & cord ) const
 {
@@ -23,7 +17,27 @@ void ari::Display::cursorPositionSet( const Cordinate & cord ) const
 void ari::Display::print( const Cordinate& cord, const char c ) const
 {
 	cursorPositionSet( cord );
-	std::cout << c;
+	NS_CORE Log::log( c, false, m_fontColor, m_backColor );
 }
 
+ari::Display_p ari::Display::create()
+{
+	return Display_p( new Display );
+}
+
+void ari::Display::setColors( NS_CORE eColor font, NS_CORE eColor background )
+{
+	m_fontColor = font;
+	m_backColor = background;
+}
+
+void ari::Display::resetColors()
+{
+	setColors( NS_CORE eColor::WHITE, NS_CORE eColor::BLACK );
+}
+
+ari::Display::Display()
+{
+	resetColors();
+}
 

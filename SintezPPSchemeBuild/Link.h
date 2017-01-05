@@ -19,7 +19,7 @@ class Link : public ISchemeElement
 {
 private:
 
-	std::set<NS_CORE eMainElement>				m_elements;
+	std::set<NS_CORE Element>					m_elements;
 	std::vector<ISchemeCell_p>					m_cells;
 
 public:
@@ -27,9 +27,9 @@ public:
 	static Link_p								create();
 
 	void										addCord( const Cordinate& cord );
-	void										addElem( const NS_CORE eMainElement& elem );
+	void										addElem( const NS_CORE Element& elem );
 
-	bool										isConsist( const NS_CORE eMainElement& elem );
+	bool										isConsist( const NS_CORE Element& elem );
 
 	virtual const Cordinates&					getCordsWorldSpace() const override;
 

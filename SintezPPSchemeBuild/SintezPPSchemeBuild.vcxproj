@@ -72,7 +72,9 @@
     <ClCompile Include="Link.cpp" />
     <ClCompile Include="LinkCell.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PathBuilderLee.cpp" />
     <ClCompile Include="Scheme.cpp" />
+    <ClCompile Include="SchemeBuilderSwapPrev.cpp" />
     <ClCompile Include="Tester.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -83,12 +85,18 @@
     <ClInclude Include="GearSet.h" />
     <ClInclude Include="GearSetCell.h" />
     <ClInclude Include="GearSetFactory.h" />
+    <ClInclude Include="IPathBuildStartegy.h" />
+    <ClInclude Include="IDisplay.h" />
+    <ClInclude Include="IScheme.h" />
+    <ClInclude Include="ISchemeBuildStartegy.h" />
     <ClInclude Include="ISchemeCell.h" />
     <ClInclude Include="ISchemeElement.h" />
     <ClInclude Include="Link.h" />
     <ClInclude Include="LinkCell.h" />
     <ClInclude Include="Link_fwd.h" />
+    <ClInclude Include="PathBuilderLee.h" />
     <ClInclude Include="Scheme.h" />
+    <ClInclude Include="SchemeBuilderSwapPrev.h" />
     <ClInclude Include="Tester.h" />
   </ItemGroup>
   <ItemGroup>

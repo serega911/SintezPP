@@ -2,22 +2,33 @@
 
 #include "../Libraries/GlobalDefines.h"
 
-#include "Cordinate.h"
+#include "IDisplay.h"
 
 NS_ARI_START
 
-class Display
+class Display;
+
+typedef std::shared_ptr<Display> Display_p;
+
+class Display: public IDisplay
 {
 private:
+
+	NS_CORE eColor								m_fontColor;
+	NS_CORE eColor								m_backColor;
+
+	Display();
 
 	void cursorPositionSet( const Cordinate & cord ) const;
 
 public:
 
-	Display();
-	~Display();
+	static Display_p							create();
 
-	void										print(const Cordinate& cord, const char c) const;
+
+	virtual void								print( const Cordinate& cord, const char c ) const override;
+	virtual void								setColors( NS_CORE eColor font, NS_CORE eColor background ) override;
+	virtual void								resetColors() override;
 };
 
 NS_ARI_END

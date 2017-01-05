@@ -4,8 +4,8 @@
 
 NS_CORE_USING
 
-const core::Log::eColor core::Log::s_defaultBackColor = BLACK;
-const core::Log::eColor core::Log::s_defaultFontColor = WHITE;
+const eColor core::Log::s_defaultBackColor = eColor::BLACK;
+const eColor core::Log::s_defaultFontColor = eColor::WHITE;
 
 void Log::warning( const bool condition, const std::string& message, eWarningImportance importance, const std::string& senderName )
 {
@@ -21,17 +21,16 @@ void Log::warning( const bool condition, const std::string& message, eWarningImp
 	}
 }
 
-
 int Log::getColorNum( const eColor color )
 {
 	switch ( color )
 	{
-	case BLACK: return 0; break;
-	case WHITE: return 15; break;
-	case RED: return 4; break;
-	case GREEN: return 2; break;
-	case BLUE: return 1; break;
-	case YELLOW: return 6; break;
+	case eColor::BLACK: return 0; break;
+	case eColor::WHITE: return 15; break;
+	case eColor::RED: return 4; break;
+	case eColor::GREEN: return 2; break;
+	case eColor::BLUE: return 1; break;
+	case eColor::YELLOW: return 6; break;
 	}
 }
 

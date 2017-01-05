@@ -21,7 +21,7 @@ private:
 	GearSet( const Cordinate& anchor );
 	GearSet() = delete;
 
-	void										addCord( const Cordinate& cord, NS_CORE eMainElement elem );
+	void										addCord( const Cordinate& cord, NS_CORE Element elem );
 
 public:
 	
