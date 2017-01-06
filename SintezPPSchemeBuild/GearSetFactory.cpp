@@ -9,7 +9,7 @@ NS_ARI_USING
 	^ - y
 	*/
 
-	GearSet_p GearSetFactory::createGearSet( const NS_CORE InternalGearRatioValue ratio, const NS_CORE GearSetNumber & num, const Cordinate& anchor )
+GearSet_p GearSetFactory::createGearSet( const NS_CORE InternalGearRatioValue ratio, const NS_CORE GearSetNumber & num, const Cordinate& anchor )
 {
 	eGearSetType type = getType( ratio );
 

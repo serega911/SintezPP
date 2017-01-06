@@ -10,7 +10,7 @@ NS_ARI_USING
 void ari::Display::cursorPositionSet( const Cordinate & cord ) const
 {
 	static HANDLE hConsole = GetStdHandle( STD_OUTPUT_HANDLE );
-	COORD position = { cord.m_x, -cord.m_y };
+	COORD position = { cord.m_x, cord.m_y };
 	SetConsoleCursorPosition( hConsole, position );
 }
 

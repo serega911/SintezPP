@@ -23,6 +23,9 @@ public:
 	virtual void								addLink( const std::vector<Cordinate>& trace, const NS_CORE Link& link ) = 0;
 	virtual void								addFriction( const std::vector<Cordinate>& trace, const NS_CORE Link& link ) = 0;
 
+	virtual size_t								getWidth() const = 0;
+	virtual size_t								getHeight() const = 0;
+
 	virtual std::vector<ISchemeElement_p>		getAllElements() const = 0;
 
 };

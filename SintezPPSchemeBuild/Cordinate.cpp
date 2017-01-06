@@ -44,6 +44,22 @@ std::map<eDirection, Cordinate> Cordinate::getNeighbors( ) const
 	return neighbors;
 }
 
+std::vector<Cordinate> ari::Cordinate::get8Neighbors() const
+{
+	std::vector<Cordinate> ret;
+
+	ret.emplace_back( Cordinate(m_x - 1, m_y - 1) );
+	ret.emplace_back( Cordinate(m_x - 1, m_y) );
+	ret.emplace_back( Cordinate(m_x - 1, m_y + 1) );
+	ret.emplace_back( Cordinate(m_x, m_y - 1) );
+	ret.emplace_back( Cordinate(m_x, m_y + 1) );
+	ret.emplace_back( Cordinate(m_x + 1, m_y - 1) );
+	ret.emplace_back( Cordinate(m_x + 1, m_y) );
+	ret.emplace_back( Cordinate(m_x + 1, m_y + 1) );
+
+	return ret;
+}
+
 bool NS_ARI operator<( const Cordinate & cord1, const Cordinate& cord2 )
 {
 	return cord1.m_x == cord2.m_x ? cord1.m_y < cord2.m_y : cord1.m_x < cord2.m_x;	

@@ -39,7 +39,7 @@ Scheme::Scheme( const NS_CORE InternalGearRatios k )
 
 	m_width = count * s_setWidth;
 	const ari::Cordinate delta( s_setWidth, 0 );
-	ari::Cordinate pos( s_setWidth / 2, - s_height / 2 );
+	ari::Cordinate pos( s_setWidth / 2, s_height / 2 );
 
 	for ( int i = 0; i < count; i++ )
 	{
@@ -57,13 +57,23 @@ Scheme::Scheme( const NS_CORE InternalGearRatios k )
 
 	Link_p input = Link::create();
 	input->addElem( NS_CORE Element::INPUT );
-	input->addCord( Cordinate( 0, -s_height + 1 ) );
+	input->addCord( Cordinate( 0, s_height - 1 ) );
 	m_staticElements.emplace_back( input );
 
 	Link_p output = Link::create();
 	output->addElem( NS_CORE Element::OUTPUT );
-	output->addCord( Cordinate( m_width - 1, -s_height + 1 ) );
+	output->addCord( Cordinate( m_width - 1, s_height - 1 ) );
 	m_staticElements.emplace_back( output );
+}
+
+size_t ari::Scheme::getHeight() const
+{
+	return s_height;
+}
+
+size_t ari::Scheme::getWidth() const
+{
+	return m_width;
 }
 
 std::vector<ISchemeElement_p> ari::Scheme::getAllElements() const
@@ -138,5 +148,5 @@ void ari::Scheme::print( const IDisplay_p& disp ) const
 	}
 
 	disp->resetColors();
-	disp->print( { 0, -20 }, '>' );
+	disp->print( { 0, 20 }, '>' );
 }

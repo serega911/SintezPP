@@ -25,9 +25,9 @@ void PathBuilder::initField( const KinematicScheme & scheme, core::Link link )
 				m_field[x][y] = m_start;
 			}
 			// finish
- 			else if ( scheme[x][y].find( NS_CORE Element::BRAKE ) && scheme[x][y].size() > 1 )
- 			{
- 				m_field[x][y] = m_wall;
+			else if ( scheme[x][y].find( NS_CORE Element::BRAKE ) && scheme[x][y].size() > 1 )
+			{
+				m_field[x][y] = m_wall;
 			}
 			else if ( scheme[x][y].find( link.getElem2() ) )
 			{
@@ -139,13 +139,13 @@ void ari::PathBuilder::addRestrictions()
 
 bool ari::PathBuilder::checkIsNear( const Cordinate& cord, const int elem )
  {
- 	auto neighbours = cord.getNeighbors();
- 	for ( const auto &neighbour : neighbours )
- 	{
- 		if ( m_field[neighbour.second.m_x][neighbour.second.m_y] == elem )
- 			return true;
- 	}
- 	return false;
+	auto neighbours = cord.getNeighbors();
+	for ( const auto &neighbour : neighbours )
+	{
+		if ( m_field[neighbour.second.m_x][neighbour.second.m_y] == elem )
+			return true;
+	}
+	return false;
  }
 
 PathBuilder::PathBuilder()

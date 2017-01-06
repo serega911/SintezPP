@@ -39,6 +39,9 @@ public:
 	virtual void								addLink( const std::vector<Cordinate>& trace, const NS_CORE Link& link ) override;
 	virtual void								addFriction( const std::vector<Cordinate>& trace, const NS_CORE Link& link ) override;
 
+	virtual size_t								getWidth() const override;
+	virtual size_t								getHeight() const override;
+
 	virtual std::vector<ISchemeElement_p>		getAllElements() const override; 
 
 };
