@@ -7,13 +7,21 @@ void ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, IPathBuildStartegy_p &
 {
 	scheme->clear();
 
-	strategy->init( scheme->getWidth(), scheme->getHeight() );
+	
 
 	const auto& links = code.getCode();
 
-	auto elem1 = links[0].getElem1();
-	auto elem2 = links[0].getElem2();
-	scheme->addLink( strategy->run( scheme->getAllElements(), elem1, elem2 ), links[0] );
+	for ( auto& it : links )
+	{
+		auto elem1 = it.getElem1();
+		auto elem2 = it.getElem2();
+
+		strategy->init( scheme->getWidth(), scheme->getHeight() );
+		const auto link = strategy->run( scheme->getAllElements(), elem1, elem2 );
+
+		if (link.size())
+			scheme->addLink( link ,it );
+	}
 }
 
 ari::SchemeBuilderSwapPrev_p ari::SchemeBuilderSwapPrev::create()

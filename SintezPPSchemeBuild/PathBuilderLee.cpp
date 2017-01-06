@@ -31,11 +31,17 @@ void ari::PathBuilderLee::init(  const size_t width, const size_t height )
 
 std::vector<Cordinate> ari::PathBuilderLee::run( const std::vector<ISchemeElement_p>& elements, NS_CORE Element& start, NS_CORE Element& finish )
 {
+	std::vector<Cordinate> ret;
+
 	fillField( elements, start, finish );
 	
-	spreadWave();
+	if (spreadWave())
+		ret = findPath();
 
-	return findPath();
+	for ( auto&it : ret )
+		it = it - Cordinate( 1, 1 );
+
+	return ret;
 }
 
 ari::PathBuilderLee_p ari::PathBuilderLee::create()
@@ -213,14 +219,14 @@ std::vector<Cordinate> ari::PathBuilderLee::findPath()
 
 		if ( fieldAt( current )._status != FINISH )
 		{
-			if ( minEmpty < fieldAt( current )._value && fieldAt( nextForward )._value != minEmpty )
+			if ( fieldAt( nextForward )._value != 0 && fieldAt( nextForward )._value < fieldAt( current )._value && fieldAt( nextForward )._status != ADJOINED )
+			{
+				current = nextForward;
+			}
+			else if ( minEmpty < fieldAt( current )._value )
 			{
 				direction = emptyDirection;
 				current = nextEmpty;
-			}
-			else if( fieldAt( nextForward )._value != 0 && fieldAt( nextForward )._value < fieldAt( current )._value )
-			{
-				current = nextForward;
 			}
 			else 
 			{
@@ -230,27 +236,9 @@ std::vector<Cordinate> ari::PathBuilderLee::findPath()
 
 		}
 
-		/*
-		auto next = neighbors.at( direction );
-		if ( fieldAt( next )._value < fieldAt( current )._value && ( fieldAt( next )._value != 0 || fieldAt( next )._status == FINISH ) )
-		{
-			current = next;
-		}
-
-		auto min = fieldAt( current )._value;
-		for ( auto& neighbor : neighbors )
-		{
-			if ( fieldAt( neighbor.second )._value < min && ( fieldAt( neighbor.second )._value != 0 || fieldAt( next )._status == FINISH ) )
-			{
-				min = fieldAt( neighbor.second )._value;
-				current = neighbor.second;
-				direction = neighbor.first;
-			}
-		}
-		*/
-
 		path.emplace_back( current );
-
+		
+		/*
 		IDisplay_p disp = Display::create();
 		disp->setColors( NS_CORE eColor::WHITE, NS_CORE eColor::BLACK );
 		for ( const auto& it : path )
@@ -258,6 +246,7 @@ std::vector<Cordinate> ari::PathBuilderLee::findPath()
 		disp->resetColors();
 		disp->print( { 0, 20 }, '>' );
 		system( "pause" );
+		*/
 	}
 	
 	

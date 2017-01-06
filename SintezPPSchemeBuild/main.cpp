@@ -24,6 +24,11 @@ int main()
 	code.setIn( NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, NS_CORE GearSetNumber( 2 ) ) );
 	code.setOut( NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE GearSetNumber( 5 ) ) );
 
+	NS_CORE TLinkArray brakes;
+	brakes.push_back(NS_CORE Link( NS_CORE Element( NS_CORE eMainElement::CARRIER, NS_CORE GearSetNumber( 1 ) ), NS_CORE Element::BRAKE) );
+
+	code.setBrakes( brakes );
+
 	NS_ARI IScheme_p scheme = NS_ARI Scheme::create( values );
 	NS_ARI IPathBuildStartegy_p pathBuilder = NS_ARI PathBuilderLee::create();
 	NS_ARI ISchemeBuildStartegy_p schemeBuilder = NS_ARI SchemeBuilderSwapPrev::create();

@@ -135,6 +135,8 @@ void ari::Scheme::clear()
 
 void ari::Scheme::print( const IDisplay_p& disp ) const
 {
+	system( "cls" );
+
 	disp->setColors( NS_CORE eColor::YELLOW, NS_CORE eColor::BLACK );
 	for ( const auto & it : m_staticElements )
 	{
