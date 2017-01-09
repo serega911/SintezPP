@@ -33,11 +33,12 @@ GearSet_p GearSetFactory::createStandart( const Cordinate& anchor, const NS_CORE
 {
 	GearSet_p set( new GearSet( anchor ) );
 
-	set->addCord( Cordinate( 0, -2 ), NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, num ) );
-	set->addCord( Cordinate( 0, 2 ), NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, num ) );
+	set->addCord( Cordinate( 0, 2 ), NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, num ) );
+	set->addCord( Cordinate( 0, -2 ), NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, num ) );
 	
-	for ( int x = -1; x <= 1; x++ )
-		set->addCord( Cordinate( x, 0 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
+	//for ( int x = -1; x <= 1; x++ )
+	//	set->addCord( Cordinate( x, 0 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
+	set->addCord( Cordinate( 0, 0 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
 
 	set->addCord( Cordinate( 0, -1 ), NS_CORE Element( NS_CORE eMainElement::EMPTY, num ) );
 	set->addCord( Cordinate( 0, 1 ), NS_CORE Element( NS_CORE eMainElement::EMPTY, num ) );
@@ -52,11 +53,11 @@ GearSet_p GearSetFactory::createCustom( const Cordinate& anchor, const NS_CORE G
 	int xK = flipX ? -1 : 1;
 	int yK = flipY ? -1 : 1;
 
-	set->addCord( Cordinate( xK * ( -1 ), yK * ( -2 ) ), NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, num ) );
-	set->addCord( Cordinate( xK * ( 1 ), yK * ( -2 ) ), NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, num ) );
+	set->addCord( Cordinate( xK * ( -1 ), yK * ( 2 ) ), NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, num ) );
+	set->addCord( Cordinate( xK * ( 1 ), yK * ( 2 ) ), NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, num ) );
 
 	for ( int x = -1; x <= 1; x++ )
-		set->addCord( Cordinate( x, yK * 2 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
+		set->addCord( Cordinate( x, yK * -2 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
 
 	for ( int y = -1; y <= 1; y++ )
 	{

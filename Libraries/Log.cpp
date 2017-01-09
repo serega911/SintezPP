@@ -23,7 +23,7 @@ void Log::warning( const bool condition, const std::string& message, eWarningImp
 
 int Log::getColorNum( const eColor color )
 {
-	switch ( color )
+	/*switch ( color )
 	{
 	case eColor::BLACK: return 0; break;
 	case eColor::WHITE: return 15; break;
@@ -31,7 +31,8 @@ int Log::getColorNum( const eColor color )
 	case eColor::GREEN: return 2; break;
 	case eColor::BLUE: return 1; break;
 	case eColor::YELLOW: return 6; break;
-	}
+	}*/
+	return int( color );
 }
 
 void Log::SetColor( const eColor background, const eColor text )

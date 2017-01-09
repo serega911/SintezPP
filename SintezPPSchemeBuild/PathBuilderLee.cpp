@@ -5,27 +5,33 @@
 
 NS_ARI_USING
 
+ari::PathBuilderLee::PathBuilderLee()
+{
+}
+
+ari::PathBuilderLee_p ari::PathBuilderLee::create()
+{
+	return PathBuilderLee_p( new PathBuilderLee );
+}
+
 void ari::PathBuilderLee::init(  const size_t width, const size_t height )
 {
-	m_width = width + 2;
-	m_height = height + 2;
+	m_width = width;
+	m_height = height;
 
 	//resize field
 	m_field.clear();
-	m_field.resize( m_height );
-	for ( auto & it : m_field )
-		it.resize( m_width );
 
 	//create borders
-	for ( int i = 0; i < m_height; i++ )
+	for ( int y = -1; y <= m_height; y++ )
 	{
-		m_field[i][0]._status = WALL;
-		m_field[i][m_width - 1]._status = WALL;
+		fieldAt( Cordinate( -1, y ) )._status = WALL;
+		fieldAt( Cordinate(m_width, y ) )._status = WALL;
 	}
-	for ( int j = 1; j < m_width - 1; j++ )
+	for ( int x = 0; x < m_width; x++ )
 	{
-		m_field[0][j]._status = WALL;
-		m_field[m_height - 1][j]._status = WALL;
+		fieldAt( Cordinate( x, -1 ) )._status = WALL;
+		fieldAt( Cordinate( x, m_height ) )._status = WALL;
 	}
 }
 
@@ -34,55 +40,14 @@ std::vector<Cordinate> ari::PathBuilderLee::run( const std::vector<ISchemeElemen
 	std::vector<Cordinate> ret;
 
 	fillField( elements, start, finish );
-	
-	if (spreadWave())
-		ret = findPath();
-
-	for ( auto&it : ret )
-		it = it - Cordinate( 1, 1 );
-
-	return ret;
-}
-
-ari::PathBuilderLee_p ari::PathBuilderLee::create()
-{
-	return PathBuilderLee_p( new PathBuilderLee );
-}
-
-ari::PathBuilderLee::PathBuilderLee()
-{
-
-}
-
-void ari::PathBuilderLee::printField()
-{
-	system( "cls" );
-	IDisplay_p disp = Display::create();
-
-	for ( int i = 0; i < m_height; i++ )
+	//printField();
+	if ( spreadWave() )
 	{
-		for ( int j = 0; j < m_width; j++ )
-		{
-			switch ( m_field[i][j]._status )
-			{
-			case EMPTY:		disp->setColors(NS_CORE eColor::BLACK, NS_CORE eColor::WHITE); break;
-			case START:		disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::YELLOW ); break;
-			case FINISH:	disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::GREEN ); break;
-			case WALL:		disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::RED ); break;
-			case ADJOINED:		disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::BLUE ); break;
-			}
-			disp->print( Cordinate( j, i ), m_field[i][j]._value % 10 + '0' );
-		}
+		//printField();
+		ret = findPath();
 	}
 
-	disp->resetColors();
-	disp->print( { 0, 20 }, '>' );
-	system( "pause" );
-}
-
-bool ari::PathBuilderLee::verifyCord( const Cordinate& cord )
-{
-	return cord.m_x > 0 && cord.m_x < m_width - 1 && cord.m_y > 0 && cord.m_y < m_height - 1;
+	return ret;
 }
 
 void ari::PathBuilderLee::fillField( const std::vector<ISchemeElement_p>& elements, NS_CORE Element& start, NS_CORE Element& finish )
@@ -100,7 +65,8 @@ void ari::PathBuilderLee::fillField( const std::vector<ISchemeElement_p>& elemen
 			else if ( cord->isConsist( finish ) )
 				status = FINISH;
 
-			const Cordinate cordinate = cord->getCord() + Cordinate( 1, 1 );
+			const Cordinate& cordinate = cord->getCord();
+
 			fieldAt( cordinate )._status = status;
 
 			auto neighbors = cordinate.get8Neighbors();
@@ -112,8 +78,6 @@ void ari::PathBuilderLee::fillField( const std::vector<ISchemeElement_p>& elemen
 
 		}
 	}
-
-	printField();
 }
 
 bool ari::PathBuilderLee::spreadWave()
@@ -122,52 +86,52 @@ bool ari::PathBuilderLee::spreadWave()
 	std::set<Cordinate> nextWave;
 
 	//заполняем текущую волну клетками финиша
-	for ( size_t x = 1; x < m_width - 1; x++ )
+	for ( const auto& it : m_field )
 	{
-		for ( size_t y = 1; y < m_height - 1; y++ )
-		{
-			if ( m_field[y][x]._status == FINISH )
-				currentWave.insert( Cordinate( x, y ) );
-		}
+		if ( it.second._status == FINISH )
+			currentWave.insert( it.first );
 	}
 
 	//Распространение волны
-	int ni = 1;
-	while ( currentWave.size() != 0 )
+	bool achieved = false;
+	bool terminate = false;
+	while ( currentWave.size() != 0 && !terminate )
 	{
+		terminate = achieved;
 		for ( auto& cord : currentWave )
 		{
+			PathBuilderLee::Cell& cordCell = fieldAt( cord );
+
+			if ( achieved && cordCell._value < fieldAt( m_startCord )._value )
+				terminate = false;
+
 			auto neighbors = cord.getNeighbors();
 			for ( const auto& neighbor : neighbors )
 			{
-				int value = fieldAt( cord )._value + 1;
+				PathBuilderLee::Cell& neighborCell = fieldAt( neighbor.second );
 
-				if ( (fieldAt( neighbor.second )._status == EMPTY || fieldAt( neighbor.second )._status == ADJOINED) && fieldAt(neighbor.second)._value == 0 )
+				int value = cordCell._value + (neighborCell._status == ADJOINED ? 5 : 1);
+
+				if ( neighborCell._status == START && canIFill( fieldAt( m_startCord ), value ) )
 				{
-					fieldAt( neighbor.second )._value = value;
-					nextWave.insert( neighbor.second );
-				}
-				else if ( fieldAt( neighbor.second )._status == START )
-				{
-					fieldAt( neighbor.second )._value = value;
+					neighborCell._value = value;
 					m_startCord = neighbor.second;
-					return true;
+					achieved = true;
 				}
+				else if ( ( neighborCell._status == EMPTY || neighborCell._status == ADJOINED ) && canIFill( neighborCell, value ) )
+				{
+					neighborCell._value = value;
+					//printField();
+					nextWave.insert( neighbor.second );
+				}			
 			}
 		}
 
 		currentWave = nextWave;
 		nextWave.clear();
-
-		printField();
-		ni++;
 	}
-	return false;
-}
 
-PathBuilderLee::Cell& ari::PathBuilderLee::fieldAt( const Cordinate& cord )
-{
-	return m_field[cord.m_y][cord.m_x];
+	return terminate;
 }
 
 std::vector<Cordinate> ari::PathBuilderLee::findPath()
@@ -182,75 +146,81 @@ std::vector<Cordinate> ari::PathBuilderLee::findPath()
 	{
 		auto neighbors = current.getNeighbors();
 
-		Cordinate nextForward = neighbors.at( direction );
-		auto min = fieldAt( nextForward )._value;
+		auto next = neighbors.at( direction );
+		if ( fieldAt( next )._value != 0 && fieldAt( next )._value < fieldAt( current )._value )
+		{
+			current = next;
+		}
 
-		Cordinate nextEmpty, nextAdjoined;
-		int minEmpty = fieldAt( current )._value;
-		int minAdjoined = fieldAt( current )._value;;
-		eDirection emptyDirection;
-		eDirection adjoinedDirection;
-
+		auto min = fieldAt( current )._value;
 		for ( auto& neighbor : neighbors )
 		{
-			auto& cell = fieldAt( neighbor.second );
-
-			if ( cell._status == FINISH )
+			if ( fieldAt( neighbor.second )._status == eCellStatus::FINISH )
 			{
 				current = neighbor.second;
 				break;
 			}
-			else if ( cell._value != 0  )
+			else if ( fieldAt( neighbor.second )._value != 0 && fieldAt( neighbor.second )._value < min )
 			{
-				if ( cell._status == EMPTY && cell._value < minEmpty )
-				{
-					emptyDirection = neighbor.first;
-					minEmpty = cell._value;
-					nextEmpty = neighbor.second;
-				}
-				else if ( cell._status == ADJOINED && cell._value < minAdjoined )
-				{
-					adjoinedDirection = neighbor.first;
-					minAdjoined = cell._value;
-					nextAdjoined = neighbor.second;
-				}
+				min = fieldAt( neighbor.second )._value;
+				current = neighbor.second;
+				direction = neighbor.first;
 			}
-		}
-
-		if ( fieldAt( current )._status != FINISH )
-		{
-			if ( fieldAt( nextForward )._value != 0 && fieldAt( nextForward )._value < fieldAt( current )._value && fieldAt( nextForward )._status != ADJOINED )
-			{
-				current = nextForward;
-			}
-			else if ( minEmpty < fieldAt( current )._value )
-			{
-				direction = emptyDirection;
-				current = nextEmpty;
-			}
-			else 
-			{
-				direction = adjoinedDirection;
-				current = nextAdjoined;
-			}
-
 		}
 
 		path.emplace_back( current );
-		
-		/*
-		IDisplay_p disp = Display::create();
-		disp->setColors( NS_CORE eColor::WHITE, NS_CORE eColor::BLACK );
-		for ( const auto& it : path )
-			disp->print( it, '#' );
-		disp->resetColors();
-		disp->print( { 0, 20 }, '>' );
-		system( "pause" );
-		*/
+		//printRoute( path );
 	}
 	
-	
-
 	return path;
+}
+
+bool ari::PathBuilderLee::verifyCord( const Cordinate& cord )
+{
+	return cord.m_x >= 0 && cord.m_x < m_width && cord.m_y >= 0 && cord.m_y < m_height;
+}
+
+bool ari::PathBuilderLee::canIFill( const Cell& cord, const int value )
+{
+	return cord._value == 0 || value < cord._value;
+}
+
+PathBuilderLee::Cell& ari::PathBuilderLee::fieldAt( const Cordinate& cord )
+{
+	return m_field[cord];
+}
+
+void ari::PathBuilderLee::printField()
+{
+	system( "cls" );
+	IDisplay_p disp = Display::create();
+
+	for ( const auto& it : m_field )
+	{
+		switch ( it.second._status )
+		{
+		case EMPTY:		disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::WHITE ); break;
+		case START:		disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::YELLOW ); break;
+		case FINISH:	disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::GREEN ); break;
+		case WALL:		disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::RED ); break;
+		case ADJOINED:	disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::LIGHT_BLUE ); break;
+		}
+		disp->print( it.first + Cordinate( 1, 1 ), it.second._value % 10 + '0' );
+	}
+
+	disp->resetColors();
+	disp->print( { 0, 20 }, '>' );
+	system( "pause" );
+}
+
+void ari::PathBuilderLee::printRoute( const std::vector<Cordinate> & route )
+{
+	IDisplay_p disp = Display::create();
+	disp->setColors( NS_CORE eColor::WHITE, NS_CORE eColor::BLACK );
+	for ( const auto& it : route )
+		disp->print( it + Cordinate(1,1), '#' );
+	disp->resetColors();
+	disp->print( { 0, 20 }, '>' );
+	system( "pause" );
 }
 

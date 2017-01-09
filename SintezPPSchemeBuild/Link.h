@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "../Libraries/GlobalDefines.h"
+#include "../Libraries/Chain.h"
 
 #include "ISchemeElement.h"
 #include "LinkCell.h"
@@ -19,7 +20,7 @@ class Link : public ISchemeElement
 {
 private:
 
-	std::set<NS_CORE Element>					m_elements;
+	NS_CORE Chain								m_elements;
 	std::vector<ISchemeCell_p>					m_cells;
 
 public:
@@ -28,9 +29,12 @@ public:
 
 	void										addCord( const Cordinate& cord );
 	void										addElem( const NS_CORE Element& elem );
+	void										addLink( const NS_CORE Link& link );
+	void										addChain( const NS_CORE Chain& chain );
 
 	bool										isConsist( const NS_CORE Element& elem );
 
+	const NS_CORE Chain&						getElements() const;
 	virtual const Cordinates&					getCordsWorldSpace() const override;
 
 };

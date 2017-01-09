@@ -16,7 +16,7 @@ public:
 
 	static SchemeBuilderSwapPrev_p				create();
 
-	virtual void								run( IScheme_p & scheme, IPathBuildStartegy_p & strategy, const NS_CORE Code& code ) override;
+	virtual bool								run( IScheme_p & scheme, IPathBuildStartegy_p & strategy, const NS_CORE Code& code ) override;
 
 };
 

@@ -69,6 +69,7 @@
     <ClCompile Include="GearSet.cpp" />
     <ClCompile Include="GearSetCell.cpp" />
     <ClCompile Include="GearSetFactory.cpp" />
+    <ClCompile Include="KinematicSchemeBuilder.cpp" />
     <ClCompile Include="Link.cpp" />
     <ClCompile Include="LinkCell.cpp" />
     <ClCompile Include="main.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="ISchemeBuildStartegy.h" />
     <ClInclude Include="ISchemeCell.h" />
     <ClInclude Include="ISchemeElement.h" />
+    <ClInclude Include="KinematicSchemeBuilder.h" />
     <ClInclude Include="Link.h" />
     <ClInclude Include="LinkCell.h" />
     <ClInclude Include="Link_fwd.h" />

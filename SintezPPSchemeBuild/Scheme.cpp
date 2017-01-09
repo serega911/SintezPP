@@ -1,7 +1,11 @@
+#include <algorithm>
+#include <iterator>
+
 #include "Scheme.h"
 #include "GearSetFactory.h"
 #include "Display.h"
 
+#include "../Libraries/eColor.h"
 #include "../Libraries/Singletons.h"
 
 NS_ARI_USING
@@ -31,6 +35,33 @@ void ari::Scheme::printElement( NS_ARI ISchemeElement_p set, const IDisplay_p& d
 		disp->print( it->getCord(), c );
 	}
 
+}
+
+void ari::Scheme::mergeLinks()
+{
+	const int size = m_links.size();
+	
+	bool flag = false;
+	do 
+	{
+		flag = false;
+		for ( int i = 0; i < size; i++ )
+		{
+			for ( int j = 0; j < size; j++ )
+			{
+				const auto& elems1 = m_links[i]->getElements();
+				const auto& elems2 = m_links[j]->getElements();
+
+				if ( i != j && elems1 != elems2 && elems1.intersect( elems2 ) )
+				{
+					m_links[i]->addChain( elems2 );
+					m_links[j]->addChain( m_links[i]->getElements() );
+					flag = true;
+				}
+			}
+		}
+	} while (flag);
+	
 }
 
 Scheme::Scheme( const NS_CORE InternalGearRatios k )
@@ -91,16 +122,7 @@ ari::Scheme_p ari::Scheme::create( const NS_CORE InternalGearRatios k )
 	return Scheme_p( new Scheme( k ) );
 }
 
-void ari::Scheme::addElementsToLink( Link_p & link, const NS_CORE Link& elements )
-{
-	const auto& elem1 = elements.getElem1();
-	const auto& elem2 = elements.getElem2();
-	
-	if ( elem1 != NS_CORE Element::BRAKE && link->isConsist( elem1 ) )
-		link->addElem( elem2 );
-	else if ( elem2 != NS_CORE Element::BRAKE && link->isConsist( elem2 ) )
-		link->addElem( elem1 );
-}
+
 
 
 void ari::Scheme::addLink( const std::vector<Cordinate>& trace, const NS_CORE Link& link )
@@ -111,21 +133,32 @@ void ari::Scheme::addLink( const std::vector<Cordinate>& trace, const NS_CORE Li
 	for ( const auto& it : trace )
 		newLink->addCord( it );
 
-	for ( auto & it : m_links )
-	{
-		addElementsToLink( it, link );
-	}
+	if ( link.getElem2() != NS_CORE Element::BRAKE)
+		newLink->addLink( link );
+	else
+		newLink->addElem( link.getElem1() );
+
+	mergeLinks();
 }
 
 void ari::Scheme::addFriction( const std::vector<Cordinate>& trace, const NS_CORE Link& link )
 {
-	Link_p newLink = Link::create();
-	m_links.emplace_back( newLink );
+	Link_p firstHalf = Link::create();
+	Link_p secondHalf = Link::create();
 
-	for ( const auto& it : trace )
-		newLink->addCord( it );
+	m_links.emplace_back( firstHalf );
+	m_links.emplace_back( secondHalf );
 
-	addElementsToLink( newLink, link );
+	firstHalf->addElem( link.getElem1() );
+	secondHalf->addElem( link.getElem2() );
+
+	const int size = trace.size();
+	int i = 0;
+	for ( int i = 0; i < size/2; i++ )
+		firstHalf->addCord( trace[i] );
+	for ( ; i < size; i++ )
+		secondHalf->addCord( trace[i] );
+
 }
 
 void ari::Scheme::clear()
@@ -137,18 +170,38 @@ void ari::Scheme::print( const IDisplay_p& disp ) const
 {
 	system( "cls" );
 
+	std::vector<NS_CORE Chain> uniqueChains;
+	for ( const auto & it : m_links )
+	{
+		uniqueChains.emplace_back( it->getElements() );
+	}
+	
+	std::vector<NS_CORE Chain, std::allocator<NS_CORE Chain>>::iterator it;
+	it = std::unique( uniqueChains.begin(), uniqueChains.end() );
+	uniqueChains.erase( it, uniqueChains.end() );
+
 	disp->setColors( NS_CORE eColor::YELLOW, NS_CORE eColor::BLACK );
 	for ( const auto & it : m_staticElements )
 	{
 		printElement( it, disp );
 	}
 
-	disp->setColors( NS_CORE eColor::GREEN, NS_CORE eColor::BLACK );
 	for ( const auto & it : m_links )
 	{
+		int i = 1;
+		for ( i = 1; i < uniqueChains.size() && i < NS_CORE colorsCount - 1; i++ )
+		{
+			if ( it->getElements() == uniqueChains[i] )
+				break;
+		}
+		NS_CORE eColor color = NS_CORE colors[i];
+
+		disp->setColors( color, NS_CORE eColor::BLACK );
 		printElement( it, disp );
 	}
 
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
+
+	system( "pause" );
 }

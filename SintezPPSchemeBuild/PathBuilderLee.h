@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 #include "IPathBuildStartegy.h"
 
 NS_ARI_START
@@ -27,28 +29,33 @@ private:
 		eCellStatus	_status = EMPTY;
 	};
 
-	typedef std::vector<std::vector<Cell>> Field;
+	typedef std::map<Cordinate, Cell> Field;
 
 	Field										m_field;
-	size_t										m_width;
-	size_t										m_height;
+	int											m_width;
+	int											m_height;
 	
 	Cordinate									m_startCord;
 
 	PathBuilderLee();
+
 	void										printField();
+	void										printRoute( const std::vector<Cordinate> & route);
+
 	bool										verifyCord( const Cordinate& cord );
-	void										fillField( const std::vector<ISchemeElement_p>& elements, NS_CORE Element& start, NS_CORE Element& finish );
+	bool										canIFill( const Cell& cord, const int value );
 	Cell&										fieldAt( const Cordinate& cord );
+
+	void										fillField( const std::vector<ISchemeElement_p>& elements, NS_CORE Element& start, NS_CORE Element& finish );
 	bool										spreadWave();
 	std::vector<Cordinate>						findPath();
+
 
 public:
 
 	static PathBuilderLee_p						create();
 
 	virtual void								init( const size_t width, const size_t height ) override;
-
 	virtual std::vector<Cordinate>				run( const std::vector<ISchemeElement_p>& elements, NS_CORE Element& start, NS_CORE Element& finish ) override;
 
 };

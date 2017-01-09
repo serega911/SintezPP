@@ -13,7 +13,7 @@ class ISchemeBuildStartegy
 {
 public:
 
-	virtual void								run( IScheme_p & scheme, IPathBuildStartegy_p & strategy, const NS_CORE Code& code ) = 0;
+	virtual bool								run( IScheme_p & scheme, IPathBuildStartegy_p & strategy, const NS_CORE Code& code ) = 0;
 
 };
 

@@ -10,7 +10,7 @@ void ari::Link::addCord( const Cordinate& cord )
 
 bool ari::Link::isConsist( const NS_CORE Element& elem )
 {
-	return m_elements.find( elem ) != m_elements.end();
+	return m_elements.find( elem );
 }
 
 const ISchemeElement::Cordinates& ari::Link::getCordsWorldSpace() const
@@ -20,10 +20,25 @@ const ISchemeElement::Cordinates& ari::Link::getCordsWorldSpace() const
 
 void ari::Link::addElem( const NS_CORE Element& elem )
 {
-	m_elements.insert( elem );
+	m_elements.addElementToChain( elem );
 }
 
 Link_p ari::Link::create()
 {
 	return Link_p( new Link );
+}
+
+const NS_CORE Chain& ari::Link::getElements() const
+{
+	return m_elements;
+}
+
+void ari::Link::addChain( const NS_CORE Chain& chain )
+{
+	m_elements.addChainToChain( chain );
+}
+
+void ari::Link::addLink( const NS_CORE Link& link )
+{
+	m_elements.addLinkToChain( link );
 }

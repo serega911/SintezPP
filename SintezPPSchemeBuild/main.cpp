@@ -1,44 +1,12 @@
-
-#include <iostream>
-
-#include "Scheme.h"
-#include "Display.h"
-#include "PathBuilderLee.h"
-#include "SchemeBuilderSwapPrev.h"
-#include "../Libraries/InternalGearRatioValueArray.h"
-#include "../Libraries/Code.h"
-
-
-
-
+#include "KinematicSchemeBuilder.h"
 
 int main()
 {
-	NS_ARI Display_p disp = NS_ARI Display::create();
-	NS_CORE InternalGearRatioValueArray values;
+	setlocale( LC_ALL, "Russian" );
+	NS_CORE Log::log( "====  Синтез планетарных передач с тремя степенями свободы. Просмотр.  ====\n\n" );
 
-	for ( int i = 0; i < 5; i++ )
-		values.push_back( NS_CORE InternalGearRatioValue( i ) );
-
-	NS_CORE Code code;
-	code.setIn( NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, NS_CORE GearSetNumber( 2 ) ) );
-	code.setOut( NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE GearSetNumber( 5 ) ) );
-
-	NS_CORE TLinkArray brakes;
-	brakes.push_back(NS_CORE Link( NS_CORE Element( NS_CORE eMainElement::CARRIER, NS_CORE GearSetNumber( 1 ) ), NS_CORE Element::BRAKE) );
-
-	code.setBrakes( brakes );
-
-	NS_ARI IScheme_p scheme = NS_ARI Scheme::create( values );
-	NS_ARI IPathBuildStartegy_p pathBuilder = NS_ARI PathBuilderLee::create();
-	NS_ARI ISchemeBuildStartegy_p schemeBuilder = NS_ARI SchemeBuilderSwapPrev::create();
-
-	schemeBuilder->run( scheme, pathBuilder, code);
-
-
-
-	scheme->print( disp );
-
+	ari::KinematicSchemeBuilder schemeBuilder;
+	schemeBuilder.readUIGeneralData();
+	schemeBuilder.run();
 	system( "pause" );
-	return 0;
 }
