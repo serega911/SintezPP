@@ -67,7 +67,7 @@ bool PathBuilder::spreadWave()
 	{
 		for ( auto& cord : currentWave )
 		{
-			auto neighbors = cord.getNeighbors();
+			auto neighbors = cord.get4Neighbors();
 			for ( auto& neighbor : neighbors )
 			{
 				int value = m_field[cord.m_x][cord.m_y] + 1;
@@ -139,7 +139,7 @@ void ari::PathBuilder::addRestrictions()
 
 bool ari::PathBuilder::checkIsNear( const Cordinate& cord, const int elem )
  {
-	auto neighbours = cord.getNeighbors();
+	auto neighbours = cord.get4Neighbors();
 	for ( const auto &neighbour : neighbours )
 	{
 		if ( m_field[neighbour.second.m_x][neighbour.second.m_y] == elem )
@@ -166,7 +166,7 @@ TCordinatesArray PathBuilder::findPath()
 	while ( m_field[current.m_x][current.m_y] != m_finish)
 	{
 		m_field[current.m_x][current.m_y] = m_wall;
-		auto neighbors = current.getNeighbors( );
+		auto neighbors = current.get4Neighbors( );
 
 		auto next = neighbors.at(direction);
 		if ( m_field[next.m_x][next.m_y] < m_field[current.m_x][current.m_y] && m_field[next.m_x][next.m_y] != m_empty )
@@ -206,7 +206,7 @@ Cordinate PathBuilder::findStartCell()
 			if ( m_field[x][y] == m_start )
 			{
 				Cordinate cord( x, y );
-				auto neighbors = cord.getNeighbors();
+				auto neighbors = cord.get4Neighbors();
 				for ( auto& neighbor : neighbors )
 				{
 					if ( m_field[neighbor.second.m_x][neighbor.second.m_y] < pathLenght )

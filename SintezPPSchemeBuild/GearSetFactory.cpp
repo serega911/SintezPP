@@ -56,8 +56,9 @@ GearSet_p GearSetFactory::createCustom( const Cordinate& anchor, const NS_CORE G
 	set->addCord( Cordinate( xK * ( -1 ), yK * ( 2 ) ), NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, num ) );
 	set->addCord( Cordinate( xK * ( 1 ), yK * ( 2 ) ), NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, num ) );
 
-	for ( int x = -1; x <= 1; x++ )
-		set->addCord( Cordinate( x, yK * -2 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
+	//for ( int x = -1; x <= 1; x++ )
+	//	set->addCord( Cordinate( x, yK * -2 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
+	set->addCord( Cordinate( 0, yK * -1 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
 
 	for ( int y = -1; y <= 1; y++ )
 	{

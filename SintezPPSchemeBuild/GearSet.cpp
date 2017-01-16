@@ -18,7 +18,7 @@ const GearSet::Cordinates& ari::GearSet::getCordsWorldSpace() const
 	return m_cords;
 }
 
-GearSet::~GearSet()
+ari::GearSet::~GearSet()
 {
-}
 
+}

@@ -32,7 +32,7 @@ Cordinate Cordinate::getBottomNeighbor( ) const
 	return Cordinate( m_x, m_y - 1 );
 }
 
-std::map<eDirection, Cordinate> Cordinate::getNeighbors( ) const
+std::map<eDirection, Cordinate> Cordinate::get4Neighbors( ) const
 {
 	std::map<eDirection, Cordinate> neighbors;
 

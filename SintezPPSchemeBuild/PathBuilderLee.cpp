@@ -21,7 +21,6 @@ void ari::PathBuilderLee::init(  const size_t width, const size_t height )
 
 	//resize field
 	m_field.clear();
-
 	//create borders
 	for ( int y = -1; y <= m_height; y++ )
 	{
@@ -41,7 +40,9 @@ std::vector<Cordinate> ari::PathBuilderLee::run( const std::vector<ISchemeElemen
 
 	fillField( elements, start, finish );
 	//printField();
-	if ( spreadWave() )
+
+	spreadWave( std::bind( &PathBuilderLee::prepareWave, this, std::placeholders::_1 ), std::bind( &PathBuilderLee::processWaveCell, this, std::placeholders::_1, std::placeholders::_2 ) );
+	if ( fieldAt( m_startCord )._value != 0 )
 	{
 		//printField();
 		ret = findPath();
@@ -52,6 +53,7 @@ std::vector<Cordinate> ari::PathBuilderLee::run( const std::vector<ISchemeElemen
 
 void ari::PathBuilderLee::fillField( const std::vector<ISchemeElement_p>& elements, NS_CORE Element& start, NS_CORE Element& finish )
 {
+
 	for ( const auto & element : elements )
 	{
 		const auto& cords = element->getCordsWorldSpace();
@@ -65,73 +67,75 @@ void ari::PathBuilderLee::fillField( const std::vector<ISchemeElement_p>& elemen
 			else if ( cord->isConsist( finish ) )
 				status = FINISH;
 
-			const Cordinate& cordinate = cord->getCord();
-
-			fieldAt( cordinate )._status = status;
-
-			auto neighbors = cordinate.get8Neighbors();
-			for ( const auto & it : neighbors )
-			{
-				if ( verifyCord( it ) && fieldAt( it )._status == EMPTY )
-					fieldAt(it)._status = ADJOINED;
-			}
+			fieldAt( cord->getCord() )._status = status;
 
 		}
 	}
+
+	int maxCost = 0;
+
+	const auto prepareFunc = [&](Wave& wave)
+	{
+		for ( const auto& it : m_field )
+		{
+			if ( it.second._status != EMPTY )
+				wave.insert( it.first );
+		}
+	};
+
+
+	const auto processFunc = [&]( const Cordinate& waveCell, const Cordinate& neighbor )
+	{
+		bool isNeedToAdd = false;
+		if ( verifyCord( neighbor ) )
+		{
+			Cell& neighborCell = fieldAt( neighbor );
+			if ( neighborCell._status == EMPTY && neighborCell._cost == 1 )
+			{
+				maxCost = neighborCell._cost = fieldAt( waveCell )._cost + 4;
+				isNeedToAdd = true;
+			}
+		}
+		return isNeedToAdd;
+	};
+
+	spreadWave( prepareFunc, processFunc );
+
+	for ( auto& it : m_field )
+	{
+		if ( it.second._status == EMPTY )
+		{
+			it.second._cost = maxCost - it.second._cost + 1;
+		}
+	}
+
 }
 
-bool ari::PathBuilderLee::spreadWave()
+void ari::PathBuilderLee::spreadWave( const std::function<void( Wave & )>& prepareFunc, const std::function<bool( const Cordinate&, const Cordinate& )>& processFunc )
 {
-	std::set<Cordinate> currentWave;
-	std::set<Cordinate> nextWave;
+	Wave currentWave;
+	Wave nextWave;
 
-	//заполн€ем текущую волну клетками финиша
-	for ( const auto& it : m_field )
-	{
-		if ( it.second._status == FINISH )
-			currentWave.insert( it.first );
-	}
+	prepareFunc( currentWave );
 
 	//–аспространение волны
-	bool achieved = false;
-	bool terminate = false;
-	while ( currentWave.size() != 0 && !terminate )
+	while ( currentWave.size() != 0 )
 	{
-		terminate = achieved;
-		for ( auto& cord : currentWave )
+		for ( const auto & cord : currentWave )
 		{
-			PathBuilderLee::Cell& cordCell = fieldAt( cord );
-
-			if ( achieved && cordCell._value < fieldAt( m_startCord )._value )
-				terminate = false;
-
-			auto neighbors = cord.getNeighbors();
+			auto neighbors = cord.get4Neighbors();
 			for ( const auto& neighbor : neighbors )
 			{
-				PathBuilderLee::Cell& neighborCell = fieldAt( neighbor.second );
-
-				int value = cordCell._value + (neighborCell._status == ADJOINED ? 5 : 1);
-
-				if ( neighborCell._status == START && canIFill( fieldAt( m_startCord ), value ) )
+				if ( processFunc( cord, neighbor.second ) )
 				{
-					neighborCell._value = value;
-					m_startCord = neighbor.second;
-					achieved = true;
-				}
-				else if ( ( neighborCell._status == EMPTY || neighborCell._status == ADJOINED ) && canIFill( neighborCell, value ) )
-				{
-					neighborCell._value = value;
-					//printField();
 					nextWave.insert( neighbor.second );
-				}			
+					//printWave(nextWave);
+				}
 			}
 		}
-
 		currentWave = nextWave;
 		nextWave.clear();
 	}
-
-	return terminate;
 }
 
 std::vector<Cordinate> ari::PathBuilderLee::findPath()
@@ -144,7 +148,7 @@ std::vector<Cordinate> ari::PathBuilderLee::findPath()
 
 	while ( fieldAt(current)._status != FINISH )
 	{
-		auto neighbors = current.getNeighbors();
+		auto neighbors = current.get4Neighbors();
 
 		auto next = neighbors.at( direction );
 		if ( fieldAt( next )._value != 0 && fieldAt( next )._value < fieldAt( current )._value )
@@ -203,7 +207,6 @@ void ari::PathBuilderLee::printField()
 		case START:		disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::YELLOW ); break;
 		case FINISH:	disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::GREEN ); break;
 		case WALL:		disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::RED ); break;
-		case ADJOINED:	disp->setColors( NS_CORE eColor::BLACK, NS_CORE eColor::LIGHT_BLUE ); break;
 		}
 		disp->print( it.first + Cordinate( 1, 1 ), it.second._value % 10 + '0' );
 	}
@@ -222,5 +225,78 @@ void ari::PathBuilderLee::printRoute( const std::vector<Cordinate> & route )
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
 	system( "pause" );
+}
+
+void ari::PathBuilderLee::printWave( const Wave & wave )
+{
+	IDisplay_p disp = Display::create();
+	disp->setColors( NS_CORE eColor::WHITE, NS_CORE eColor::BLACK );
+	for ( const auto& it : wave )
+		disp->print( it + Cordinate( 1, 1 ), fieldAt(it)._value % 10 + '0' );
+	disp->resetColors();
+	disp->print( { 0, 20 }, '>' );
+	//system( "pause" );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool ari::PathBuilderLee::processWaveCell( const Cordinate& waveCell, const Cordinate& neighbor )
+{
+	bool isNeedToAdd = false;
+			
+	Cell& neighborCell = fieldAt( neighbor );
+	int newValue = fieldAt( waveCell )._value + fieldAt( waveCell )._cost;
+
+
+	if ( fieldAt( m_startCord )._value != 0 && newValue > fieldAt( m_startCord )._value )
+	{
+		isNeedToAdd = false;
+	}
+	else if ( neighborCell._status == START && canIFill( fieldAt( m_startCord ), newValue ) )
+	{
+		neighborCell._value = newValue;
+		m_startCord = neighbor;
+	}
+	else if ( neighborCell._status == EMPTY && canIFill( neighborCell, newValue ) )
+	{
+		neighborCell._value = newValue;
+		isNeedToAdd = true;
+	}
+
+	return isNeedToAdd;
+}
+
+bool ari::PathBuilderLee::isFieldConsist( const Cordinate& cord )
+{
+	return m_field.find( cord ) != m_field.end();
+}
+
+void PathBuilderLee::prepareWave( Wave &currentWave )
+{
+	//заполн€ем текущую волну клетками финиша
+	for ( const auto& it : m_field )
+	{
+		if ( it.second._status == FINISH )
+			currentWave.insert( it.first );
+	}
 }
 

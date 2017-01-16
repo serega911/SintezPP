@@ -3,6 +3,16 @@
 
 NS_ARI_USING
 
+ari::LinkCell::LinkCell( const Cordinate& cord, Link* parent )
+: m_cord( cord ), m_parent( parent )
+{
+}
+
+ari::LinkCell_p ari::LinkCell::create( const Cordinate& cord, Link* parent )
+{
+	return LinkCell_p( new LinkCell( cord, parent ) );
+}
+
 const Cordinate& ari::LinkCell::getCord() const
 {
 	return m_cord;
@@ -11,14 +21,4 @@ const Cordinate& ari::LinkCell::getCord() const
 bool ari::LinkCell::isConsist( const NS_CORE Element& elem ) const
 {
 	return m_parent->isConsist( elem );
-}
-
-ari::LinkCell::LinkCell( const Cordinate& cord, Link* parent )
-	: m_cord(cord), m_parent(parent)
-{
-}
-
-ari::LinkCell_p ari::LinkCell::create( const Cordinate& cord, Link* parent )
-{
-	return LinkCell_p( new LinkCell( cord, parent ) );
 }

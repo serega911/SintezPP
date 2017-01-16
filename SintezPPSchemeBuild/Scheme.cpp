@@ -14,29 +14,6 @@ const int Scheme::s_setWidth = 9;
 const int Scheme::s_height = 13;
 
 
-
-void ari::Scheme::printElement( NS_ARI ISchemeElement_p set, const IDisplay_p& disp ) const
-{
-	const auto& cords = set->getCordsWorldSpace();
-
-	for ( const auto& it : cords )
-	{
-		char c;
-
-		if ( it->isConsist( NS_CORE Element::INPUT ) )
-			c = 'I';
-		else if ( it->isConsist( NS_CORE Element::OUTPUT ) )
-			c = 'O';
-		else if ( it->isConsist( NS_CORE Element::BRAKE ) )
-			c = 'B';
-		else
-			c = '#';
-
-		disp->print( it->getCord(), c );
-	}
-
-}
-
 void ari::Scheme::mergeLinks()
 {
 	const int size = m_links.size();
@@ -183,7 +160,7 @@ void ari::Scheme::print( const IDisplay_p& disp ) const
 	disp->setColors( NS_CORE eColor::YELLOW, NS_CORE eColor::BLACK );
 	for ( const auto & it : m_staticElements )
 	{
-		printElement( it, disp );
+		disp->printStatic( it );
 	}
 
 	for ( const auto & it : m_links )
@@ -197,7 +174,7 @@ void ari::Scheme::print( const IDisplay_p& disp ) const
 		NS_CORE eColor color = NS_CORE colors[i];
 
 		disp->setColors( color, NS_CORE eColor::BLACK );
-		printElement( it, disp );
+		disp->printLink( it );
 	}
 
 	disp->resetColors();

@@ -24,7 +24,6 @@ private:
 	std::vector<Link_p>							m_links;
 	std::vector<ISchemeElement_p>				m_staticElements;
 
-	void										printElement( NS_ARI ISchemeElement_p set, const IDisplay_p& disp ) const;
 	void										mergeLinks();
 
 	Scheme( const NS_CORE InternalGearRatios k );

@@ -28,6 +28,7 @@ public:
 	virtual const Cordinates&					getCordsWorldSpace() const override;
 
 	~GearSet();
+
 };
 
 typedef std::shared_ptr<GearSet> GearSet_p;

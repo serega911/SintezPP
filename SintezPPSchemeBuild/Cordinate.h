@@ -19,7 +19,7 @@ struct Cordinate
 	Cordinate									getTopNeighbor() const;
 	Cordinate									getBottomNeighbor() const;
 
-	std::map<eDirection, Cordinate>				getNeighbors() const;
+	std::map<eDirection, Cordinate>				get4Neighbors() const;
 	std::vector<Cordinate>						get8Neighbors() const;
 
 	friend Cordinate							operator+( const Cordinate & cord1, const Cordinate& cord2 );

@@ -25,7 +25,8 @@ public:
 
 	static Display_p							create();
 
-
+	virtual void								printLink( const ISchemeElement_p element ) const override;
+	virtual void								printStatic( const ISchemeElement_p element ) const override;
 	virtual void								print( const Cordinate& cord, const char c ) const override;
 	virtual void								setColors( NS_CORE eColor font, NS_CORE eColor background ) override;
 	virtual void								resetColors() override;

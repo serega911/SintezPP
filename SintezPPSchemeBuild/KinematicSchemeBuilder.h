@@ -11,11 +11,6 @@ class KinematicSchemeBuilder
 	: public NS_CORE ApplicationBase
 {
 
-private:
-
-	void										readUISpecialData();
-
-
 public:
 
 	void										run() override;
