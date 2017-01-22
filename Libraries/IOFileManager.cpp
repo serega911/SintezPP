@@ -130,7 +130,7 @@ void IOFileManager::init()
 	m_fileNames[eOutputFileType::KIN_QUICK] = "kin_quick.pkp";
 	m_fileNames[eOutputFileType::KIN_SLOW] = "kin_slow.pkp";
 	m_fileNames[eOutputFileType::K_TEST] = "done_test.pkp";
-	m_fileNames[eOutputFileType::K_TEST_LOG] = "done_test_log.pkp";
+	m_fileNames[eOutputFileType::DEF_K_LOG] = "done_test_log.pkp";
 	m_fileNames[eOutputFileType::SETTINGS] = "settings.txt";
 
 	const auto& initialData = Singletons::getInstance()->getInitialData();

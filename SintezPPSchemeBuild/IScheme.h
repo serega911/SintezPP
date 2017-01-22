@@ -17,7 +17,7 @@ NS_ARI_START
 class IScheme
 {
 public:
-	virtual void								print( const IDisplay_p& disp ) const = 0;
+	virtual void								print( const IDisplay_p& disp, const std::string & message ) const = 0;
 
 	virtual void								clear() = 0;
 	virtual void								addLink( const std::vector<Cordinate>& trace, const NS_CORE Link& link ) = 0;

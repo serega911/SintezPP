@@ -64,6 +64,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="TraceFrictionCommand.cpp" />
+    <ClCompile Include="TraceLinkCommand.cpp" />
     <ClCompile Include="Cordinate.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="GearSet.cpp" />
@@ -86,7 +88,8 @@
     <ClInclude Include="GearSet.h" />
     <ClInclude Include="GearSetCell.h" />
     <ClInclude Include="GearSetFactory.h" />
-    <ClInclude Include="IPathBuildStartegy.h" />
+    <ClInclude Include="ICommand.h" />
+    <ClInclude Include="ITraceStrategy.h" />
     <ClInclude Include="IDisplay.h" />
     <ClInclude Include="IScheme.h" />
     <ClInclude Include="ISchemeBuildStartegy.h" />
@@ -100,6 +103,8 @@
     <ClInclude Include="Scheme.h" />
     <ClInclude Include="SchemeBuilderSwapPrev.h" />
     <ClInclude Include="Tester.h" />
+    <ClInclude Include="TraceFrictionCommand.h" />
+    <ClInclude Include="TraceLinkCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">

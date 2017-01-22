@@ -32,9 +32,9 @@ Cordinate Cordinate::getBottomNeighbor( ) const
 	return Cordinate( m_x, m_y - 1 );
 }
 
-std::map<eDirection, Cordinate> Cordinate::get4Neighbors( ) const
+Cordinate::Neighbors Cordinate::get4Neighbors() const
 {
-	std::map<eDirection, Cordinate> neighbors;
+	Neighbors neighbors;
 
 	neighbors[eDirection::LEFT] =  getLeftNeighbor( );
 	neighbors[eDirection::RIGHT] = getRightNeighbor( );
@@ -44,20 +44,19 @@ std::map<eDirection, Cordinate> Cordinate::get4Neighbors( ) const
 	return neighbors;
 }
 
-std::vector<Cordinate> ari::Cordinate::get8Neighbors() const
+Cordinate::Neighbors ari::Cordinate::get8Neighbors() const
 {
-	std::vector<Cordinate> ret;
+	Neighbors neighbors = get4Neighbors();
 
-	ret.emplace_back( Cordinate(m_x - 1, m_y - 1) );
-	ret.emplace_back( Cordinate(m_x - 1, m_y) );
-	ret.emplace_back( Cordinate(m_x - 1, m_y + 1) );
-	ret.emplace_back( Cordinate(m_x, m_y - 1) );
-	ret.emplace_back( Cordinate(m_x, m_y + 1) );
-	ret.emplace_back( Cordinate(m_x + 1, m_y - 1) );
-	ret.emplace_back( Cordinate(m_x + 1, m_y) );
-	ret.emplace_back( Cordinate(m_x + 1, m_y + 1) );
+	const auto & top = neighbors[eDirection::UP];
+	const auto & bottom = neighbors[eDirection::DOWN];
 
-	return ret;
+	neighbors[eDirection::UP_LEFT] = top.getLeftNeighbor();
+	neighbors[eDirection::UP_RIGHT] = top.getRightNeighbor();
+	neighbors[eDirection::DOWN_LEFT] = bottom.getLeftNeighbor();
+	neighbors[eDirection::DOWN_RIGHT] = bottom.getRightNeighbor();
+
+	return neighbors;
 }
 
 bool NS_ARI operator<( const Cordinate & cord1, const Cordinate& cord2 )

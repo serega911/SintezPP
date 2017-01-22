@@ -36,6 +36,8 @@
       <Filter>PathBuilderLee</Filter>
     </ClCompile>
     <ClCompile Include="KinematicSchemeBuilder.cpp" />
+    <ClCompile Include="TraceLinkCommand.cpp" />
+    <ClCompile Include="TraceFrictionCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tests">
@@ -124,9 +126,6 @@
     <ClInclude Include="IScheme.h">
       <Filter>Scheme\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="IPathBuildStartegy.h">
-      <Filter>Scheme\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="ISchemeBuildStartegy.h">
       <Filter>Scheme\Interfaces</Filter>
     </ClInclude>
@@ -137,5 +136,11 @@
       <Filter>PathBuilderLee</Filter>
     </ClInclude>
     <ClInclude Include="KinematicSchemeBuilder.h" />
+    <ClInclude Include="ICommand.h" />
+    <ClInclude Include="ITraceStrategy.h">
+      <Filter>Scheme\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="TraceLinkCommand.h" />
+    <ClInclude Include="TraceFrictionCommand.h" />
   </ItemGroup>
 </Project>

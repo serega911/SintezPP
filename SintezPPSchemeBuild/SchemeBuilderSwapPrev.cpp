@@ -1,48 +1,64 @@
+#include <vector>
+
 #include "SchemeBuilderSwapPrev.h"
 #include "Display.h"
+#include "TraceLinkCommand.h"
+
 
 NS_ARI_USING
 
 
-bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, IPathBuildStartegy_p & strategy, const NS_CORE Code& code )
+bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & strategy, const NS_CORE Code& code )
 {
-	int count = 0;
-	auto links = code.getCode();
+	const auto& links = code.getCode();
 	const int size = links.size();
+	std::vector<ICommand_p> commands;
+	commands.reserve( size );
+	IDisplay_p display = Display::create();
 
-l:	scheme->clear();
+	int curr = -1;
 
-	for ( int i = 0; i < size; i++ )
+	for ( const auto& it : links )
 	{
-		auto elem1 = links[i].getElem1();
-		auto elem2 = links[i].getElem2();
+		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, it ) );
+	}
 
-		strategy->init( scheme->getWidth(), scheme->getHeight() );
-		const auto link = strategy->run( scheme->getAllElements(), elem1, elem2 );
-
-		if ( link.size() )
+	for ( int i = 0, swapCount = 0; i < size; i++ )
+	{
+		if ( i == 0 )
 		{
-			scheme->addLink( link, links[i] );
+			scheme->clear();
+			//scheme->print( display, "Cleared" );
 		}
-		else if (i > 0)
-		{
-			
-			std::swap( links[i], links[i - 1] );
-			if ( count > 10 )
-				return false;
 
-			count++;
-			goto l;
+		if ( commands[i]->isApplied() && i < curr )
+		{
+			commands[i]->apply();
+			//scheme->print( display, "Applied" );
 		}
-		else
+		else if ( commands[i]->execute() )
+		{
+			commands[i]->apply();
+			//scheme->print( display, "Executed and applied" );
+		}
+		else if ( swapCount > 100 )
 		{
 			return false;
 		}
+		else
+		{
+			swapCount++;
+			curr = i - 1;
+			std::swap( commands[i], commands[curr] );
+			i = -1;
+		}
+
 	}
 
-	scheme->print( Display::create() );
+	scheme->print( display, "Done" );
 
 	return true;
+	
 }
 
 ari::SchemeBuilderSwapPrev_p ari::SchemeBuilderSwapPrev::create()

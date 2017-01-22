@@ -5,7 +5,7 @@
 #include "../Libraries/GlobalDefines.h"
 #include "../Libraries/Code.h"
 #include "IScheme.h"
-#include "IPathBuildStartegy.h"
+#include "ITraceStrategy.h"
 
 NS_ARI_START
 
@@ -13,7 +13,7 @@ class ISchemeBuildStartegy
 {
 public:
 
-	virtual bool								run( IScheme_p & scheme, IPathBuildStartegy_p & strategy, const NS_CORE Code& code ) = 0;
+	virtual bool								run( IScheme_p & scheme, ITraceStrategy_p & strategy, const NS_CORE Code& code ) = 0;
 
 };
 

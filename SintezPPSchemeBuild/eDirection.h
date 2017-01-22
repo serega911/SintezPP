@@ -9,7 +9,11 @@ enum class eDirection
 	UP,
 	DOWN,
 	LEFT,
-	RIGHT
+	RIGHT,
+	UP_LEFT,
+	UP_RIGHT,
+	DOWN_LEFT,
+	DOWN_RIGHT
 };
 
 NS_ARI_END

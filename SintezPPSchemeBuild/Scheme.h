@@ -22,6 +22,7 @@ private:
 
 	int											m_width;
 	std::vector<Link_p>							m_links;
+	std::vector<Link_p>							m_ethLinks;
 	std::vector<ISchemeElement_p>				m_staticElements;
 
 	void										mergeLinks();
@@ -32,7 +33,7 @@ public:
 
 	static Scheme_p								create( const NS_CORE InternalGearRatios k );
 
-	virtual void								print( const IDisplay_p& disp ) const override;
+	virtual void								print( const IDisplay_p& disp, const std::string & message ) const override;
 
 	virtual void								clear() override;
 	virtual void								addLink( const std::vector<Cordinate>& trace, const NS_CORE Link& link ) override;

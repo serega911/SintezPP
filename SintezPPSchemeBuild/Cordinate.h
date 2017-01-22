@@ -8,6 +8,8 @@ NS_ARI_START
 
 struct Cordinate
 {
+	typedef std::map<eDirection, Cordinate> Neighbors;
+
 	Cordinate( int x, int y );
 	Cordinate();
 
@@ -19,8 +21,8 @@ struct Cordinate
 	Cordinate									getTopNeighbor() const;
 	Cordinate									getBottomNeighbor() const;
 
-	std::map<eDirection, Cordinate>				get4Neighbors() const;
-	std::vector<Cordinate>						get8Neighbors() const;
+	Neighbors									get4Neighbors() const;
+	Neighbors									get8Neighbors() const;
 
 	friend Cordinate							operator+( const Cordinate & cord1, const Cordinate& cord2 );
 	friend Cordinate							operator-( const Cordinate & cord1, const Cordinate& cord2 );

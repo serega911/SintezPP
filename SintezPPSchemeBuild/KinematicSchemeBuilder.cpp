@@ -27,7 +27,7 @@ void KinematicSchemeBuilder::run()
 	while ( core::Singletons::getInstance()->getLoaderFromFile()->load( containers, core::IOFileManager::eOutputFileType::DONE_K ) )
 	{
 		IScheme_p scheme = Scheme::create( k );
-		NS_ARI IPathBuildStartegy_p pathBuilder = NS_ARI PathBuilderLee::create();
+		NS_ARI ITraceStrategy_p pathBuilder = NS_ARI PathBuilderLee::create();
 		NS_ARI ISchemeBuildStartegy_p schemeBuilder = NS_ARI SchemeBuilderSwapPrev::create();
 
 		if ( schemeBuilder->run( scheme, pathBuilder, code ) )

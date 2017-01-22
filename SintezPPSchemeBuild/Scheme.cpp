@@ -143,7 +143,7 @@ void ari::Scheme::clear()
 	m_links.clear();
 }
 
-void ari::Scheme::print( const IDisplay_p& disp ) const
+void ari::Scheme::print( const IDisplay_p& disp, const std::string & message ) const
 {
 	system( "cls" );
 
@@ -179,6 +179,7 @@ void ari::Scheme::print( const IDisplay_p& disp ) const
 
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
+	NS_CORE Log::log( message );
 
 	system( "pause" );
 }
