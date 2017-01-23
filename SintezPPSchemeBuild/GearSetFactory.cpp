@@ -1,6 +1,7 @@
 #include "GearSetFactory.h"
 #include "GearSet.h"
 
+#include "../Libraries/Singletons.h"
 
 NS_ARI_USING
 
@@ -9,9 +10,46 @@ NS_ARI_USING
 	^ - y
 	*/
 
-GearSet_p GearSetFactory::createGearSet( const NS_CORE InternalGearRatioValue ratio, const NS_CORE GearSetNumber & num, const Cordinate& anchor )
+GearSetFactory_p& ari::GearSetFactory::getInstance()
 {
-	eGearSetType type = getType( ratio );
+	static  GearSetFactory_p ret( new GearSetFactory );
+	return ret;
+}
+
+void ari::GearSetFactory::init( const NS_CORE InternalGearRatios ratio )
+{
+	const int size = ratio.size();
+	m_options.clear();
+	for ( int i = 0; i < size; i++ )
+	{
+		if ( ratio[i].getAbs().getValue() < 2 )
+		{
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_N );
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_N_REVERSE );		
+		}
+		else
+		{
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_DEFAULT );
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_U );
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_U_REVERSE );
+		}
+	}
+}
+
+bool ari::GearSetFactory::next()
+{
+	for ( NS_CORE GearSetNumber i(NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears); i.getValue() > 0; i-- )
+	{
+		if ( m_options[i].next() )
+			return true;
+	}
+
+	return false;
+}
+
+GearSet_p GearSetFactory::createGearSet( const NS_CORE GearSetNumber & num, const Cordinate& anchor )
+{
+	eGearSetType type = getType( num );
 
 	switch ( type )
 	{
@@ -24,9 +62,9 @@ GearSet_p GearSetFactory::createGearSet( const NS_CORE InternalGearRatioValue ra
 	}
 }
 
-ari::eGearSetType ari::GearSetFactory::getType( const NS_CORE InternalGearRatioValue ratio )
+ari::eGearSetType ari::GearSetFactory::getType( const NS_CORE GearSetNumber & num )
 {
-	return ratio.getAbs().getValue() < 2 ? eGearSetType::TYPE_N : eGearSetType::TYPE_DEFAULT;
+	return  m_options[num].get();
 }
 
 GearSet_p GearSetFactory::createStandart( const Cordinate& anchor, const NS_CORE GearSetNumber & num )

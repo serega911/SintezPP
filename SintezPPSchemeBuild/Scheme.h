@@ -5,7 +5,6 @@
 #include "IScheme.h"
 #include "GearSet.h"
 #include "Link.h"
-#include "../Libraries/InternalGearRatios.h"
 
 NS_ARI_START
 
@@ -27,11 +26,11 @@ private:
 
 	void										mergeLinks();
 
-	Scheme( const NS_CORE InternalGearRatios k );
+	Scheme();
 
 public:
 
-	static Scheme_p								create( const NS_CORE InternalGearRatios k );
+	static Scheme_p								create();
 
 	virtual void								print( const IDisplay_p& disp, const std::string & message ) const override;
 

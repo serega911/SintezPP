@@ -9,6 +9,7 @@
 
 #include "KinematicSchemeBuilder.h"
 #include "SchemeBuilderSwapPrev.h"
+#include "GearSetFactory.h"
 #include "PathBuilderLee.h"
 #include "Scheme.h"
 
@@ -26,14 +27,19 @@ void KinematicSchemeBuilder::run()
 
 	while ( core::Singletons::getInstance()->getLoaderFromFile()->load( containers, core::IOFileManager::eOutputFileType::DONE_K ) )
 	{
-		IScheme_p scheme = Scheme::create( k );
-		NS_ARI ITraceStrategy_p pathBuilder = NS_ARI PathBuilderLee::create();
-		NS_ARI ISchemeBuildStartegy_p schemeBuilder = NS_ARI SchemeBuilderSwapPrev::create();
-
-		if ( schemeBuilder->run( scheme, pathBuilder, code ) )
+		GearSetFactory::getInstance()->init(k);
+		do 
 		{
-			NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::KIN_SLOW, code );
-		}
+			IScheme_p scheme = Scheme::create();
+			ITraceStrategy_p pathBuilder = PathBuilderLee::create();
+			ISchemeBuildStartegy_p schemeBuilder = SchemeBuilderSwapPrev::create();
+
+			if ( schemeBuilder->run( scheme, pathBuilder, code ) )
+			{
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::KIN_SLOW, code );
+				break;
+			}
+		} while ( GearSetFactory::getInstance()->next() );
 	}
 }
 

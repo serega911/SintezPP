@@ -41,9 +41,9 @@ void ari::Scheme::mergeLinks()
 	
 }
 
-Scheme::Scheme( const NS_CORE InternalGearRatios k )
+Scheme::Scheme()
 {
-	const int count = k.size();
+	const int count = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
 	m_width = count * s_setWidth;
 	const ari::Cordinate delta( s_setWidth, 0 );
@@ -51,7 +51,7 @@ Scheme::Scheme( const NS_CORE InternalGearRatios k )
 
 	for ( int i = 0; i < count; i++ )
 	{
-		m_staticElements.emplace_back( GearSetFactory::createGearSet( k[i], NS_CORE GearSetNumber( i + 1 ), pos ) );
+		m_staticElements.emplace_back( GearSetFactory::getInstance()->createGearSet( NS_CORE GearSetNumber( i + 1 ), pos ) );
 		pos = pos + delta;
 	}
 
@@ -94,13 +94,10 @@ std::vector<ISchemeElement_p> ari::Scheme::getAllElements() const
 	return ret;
 }
 
-ari::Scheme_p ari::Scheme::create( const NS_CORE InternalGearRatios k )
+ari::Scheme_p ari::Scheme::create()
 {
-	return Scheme_p( new Scheme( k ) );
+	return Scheme_p( new Scheme );
 }
-
-
-
 
 void ari::Scheme::addLink( const std::vector<Cordinate>& trace, const NS_CORE Link& link )
 {

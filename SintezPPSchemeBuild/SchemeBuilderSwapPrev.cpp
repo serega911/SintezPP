@@ -17,6 +17,7 @@ bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & str
 	IDisplay_p display = Display::create();
 
 	int curr = -1;
+	int lastFailPos = -1;
 
 	for ( const auto& it : links )
 	{
@@ -41,12 +42,13 @@ bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & str
 			commands[i]->apply();
 			//scheme->print( display, "Executed and applied" );
 		}
-		else if ( swapCount > 100 )
+		else if ( i == lastFailPos || swapCount > 100 )
 		{
 			return false;
 		}
 		else
 		{
+			lastFailPos = i;
 			swapCount++;
 			curr = i - 1;
 			std::swap( commands[i], commands[curr] );
