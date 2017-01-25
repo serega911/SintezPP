@@ -25,7 +25,7 @@ private:
 public:
 
 	const NS_CORE ChainArray&					operator[]( int xPos ) const;
-	NS_CORE ChainArray&						operator[]( int xPos );
+	NS_CORE ChainArray&							operator[]( int xPos );
 
 	void										addGearSet(const PlanetaryGearSet & gearSet);
 	void										addRoute( const TCordinatesArray & cord, const NS_CORE Link & link );

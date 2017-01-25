@@ -25,10 +25,10 @@ private:
 	void										initField( const KinematicScheme & scheme, core::Link link );
 	bool										spreadWave();
 	TCordinatesArray							findPath();
-	Cordinates									findStartCell();
+	Cordinate									findStartCell();
 	void										printField();
 
- 	bool										checkIsNear( const Cordinates& cord, const int elem );
+ 	bool										checkIsNear( const Cordinate& cord, const int elem );
 
 	void										addRestrictions();
 

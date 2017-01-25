@@ -23,6 +23,7 @@ public:																																			\
 	inline const typeName&		operator=( const buildInType& value )						{ m_value = value; return *this; }					\
 	inline const typeName&		operator=( const typeName& obj2 )							{ m_value = obj2.m_value; return *this; }			\
 	inline const typeName&		operator++( )												{ m_value++; return *this; }						\
+	inline const typeName&		operator--( )												{ m_value--; return *this; }						\
 };
 
 #define USER_DEFINED_TYPE_FLOATING( typeName, buildInType)																						\

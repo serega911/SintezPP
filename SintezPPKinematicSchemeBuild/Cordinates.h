@@ -6,25 +6,25 @@
 
 NS_ARI_START
 
-struct Cordinates;
-typedef std::vector<Cordinates> TCordinatesArray;
+struct Cordinate;
+typedef std::vector<Cordinate> TCordinatesArray;
 
-struct Cordinates
+struct Cordinate
 {
-	Cordinates( int x, int y );
-	Cordinates();
+	Cordinate( int x, int y );
+	Cordinate();
 
 	int											m_x;
 	int											m_y;
 
-	Cordinates									getLeftNeighbor() const;
-	Cordinates									getRightNeighbor() const;
-	Cordinates									getTopNeighbor() const;
-	Cordinates									getBottomNeighbor() const;
+	Cordinate									getLeftNeighbor() const;
+	Cordinate									getRightNeighbor() const;
+	Cordinate									getTopNeighbor() const;
+	Cordinate									getBottomNeighbor() const;
 
-	std::map<eDirection, Cordinates>			getNeighbors() const;
+	std::map<eDirection, Cordinate>			get4Neighbors() const;
 
-	friend bool									operator<( const Cordinates & cord1, const Cordinates& cord2 );
+	friend bool									operator<( const Cordinate & cord1, const Cordinate& cord2 );
 };
 
 NS_ARI_END

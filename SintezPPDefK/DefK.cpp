@@ -70,11 +70,11 @@ void ari::DefK::calcExample()
 					if (!isWrited)
 					{
 						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile(NS_CORE IOFileManager::eOutputFileType::K_TEST, code);
-						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile(NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, code);
+						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile(NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, code);
 						isWrited = true;
 					}
-					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, realI );
-					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST_LOG, k );
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, realI );
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, k );
 				}
 			}
 		}	
@@ -165,11 +165,15 @@ void DefK::run()
 			{
 				if ( !isWrited )
 				{
-					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DONE_K, code );
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, code );
 					isWrited = true;
 				}
-				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DONE_K, realI );
-				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DONE_K, ans[i] );	
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DONE_K, code );
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DONE_K, ans[i] );
+				//NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DONE_K, realI );
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, realI );
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, ans[i] );
+					
 			}
 		}
 		

@@ -30,7 +30,7 @@ public:
 		KIN_SLOW,
 		SETTINGS,
 		K_TEST,
-		K_TEST_LOG
+		DEF_K_LOG
 	};
 
 	static IOFileManager*						getInstance();

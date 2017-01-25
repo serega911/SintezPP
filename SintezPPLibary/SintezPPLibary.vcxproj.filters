@@ -284,5 +284,8 @@
     <ClInclude Include="..\Libraries\NumberFloat.h">
       <Filter>StaticLib\types\NumberBase</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\eColor.h">
+      <Filter>StaticLib\enums</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

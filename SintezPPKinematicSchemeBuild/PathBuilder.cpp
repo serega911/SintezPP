@@ -25,9 +25,9 @@ void PathBuilder::initField( const KinematicScheme & scheme, core::Link link )
 				m_field[x][y] = m_start;
 			}
 			// finish
- 			else if ( scheme[x][y].find( NS_CORE Element::BRAKE ) && scheme[x][y].size() > 1 )
- 			{
- 				m_field[x][y] = m_wall;
+			else if ( scheme[x][y].find( NS_CORE Element::BRAKE ) && scheme[x][y].size() > 1 )
+			{
+				m_field[x][y] = m_wall;
 			}
 			else if ( scheme[x][y].find( link.getElem2() ) )
 			{
@@ -44,8 +44,8 @@ void PathBuilder::initField( const KinematicScheme & scheme, core::Link link )
 
 bool PathBuilder::spreadWave()
 {
-	std::set<Cordinates> currentWave;
-	std::set<Cordinates> nextWave;
+	std::set<Cordinate> currentWave;
+	std::set<Cordinate> nextWave;
 
 	//заполняем текущую волну клетками финиша
 	for ( size_t x = 0; x < m_field.size(); x++ )
@@ -53,7 +53,7 @@ bool PathBuilder::spreadWave()
 		for ( size_t y = 0; y < m_field[x].size(); y++ )
 		{
 			if ( m_field[x][y] == m_finish )
-				currentWave.insert( Cordinates(x,y) );
+				currentWave.insert( Cordinate(x,y) );
 		}
 	}
 
@@ -67,7 +67,7 @@ bool PathBuilder::spreadWave()
 	{
 		for ( auto& cord : currentWave )
 		{
-			auto neighbors = cord.getNeighbors();
+			auto neighbors = cord.get4Neighbors();
 			for ( auto& neighbor : neighbors )
 			{
 				int value = m_field[cord.m_x][cord.m_y] + 1;
@@ -127,9 +127,9 @@ void ari::PathBuilder::addRestrictions()
 			if (m_field[i][j] != m_wall && 
 				m_field[i][j] != m_start &&
 				m_field[i][j] != m_finish &&
-				checkIsNear( Cordinates( i, j ), m_wall ) && 
-				!checkIsNear( Cordinates( i, j ), m_start ) && 
-				!checkIsNear( Cordinates( i, j ), m_finish ))
+				checkIsNear( Cordinate( i, j ), m_wall ) && 
+				!checkIsNear( Cordinate( i, j ), m_start ) && 
+				!checkIsNear( Cordinate( i, j ), m_finish ))
 			{
 				m_field[i][j] = m_start - 1;
 			}
@@ -137,15 +137,15 @@ void ari::PathBuilder::addRestrictions()
 	}
 }
 
-bool ari::PathBuilder::checkIsNear( const Cordinates& cord, const int elem )
+bool ari::PathBuilder::checkIsNear( const Cordinate& cord, const int elem )
  {
- 	auto neighbours = cord.getNeighbors();
- 	for ( const auto &neighbour : neighbours )
- 	{
- 		if ( m_field[neighbour.second.m_x][neighbour.second.m_y] == elem )
- 			return true;
- 	}
- 	return false;
+	auto neighbours = cord.get4Neighbors();
+	for ( const auto &neighbour : neighbours )
+	{
+		if ( m_field[neighbour.second.m_x][neighbour.second.m_y] == elem )
+			return true;
+	}
+	return false;
  }
 
 PathBuilder::PathBuilder()
@@ -157,7 +157,7 @@ TCordinatesArray PathBuilder::findPath()
 {
 	// строим путь
 	TCordinatesArray path;
-	Cordinates current = findStartCell();
+	Cordinate current = findStartCell();
 	path.emplace_back( current );
 	eDirection direction = eDirection::DOWN;
 
@@ -166,7 +166,7 @@ TCordinatesArray PathBuilder::findPath()
 	while ( m_field[current.m_x][current.m_y] != m_finish)
 	{
 		m_field[current.m_x][current.m_y] = m_wall;
-		auto neighbors = current.getNeighbors( );
+		auto neighbors = current.get4Neighbors( );
 
 		auto next = neighbors.at(direction);
 		if ( m_field[next.m_x][next.m_y] < m_field[current.m_x][current.m_y] && m_field[next.m_x][next.m_y] != m_empty )
@@ -194,10 +194,10 @@ TCordinatesArray PathBuilder::findPath()
 	return path;
 }
 
-Cordinates PathBuilder::findStartCell()
+Cordinate PathBuilder::findStartCell()
 {
 	// ищем клетку старта
-	Cordinates start( 0, 0 );
+	Cordinate start( 0, 0 );
 	int pathLenght = m_start;
 	for ( size_t x = 1; x < m_field.size() - 1; x++ )
 	{
@@ -205,8 +205,8 @@ Cordinates PathBuilder::findStartCell()
 		{
 			if ( m_field[x][y] == m_start )
 			{
-				Cordinates cord( x, y );
-				auto neighbors = cord.getNeighbors();
+				Cordinate cord( x, y );
+				auto neighbors = cord.get4Neighbors();
 				for ( auto& neighbor : neighbors )
 				{
 					if ( m_field[neighbor.second.m_x][neighbor.second.m_y] < pathLenght )

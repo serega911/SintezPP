@@ -61,7 +61,7 @@ void Code::setBrakes( const TLinkArray& brakes )
 
 void Code::print() const
 {
-	Log::log( "==================================================", true, Log::WHITE, Log::GREEN );
+	Log::log( "==================================================", true, eColor::WHITE, eColor::GREEN );
 	Log::log( "Длина вектора кода:			" + std::to_string( m_code.size() ) );
 	Log::log( "--------------------------------------------------" );
 

@@ -45,7 +45,7 @@ public:
 
 	void										create( NS_CORE GearSetNumber gearSetN, Type type );
 
-	NS_CORE ChainArray&						operator[]( int xPos );
+	NS_CORE ChainArray&							operator[]( int xPos );
 	const NS_CORE ChainArray&					operator[]( int xPos ) const;
 
 };
