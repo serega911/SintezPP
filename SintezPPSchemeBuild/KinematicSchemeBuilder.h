@@ -14,6 +14,7 @@ class KinematicSchemeBuilder
 public:
 
 	void										run() override;
+	virtual bool								checkRequirements() const override;
 
 };
 

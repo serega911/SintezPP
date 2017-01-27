@@ -45,6 +45,9 @@ public:
 		
 	void										writeSolutionData();
 
+	void										cleanFiles();
+	bool										isFileExists( const eOutputFileType type );
+
 private:	
 		
 	std::map<eOutputFileType, std::string>		m_fileNames;

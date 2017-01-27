@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 
 #include "../Libraries/GlobalDefines.h"
 #include "../Libraries/ApplicationBase.h"
@@ -14,17 +13,9 @@ private:
 
 public:
 
-	struct UISpecialData
-	{
-		std::vector<std::pair<float, float>>	_ranges;
-		std::vector<float>						_i;
-	};
-
-	void										readUISpecialData();
-	void										setUISpecialData( const UISpecialData& data );
-
 	void										calcExample();
 	void										run() override;
+	virtual bool								checkRequirements() const override;
 
 };
 

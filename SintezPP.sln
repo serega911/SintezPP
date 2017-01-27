@@ -10,9 +10,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPDefK", "SintezPPDef
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPLibary", "SintezPPLibary\SintezPPLibary.vcxproj", "{57148835-C16B-4085-994E-3443132160A9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPKinematicSchemeBuild", "SintezPPKinematicSchemeBuild\SintezPPKinematicSchemeBuild.vcxproj", "{F8BD2703-1BD2-4266-B314-C43EFCFAB998}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{70106352-CB3B-440E-9936-746D380F2ECA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPAppMaager", "Tests\Tests.vcxproj", "{70106352-CB3B-440E-9936-746D380F2ECA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPGenerate", "SintezPPGenerate\SintezPPGenerate.vcxproj", "{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}"
 EndProject
@@ -32,10 +30,6 @@ Global
 		{57148835-C16B-4085-994E-3443132160A9}.Debug|Win32.Build.0 = Debug|Win32
 		{57148835-C16B-4085-994E-3443132160A9}.Release|Win32.ActiveCfg = Release|Win32
 		{57148835-C16B-4085-994E-3443132160A9}.Release|Win32.Build.0 = Release|Win32
-		{F8BD2703-1BD2-4266-B314-C43EFCFAB998}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F8BD2703-1BD2-4266-B314-C43EFCFAB998}.Debug|Win32.Build.0 = Debug|Win32
-		{F8BD2703-1BD2-4266-B314-C43EFCFAB998}.Release|Win32.ActiveCfg = Release|Win32
-		{F8BD2703-1BD2-4266-B314-C43EFCFAB998}.Release|Win32.Build.0 = Release|Win32
 		{70106352-CB3B-440E-9936-746D380F2ECA}.Debug|Win32.ActiveCfg = Debug|Win32
 		{70106352-CB3B-440E-9936-746D380F2ECA}.Debug|Win32.Build.0 = Debug|Win32
 		{70106352-CB3B-440E-9936-746D380F2ECA}.Release|Win32.ActiveCfg = Release|Win32

@@ -1,7 +1,12 @@
 
+#include "../Libraries/GlobalDefines.h"
+#include "../Libraries/Log.h"
+
 #include <vector>
+#include <iostream>
 #include "TestGenerate.h"
 #include "TestDefK.h"
+#include "AppManager.h"
 
 
 #pragma comment(lib, "../Libraries/SintezPPLibary.lib")
@@ -9,9 +14,17 @@
 
 
 
-int main()
+void runApplication()
 {
-	std::vector<NS_ARI TestBase*> tests;
+	NS_ARI AppManager manager( NS_ARI AppManager::readGeneral() );
+
+	manager.start();
+}
+
+
+void executeTests()
+{
+	std::vector<NS_ARI AppManagerBase*> tests;
 
 	tests.push_back( NS_ARI TestGenerate::create( { 2, 2, 2 } ) );
 	tests.push_back( NS_ARI TestGenerate::create( { 2, 3, 3 } ) );
@@ -33,6 +46,27 @@ int main()
 
 	for ( auto& it : tests )
 		delete it;
+}
 
-	system("pause");
+int main()
+{
+	setlocale( LC_ALL, "Russian" );
+
+	while ( true )
+	{
+		system( "cls" );
+		NS_CORE Log::log( "1. Модульные тесты" );
+		NS_CORE Log::log( "2. Расчет" );
+		NS_CORE Log::log( "3. Выход" );
+
+		int ans;
+		std::cin >> ans;
+
+		switch ( ans )
+		{
+		case 1:		executeTests();					break;
+		case 2:		runApplication();				break;
+		case 3:		exit( 0 );						break;
+		}
+	}
 }

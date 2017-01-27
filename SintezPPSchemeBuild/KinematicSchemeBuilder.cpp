@@ -43,3 +43,43 @@ void KinematicSchemeBuilder::run()
 	}
 }
 
+bool ari::KinematicSchemeBuilder::checkRequirements() const
+{
+	if ( !NS_CORE Singletons::getInstance()->getIOFileManager()->isFileExists( NS_CORE IOFileManager::eOutputFileType::DONE_K ) )
+		return false;
+
+	NS_CORE Ratios i;
+	NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::INITIAL_DATA, i );
+
+	if ( i.size() != NS_CORE Singletons::getInstance()->getInitialData()._i.size() )
+		return false;
+
+	NS_CORE Range range( NS_CORE InternalGearRatioValue( 0 ), NS_CORE InternalGearRatioValue( 0 ) );
+	const auto& ranges = NS_CORE Singletons::getInstance()->getInitialData()._ranges;
+
+	int count = 0;
+
+	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::INITIAL_DATA, range ) )
+	{
+		bool finded = false;
+		count++;
+		for ( const auto& r : ranges )
+		{
+			if ( r == range )
+			{
+				finded = true;
+				break;
+			}
+		}
+
+		if ( !finded )
+			return false;
+
+	}
+
+	if ( count != ranges.size() )
+		return false;
+
+	return true;
+}
+

@@ -14,7 +14,7 @@ void Log::warning( const bool condition, const std::string& message, eWarningImp
 		std::cout << std::endl << senderName << " : " << message << std::endl;
 		if ( eWarningImportance::CRITICAL == importance )
 		{
-			std::cout << "This is a critical exception. The Programm wil be aborted.\n";
+			std::cout << "This is a critical exception. The Programm will be aborted.\n";
 			system( "pause" );
 			exit( 0 );
 		}

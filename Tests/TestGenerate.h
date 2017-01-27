@@ -2,18 +2,18 @@
 
 #include "../Libraries/GlobalDefines.h"
 
-#include "TestBase.h"
+#include "AppManagerBase.h"
 #include "Command.h"
 
 NS_ARI_START
 
-class TestGenerate : public TestBase
+class TestGenerate : public AppManagerBase
 {
 private:
 
 	TestGenerate( const Data& data );
 
-	Command										createCommand();
+	
 	bool										compareFiles( std::fstream& ethalon, std::fstream& working );
 
 public:

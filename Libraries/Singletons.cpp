@@ -86,7 +86,6 @@ void Singletons::setGlobalParameters( const size_t w, const size_t n, const size
 	}
 
 	getIOFileManager()->init();
-	getIOFileManager()->writeSolutionData();
 }
 
 void Singletons::addRangeK( const Range& range )

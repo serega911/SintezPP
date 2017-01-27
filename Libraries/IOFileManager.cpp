@@ -66,24 +66,57 @@ bool IOFileManager::loadFromFile(const eOutputFileType type, IIOItem & container
 
 void IOFileManager::writeSolutionData()
 {
-	std::ofstream* file = new std::ofstream;
-	m_oFiles.insert({ eOutputFileType::INITIAL_DATA, file });
-	std::string fullName = m_containingFolder + "\\" + m_fileNames.at(eOutputFileType::INITIAL_DATA);
-	file->open(fullName.c_str(), std::ofstream::out);
+// 	std::ofstream* file = new std::ofstream;
+// 	m_oFiles.insert({ eOutputFileType::INITIAL_DATA, file });
+// 	std::string fullName = m_containingFolder + "\\" + m_fileNames.at(eOutputFileType::INITIAL_DATA);
+// 	file->open(fullName.c_str(), std::ofstream::out);
+// 
+// // 	SYSTEMTIME st;
+// // 	GetLocalTime(&st);
+// // 	*file << "Started:	" << st.wHour << ':' << st.wMinute << ':' << st.wSecond << std::endl;
+// // 
+// // 	const auto& generalData = Singletons::getInstance()->getGeneralData();
+ 	const auto& initialData = Singletons::getInstance()->getInitialData();
+// 
+// 	*file << initialData._w << ' ' 
+// 		<< initialData._numberOfPlanetaryGears << ' '
+// 		<< generalData._numberOfLinks << ' '
+// 		<< generalData._numberOfFrictions << ' '
+// 		<< generalData._numberOfBrakes << '\n';
+	writeToFile( IOFileManager::eOutputFileType::INITIAL_DATA, initialData._i );
 
-	SYSTEMTIME st;
-	GetLocalTime(&st);
-	*file << "Started:	" << st.wHour << ':' << st.wMinute << ':' << st.wSecond << std::endl;
+	for (const auto& range : initialData._ranges)
+		writeToFile( IOFileManager::eOutputFileType::INITIAL_DATA, range );
+}
 
-	const auto& generalData = Singletons::getInstance()->getGeneralData();
-	const auto& initialData = Singletons::getInstance()->getInitialData();
+bool core::IOFileManager::isFileExists( const eOutputFileType type )
+{
+	bool result;
 
-	*file << initialData._w << ' ' 
-		<< initialData._numberOfPlanetaryGears << ' '
-		<< generalData._numberOfLinks << ' '
-		<< generalData._numberOfFrictions << ' '
-		<< generalData._numberOfBrakes << '\n';
-	file->flush();
+	std::string fullName = getFolder( type ) + "\\" + m_fileNames.at( type );
+	std::ifstream* in = new std::ifstream( fullName.c_str() );
+
+	if ( in->good() )
+	{
+		m_iFiles.insert( { type, in } );
+		result = true;
+	}
+	else
+	{
+		result = false;
+	}
+	//return m_oFiles.find( type ) != m_oFiles.end() || m_iFiles.find( type ) != m_iFiles.end();
+	return result;
+}
+
+void core::IOFileManager::cleanFiles()
+{
+	_rmdir( m_containingFolder.c_str() );
+	_mkdir( m_containingFolder.c_str() );
+	
+
+	m_oFiles.clear();
+	m_iFiles.clear();
 }
 
 IOFileManager::IOFileManager()
@@ -99,13 +132,13 @@ IOFileManager* IOFileManager::getInstance()
 
 IOFileManager::~IOFileManager()
 {
-	auto file = m_oFiles.find(eOutputFileType::INITIAL_DATA);
-	if (file != m_oFiles.end() && file->second->is_open())
-	{
-		SYSTEMTIME st;
-		GetLocalTime(&st);
-		*(file->second) << "Finished:	" << st.wHour << ':' << st.wMinute << ':' << st.wSecond << std::endl;
-	}
+//	auto file = m_oFiles.find(eOutputFileType::INITIAL_DATA);
+// 	if (file != m_oFiles.end() && file->second->is_open())
+// 	{
+// 		SYSTEMTIME st;
+// 		GetLocalTime(&st);
+// 		*(file->second) << "Finished:	" << st.wHour << ':' << st.wMinute << ':' << st.wSecond << std::endl;
+// 	}
 
 	for (auto& it : m_oFiles)
 		it.second->close();
