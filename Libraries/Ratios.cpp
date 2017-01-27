@@ -24,13 +24,27 @@ size_t Ratios::size() const
 
 bool core::Ratios::loadFromFile( std::istream& file )
 {
-	return false;
+	int n;
+
+	file >> n;
+	m_i.resize( n );
+
+	for ( size_t i = 0; i < n; i++ )
+	{
+		double value;
+		file >> value;
+		m_i[i] = RatioValue( value );
+	}
+
+	return !file.eof();
 }
 
 void core::Ratios::writeToFile( std::ostream& file ) const
 {
+	file << m_i.size();
+
 	for ( auto& it : m_i )
-		file << it.getValue() << ' ';
+		file << ' ' << it.getValue();
 }
 
 const RatioValue & Ratios::operator[]( size_t i ) const

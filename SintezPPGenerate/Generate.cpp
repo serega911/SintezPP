@@ -10,7 +10,7 @@ const NS_CORE eMainElementArray Generate::s_elements = { NS_CORE eMainElement::S
 void Generate::run()
 {
 	showParams();
-
+	NS_CORE Singletons::getInstance()->getIOFileManager()->cleanFiles();
 	auto N = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
 	//	Заполняем вектор всех возможных связей, пропускаем связи между элементами одного ряда и реверсивные связи.
@@ -30,6 +30,11 @@ void Generate::run()
 	}
 
 	generateInOut();
+}
+
+bool ari::Generate::checkRequirements() const
+{
+	return true;
 }
 
 void Generate::generateInOut()

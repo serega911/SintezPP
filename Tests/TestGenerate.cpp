@@ -16,7 +16,7 @@ bool ari::TestGenerate::start()
 
 	remove( workingFilePath.c_str() );
 
-	Command command = createCommand();
+	Command command = createCommand( "SintezPPGenerate.exe", nullptr );
 	system( command.get().c_str() );
 
 	std::fstream ethalonFile;
@@ -40,19 +40,9 @@ TestGenerate* ari::TestGenerate::create( const Data& data )
 }
 
 ari::TestGenerate::TestGenerate( const Data& data )
-	: TestBase(data)
+	: AppManagerBase(data)
 {
 
-}
-
-ari::Command ari::TestGenerate::createCommand()
-{
-	Command command( "SintezPPGenerate.exe" );
-	command.addParam( wKey, std::to_string( getW() ) );
-	command.addParam( nKey, std::to_string( getN() ) );
-	command.addParam( dKey, std::to_string( getD() ) );
-
-	return command;
 }
 
 bool ari::TestGenerate::compareFiles( std::fstream& ethalon, std::fstream& working )

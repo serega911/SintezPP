@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{70106352-CB3B-440E-9936-746D380F2ECA}</ProjectGuid>
     <RootNamespace>Tests</RootNamespace>
+    <ProjectName>SintezPPAppMaager</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -68,9 +69,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AppManager.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestBase.cpp" />
+    <ClCompile Include="AppManagerBase.cpp" />
     <ClCompile Include="TestDefK.cpp" />
     <ClCompile Include="TestGenerate.cpp" />
   </ItemGroup>
@@ -80,8 +82,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppManager.h" />
     <ClInclude Include="Command.h" />
-    <ClInclude Include="TestBase.h" />
+    <ClInclude Include="AppManagerBase.h" />
     <ClInclude Include="TestDefK.h" />
     <ClInclude Include="TestGenerate.h" />
     <ClInclude Include="TestGlue.h" />

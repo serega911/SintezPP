@@ -8,18 +8,16 @@
     <ClCompile Include="Command.cpp">
       <Filter>Command</Filter>
     </ClCompile>
-    <ClCompile Include="TestBase.cpp">
-      <Filter>TestBase</Filter>
-    </ClCompile>
     <ClCompile Include="TestDefK.cpp">
       <Filter>TestBase\TestDefK</Filter>
     </ClCompile>
+    <ClCompile Include="AppManagerBase.cpp">
+      <Filter>TestBase</Filter>
+    </ClCompile>
+    <ClCompile Include="AppManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestGlue.h" />
-    <ClInclude Include="TestBase.h">
-      <Filter>TestBase</Filter>
-    </ClInclude>
     <ClInclude Include="TestGenerate.h">
       <Filter>TestBase\TestGenerate</Filter>
     </ClInclude>
@@ -29,6 +27,10 @@
     <ClInclude Include="TestDefK.h">
       <Filter>TestBase\TestDefK</Filter>
     </ClInclude>
+    <ClInclude Include="AppManagerBase.h">
+      <Filter>TestBase</Filter>
+    </ClInclude>
+    <ClInclude Include="AppManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="TestBase">

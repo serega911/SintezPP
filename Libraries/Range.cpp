@@ -29,3 +29,30 @@ bool Range::isInRange( const T value ) const
 {
 	return value >= m_begin - s_eps && value <= m_end + s_eps;
 }
+
+bool core::Range::operator==( const Range& obj ) const
+{
+	return obj.m_begin == m_begin && obj.m_end == m_end;
+}
+
+bool core::Range::loadFromFile( std::istream& file )
+{
+	if(file.eof())
+		return false;
+
+	double begin, end;
+
+	file >> begin >> end;
+
+	m_begin = T( begin );
+	m_end = T( end );
+
+	bool aret = file.eof();
+
+	return true;
+}
+
+void core::Range::writeToFile( std::ostream& file ) const
+{
+	file << m_begin.getValue() << ' ' << m_end.getValue();
+}

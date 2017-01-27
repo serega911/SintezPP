@@ -3,6 +3,7 @@
 
 #include "../Libraries/Log.h"
 #include "../Libraries/SettingsItem.h"
+#include "../Libraries/Singletons.h"
 
 #pragma comment(lib, "../Libraries/SintezPPLibary.lib")
 
@@ -70,7 +71,12 @@ int main( int argc, char* argv[] )
 		DK.setUISpecialData( sData );
 	}
 
+	if ( !DK.checkRequirements() )
+		return 1;
+
 	DK.run();
+
+	NS_CORE Singletons::getInstance()->getIOFileManager()->writeSolutionData();
 
 	return 0;
 }

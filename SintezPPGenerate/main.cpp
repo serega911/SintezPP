@@ -2,6 +2,7 @@
 #include "../Tests/TestGlue.h"
 
 #include "../Libraries/SettingsItem.h"
+#include "../Libraries/Singletons.h"
 
 #pragma comment(lib, "../Libraries/SintezPPLibary.lib")
 
@@ -43,9 +44,12 @@ int main(int argc, char* argv[])
 		generator.setUIGeneralData( gData );
 	}
 
-
+	if ( !generator.checkRequirements() )
+		return 1;
 	
 	generator.run();
+
+	NS_CORE Singletons::getInstance()->getIOFileManager()->writeSolutionData();
 
 	return 0;
 }
