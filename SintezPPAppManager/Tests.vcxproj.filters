@@ -5,32 +5,45 @@
     <ClCompile Include="TestGenerate.cpp">
       <Filter>TestBase\TestGenerate</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
     <ClCompile Include="TestDefK.cpp">
       <Filter>TestBase\TestDefK</Filter>
     </ClCompile>
-    <ClCompile Include="AppManagerBase.cpp">
+    <ClCompile Include="StartAppCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBase.cpp">
       <Filter>TestBase</Filter>
     </ClCompile>
-    <ClCompile Include="AppManager.cpp" />
+    <ClCompile Include="StartAppCommandFactory.cpp">
+      <Filter>CommandFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="AppManager.cpp">
+      <Filter>AppManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestGlue.h" />
     <ClInclude Include="TestGenerate.h">
       <Filter>TestBase\TestGenerate</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Command</Filter>
-    </ClInclude>
     <ClInclude Include="TestDefK.h">
       <Filter>TestBase\TestDefK</Filter>
     </ClInclude>
-    <ClInclude Include="AppManagerBase.h">
+    <ClInclude Include="ICommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="StartAppCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="TestBase.h">
       <Filter>TestBase</Filter>
     </ClInclude>
-    <ClInclude Include="AppManager.h" />
+    <ClInclude Include="StartAppCommandFactory.h">
+      <Filter>CommandFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="AppManager.h">
+      <Filter>AppManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="TestBase">
@@ -44,6 +57,12 @@
     </Filter>
     <Filter Include="TestBase\TestDefK">
       <UniqueIdentifier>{cafaa8af-8ee8-4c08-8b85-ccb41f5db965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CommandFactory">
+      <UniqueIdentifier>{e85fa5f9-10bc-4e93-9068-2ba8158026fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AppManager">
+      <UniqueIdentifier>{0e31158d-6fa2-410c-937c-a9d86c6122c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

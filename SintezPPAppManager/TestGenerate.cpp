@@ -5,6 +5,8 @@
 #include <iostream>
 
 #include "TestGenerate.h"
+#include "../Libraries/UISpecialData.h"
+#include "StartAppCommandFactory.h"
 
 NS_ARI_USING
 
@@ -16,8 +18,8 @@ bool ari::TestGenerate::start()
 
 	remove( workingFilePath.c_str() );
 
-	Command command = createCommand( "SintezPPGenerate.exe", nullptr );
-	system( command.get().c_str() );
+	StartAppCommand_p command = StartAppCommandFactory::create( "SintezPPGenerate.exe", getGeneralData() );
+	command->execute();
 
 	std::fstream ethalonFile;
 	std::fstream workingFile;
@@ -33,14 +35,14 @@ bool ari::TestGenerate::start()
 	return res;
 }
 
-TestGenerate* ari::TestGenerate::create( const Data& data )
+TestGenerate* ari::TestGenerate::create( const  NS_CORE UIGeneralData& data )
 {
 	TestGenerate* ret = new TestGenerate( data );
 	return ret;
 }
 
-ari::TestGenerate::TestGenerate( const Data& data )
-	: AppManagerBase(data)
+ari::TestGenerate::TestGenerate( const  NS_CORE UIGeneralData& data )
+	: TestBase(data)
 {
 
 }
