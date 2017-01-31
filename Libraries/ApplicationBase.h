@@ -1,25 +1,14 @@
 #include "GlobalDefines.h"
 
 #include <vector>
+#include "UIGeneralData.h"
+#include "UISpecialData.h"
 
 NS_CORE_START
 
 class ApplicationBase
 {
 public:
-
-	struct UIGeneralData
-	{
-		size_t _w;
-		size_t _n;
-		size_t _d;
-	};
-
-	struct UISpecialData
-	{
-		std::vector<std::pair<float, float>>	_ranges;
-		std::vector<float>						_i;
-	};
 
 	void										readUIGeneralData();
 	void										readUISpecialData();

@@ -16,15 +16,15 @@
 
 void runApplication()
 {
-	NS_ARI AppManager manager( NS_ARI AppManager::readGeneral() );
-
-	manager.start();
+	NS_ARI AppManager manager;
+	manager.readUIGeneralData();
+	manager.run();
 }
 
 
 void executeTests()
 {
-	std::vector<NS_ARI AppManagerBase*> tests;
+	std::vector<NS_ARI TestBase*> tests;
 
 	tests.push_back( NS_ARI TestGenerate::create( { 2, 2, 2 } ) );
 	tests.push_back( NS_ARI TestGenerate::create( { 2, 3, 3 } ) );

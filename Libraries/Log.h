@@ -45,6 +45,53 @@ public:
 		}
 	}
 
+	template<class T>
+	static void askForValue( const std::string& prompt, T& value )
+	{
+		const int promptWidth = 35;
+
+		std::cout.width( promptWidth );
+		std::cout << std::left << prompt;
+		std::cin >> value;
+	}
+
+	template<class T>
+	static void askFor2Value( const std::string& prompt, const std::string& val1comment, const std::string& val2comment, T& value1, T& value2 )
+	{
+		const int promptWidth = 35;
+
+		std::cout.width( promptWidth );
+		std::cout << std::left << prompt << std::endl;
+		
+		std::cout.width( promptWidth );
+		std::cout << std::left << val1comment;
+		std::cin >> value1;
+
+		std::cout.width( promptWidth );
+		std::cout << std::left << val2comment;
+		std::cin >> value2;
+	}
+
+	template<class T>
+	static void showValue( const std::string& prompt, const T& value )
+	{
+		const int promptWidth = 35;
+
+		std::cout.width( promptWidth );
+		std::cout << std::left << prompt;
+		std::cout << value << std::endl;
+	}
+
+	template<class T>
+	static void show2Value( const std::string& prompt, const std::string& delimiter, const T& value1, const T& value2 )
+	{
+		const int promptWidth = 35;
+
+		std::cout.width( promptWidth );
+		std::cout << std::left << prompt;
+		std::cout << value1 << delimiter << value2 << std::endl;
+	}
+
 	static void									warning( const bool condition, const std::string& message, eWarningImportance importance,  const std::string& senderName = "Unknown" );
 
 private:

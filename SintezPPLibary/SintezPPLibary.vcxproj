@@ -77,7 +77,12 @@
     <ClInclude Include="..\Libraries\Settings.h" />
     <ClInclude Include="..\Libraries\SettingsItem.h" />
     <ClInclude Include="..\Libraries\Singletons.h" />
+    <ClInclude Include="..\Libraries\TestGlue.h" />
+    <ClInclude Include="..\Libraries\UISpecialData.h" />
     <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Libraries\UIGeneralData.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57148835-C16B-4085-994E-3443132160A9}</ProjectGuid>

@@ -11,8 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D9AF2D99-7EC5-472B-AE77-C13B973563A1}</ProjectGuid>
-    <RootNamespace>SintezPPAppManagerConsole</RootNamespace>
+    <ProjectGuid>{70106352-CB3B-440E-9936-746D380F2ECA}</ProjectGuid>
+    <RootNamespace>Tests</RootNamespace>
+    <ProjectName>SintezPPAppMaager</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -44,10 +45,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -64,12 +69,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AppManager.cpp" />
+    <ClCompile Include="StartAppCommand.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestBase.cpp" />
+    <ClCompile Include="StartAppCommandFactory.cpp" />
+    <ClCompile Include="TestDefK.cpp" />
+    <ClCompile Include="TestGenerate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
       <Project>{57148835-c16b-4085-994e-3443132160a9}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppManager.h" />
+    <ClInclude Include="StartAppCommand.h" />
+    <ClInclude Include="TestBase.h" />
+    <ClInclude Include="ICommand.h" />
+    <ClInclude Include="StartAppCommandFactory.h" />
+    <ClInclude Include="TestDefK.h" />
+    <ClInclude Include="TestGenerate.h" />
+    <ClInclude Include="TestGlue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

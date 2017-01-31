@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{70106352-CB3B-440E-9936-746D380F2ECA}</ProjectGuid>
     <RootNamespace>Tests</RootNamespace>
-    <ProjectName>SintezPPAppMaager</ProjectName>
+    <ProjectName>SintezPPAppManager</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -69,25 +69,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AppManager.cpp" />
-    <ClCompile Include="Command.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="AppManagerBase.cpp" />
-    <ClCompile Include="TestDefK.cpp" />
-    <ClCompile Include="TestGenerate.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
       <Project>{57148835-c16b-4085-994e-3443132160a9}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppManager.h" />
-    <ClInclude Include="Command.h" />
-    <ClInclude Include="AppManagerBase.h" />
-    <ClInclude Include="TestDefK.h" />
-    <ClInclude Include="TestGenerate.h" />
-    <ClInclude Include="TestGlue.h" />
+    <ClCompile Include="..\SintezPPAppManager\AppManager.cpp" />
+    <ClCompile Include="..\SintezPPAppManager\main.cpp" />
+    <ClCompile Include="..\SintezPPAppManager\StartAppCommand.cpp" />
+    <ClCompile Include="..\SintezPPAppManager\StartAppCommandFactory.cpp" />
+    <ClCompile Include="..\SintezPPAppManager\TestBase.cpp" />
+    <ClCompile Include="..\SintezPPAppManager\TestDefK.cpp" />
+    <ClCompile Include="..\SintezPPAppManager\TestGenerate.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SintezPPAppManager\AppManager.h" />
+    <ClInclude Include="..\SintezPPAppManager\ICommand.h" />
+    <ClInclude Include="..\SintezPPAppManager\StartAppCommand.h" />
+    <ClInclude Include="..\SintezPPAppManager\StartAppCommandFactory.h" />
+    <ClInclude Include="..\SintezPPAppManager\TestBase.h" />
+    <ClInclude Include="..\SintezPPAppManager\TestDefK.h" />
+    <ClInclude Include="..\SintezPPAppManager\TestGenerate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

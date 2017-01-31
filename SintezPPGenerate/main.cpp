@@ -1,6 +1,6 @@
 #include "Generate.h"
-#include "../Tests/TestGlue.h"
 
+#include "../Libraries/TestGlue.h"
 #include "../Libraries/SettingsItem.h"
 #include "../Libraries/Singletons.h"
 
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 	{
 		const int expectedArgCount = 3;
 		NS_CORE Log::warning( argc != expectedArgCount + 1, "Wrong Number of arguments", NS_CORE Log::CRITICAL, HERE );
-		NS_CORE ApplicationBase::UIGeneralData gData;
+		NS_CORE UIGeneralData gData;
 
 		for ( int i = 1; i < argc; i++ )
 		{

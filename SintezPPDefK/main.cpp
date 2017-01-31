@@ -1,6 +1,6 @@
 #include "DefK.h"
-#include "../Tests/TestGlue.h"
 
+#include "../Libraries/TestGlue.h"
 #include "../Libraries/Log.h"
 #include "../Libraries/SettingsItem.h"
 #include "../Libraries/Singletons.h"
@@ -42,8 +42,8 @@ int main( int argc, char* argv[] )
 	}
 	else
 	{
-		NS_ARI DefK::UISpecialData sData;
-		NS_CORE ApplicationBase::UIGeneralData gData;
+		NS_CORE UISpecialData sData;
+		NS_CORE UIGeneralData gData;
 
 		for ( int i = 1; i < argc; i++ )
 		{

@@ -17,7 +17,7 @@ NS_ARI_USING
 void ari::DefK::calcExample()
 {
 
-	NS_CORE Log::log( "Количество передач:	" + std::to_string(NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears) );
+	NS_CORE Log::showValue( "Количество передач:", NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears );
 
 	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
 	
