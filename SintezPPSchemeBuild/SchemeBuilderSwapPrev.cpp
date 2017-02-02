@@ -1,8 +1,11 @@
 #include <vector>
 
+#include "../Libraries/Singletons.h"
+
 #include "SchemeBuilderSwapPrev.h"
 #include "Display.h"
 #include "TraceLinkCommand.h"
+#include "TraceFrictionCommand.h"
 
 
 NS_ARI_USING
@@ -16,13 +19,19 @@ bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & str
 	commands.reserve( size );
 	IDisplay_p display = Display::create();
 
+	const auto& generalData = NS_CORE Singletons::getInstance()->getGeneralData();
+	const int frictionsStartPos = generalData._numberOfLinks + 2;
+	const int frictionsAfterLastPos = generalData._numberOfLinks + 2 + generalData._numberOfFrictions;
 	int curr = -1;
 	int lastFailPos = -1;
 
-	for ( const auto& it : links )
-	{
-		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, it ) );
-	}
+	for ( int i = 0; i < frictionsStartPos; i++ )
+		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, links[i] ) );
+	for ( int i = frictionsStartPos; i < frictionsAfterLastPos; i++ )
+		commands.emplace_back( TraceFrictionCommand::create( scheme, strategy, links[i] ) );
+	for ( int i = frictionsAfterLastPos; i < size; i++ )
+		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, links[i] ) );
+
 
 	for ( int i = 0, swapCount = 0; i < size; i++ )
 	{
@@ -58,6 +67,8 @@ bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & str
 	}
 
 	scheme->print( display, "Done" );
+	code.print();
+	system("pause");
 
 	return true;
 	
