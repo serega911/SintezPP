@@ -5,11 +5,12 @@
 
 #include "../Libraries/InternalGearRatios.h"
 #include "../Libraries/GearSetNumber.h"
-
+#include "../Libraries/GearSetTypes.h"
 
 #include "GearSet.h"
 #include "Cordinate.h"
-#include "eGearSetType.h"
+
+
 
 
 NS_ARI_START
@@ -18,7 +19,7 @@ NS_ARI_START
 class CircleList
 {
 private:
-	typedef eGearSetType Type;
+	typedef NS_CORE eGearSetType Type;
 
 	std::vector<Type>							m_container;
 	std::vector<Type>::iterator					m_iterator;
@@ -60,7 +61,7 @@ private:
 
 	std::map<NS_CORE GearSetNumber, CircleList> m_options;
 
-	eGearSetType								getType( const NS_CORE GearSetNumber & num );
+	NS_CORE eGearSetType						getType( const NS_CORE GearSetNumber & num );
 	GearSet_p									createStandart( const Cordinate& anchor, const NS_CORE GearSetNumber & num );
 	GearSet_p									createCustom( const Cordinate& anchor, const NS_CORE GearSetNumber & num, const bool flipX, const bool flipY );
 
@@ -71,6 +72,7 @@ public:
 	void										init( const NS_CORE InternalGearRatios ratio );
 	bool										next();
 	GearSet_p									createGearSet( const NS_CORE GearSetNumber & num, const Cordinate& anchor );
+	NS_CORE GearSetTypes						getTypes() const;
 
 };
 

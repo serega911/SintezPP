@@ -24,14 +24,14 @@ void ari::GearSetFactory::init( const NS_CORE InternalGearRatios ratio )
 	{
 		if ( ratio[i].getAbs().getValue() < 2 )
 		{
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_N );
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_N_REVERSE );		
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_N );
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_N_REVERSE );
 		}
 		else
 		{
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_DEFAULT );
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_U );
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( eGearSetType::TYPE_U_REVERSE );
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_DEFAULT );
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_U );
+			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_U_REVERSE );
 		}
 	}
 }
@@ -49,20 +49,31 @@ bool ari::GearSetFactory::next()
 
 GearSet_p GearSetFactory::createGearSet( const NS_CORE GearSetNumber & num, const Cordinate& anchor )
 {
-	eGearSetType type = getType( num );
+	NS_CORE eGearSetType type = getType( num );
 
 	switch ( type )
 	{
-	case eGearSetType::TYPE_N:			return createCustom( anchor, num, false, false );	break;
-	case eGearSetType::TYPE_N_REVERSE:	return createCustom( anchor, num, true, false );	break;
-	case eGearSetType::TYPE_U:			return createCustom( anchor, num, false, true );	break;
-	case eGearSetType::TYPE_U_REVERSE:	return createCustom( anchor, num, true, true );		break;
-	case eGearSetType::TYPE_DEFAULT:	return createStandart( anchor, num );				break;
+	case NS_CORE eGearSetType::TYPE_N:			return createCustom( anchor, num, false, false );	break;
+	case NS_CORE eGearSetType::TYPE_N_REVERSE:	return createCustom( anchor, num, true, false );	break;
+	case NS_CORE eGearSetType::TYPE_U:			return createCustom( anchor, num, false, true );	break;
+	case NS_CORE eGearSetType::TYPE_U_REVERSE:	return createCustom( anchor, num, true, true );		break;
+	case NS_CORE eGearSetType::TYPE_DEFAULT:	return createStandart( anchor, num );				break;
 	default:																				break;
 	}
 }
 
-ari::eGearSetType ari::GearSetFactory::getType( const NS_CORE GearSetNumber & num )
+NS_CORE GearSetTypes ari::GearSetFactory::getTypes() const
+{
+	NS_CORE GearSetTypes ret;
+
+	for ( const auto& it : m_options )
+		ret.add( it.first, it.second.get() );
+
+	return ret;
+
+}
+
+NS_CORE eGearSetType ari::GearSetFactory::getType( const NS_CORE GearSetNumber & num )
 {
 	return  m_options[num].get();
 }

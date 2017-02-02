@@ -156,6 +156,9 @@
     <ClCompile Include="..\Libraries\Range.cpp">
       <Filter>StaticLib\types\TRange</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\GearSetTypes.cpp">
+      <Filter>StaticLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\eMainElement.h">
@@ -293,6 +296,10 @@
     <ClInclude Include="..\Libraries\TestGlue.h">
       <Filter>StaticLib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\GearSetTypes.h">
+      <Filter>StaticLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\eGearSetType.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\UIGeneralData.h">

@@ -24,10 +24,11 @@ void KinematicSchemeBuilder::run()
 	std::vector<core::IIOItem*> containers;
 	containers.push_back( &code );
 	containers.push_back( &k );
+	auto& facory = GearSetFactory::getInstance();
 
 	while ( core::Singletons::getInstance()->getLoaderFromFile()->load( containers, core::IOFileManager::eOutputFileType::DONE_K ) )
 	{
-		GearSetFactory::getInstance()->init(k);
+		facory->init(k);
 		do 
 		{
 			IScheme_p scheme = Scheme::create();
@@ -37,9 +38,11 @@ void KinematicSchemeBuilder::run()
 			if ( schemeBuilder->run( scheme, pathBuilder, code ) )
 			{
 				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::KIN_SLOW, code );
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::KIN_SLOW, k );
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::KIN_SLOW, facory->getTypes() );
 				break;
 			}
-		} while ( GearSetFactory::getInstance()->next() );
+		} while ( facory->next() );
 	}
 }
 

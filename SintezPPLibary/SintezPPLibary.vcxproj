@@ -20,6 +20,7 @@
     <ClCompile Include="..\Libraries\Gaus.cpp" />
     <ClCompile Include="..\Libraries\GearBox.cpp" />
     <ClCompile Include="..\Libraries\GearChanger.cpp" />
+    <ClCompile Include="..\Libraries\GearSetTypes.cpp" />
     <ClCompile Include="..\Libraries\Ratios.cpp" />
     <ClCompile Include="..\Libraries\IOFileManager.cpp" />
     <ClCompile Include="..\Libraries\InternalGearRatios.cpp" />
@@ -36,8 +37,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\eColor.h" />
+    <ClInclude Include="..\Libraries\eGearSetType.h" />
     <ClInclude Include="..\Libraries\eMainElement.h" />
     <ClInclude Include="..\Libraries\eMainElementArray.h" />
+    <ClInclude Include="..\Libraries\GearSetTypes.h" />
     <ClInclude Include="..\Libraries\GlobalDefines.h" />
     <ClInclude Include="..\Libraries\ApplicationBase.h" />
     <ClInclude Include="..\Libraries\IIOItem.h" />
