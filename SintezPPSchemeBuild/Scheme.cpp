@@ -128,7 +128,7 @@ void ari::Scheme::addFriction( const std::vector<Cordinate>& trace, const NS_COR
 
 	const int size = trace.size();
 	int i = 0;
-	for ( int i = 0; i < size/2; i++ )
+	for ( ; i < size/2; i++ )
 		firstHalf->addCord( trace[i] );
 	for ( ; i < size; i++ )
 		secondHalf->addCord( trace[i] );
@@ -178,5 +178,5 @@ void ari::Scheme::print( const IDisplay_p& disp, const std::string & message ) c
 	disp->print( { 0, 20 }, '>' );
 	NS_CORE Log::log( message );
 
-	system( "pause" );
+	//system( "pause" );
 }
