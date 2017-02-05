@@ -16,7 +16,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CalcKinCharacteristics.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CalcKinCharacteristics.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FF5FE3B3-E57B-4601-B143-5932B5772CEE}</ProjectGuid>

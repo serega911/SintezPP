@@ -19,6 +19,7 @@
     <ClCompile Include="..\Libraries\Element.cpp" />
     <ClCompile Include="..\Libraries\Gaus.cpp" />
     <ClCompile Include="..\Libraries\GearBox.cpp" />
+    <ClCompile Include="..\Libraries\GearBoxWithChanger.cpp" />
     <ClCompile Include="..\Libraries\GearChanger.cpp" />
     <ClCompile Include="..\Libraries\GearSetTypes.cpp" />
     <ClCompile Include="..\Libraries\Ratios.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="..\Libraries\eGearSetType.h" />
     <ClInclude Include="..\Libraries\eMainElement.h" />
     <ClInclude Include="..\Libraries\eMainElementArray.h" />
+    <ClInclude Include="..\Libraries\GearBoxWithChanger.h" />
     <ClInclude Include="..\Libraries\GearSetTypes.h" />
     <ClInclude Include="..\Libraries\GlobalDefines.h" />
     <ClInclude Include="..\Libraries\ApplicationBase.h" />

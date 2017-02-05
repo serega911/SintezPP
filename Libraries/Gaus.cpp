@@ -84,11 +84,6 @@ void Gaus::createSystemDrivers( const TLinkArray& drivers )
 	}
 }
 
-std::vector<std::vector<double>> Gaus::getSystem() const
-{
-	return m_system;
-}
-
 const std::vector<double>& Gaus::getSolution() const
 {
 	return m_solution;

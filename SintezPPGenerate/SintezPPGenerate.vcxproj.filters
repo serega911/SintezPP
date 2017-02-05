@@ -2,19 +2,19 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="GearBox.cpp">
-      <Filter>Files\TGearBox</Filter>
-    </ClCompile>
     <ClCompile Include="Generate.cpp">
       <Filter>Files</Filter>
     </ClCompile>
+    <ClCompile Include="GearBox.cpp">
+      <Filter>Files\TGearBox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GearBox.h">
-      <Filter>Files\TGearBox</Filter>
-    </ClInclude>
     <ClInclude Include="Generate.h">
       <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GearBox.h">
+      <Filter>Files\TGearBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

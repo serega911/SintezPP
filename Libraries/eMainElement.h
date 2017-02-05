@@ -15,6 +15,7 @@ enum class eMainElement
 	, INPUT = 'I'
 	, OUTPUT = 'O'
 	, BRAKE = 'B'
+	, SATTELITE = 'X'
 };
 
 inline char convernToSymbol( const eMainElement& e )

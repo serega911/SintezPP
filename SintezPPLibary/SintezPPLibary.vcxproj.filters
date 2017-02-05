@@ -159,6 +159,7 @@
     <ClCompile Include="..\Libraries\GearSetTypes.cpp">
       <Filter>StaticLib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\GearBoxWithChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\eMainElement.h">
@@ -300,6 +301,7 @@
       <Filter>StaticLib</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\eGearSetType.h" />
+    <ClInclude Include="..\Libraries\GearBoxWithChanger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\UIGeneralData.h">
