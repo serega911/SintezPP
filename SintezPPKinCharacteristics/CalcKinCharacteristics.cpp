@@ -1,9 +1,11 @@
 #include "../Libraries/Singletons.h"
 #include "../Libraries/Code.h"
+#include "../Libraries/Gaus.h"
 #include "../Libraries/GearSetTypes.h"
 #include "../Libraries/GearBoxWithChanger.h"
 
 #include "CalcKinCharacteristics.h"
+#include "MappedSystem.h"
 
 NS_ARI_USING
 
@@ -24,6 +26,7 @@ void ari::CalcKinCharacteristics::run()
 		Characteristics ch;
 		ch._tooth = calcZ( k );
 
+		calcM( code, k );
 
 		m_characteristics.push_back( ch );
 	}
@@ -98,6 +101,8 @@ ari::CalcKinCharacteristics::M ari::CalcKinCharacteristics::calcM( const NS_CORE
 	do
 	{
 		const auto chains = gb.getChainsForCurrentGear();
+		MappedSystem_p system = MappedSystem::create( chains, intRatios );
+		system->setSolution( NS_CORE Gaus::solve( system->getMatrix() ) );
 
 	} while ( gb.turnOnNextGear() );
 	

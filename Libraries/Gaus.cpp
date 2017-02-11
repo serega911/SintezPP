@@ -29,7 +29,36 @@ void Gaus::solve()
 		m_solution.push_back(m_system[i][n]);
 }
 
-void Gaus::createSystem(const Code & Code, const InternalGearRatios &k)
+std::vector<double> core::Gaus::solve( std::vector<std::vector<double>> system )
+{
+	std::vector<double> solution;
+
+	int n = system.size();
+	for ( int i = 0; i < n; ++i )
+	{
+		int k = i;
+		for ( int j = i + 1; j<n; ++j )
+			if ( abs( system[j][i] ) > abs( system[k][i] ) )
+				k = j;
+		if ( k != i )
+			std::swap( system[i], system[k] );
+		for ( int j = i + 1; j <= n; ++j )
+			if ( system[i][i] != 0 )
+				system[i][j] /= system[i][i];
+			else
+				return solution;
+		for ( int j = 0; j < n; ++j )
+			if ( j != i )
+				for ( int k = i + 1; k <= n; ++k )
+					system[j][k] -= system[i][k] * system[j][i];
+	}
+	for ( int i = 0; i < n; ++i )
+		solution.push_back( system[i][n] );
+
+	return solution;
+}
+
+void Gaus::createSystem( const Code & Code, const InternalGearRatios &k )
 {
 	auto code = Code.getCode();
 
