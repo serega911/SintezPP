@@ -8,6 +8,7 @@
 #include "../Libraries/Element.h"
 #include "../Libraries/ChainArray.h"
 #include "../Libraries/InternalGearRatios.h"
+#include "../Libraries/IMappedSystem.h"
 
 NS_ARI_START
 
@@ -15,27 +16,27 @@ class MappedSystem;
 
 typedef std::shared_ptr<MappedSystem> MappedSystem_p;
 
-class MappedSystem
+class MappedSystem : public NS_CORE IMappedSystem
 {
-	typedef double value;
-	typedef std::map<NS_CORE Element, value> Vector;
+	typedef std::map<NS_CORE Element, NS_CORE IMappedSystem::Value> Vector;
 	typedef std::vector<Vector> System;
-	typedef std::vector< std::vector<value>> Matrix;
 
 private:
 
 	System										m_system;
 	Vector										m_solution;
 
-	MappedSystem( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k );
+	MappedSystem();
 
 public:
 
-	static MappedSystem_p						create( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k );
+	static MappedSystem_p						createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k );
+	static MappedSystem_p						createW( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k );
 
-	void										setSolution( const std::vector<value>& solution);
+	virtual void								setSolution( const NS_CORE IMappedSystem::Vector& solution ) override;
+	virtual NS_CORE IMappedSystem::Matrix		getMatrix() override;
 
-	Matrix										getMatrix();
+	const MappedSystem::Vector&					getSolution() const;
 };
 
 

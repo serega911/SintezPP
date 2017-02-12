@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 #include "../Libraries/GlobalDefines.h"
 #include "../Libraries/ApplicationBase.h"
@@ -15,21 +16,53 @@ class CalcKinCharacteristics
 {
 private:
 
-	typedef std::map<NS_CORE eMainElement, int>	Z;
+	typedef std::map<NS_CORE Element, int>		Z;
 	typedef std::map<NS_CORE Element, double>	M;
+	typedef std::map<NS_CORE Element, double>	W;
+	//typedef std::map<NS_CORE Element, double>	W;
 	
 	struct Characteristics
 	{
 		std::vector<Z>	_tooth;
+		std::vector<W>	_angVelocity;
+		std::vector<M>	_torque;
 	};
 
 	
 	std::vector<Characteristics>				m_characteristics;
 
-	std::vector<Z>								calcZ( const NS_CORE InternalGearRatios& intRatios );
-	Z											calcZHelper( const NS_CORE InternalGearRatioValue& intRatio );
+	void										printCharacteristics( const NS_CORE Code code, const Characteristics& ch );
 
-	M											calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
+	template <class T>
+	void printCharacteristicsLine( std::map<NS_CORE Element, T> map )
+	{
+		for ( const auto& elem : map )
+		{
+			if ( elem.first != NS_CORE Element::EMPTY )
+			{
+				elem.first.print();
+				std::cout << "      ";
+			}
+		}
+		std::cout << std::endl;
+		for ( const auto& elem : map )
+		{
+			if ( elem.first != NS_CORE Element::EMPTY )
+			{
+				std::cout.width( 8 );
+				std::cout.precision( 5 );
+				std::cout << std::left << elem.second;
+			}
+		}
+		std::cout << std::endl;
+	}
+
+
+	std::vector<Z>								calcZ( const NS_CORE InternalGearRatios& intRatios );
+	Z											calcZHelper( const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN );
+
+	std::vector<M>								calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
+	std::vector<M>								calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
 
 public:
 

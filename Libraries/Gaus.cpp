@@ -29,9 +29,9 @@ void Gaus::solve()
 		m_solution.push_back(m_system[i][n]);
 }
 
-std::vector<double> core::Gaus::solve( std::vector<std::vector<double>> system )
+bool core::Gaus::solve( IMappedSystem_p mappedSystem )
 {
-	std::vector<double> solution;
+	auto system = mappedSystem->getMatrix();
 
 	int n = system.size();
 	for ( int i = 0; i < n; ++i )
@@ -46,16 +46,18 @@ std::vector<double> core::Gaus::solve( std::vector<std::vector<double>> system )
 			if ( system[i][i] != 0 )
 				system[i][j] /= system[i][i];
 			else
-				return solution;
+				return false;
 		for ( int j = 0; j < n; ++j )
 			if ( j != i )
 				for ( int k = i + 1; k <= n; ++k )
 					system[j][k] -= system[i][k] * system[j][i];
 	}
+
+	std::vector<double> solution;
 	for ( int i = 0; i < n; ++i )
 		solution.push_back( system[i][n] );
-
-	return solution;
+	mappedSystem->setSolution( solution );
+	return true;
 }
 
 void Gaus::createSystem( const Code & Code, const InternalGearRatios &k )

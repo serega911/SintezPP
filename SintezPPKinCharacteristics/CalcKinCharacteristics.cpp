@@ -25,8 +25,10 @@ void ari::CalcKinCharacteristics::run()
 	{
 		Characteristics ch;
 		ch._tooth = calcZ( k );
+		ch._torque = calcM( code, k );
+		ch._angVelocity = calcW( code, k );
 
-		calcM( code, k );
+		printCharacteristics( code, ch );
 
 		m_characteristics.push_back( ch );
 	}
@@ -37,7 +39,7 @@ bool ari::CalcKinCharacteristics::checkRequirements() const
 	return NS_CORE Singletons::getInstance()->getIOFileManager()->isFileExists( NS_CORE IOFileManager::eOutputFileType::KIN_SLOW );
 }
 
-ari::CalcKinCharacteristics::Z ari::CalcKinCharacteristics::calcZHelper( const NS_CORE InternalGearRatioValue& intRatio )
+ari::CalcKinCharacteristics::Z ari::CalcKinCharacteristics::calcZHelper( const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN )
 {
 	const int Zmin = 14;
 	const int Zmax = 100;
@@ -66,9 +68,9 @@ ari::CalcKinCharacteristics::Z ari::CalcKinCharacteristics::calcZHelper( const N
 			return ret;
 	}
 	
-	ret[NS_CORE eMainElement::SUN_GEAR] = z1;
-	ret[NS_CORE eMainElement::EPICYCLIC_GEAR] = z2;
-	ret[NS_CORE eMainElement::SATTELITE] = z4;
+	ret[NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, gearSetN)] = z1;
+	ret[NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, gearSetN )] = z2;
+	ret[NS_CORE Element( NS_CORE eMainElement::SATTELITE, gearSetN )] = z4;
 
 	return ret;
 }
@@ -78,7 +80,7 @@ std::vector<ari::CalcKinCharacteristics::Z> ari::CalcKinCharacteristics::calcZ( 
 	std::vector<Z> ret;
 
 	for ( size_t i = 0; i < intRatios.size(); i++ ){
-		ret.push_back( calcZHelper( intRatios[i] ) );
+		ret.push_back( calcZHelper( intRatios[i], NS_CORE GearSetNumber( i + 1 ) ) );
 	}
 
 	for ( size_t i = 0; i < ret.size(); i++ ){
@@ -89,23 +91,68 @@ std::vector<ari::CalcKinCharacteristics::Z> ari::CalcKinCharacteristics::calcZ( 
 	return ret;
 }
 
-ari::CalcKinCharacteristics::M ari::CalcKinCharacteristics::calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
+std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
 {
-	M ret;
+	std::vector<ari::CalcKinCharacteristics::M> ret;
 
 	NS_CORE GearBoxWithChanger gb( code );
 	gb.createChains();
 
-	int i = 0;
-	int gear = 0;
 	do
 	{
-		const auto chains = gb.getChainsForCurrentGear();
-		MappedSystem_p system = MappedSystem::create( chains, intRatios );
-		system->setSolution( NS_CORE Gaus::solve( system->getMatrix() ) );
+		MappedSystem_p systemM = MappedSystem::createM( gb.getChainsForCurrentGear(), intRatios );
+		NS_CORE Gaus::solve( systemM );
+
+		ret.push_back( systemM->getSolution() );
 
 	} while ( gb.turnOnNextGear() );
-	
+
 
 	return ret;
+}
+
+std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
+{
+	std::vector<ari::CalcKinCharacteristics::M> ret;
+
+	NS_CORE GearBoxWithChanger gb( code );
+	gb.createChains();
+
+	do
+	{
+		MappedSystem_p systemW = MappedSystem::createW( gb.getChainsForCurrentGear(), intRatios );
+		NS_CORE Gaus::solve( systemW );
+
+		ret.push_back( systemW->getSolution() );
+
+	} while ( gb.turnOnNextGear() );
+
+
+	return ret;
+}
+
+void ari::CalcKinCharacteristics::printCharacteristics( const NS_CORE Code code, const Characteristics& ch )
+{
+	code.print();
+
+	NS_CORE Log::log("Z:", true, NS_CORE eColor::AQUA);
+	for ( const auto& z : ch._tooth )
+	{
+		printCharacteristicsLine( z );
+	}
+
+	NS_CORE Log::log( "M:", true, NS_CORE eColor::AQUA );
+	for ( const auto& z : ch._torque )
+	{
+		printCharacteristicsLine( z );
+	}
+
+	NS_CORE Log::log( "W:", true, NS_CORE eColor::AQUA );
+	for ( const auto& z : ch._angVelocity )
+	{
+		printCharacteristicsLine( z );
+	}
+
+
+	system("pause");
 }

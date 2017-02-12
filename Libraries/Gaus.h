@@ -2,6 +2,7 @@
 #include <vector>
 #include "Code.h"
 #include "InternalGearRatios.h"
+#include "IMappedSystem.h"
 #include "GlobalDefines.h"
 
 NS_CORE_START
@@ -17,7 +18,7 @@ public:
 
 	void										solve();
 
-	static std::vector<double>					solve( std::vector<std::vector<double>> system );
+	static bool									solve( IMappedSystem_p mappedSystem );
 
 	void										createSystem( const Code & Code, const InternalGearRatios &k );
 	void										createSystemDrivers( const TLinkArray& drivers );
