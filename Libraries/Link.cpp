@@ -24,6 +24,11 @@ const Element& Link::getElem2() const
 	return m_elem2; 
 }
 
+bool core::Link::isContain( const Element& elem ) const
+{
+	return m_elem2 == elem || m_elem1 == elem;
+}
+
 void Link::writeTofile( std::ostream& file ) const
 {
 	m_elem1.writeTofile( file );

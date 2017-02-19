@@ -5,7 +5,7 @@
 
 NS_CORE_USING
 
-std::vector<std::vector<size_t>> core::GearChanger::m_driveElemPostions = {};
+std::vector<std::vector<GearChanger::DrivingElementPosition>> core::GearChanger::m_driveElemPostions = {};
 
 GearChanger::GearChanger( const Code& code )
 : m_gear( 0 )
@@ -23,7 +23,9 @@ GearChanger::GearChanger( const Code& code )
 		m_drivingElementsForAllGears[i].resize( m_driveElemPostions[i].size() );
 		for ( size_t j = 0; j < m_driveElemPostions[i].size(); j++ )
 		{
-			m_drivingElementsForAllGears[i][j] = code.getCode()[m_driveElemPostions[i][j]];
+			DrivingElementPosition pos = m_driveElemPostions[i][j];
+			m_drivingElementsForAllGears[i][j] = ( pos._type == GearChanger::DrivingElementPosition::BRAKE ) ?
+				code.getBrakes()[pos._pos] : code.getFrictions()[pos._pos];
 		}
 	}
 }
@@ -34,16 +36,13 @@ void GearChanger::initDriveElemPositions()
 	const auto& initialData = Singletons::getInstance()->getInitialData();
 	const auto& settings = Singletons::getInstance()->getSettings()->getGeneralSettings();
 
-	size_t startPosFrictions = 2 + generalData._numberOfLinks;
-	size_t startPosBrakes = startPosFrictions + generalData._numberOfFrictions;
-
 	m_driveElemPostions.reserve( initialData._numberOfGears );
 
 	if ( initialData._w == 2 )
 	{
 		for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 		{
-			m_driveElemPostions.push_back( { startPosBrakes + i } );
+			m_driveElemPostions.push_back( { DrivingElementPosition( DrivingElementPosition::eType::BRAKE, i ) } );
 		}
 	}
 	else if ( initialData._w == 3 )
@@ -53,13 +52,19 @@ void GearChanger::initDriveElemPositions()
 		{
 			for ( int brake = 0; brake < generalData._numberOfBrakes; brake++ )
 			{
-				m_driveElemPostions.push_back( { startPosFrictions + frict, startPosBrakes + brake } );
+				m_driveElemPostions.push_back( { 
+					DrivingElementPosition( DrivingElementPosition::eType::FRICTION, frict ),
+					DrivingElementPosition( DrivingElementPosition::eType::BRAKE, brake ) 
+				} );
 			}
 
 		}
 		// friction + friction
 		if ( settings._gearChangerUseTwoFrictions )
-			m_driveElemPostions.push_back( { startPosFrictions, startPosFrictions + 1 } );
+			m_driveElemPostions.push_back( {
+				DrivingElementPosition( DrivingElementPosition::eType::FRICTION, 0 ),
+				DrivingElementPosition( DrivingElementPosition::eType::FRICTION, 1 )
+			} );
 		// brake + brake
 		if ( settings._gearChangerUseTwoBrakes )
 		{
@@ -67,10 +72,10 @@ void GearChanger::initDriveElemPositions()
 			CombinatoricsValueArray combi;
 			while ( NS_CORE Singletons::getInstance()->getCombinatorics()->getSubset( generalData._numberOfBrakes, generalData._numberOfActuatedDrivingElements, i++, combi ) )
 			{
-				std::vector<size_t> brakesPos;
+				std::vector<DrivingElementPosition> brakesPos;
 				const size_t combiSize = combi.size();
 				for ( size_t i = 0; i < combiSize; i++ )
-					brakesPos.push_back( startPosBrakes + combi[i] );
+					brakesPos.push_back( DrivingElementPosition( DrivingElementPosition::eType::BRAKE, combi[i] ) );
 				m_driveElemPostions.push_back( brakesPos );
 			}
 		}

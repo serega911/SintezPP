@@ -5,14 +5,12 @@
 #include "Log.h"
 
 
+
 NS_CORE_USING
 
 Code::Code()
-	: m_links( 0 )
-	, m_frictions( 0 )
-	, m_brakes( 0 )
 {
-	m_code.resize( 2 );
+
 }
 
 Code::~Code()
@@ -21,101 +19,146 @@ Code::~Code()
 
 void Code::setIn(const Element & in)
 {
-	m_code[0] = Link(in, Element::INPUT);
+	m_input = Link(in, Element::INPUT);
 }
 
 void Code::setOut(const Element & out)
 {
-	m_code[1] = Link(out, Element::OUTPUT);
+	m_output = Link(out, Element::OUTPUT);
 }
 
 void Code::setLinks( const TLinkArray& links )
 {
-	if (m_links)
-	{
-		m_code.erase(m_code.begin() + 2, m_code.begin() + m_links + 2);	
-	}
-	m_code.insert(m_code.begin()+2,links.begin(), links.end());
-	m_links = links.size();
+	m_links = links;
 }
 
 void Code::setFrictions( const TLinkArray& frictions )
 {
-	if (m_frictions)
-	{
-		m_code.erase(m_code.begin() + 2 + m_links, m_code.begin() + 2 + m_links + m_frictions);
-	}
-	m_code.insert(m_code.begin() + 2 + m_links, frictions.begin(), frictions.end());
-	m_frictions = frictions.size();
+	m_frictions = frictions;
 }
 
 void Code::setBrakes( const TLinkArray& brakes )
 {
-	if (m_brakes)
-	{
-		m_code.erase(m_code.begin() + 2 + m_links + m_frictions, m_code.begin() + 2 + m_links + m_frictions + m_brakes);
-	}
-	m_code.insert(m_code.begin() + 2 + m_links + m_frictions, brakes.begin(), brakes.end());
-	m_brakes = brakes.size();
+	m_brakes = brakes;
+}
+
+const TLinkArray& core::Code::getLinks() const
+{
+	return m_links;
+}
+
+const Link& core::Code::getOut() const
+{
+	return m_output;
+}
+
+const Link& core::Code::getIn() const
+{
+	return m_input;
+}
+
+const TLinkArray& core::Code::getFrictions() const
+{
+	return m_frictions;
+}
+
+const TLinkArray& core::Code::getBrakes() const
+{
+	return m_brakes;
+}
+
+bool core::Code::isArrayContain( const TLinkArray& array, const Element& elem ) const
+{
+	for ( const auto & it : array )
+		if ( it.isContain( elem ) )
+			return true;
+
+	return false;
+}
+
+bool core::Code::isContain( const Element& elem ) const
+{
+	return m_input.isContain( elem ) 
+		|| m_output.isContain( elem ) 
+		|| isArrayContain( m_links, elem ) 
+		|| isArrayContain( m_frictions, elem ) 
+		|| isArrayContain( m_brakes, elem );
 }
 
 void Code::print() const
 {
 	Log::log( "==================================================", true, eColor::WHITE, eColor::GREEN );
-	Log::log( "Длина вектора кода:			" + std::to_string( m_code.size() ) );
-	Log::log( "--------------------------------------------------" );
 
 	const auto& generalData = Singletons::getInstance()->getGeneralData();
 
-	const size_t size = m_code.size();
-	for ( size_t i = 0; i < size; i++ )
+	m_input.print();
+	Log::log( " | ", false );
+	m_output.print();
+	Log::log( " | ", false );
+	for ( const auto& it : m_links )
 	{
-		if ( i == 1 || i == 2 || i == 2 + generalData._numberOfLinks || i == 2 + generalData._numberOfLinks + generalData._numberOfFrictions )
-			Log::log( "|", false );
-		m_code[i].print();
+		it.print();
+		Log::log( " ", false );
+	}
+	Log::log( " | ", false );
+	for ( const auto& it : m_frictions )
+	{
+		it.print();
+		Log::log( " ", false );
+	}
+	Log::log( " | ", false );
+	for ( const auto& it : m_brakes )
+	{
+		it.print();
 		Log::log( " ", false );
 	}
 	Log::log( "\n--------------------------------------------------" );
 }
 
-size_t Code::size() const
-{
-	return m_code.size();
-}
-
 void Code::writeToFile(std::ostream& file) const
 {
-	for ( size_t i = 0; i < m_code.size(); i++ )
+	m_input.writeTofile( file );
+	file << ' ';
+	m_output.writeTofile( file );
+	file << ' ';
+	for ( const auto& it : m_links )
 	{
-		m_code[i].writeTofile( file );
+		it.writeTofile( file );
 		file << ' ';
-	}	
+	}
+	for ( const auto& it : m_frictions )
+	{
+		it.writeTofile( file );
+		file << ' ';
+	}
+	for ( const auto& it : m_brakes )
+	{
+		it.writeTofile( file );
+		file << ' ';
+	}
+	
 }
 
 bool Code::loadFromFile(std::istream& file)
 {
 	const auto& generalData = Singletons::getInstance()->getGeneralData();
 
-	auto codeSize = 2 + generalData._numberOfLinks + generalData._numberOfFrictions + generalData._numberOfBrakes;
-	m_code.resize(codeSize);
+	m_links.resize( generalData._numberOfLinks );
+	m_frictions.resize( generalData._numberOfFrictions );
+	m_brakes.resize( generalData._numberOfBrakes );
 
 	bool ret = true;
 
-	for (auto& it : m_code)
-	{
+	ret = ret && m_input.loadFromFile( file );
+	ret = ret && m_output.loadFromFile( file );
+	for (auto& it : m_links)
 		ret = ret && it.loadFromFile( file );
-	}
-
-	m_links = generalData._numberOfLinks;
-	m_frictions = generalData._numberOfFrictions;
-	m_brakes = generalData._numberOfBrakes;
+	for ( auto& it : m_frictions )
+		ret = ret && it.loadFromFile( file );
+	for ( auto& it : m_brakes )
+		ret = ret && it.loadFromFile( file );
 
 	return ret;
-}
-
-const TLinkArray& Code::getCode() const
-{
-	return m_code;
 }
 
 

@@ -73,7 +73,7 @@ void ari::AppManager::startCalcCharacteristics()
 	StartAppCommand_p command = StartAppCommandFactory::create( prefix + "SintezPPKinCharacteristics.exe", getGeneralData(), getSpecialData() );
 
 	while ( command->execute() )
-		startDefK();
+		startSchemeBuild();
 }
 
 

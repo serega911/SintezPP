@@ -74,25 +74,17 @@ bool GearBox::check( const eCheckTarget target ) const
 
 bool GearBox::checkFree() const
 {
-	auto pred = []( const NS_CORE Element& element, const int i ) -> bool
-	{
-		return element != NS_CORE Element::INPUT
-			&& element != NS_CORE Element::OUTPUT
-			&& element != NS_CORE Element::BRAKE
-			&& element != NS_CORE Element::EMPTY
-			&& element.getSerialNumber() == i;
-	};
+	const NS_CORE GearSetNumber N( NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
+	/*const auto& code = getCode().getCode();*/
 
-	const auto& code = getCode().getCode();
-
-	for ( size_t i = 0; i < 3 * NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears; i++ )
+	for ( const auto& elem : { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER } )
 	{
-		size_t count = 0;
-		for ( size_t j = 0; j < code.size(); j++ )
-			if ( pred( code[j].getElem1(), i ) || pred( code[j].getElem2(), i ) )
-				count++;
-		if ( count == 0 )
-			return false;
+		for ( NS_CORE GearSetNumber i( 1 ); i <= N; i++ )
+		{
+			size_t count = 0;
+			if ( !getCode().isContain( NS_CORE Element( elem, i ) ) )
+				return false;
+		}
 	}
 	return true;
 }	//проверяет остались ли пустые элементы

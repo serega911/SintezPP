@@ -160,6 +160,9 @@
       <Filter>StaticLib</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\GearBoxWithChanger.cpp" />
+    <ClCompile Include="..\Libraries\MappedSystem.cpp">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\eMainElement.h">
@@ -302,7 +305,12 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\eGearSetType.h" />
     <ClInclude Include="..\Libraries\GearBoxWithChanger.h" />
-    <ClInclude Include="..\Libraries\IMappedSystem.h" />
+    <ClInclude Include="..\Libraries\MappedSystem.h">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IMappedSystem.h">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\UIGeneralData.h">

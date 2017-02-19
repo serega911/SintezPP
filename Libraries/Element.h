@@ -11,6 +11,8 @@ NS_CORE_START
 
 class Element
 {
+	int											getSerialNumber() const;
+
 public:
 
 	eMainElement								m_elemN;		//номер элемента
@@ -21,7 +23,7 @@ public:
 
 	eMainElement								getElemN() const;
 	GearSetNumber								getGearSetN() const;
-	int											getSerialNumber() const;
+	
 
 	void										print() const;
 	void										writeTofile( std::ostream& file ) const;

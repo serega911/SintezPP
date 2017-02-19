@@ -3,10 +3,8 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CalcKinCharacteristics.cpp" />
-    <ClCompile Include="MappedSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcKinCharacteristics.h" />
-    <ClInclude Include="MappedSystem.h" />
   </ItemGroup>
 </Project>

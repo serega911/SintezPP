@@ -1,11 +1,12 @@
 #include "../Libraries/Singletons.h"
 #include "../Libraries/Code.h"
 #include "../Libraries/Gaus.h"
+#include "../Libraries/MappedSystem.h"
 #include "../Libraries/GearSetTypes.h"
 #include "../Libraries/GearBoxWithChanger.h"
 
 #include "CalcKinCharacteristics.h"
-#include "MappedSystem.h"
+
 
 NS_ARI_USING
 
@@ -135,7 +136,7 @@ std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcM( 
 
 	do
 	{
-		MappedSystem_p systemM = MappedSystem::createM( gb.getChainsForCurrentGear(), intRatios );
+		NS_CORE MappedSystem_p systemM = NS_CORE MappedSystem::createM( gb.getChainsForCurrentGear(), intRatios );
 		NS_CORE Gaus::solve( systemM );
 
 		ret.push_back( systemM->getSolution() );
@@ -155,7 +156,7 @@ std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcW( 
 
 	do
 	{
-		MappedSystem_p systemW = MappedSystem::createW( gb.getChainsForCurrentGear(), intRatios );
+		NS_CORE MappedSystem_p systemW = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), intRatios );
 		NS_CORE Gaus::solve( systemW );
 
 		ret.push_back( systemW->getSolution() );

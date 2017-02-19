@@ -13,10 +13,7 @@ NS_ARI_USING
 
 bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & strategy, const NS_CORE Code& code )
 {
-	const auto& links = code.getCode();
-	const int size = links.size();
 	std::vector<ICommand_p> commands;
-	commands.reserve( size );
 	IDisplay_p display = Display::create();
 
 	const auto& generalData = NS_CORE Singletons::getInstance()->getGeneralData();
@@ -25,13 +22,16 @@ bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & str
 	int curr = -1;
 	int lastFailPos = -1;
 
-	for ( int i = 0; i < frictionsStartPos; i++ )
-		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, links[i] ) );
-	for ( int i = frictionsStartPos; i < frictionsAfterLastPos; i++ )
-		commands.emplace_back( TraceFrictionCommand::create( scheme, strategy, links[i] ) );
-	for ( int i = frictionsAfterLastPos; i < size; i++ )
-		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, links[i] ) );
+	commands.emplace_back( TraceLinkCommand::create( scheme, strategy, code.getIn() ) );
+	commands.emplace_back( TraceLinkCommand::create( scheme, strategy, code.getOut() ) );
+	for ( const auto& link: code.getLinks() )
+		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, link ) );
+	for ( const auto& frict : code.getFrictions() )
+		commands.emplace_back( TraceFrictionCommand::create( scheme, strategy, frict ) );
+	for ( const auto& brake : code.getBrakes() )
+		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, brake ) );
 
+	const auto size = commands.size();
 
 	for ( int i = 0, swapCount = 0; i < size; i++ )
 	{

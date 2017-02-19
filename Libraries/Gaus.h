@@ -20,10 +20,10 @@ public:
 
 	static bool									solve( IMappedSystem_p mappedSystem );
 
-	void										createSystem( const Code & Code, const InternalGearRatios &k );
-	void										createSystemDrivers( const TLinkArray& drivers );
-
-	const std::vector<double>&					getSolution() const;
+// 	void										createSystem( const Code & Code, const InternalGearRatios &k );
+// 	void										createSystemDrivers( const TLinkArray& drivers );
+// 
+// 	const std::vector<double>&					getSolution() const;
 
 };
 

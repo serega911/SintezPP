@@ -27,6 +27,8 @@ public:
 	const Element&								getElem1() const;
 	const Element&								getElem2() const;
 
+	bool										isContain( const Element& elem ) const;
+
 	void										writeTofile( std::ostream& file ) const;
 	bool										loadFromFile( std::istream& file );
 
