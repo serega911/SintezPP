@@ -13,7 +13,7 @@ void GearBox::setLinksToCode( const NS_CORE TLinkArray& links )
 	getRefferenceToCode().setLinks( links );
 }
 
-void GearBox::setFrictionsToCode( const NS_CORE TLinkArray& frictions )
+void GearBox::setFrictionsToCode( const NS_CORE TLinkWithFrictionArray& frictions )
 {
 	getRefferenceToCode().setFrictions( frictions );
 }

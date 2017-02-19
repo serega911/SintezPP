@@ -39,11 +39,6 @@ GearSetNumber Element::getGearSetN() const
 	return m_gearSetN;
 }
 
-int Element::getSerialNumber() const
-{
-	return ( m_gearSetN.getValue() - 1 ) * 3 + convernToInt( m_elemN ) - 1;
-}
-
 bool NS_CORE operator<( const Element& elem1, const Element& elem2 )
 {
 	if ( elem1 == elem2 )

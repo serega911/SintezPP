@@ -11,8 +11,6 @@ NS_CORE_START
 
 class Element
 {
-	int											getSerialNumber() const;
-
 public:
 
 	eMainElement								m_elemN;		//номер элемента

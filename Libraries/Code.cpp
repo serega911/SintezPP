@@ -32,7 +32,7 @@ void Code::setLinks( const TLinkArray& links )
 	m_links = links;
 }
 
-void Code::setFrictions( const TLinkArray& frictions )
+void Code::setFrictions( const TLinkWithFrictionArray& frictions )
 {
 	m_frictions = frictions;
 }
@@ -57,7 +57,7 @@ const Link& core::Code::getIn() const
 	return m_input;
 }
 
-const TLinkArray& core::Code::getFrictions() const
+const TLinkWithFrictionArray& core::Code::getFrictions() const
 {
 	return m_frictions;
 }
@@ -67,7 +67,8 @@ const TLinkArray& core::Code::getBrakes() const
 	return m_brakes;
 }
 
-bool core::Code::isArrayContain( const TLinkArray& array, const Element& elem ) const
+template <class T>
+bool isArrayContain( const T& array, const Element& elem )
 {
 	for ( const auto & it : array )
 		if ( it.isContain( elem ) )

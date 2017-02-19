@@ -10,7 +10,10 @@
 NS_CORE_START
 
 class Link;
+class LinkWithFriction;
+
 typedef std::vector<Link> TLinkArray;
+typedef std::vector<LinkWithFriction> TLinkWithFrictionArray;
 
 class Link
 {
@@ -22,17 +25,41 @@ private:
 public:
 
 	Link(const Element& elem1, const Element& elem2);
+	Link( const Link& link );
 	Link();
 
 	const Element&								getElem1() const;
 	const Element&								getElem2() const;
 
-	bool										isContain( const Element& elem ) const;
+	virtual bool								isContain( const Element& elem ) const;
 
-	void										writeTofile( std::ostream& file ) const;
-	bool										loadFromFile( std::istream& file );
+	virtual void								writeTofile( std::ostream& file ) const;
+	virtual bool								loadFromFile( std::istream& file );
 
-	void										print() const;
+	virtual void								print() const;
+};
+
+class LinkWithFriction : public Link
+{
+private:
+
+	Element										m_friction;
+
+public:
+
+	LinkWithFriction( const Element& elem1, const Element& elem2, int frictionNumber );
+	LinkWithFriction( const Link& link, int frictionNumber );
+	LinkWithFriction();
+
+	const Element&								getFrictionElem() const;
+
+	virtual bool								isContain( const Element& elem ) const override;
+
+	virtual void								writeTofile( std::ostream& file ) const override;
+	virtual bool								loadFromFile( std::istream& file ) override;
+
+	virtual void								print() const;
+
 };
 
 NS_CORE_END
