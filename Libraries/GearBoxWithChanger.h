@@ -9,7 +9,7 @@ NS_CORE_START
 class GearBoxWithChanger
 	: public NS_CORE GearBox
 {
-private:
+protected:
 
 	typedef NS_CORE GearBox Parent;
 
@@ -19,7 +19,7 @@ public:
 
 	GearBoxWithChanger( const NS_CORE Code& code );
 
-	NS_CORE ChainArray							getChainsForCurrentGear() const;
+	virtual NS_CORE ChainArray					getChainsForCurrentGear() const;
 
 	bool										turnOnNextGear();
 

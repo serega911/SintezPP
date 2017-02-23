@@ -5,6 +5,8 @@
 #include "../Libraries/GearSetTypes.h"
 #include "../Libraries/GearBoxWithChanger.h"
 
+
+#include "GearBoxWithChangerSpecialFrictionProcess.h"
 #include "CalcKinCharacteristics.h"
 
 
@@ -131,7 +133,7 @@ std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcM( 
 {
 	std::vector<ari::CalcKinCharacteristics::M> ret;
 
-	NS_CORE GearBoxWithChanger gb( code );
+	GearBoxWithChangerSpecialFrictionProcess gb( code );
 	gb.createChains();
 
 	do

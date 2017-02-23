@@ -21,8 +21,8 @@ MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS
 		ret->m_system[2 * i][NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = 1;
 		ret->m_system[2 * i][NS_CORE Element( NS_CORE eMainElement::CARRIER, NS_CORE GearSetNumber( i + 1 ) )] = 1;
 
-		ret->m_system[2 * i + 1][NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = 1;
-		ret->m_system[2 * i + 1][NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = k[i].getValue();
+		ret->m_system[2 * i + 1][NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = k[i].getValue();
+		ret->m_system[2 * i + 1][NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = 1;
 	}
 	i *= 2;
 	for ( const auto& chain : chains )
