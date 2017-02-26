@@ -30,6 +30,7 @@ void ari::CalcKinCharacteristics::run()
 		ch._tooth = calcZ( k );
 		ch._torque = calcM( code, k );
 		ch._angVelocity = calcW( code, k );
+		ch._power = calcN( ch._angVelocity, ch._torque );
 
 		printCharacteristics( code, ch );
 
@@ -149,11 +150,12 @@ std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcM( 
 	return ret;
 }
 
-std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
+std::vector<ari::CalcKinCharacteristics::W> ari::CalcKinCharacteristics::calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
 {
+	const auto n = intRatios.size();
 	std::vector<ari::CalcKinCharacteristics::M> ret;
 
-	NS_CORE GearBoxWithChanger gb( code );
+	GearBoxWithChangerSpecialFrictionProcess gb( code );
 	gb.createChains();
 
 	do
@@ -161,13 +163,53 @@ std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcW( 
 		NS_CORE MappedSystem_p systemW = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), intRatios );
 		NS_CORE Gaus::solve( systemW );
 
-		ret.push_back( systemW->getSolution() );
+		auto solution = systemW->getSolution();
+
+		for ( NS_CORE GearSetNumber set( 1 ); set <= NS_CORE GearSetNumber( n ); set++ )
+		{
+			solution[NS_CORE Element( NS_CORE eMainElement::SATTELITE, set )] = 
+				2.0 * ( solution[NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, set )] - solution[NS_CORE Element( NS_CORE eMainElement::CARRIER, set )] ) 
+				/ ( intRatios[set.getValue() - 1].getValue() + 1 );
+		}
+
+		ret.push_back( solution );
 
 	} while ( gb.turnOnNextGear() );
 
 
 	return ret;
 }
+
+std::vector<CalcKinCharacteristics::N> ari::CalcKinCharacteristics::calcN( const std::vector<W>& w, const std::vector<M>& m )
+{
+	std::vector<ari::CalcKinCharacteristics::N> ret;
+	NS_CORE Log::warning( w.size() != m.size(), "wrpng size", NS_CORE Log::CRITICAL, HERE );
+
+	const auto gearsCount = w.size();
+
+	ret.resize( gearsCount );
+
+	for ( int i = 0; i < gearsCount; i++ )
+	{
+		for ( auto&it : m[i] )
+		{
+			const NS_CORE Element elem = it.first;
+			const auto torque = it.second;
+			const auto angSpeed = w[i].at( elem );
+
+			if ( torque == 0 )
+				ret[i][elem] = '0';
+			else if ( torque*angSpeed < 0 )
+				ret[i][elem] = '-';
+			else
+				ret[i][elem] = '+';
+		}
+	}
+
+	return ret;
+}
+
+
 
 void ari::CalcKinCharacteristics::printCharacteristics( const NS_CORE Code code, const Characteristics& ch )
 {
@@ -191,6 +233,11 @@ void ari::CalcKinCharacteristics::printCharacteristics( const NS_CORE Code code,
 		printCharacteristicsLine( z );
 	}
 
+	NS_CORE Log::log( "N:", true, NS_CORE eColor::AQUA );
+	for ( const auto& z : ch._power )
+	{
+		printCharacteristicsLine( z );
+	}
 
 	system("pause");
 }

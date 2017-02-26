@@ -19,13 +19,14 @@ private:
 	typedef std::map<NS_CORE Element, int>		Z;
 	typedef std::map<NS_CORE Element, double>	M;
 	typedef std::map<NS_CORE Element, double>	W;
-	//typedef std::map<NS_CORE Element, double>	W;
+	typedef std::map<NS_CORE Element, char>		N;
 	
 	struct Characteristics
 	{
 		std::vector<Z>	_tooth;
 		std::vector<W>	_angVelocity;
 		std::vector<M>	_torque;
+		std::vector<N>	_power;
 	};
 
 	
@@ -62,8 +63,9 @@ private:
 	Z											calcZHelper( const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN );
 
 	std::vector<M>								calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
-	std::vector<M>								calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
-
+	std::vector<W>								calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
+	std::vector<N>								calcN( const std::vector<W>& w, const std::vector<M>& m );
+			
 public:
 
 	void										run() override;

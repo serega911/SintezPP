@@ -98,43 +98,55 @@ MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS
 	const auto n = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
 	ret->m_system.clear();
-	ret->m_system.resize( n * 3 + 3);
 
-	int i;
-	for ( i = 0; i < n; i++ )
+	ret->m_system.resize( n );
+	for ( int i = 0; i < n; i++ )
 	{
 		ret->m_system[i][NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = 1;
 		ret->m_system[i][NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = -k[i].getValue();
 		ret->m_system[i][NS_CORE Element( NS_CORE eMainElement::CARRIER, NS_CORE GearSetNumber( i + 1 ) )] = k[i].getValue() - 1;
 	}
 
+	std::vector<NS_CORE Element> brakes;
+
 	for ( const auto& chain : chains )
 	{
 		bool isFirst = true;
 		NS_CORE Element prev;
+		
 		for ( const auto& elem : chain.getElements() )
 		{
+			if ( elem.getElemN() == NS_CORE eMainElement::BRAKE )
+				brakes.emplace_back( elem );
+
 			if ( isFirst )
 				isFirst = false;
 			else
 			{
-				ret->m_system[i][prev] = /*( prev == NS_CORE Element::BRAKE ) ? 0 :*/ 1;
-				ret->m_system[i][elem] = /*( elem == NS_CORE Element::BRAKE ) ? 0 :*/ -1;
-				i++;
+				Vector equation;
+				equation[prev] = 1;
+				equation[elem] = -1;
+				ret->m_system.push_back( equation );
 			}
 			prev = elem;
 			ret->m_solution[elem] = 0;
 		}
+		
 	}
 
-	ret->m_system[i][NS_CORE Element::INPUT] = 1;
-	ret->m_system[i][NS_CORE Element::EMPTY] = 100;	// Riht parts
-	
-	i++;
-
-	ret->m_system[i][NS_CORE Element::BRAKE] = 1;
-	ret->m_system[i][NS_CORE Element::EMPTY] = 0;	// Riht parts
+	Vector inEquation;
+	inEquation[NS_CORE Element::INPUT] = 1;
+	inEquation[NS_CORE Element::EMPTY] = 100;	// Riht parts
+	ret->m_system.emplace_back( inEquation );
 	ret->m_solution[NS_CORE Element::EMPTY] = 0;
+
+	for ( const auto & brake : brakes )
+	{
+		Vector equation;
+		equation[brake] = 1;
+		equation[NS_CORE Element::EMPTY] = 0;	// Riht parts
+		ret->m_system.push_back( equation );
+	}
 
 	return ret;
 }
