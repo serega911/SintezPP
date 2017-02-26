@@ -73,7 +73,6 @@
     <ClInclude Include="DefKNuton.h" />
     <ClInclude Include="DefKSelection.h" />
     <ClInclude Include="DefKSimple.h" />
-    <ClInclude Include="GearBox.h" />
     <ClInclude Include="Jacobi.h" />
     <ClInclude Include="Equations.h" />
     <ClInclude Include="Defines.h" />
@@ -91,7 +90,6 @@
     <ClCompile Include="DefKNuton.cpp" />
     <ClCompile Include="DefKSelection.cpp" />
     <ClCompile Include="DefKSimple.cpp" />
-    <ClCompile Include="GearBox.cpp" />
     <ClCompile Include="Jacobi.cpp" />
     <ClCompile Include="Equations.cpp" />
     <ClCompile Include="main.cpp" />

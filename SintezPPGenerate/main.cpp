@@ -21,25 +21,9 @@ int main(int argc, char* argv[])
 	}
 	else 
 	{
-		const int expectedArgCount = 3;
-		NS_CORE Log::warning( argc != expectedArgCount + 1, "Wrong Number of arguments", NS_CORE Log::CRITICAL, HERE );
-		NS_CORE UIGeneralData gData;
+		NS_CORE UIGeneralData_p gData = NS_CORE UIGeneralData::create();
 
-		for ( int i = 1; i < argc; i++ )
-		{
-			const NS_CORE SettingsItem item( argv[i] );
-			const auto& key = item.getKey();
-			const auto& val = item.getValue();
-
-			if ( wKey == key )
-				gData._w = std::stoi(val);
-			else if ( nKey == key )
-				gData._n = std::stoi( val );
-			else if ( dKey == key )
-				gData._d = std::stoi( val );
-			else
-				NS_CORE Log::warning( true, "Wrong argument: " + key, NS_CORE Log::CRITICAL, HERE );
-		}
+		generator.parseOptions( argc, argv, nullptr, gData );
 
 		generator.setUIGeneralData( gData );
 	}

@@ -41,7 +41,6 @@
     <ClCompile Include="InternalGearRatios.cpp">
       <Filter>Files\Selection</Filter>
     </ClCompile>
-    <ClCompile Include="GearBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Files">
@@ -133,6 +132,5 @@
     <ClInclude Include="InternalGearRatios.h">
       <Filter>Files\Selection</Filter>
     </ClInclude>
-    <ClInclude Include="GearBox.h" />
   </ItemGroup>
 </Project>

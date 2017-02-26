@@ -10,11 +10,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPDefK", "SintezPPDef
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPLibary", "SintezPPLibary\SintezPPLibary.vcxproj", "{57148835-C16B-4085-994E-3443132160A9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPAppMaager", "Tests\Tests.vcxproj", "{70106352-CB3B-440E-9936-746D380F2ECA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPAppManager", "Tests\Tests.vcxproj", "{70106352-CB3B-440E-9936-746D380F2ECA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPGenerate", "SintezPPGenerate\SintezPPGenerate.vcxproj", "{4DCFD91D-2DA9-4B9C-80FE-2F3E435B1745}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPSchemeBuild", "SintezPPSchemeBuild\SintezPPSchemeBuild.vcxproj", "{70DC341B-5723-4FFA-B5A5-CD87534CB096}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPKinCharacteristics", "SintezPPKinCharacteristics\SintezPPKinCharacteristics.vcxproj", "{FF5FE3B3-E57B-4601-B143-5932B5772CEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{70DC341B-5723-4FFA-B5A5-CD87534CB096}.Debug|Win32.Build.0 = Debug|Win32
 		{70DC341B-5723-4FFA-B5A5-CD87534CB096}.Release|Win32.ActiveCfg = Release|Win32
 		{70DC341B-5723-4FFA-B5A5-CD87534CB096}.Release|Win32.Build.0 = Release|Win32
+		{FF5FE3B3-E57B-4601-B143-5932B5772CEE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FF5FE3B3-E57B-4601-B143-5932B5772CEE}.Debug|Win32.Build.0 = Debug|Win32
+		{FF5FE3B3-E57B-4601-B143-5932B5772CEE}.Release|Win32.ActiveCfg = Release|Win32
+		{FF5FE3B3-E57B-4601-B143-5932B5772CEE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

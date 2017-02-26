@@ -20,7 +20,7 @@ public:
 	GearBox( const NS_CORE Code& code );
 
 	void										setLinksToCode( const NS_CORE TLinkArray& links );						//	Установка связей
-	void										setFrictionsToCode( const NS_CORE TLinkArray& frictions );				//	Установка фрикционов
+	void										setFrictionsToCode( const NS_CORE TLinkWithFrictionArray& frictions );	//	Установка фрикционов
 	void										setBrakesToCode( const NS_CORE TLinkArray& brakes );					//	Установка тормозов
 
 	NS_CORE ElementArray						getElementsForFrictions() const;

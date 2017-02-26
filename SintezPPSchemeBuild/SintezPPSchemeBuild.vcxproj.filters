@@ -87,9 +87,6 @@
     <ClInclude Include="GearSetFactory.h">
       <Filter>Scheme\GearSet\GearSetFactory</Filter>
     </ClInclude>
-    <ClInclude Include="eGearSetType.h">
-      <Filter>Scheme\GearSet\GearSetFactory</Filter>
-    </ClInclude>
     <ClInclude Include="Display.h">
       <Filter>Display</Filter>
     </ClInclude>

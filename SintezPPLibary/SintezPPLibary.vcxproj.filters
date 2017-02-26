@@ -156,6 +156,13 @@
     <ClCompile Include="..\Libraries\Range.cpp">
       <Filter>StaticLib\types\TRange</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\GearSetTypes.cpp">
+      <Filter>StaticLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\GearBoxWithChanger.cpp" />
+    <ClCompile Include="..\Libraries\MappedSystem.cpp">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\eMainElement.h">
@@ -292,6 +299,17 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\TestGlue.h">
       <Filter>StaticLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\GearSetTypes.h">
+      <Filter>StaticLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\eGearSetType.h" />
+    <ClInclude Include="..\Libraries\GearBoxWithChanger.h" />
+    <ClInclude Include="..\Libraries\MappedSystem.h">
+      <Filter>StaticLib\helpers\TGaus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IMappedSystem.h">
+      <Filter>StaticLib\helpers\TGaus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

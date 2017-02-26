@@ -21,17 +21,19 @@ void ari::AppManager::run()
 		NS_CORE Log::log( "1. Генерация" );
 		NS_CORE Log::log( "2. Определение К" );
 		NS_CORE Log::log( "3. Прорисовка" );
-		NS_CORE Log::log( "4. Назад" );
+		NS_CORE Log::log( "4. Определение характеристик" );
+		NS_CORE Log::log( "5. Назад" );
 
 		int ans;
 		std::cin >> ans;
 
 		switch ( ans )
 		{
-		case 1: startGenerate();	break;
-		case 2: startDefK();		break;
-		case 3: startSchemeBuild();	break;
-		case 4: return;				break;
+		case 1: startGenerate();			break;
+		case 2: startDefK();				break;
+		case 3: startSchemeBuild();			break;
+		case 4: startCalcCharacteristics();	break;
+		case 5: return;						break;
 		}
 	}
 
@@ -62,6 +64,18 @@ void ari::AppManager::startSchemeBuild()
 	while ( command->execute() )
 		startDefK();
 }
+
+
+void ari::AppManager::startCalcCharacteristics()
+{
+	fillSpecialData();
+
+	StartAppCommand_p command = StartAppCommandFactory::create( prefix + "SintezPPKinCharacteristics.exe", getGeneralData(), getSpecialData() );
+
+	while ( command->execute() )
+		startSchemeBuild();
+}
+
 
 void ari::AppManager::fillSpecialData()
 {

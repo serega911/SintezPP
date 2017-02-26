@@ -21,7 +21,7 @@ public:
 
 	eMainElement								getElemN() const;
 	GearSetNumber								getGearSetN() const;
-	int											getSerialNumber() const;
+	
 
 	void										print() const;
 	void										writeTofile( std::ostream& file ) const;

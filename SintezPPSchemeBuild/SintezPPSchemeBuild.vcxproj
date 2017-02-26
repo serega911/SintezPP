@@ -84,7 +84,6 @@
     <ClInclude Include="Cordinate.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="eDirection.h" />
-    <ClInclude Include="eGearSetType.h" />
     <ClInclude Include="GearSet.h" />
     <ClInclude Include="GearSetCell.h" />
     <ClInclude Include="GearSetFactory.h" />

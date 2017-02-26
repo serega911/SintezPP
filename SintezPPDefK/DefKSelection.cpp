@@ -1,6 +1,7 @@
 #include "DefKSelection.h"
 #include "../Libraries/Gaus.h"
-#include "../Libraries/GearChanger.h"
+#include "../Libraries/MappedSystem.h"
+#include "../Libraries/GearBoxWithChanger.h"
 #include "../Libraries/Singletons.h"
 
 NS_ARI_USING
@@ -38,28 +39,29 @@ NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Co
 
 NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const InternalGearRatios &k )
 {
-	NS_CORE GearChanger gearChanger( code );
+	NS_CORE GearBoxWithChanger gb( code );
+	gb.createChains();
+
 	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.001 ) );	//вектор для полученных передаточных отношений при данном наборе K
 	do
 	{
-		NS_CORE Gaus gaus;
-		gaus.createSystem( code, k );
-		gaus.createSystemDrivers( gearChanger.getDrivingElementsForGear() );
-		gaus.solve();
-		if ( gaus.getSolution().size() == 0 )
+		auto system = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), k );
+		NS_CORE Gaus::solve( system );
+		const auto& solution = system->getSolution();
+
+		if (solution.size() != 0 )
 		{
-			continue;
+			const auto calculatedW = solution.at(NS_CORE Element::OUTPUT);
+
+			if ( abs( calculatedW ) > 0.001 && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( 1.0 / calculatedW ) ) )
+			{
+				tmpI.push_back( NS_CORE RatioValue( 1.0 / calculatedW ) );
+			}
 		}
 
-		const auto codeValues = code.getCode();
-		double calculatedI = gaus.getSolution()[codeValues[1].getElem1().getSerialNumber()];
 		
-		if ( abs( calculatedI ) > 0.001 && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( 1.0 / calculatedI ) ) )
-		{
-			tmpI.push_back( NS_CORE RatioValue( 1.0 / calculatedI ) );
-		}
 
-	} while ( gearChanger.next() );
+	} while ( gb.turnOnNextGear() );
 
 	return tmpI;
 }

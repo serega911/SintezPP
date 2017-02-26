@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "ISchemeElement.h"
-#include "eGearSetType.h"
+#include "../Libraries/eGearSetType.h"
 
 NS_ARI_START
 
@@ -16,7 +16,7 @@ private:
 
 	Cordinates									m_cords;
 	Cordinate									m_anchor;
-	eGearSetType								m_type;
+	NS_CORE eGearSetType						m_type;
 
 	GearSet( const Cordinate& anchor );
 	GearSet() = delete;

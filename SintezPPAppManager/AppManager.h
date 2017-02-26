@@ -13,13 +13,13 @@ private:
 
 	void										fillSpecialData();
 
-	void										startGenerate();
-
 	NS_CORE UIGeneralData						getGeneralData();
 	NS_CORE UISpecialData						getSpecialData();
 
+	void										startGenerate();
 	void										startDefK();
 	void										startSchemeBuild();
+	void										startCalcCharacteristics();
 
 public:
 

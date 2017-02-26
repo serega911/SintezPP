@@ -13,10 +13,11 @@ class Code: public IIOItem
 {
 private:
 
-	TLinkArray									m_code;													//	Вектор кода
-	size_t										m_links;												//	Количество связей
-	size_t										m_frictions;											//	Количество фрикционов
-	size_t										m_brakes;												//	Количество тормозов
+	Link										m_input;
+	Link										m_output;
+	TLinkArray									m_links;
+	TLinkWithFrictionArray						m_frictions;
+	TLinkArray									m_brakes;
 
 public:
 
@@ -26,17 +27,22 @@ public:
 	void										setIn(const Element & in);								//	Установка звена, связанного со входом
 	void										setOut(const Element & out);							//	Установка звена, связанного со выходом
 	void										setLinks( const TLinkArray& links );					//	Установка связей
-	void										setFrictions( const TLinkArray& frictions );			//	Установка фрикционов
+	void										setFrictions( const TLinkWithFrictionArray& frictions );//	Установка фрикционов
 	void										setBrakes( const TLinkArray& brakes );					//	Установка тормозов
 
-	const TLinkArray&							getCode() const;
+	const Link&									getIn() const;
+	const Link&									getOut() const;
+	const TLinkArray&							getLinks() const;
+	const TLinkWithFrictionArray&				getFrictions() const;
+	const TLinkArray&							getBrakes() const;
+
+	bool										isContain( const Element& elem ) const ;
 
 	void										print() const;											//	Вывод объекта на экран
 		
-	// IContainer
+	// IIOItem
 	void										writeToFile( std::ostream& ) const override;
 	bool										loadFromFile( std::istream& ) override;
-	size_t										size() const;
 
 };
 

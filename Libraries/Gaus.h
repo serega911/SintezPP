@@ -2,6 +2,7 @@
 #include <vector>
 #include "Code.h"
 #include "InternalGearRatios.h"
+#include "IMappedSystem.h"
 #include "GlobalDefines.h"
 
 NS_CORE_START
@@ -17,11 +18,12 @@ public:
 
 	void										solve();
 
-	void										createSystem( const Code & Code, const InternalGearRatios &k );
-	void										createSystemDrivers( const TLinkArray& drivers );
+	static bool									solve( IMappedSystem_p mappedSystem );
 
-	std::vector<std::vector<double>>			getSystem() const;
-	const std::vector<double>&					getSolution() const;
+// 	void										createSystem( const Code & Code, const InternalGearRatios &k );
+// 	void										createSystemDrivers( const TLinkArray& drivers );
+// 
+// 	const std::vector<double>&					getSolution() const;
 
 };
 

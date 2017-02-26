@@ -55,7 +55,7 @@ bool Chain::find(const Element & element) const
 bool Chain::checkElemByOnePlanetarySet() const
 {
 	const GearSetNumber N (Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears);
-	for ( GearSetNumber i(1); i <= N; i++ )
+	for ( GearSetNumber i(1); i <= N; ++i )
 	{
 		int count = 0;
 		for (auto &it : m_elements)
