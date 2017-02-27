@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SchemeBuilderMoveFirst.cpp" />
     <ClCompile Include="TraceFrictionCommand.cpp" />
     <ClCompile Include="TraceLinkCommand.cpp" />
     <ClCompile Include="Cordinate.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="Link_fwd.h" />
     <ClInclude Include="PathBuilderLee.h" />
     <ClInclude Include="Scheme.h" />
+    <ClInclude Include="SchemeBuilderMoveFirst.h" />
     <ClInclude Include="SchemeBuilderSwapPrev.h" />
     <ClInclude Include="Tester.h" />
     <ClInclude Include="TraceFrictionCommand.h" />

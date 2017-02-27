@@ -38,6 +38,9 @@
     <ClCompile Include="KinematicSchemeBuilder.cpp" />
     <ClCompile Include="TraceLinkCommand.cpp" />
     <ClCompile Include="TraceFrictionCommand.cpp" />
+    <ClCompile Include="SchemeBuilderMoveFirst.cpp">
+      <Filter>SchemeBuilderMoveFirst</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tests">
@@ -75,6 +78,9 @@
     </Filter>
     <Filter Include="PathBuilderLee">
       <UniqueIdentifier>{0967886d-0c9c-4180-b5d8-848225d530c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SchemeBuilderMoveFirst">
+      <UniqueIdentifier>{83a9c862-de44-4e28-b98f-e06f6a5316eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -139,5 +145,8 @@
     </ClInclude>
     <ClInclude Include="TraceLinkCommand.h" />
     <ClInclude Include="TraceFrictionCommand.h" />
+    <ClInclude Include="SchemeBuilderMoveFirst.h">
+      <Filter>SchemeBuilderMoveFirst</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
