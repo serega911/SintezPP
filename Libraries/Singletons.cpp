@@ -59,10 +59,11 @@ void Singletons::setGlobalParameters( const size_t w, const size_t n, const size
 	switch ( w )
 	{
 	case 2:
-		{
-			m_generalData._numberOfFrictions = 0;	// для двухстепенных блокировочный фрикцион не считаем
-			m_generalData._numberOfBrakes = m_initialData._numberOfPlanetaryGears;
-			m_initialData._numberOfGears = m_generalData._numberOfBrakes;
+		{	
+			m_generalData._numberOfFrictions = 1;
+			m_generalData._numberOfBrakes = d - m_generalData._numberOfFrictions;
+
+			m_initialData._numberOfGears = m_generalData._numberOfFrictions + m_generalData._numberOfBrakes;
 		}
 		break;
 	case 3:

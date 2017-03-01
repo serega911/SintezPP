@@ -40,12 +40,19 @@ NS_CORE ElementArray GearBox::getElementsForBrakes() const
 
 NS_CORE ElementArray GearBox::getElementsForFrictions() const
 {
-	const auto & chains = getChains();
-
 	NS_CORE ElementArray vect;
-	for ( size_t i = 0; i < chains.size(); i++ )
+	if ( NS_CORE Singletons::getInstance()->getInitialData()._w == 2 )
 	{
-		vect.push_back( chains[i].getSomeElement() );
+		vect.push_back( NS_CORE Element::INPUT );
+		vect.push_back( NS_CORE Element::OUTPUT );
+	}
+	else
+	{
+		const auto & chains = getChains();
+		for ( size_t i = 0; i < chains.size(); i++ )
+		{
+			vect.push_back( chains[i].getSomeElement() );
+		}
 	}
 	return vect;
 }

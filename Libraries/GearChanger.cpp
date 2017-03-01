@@ -40,10 +40,11 @@ void GearChanger::initDriveElemPositions()
 
 	if ( initialData._w == 2 )
 	{
-		for ( size_t i = 0; i < initialData._numberOfGears; i++ )
+		for ( size_t i = 0; i < generalData._numberOfBrakes; i++ )
 		{
 			m_driveElemPostions.push_back( { DrivingElementPosition( DrivingElementPosition::eType::BRAKE, i ) } );
 		}
+		m_driveElemPostions.push_back( { DrivingElementPosition( DrivingElementPosition::eType::FRICTION, 0 ) } );
 	}
 	else if ( initialData._w == 3 )
 	{
