@@ -1,0 +1,806 @@
+==  Синтез планетарных передач с тремя степенями свободы. Определение кинематических характеристик.  ==
+=====================================
+input torque =                     1
+k =                                -2
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1.3333  1       2       1       1.3333  2
+m:
+C1      E1      I0      I1      O0      S1
+3       -2      1       2       -3      -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       +       -       -
+kpdSum                             0.995
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+2.9789  -1.9929 1       1.9929  -2.9789 -1
+=====================================
+input torque =                     -1
+k =                                -2
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1.3333  1       2       1       1.3333  2
+m:
+C1      E1      I0      I1      O0      S1
+-3      2       -1      -2      3       1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       -       +       +
+kpdSum                             0.995
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-3.0212 2.0071  -1      -2.0071 3.0212  1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.029344
+=====================================
+input torque =                     1
+k =                                -2
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+1.6667  2       1       2       1.6667  1
+m:
+C1      E1      I0      I1      O0      S1
+3       -2      1       2       -3      -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       +       -       -
+kpdSum                             0.996
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+2.9789  -1.9929 1       1.9929  -2.9789 -1
+=====================================
+input torque =                     -1
+k =                                -2
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+1.6667  2       1       2       1.6667  1
+m:
+C1      E1      I0      I1      O0      S1
+-3      2       -1      -2      3       1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       -       +       +
+kpdSum                             0.996
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-3.0212 2.0071  -1      -2.0071 3.0212  1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.026296
+=====================================
+input torque =                     1
+k =                                -3.5
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1.2222  1       2       1       1.2222  2
+m:
+C1      E1      I0      I1      O0      S1
+4.5     -3.5    1       3.5     -4.5    -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       +       -       -
+kpdSum                             0.99576
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+4.4754  -3.4904 1       3.4904  -4.4754 -1
+=====================================
+input torque =                     -1
+k =                                -3.5
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1.2222  1       2       1       1.2222  2
+m:
+C1      E1      I0      I1      O0      S1
+-4.5    3.5     -1      -3.5    4.5     1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       -       +       +
+kpdSum                             0.99576
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-4.5247 3.5096  -1      -3.5096 4.5247  1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.034399
+=====================================
+input torque =                     1
+k =                                -3.5
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+1.7778  2       1       2       1.7778  1
+m:
+C1      E1      I0      I1      O0      S1
+4.5     -3.5    1       3.5     -4.5    -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       +       -       -
+kpdSum                             0.99708
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+4.4754  -3.4904 1       3.4904  -4.4754 -1
+=====================================
+input torque =                     -1
+k =                                -3.5
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+1.7778  2       1       2       1.7778  1
+m:
+C1      E1      I0      I1      O0      S1
+-4.5    3.5     -1      -3.5    4.5     1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       -       +       +
+kpdSum                             0.99708
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-4.5247 3.5096  -1      -3.5096 4.5247  1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.028358
+=====================================
+input torque =                     1
+k =                                -5
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1.1667  1       2       1       1.1667  2
+m:
+C1      E1      I0      I1      O0      S1
+6       -5      1       5       -6      -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       +       -       -
+kpdSum                             0.99643
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+5.9672  -4.9863 1       4.9863  -5.9672 -1
+=====================================
+input torque =                     -1
+k =                                -5
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1.1667  1       2       1       1.1667  2
+m:
+C1      E1      I0      I1      O0      S1
+-6      5       -1      -5      6       1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       -       +       +
+kpdSum                             0.99643
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-6.033  5.0137  -1      -5.0137 6.033   1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.040870
+=====================================
+input torque =                     1
+k =                                -5
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+1.8333  2       1       2       1.8333  1
+m:
+C1      E1      I0      I1      O0      S1
+6       -5      1       5       -6      -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       +       -       -
+kpdSum                             0.99773
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+5.9766  -4.9902 1       4.9902  -5.9766 -1
+=====================================
+input torque =                     -1
+k =                                -5
+I0S1 I1E1 O0C1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+1.8333  2       1       2       1.8333  1
+m:
+C1      E1      I0      I1      O0      S1
+-6      5       -1      -5      6       1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       -       +       +
+kpdSum                             0.99773
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-6.0235 5.0098  -1      -5.0098 6.0235  1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.027447
+=====================================
+input torque =                     1
+k =                                -2
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       0.5     2       1       0.5     2
+m:
+C1      E1      I0      I1      O0      S1
+3       -2      1       -3      2       -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.99
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+2.9648  -1.9882 1       -2.9648 1.9882  -1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.043451
+=====================================
+input torque =                     -1
+k =                                -2
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       0.5     2       1       0.5     2
+m:
+C1      E1      I0      I1      O0      S1
+-3      2       -1      3       -2      1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.99
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-3.0356 2.0119  -1      3.0356  -2.0119 1
+=====================================
+input torque =                     1
+k =                                -2
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       2.5     1       2       2.5     1
+m:
+C1      E1      I0      I1      O0      S1
+3       -2      1       -3      2       -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.995
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+2.9742  -1.9914 1       -2.9742 1.9914  -1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.027157
+=====================================
+input torque =                     -1
+k =                                -2
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       2.5     1       2       2.5     1
+m:
+C1      E1      I0      I1      O0      S1
+-3      2       -1      3       -2      1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.995
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-3.026  2.0087  -1      3.026   -2.0087 1
+=====================================
+input torque =                     1
+k =                                -3.5
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       0.71429 2       1       0.71429 2
+m:
+C1      E1      I0      I1      O0      S1
+4.5     -3.5    1       -4.5    3.5     -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.99333
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+4.4613  -3.4849 1       -4.4613 3.4849  -1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.046956
+=====================================
+input torque =                     -1
+k =                                -3.5
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       0.71429 2       1       0.71429 2
+m:
+C1      E1      I0      I1      O0      S1
+-4.5    3.5     -1      4.5     -3.5    1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.99333
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-4.539  3.5152  -1      4.539   -3.5152 1
+=====================================
+input torque =                     1
+k =                                -3.5
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       2.2857  1       2       2.2857  1
+m:
+C1      E1      I0      I1      O0      S1
+4.5     -3.5    1       -4.5    3.5     -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.99667
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+4.4754  -3.4904 1       -4.4754 3.4904  -1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.026686
+=====================================
+input torque =                     -1
+k =                                -3.5
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       2.2857  1       2       2.2857  1
+m:
+C1      E1      I0      I1      O0      S1
+-4.5    3.5     -1      4.5     -3.5    1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.99667
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-4.5247 3.5096  -1      4.5247  -3.5096 1
+=====================================
+input torque =                     1
+k =                                -5
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       0.8     2       1       0.8     2
+m:
+C1      E1      I0      I1      O0      S1
+6       -5      1       -6      5       -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.995
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+5.9578  -4.9824 1       -5.9578 4.9824  -1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.049584
+=====================================
+input torque =                     -1
+k =                                -5
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       0.8     2       1       0.8     2
+m:
+C1      E1      I0      I1      O0      S1
+-6      5       -1      6       -5      1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.995
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-6.0425 5.0177  -1      6.0425  -5.0177 1
+=====================================
+input torque =                     1
+k =                                -5
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       2.2     1       2       2.2     1
+m:
+C1      E1      I0      I1      O0      S1
+6       -5      1       -6      5       -1
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.9975
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+5.9766  -4.9902 1       -5.9766 4.9902  -1
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.026160
+=====================================
+input torque =                     -1
+k =                                -5
+I0S1 I1C1 O0E1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       2.2     1       2       2.2     1
+m:
+C1      E1      I0      I1      O0      S1
+-6      5       -1      6       -5      1
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.9975
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-6.0235 5.0098  -1      6.0235  -5.0098 1
+=====================================
+input torque =                     1
+k =                                -2
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       2       2       1       -1      -1
+m:
+C1      E1      I0      I1      O0      S1
+1.5     -1      1       -1.5    0.5     -0.5
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       -       +
+kpdSum                             0.985
+created type BE
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\solvefunctiondiv.cpp: ari::SolveFunctionDiv::calc 34 : Cant solve
+mn:
+C1      E1      I0      I1      O0      S1
+0       -1      1       0       0       0
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 1.000000
+=====================================
+input torque =                     -1
+k =                                -2
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       2       2       1       -1      -1
+m:
+C1      E1      I0      I1      O0      S1
+-1.5    1       -1      1.5     -0.5    0.5
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       +       -
+kpdSum                             0.985
+created type BE
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\solvefunctiondiv.cpp: ari::SolveFunctionDiv::calc 34 : Cant solve
+mn:
+C1      E1      I0      I1      O0      S1
+-1.#IND -1.#IND -1.#IND -1.#IND -1.#IND -1.#IND
+=====================================
+input torque =                     1
+k =                                -2
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       1       1       2       4       4
+m:
+C1      E1      I0      I1      O0      S1
+1.5     -1      1       -1.5    0.5     -0.5
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.99
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+1.4912  -1      1       -1.4912 0.50296 -0.50296
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.016834
+=====================================
+input torque =                     -1
+k =                                -2
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       1       1       2       4       4
+m:
+C1      E1      I0      I1      O0      S1
+-1.5    1       -1      1.5     -0.5    0.5
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.99
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-1.5088 1       -1      1.5088  -0.497050.49705
+=====================================
+input torque =                     1
+k =                                -3.5
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       2       2       1       -2.5    -2.5
+m:
+C1      E1      I0      I1      O0      S1
+1.2857  -1      1       -1.2857 0.28571 -0.28571
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       -       +
+kpdSum                             0.985
+created type BE
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\solvefunctiondiv.cpp: ari::SolveFunctionDiv::calc 34 : Cant solve
+mn:
+C1      E1      I0      I1      O0      S1
+0       -1      1       0       0       0
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 1.000000
+=====================================
+input torque =                     -1
+k =                                -3.5
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       2       2       1       -2.5    -2.5
+m:
+C1      E1      I0      I1      O0      S1
+-1.2857 1       -1      1.2857  -0.285710.28571
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       +       -
+kpdSum                             0.985
+created type BE
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\solvefunctiondiv.cpp: ari::SolveFunctionDiv::calc 34 : Cant solve
+mn:
+C1      E1      I0      I1      O0      S1
+-1.#IND -1.#IND -1.#IND -1.#IND -1.#IND -1.#IND
+=====================================
+input torque =                     1
+k =                                -3.5
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       1       1       2       5.5     5.5
+m:
+C1      E1      I0      I1      O0      S1
+1.2857  -1      1       -1.2857 0.28571 -0.28571
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.98833
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+1.2762  -1      1       -1.2762 0.28787 -0.28787
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.015093
+=====================================
+input torque =                     -1
+k =                                -3.5
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       1       1       2       5.5     5.5
+m:
+C1      E1      I0      I1      O0      S1
+-1.2857 1       -1      1.2857  -0.285710.28571
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.98833
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-1.2953 1       -1      1.2953  -0.283580.28358
+=====================================
+input torque =                     1
+k =                                -5
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       2       2       1       -4      -4
+m:
+C1      E1      I0      I1      O0      S1
+1.2     -1      1       -1.2    0.2     -0.2
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       -       +
+kpdSum                             0.985
+created type BE
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\solvefunctiondiv.cpp: ari::SolveFunctionDiv::calc 34 : Cant solve
+mn:
+C1      E1      I0      I1      O0      S1
+0       -1      1       0       0       0
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 1.000000
+=====================================
+input torque =                     -1
+k =                                -5
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+2       1
+w:
+C1      E1      I0      I1      O0      S1
+1       2       2       1       -4      -4
+m:
+C1      E1      I0      I1      O0      S1
+-1.2    1       -1      1.2     -0.2    0.2
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       +       -
+kpdSum                             0.985
+created type BE
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\solvefunctiondiv.cpp: ari::SolveFunctionDiv::calc 34 : Cant solve
+mn:
+C1      E1      I0      I1      O0      S1
+-1.#IND -1.#IND -1.#IND -1.#IND -1.#IND -1.#IND
+=====================================
+input torque =                     1
+k =                                -5
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       1       1       2       7       7
+m:
+C1      E1      I0      I1      O0      S1
+1.2     -1      1       -1.2    0.2     -0.2
+n:
+C1      E1      I0      I1      O0      S1
++       -       +       -       +       -
+kpdSum                             0.9875
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+1.1902  -1      1       -1.1902 0.20167 -0.20167
+
+d:\serega\aspirant\sintezplanetarygears\sintezpp\newdefmntest\testdefmh.cpp: ari::TestDefMh::doTest 160 : Failed. Delta = 0.014064
+=====================================
+input torque =                     -1
+k =                                -5
+I0E1 I1C1 O0S1
+w initial:
+I0      I1
+1       2
+w:
+C1      E1      I0      I1      O0      S1
+2       1       1       2       7       7
+m:
+C1      E1      I0      I1      O0      S1
+-1.2    1       -1      1.2     -0.2    0.2
+n:
+C1      E1      I0      I1      O0      S1
+-       +       -       +       -       +
+kpdSum                             0.9875
+created type AD
+mn:
+C1      E1      I0      I1      O0      S1
+-1.2099 1       -1      1.2099  -0.198350.19835
+Для продолжения нажмите любую клавишу . . .

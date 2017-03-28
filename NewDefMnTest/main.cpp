@@ -19,6 +19,8 @@ int main( int argc, char* argv[] )
 
 	NS_CORE Singletons::getInstance()->getIOFileManager()->writeSolutionData();
 
+
+	system( "pause" );
 	return 0;
 
 }

@@ -4,10 +4,37 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestDefMh.cpp" />
     <ClCompile Include="MappedSystem.cpp" />
+    <ClCompile Include="Function.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="SolveFunctionDiv.cpp">
+      <Filter>SolveFunction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestDefMh.h" />
     <ClInclude Include="MappedSystem.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="IFunction.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="Function.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="ISolveFunction.h">
+      <Filter>SolveFunction</Filter>
+    </ClInclude>
+    <ClInclude Include="SolveFunctionDiv.h">
+      <Filter>SolveFunction</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Function">
+      <UniqueIdentifier>{2d45f125-6b6b-40fe-aaf2-3c2c153aafae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SolveFunction">
+      <UniqueIdentifier>{b566d4aa-a3e4-4bf1-bf49-710c2ef665fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

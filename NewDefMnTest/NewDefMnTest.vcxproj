@@ -64,14 +64,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Function.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MappedSystem.cpp" />
+    <ClCompile Include="SolveFunctionDiv.cpp" />
     <ClCompile Include="TestDefMh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Function.h" />
+    <ClInclude Include="IFunction.h" />
+    <ClInclude Include="ISolveFunction.h" />
     <ClInclude Include="MappedSystem.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SolveFunctionDiv.h" />
     <ClInclude Include="TestDefMh.h" />
+    <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SintezPPLibary\SintezPPLibary.vcxproj">
