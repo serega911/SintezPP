@@ -56,7 +56,15 @@ void ari::TestDefMh::run()
 
 	std::vector < W > inputVelocities = {
 		{ { NS_CORE Element::INPUT, 2 }, { in2, 1 } },
-		{ { NS_CORE Element::INPUT, 1 }, { in2, 2 } }
+		{ { NS_CORE Element::INPUT, 1 }, { in2, 2 } },
+		{ { NS_CORE Element::INPUT, 7 }, { in2, 1 } },
+		{ { NS_CORE Element::INPUT, 1 }, { in2, 7 } },
+		{ { NS_CORE Element::INPUT, -5 }, { in2, 5 } },
+		{ { NS_CORE Element::INPUT, 5 }, { in2, -5 } },
+		{ { NS_CORE Element::INPUT, -5 }, { in2, 2 } },
+		{ { NS_CORE Element::INPUT, 2 }, { in2, -5 } },
+		{ { NS_CORE Element::INPUT, 5 }, { in2, -2 } },
+		{ { NS_CORE Element::INPUT, -2 }, { in2, 5 } }
 	};
 
 	const std::vector <double> mIn0 = { 
@@ -98,14 +106,25 @@ bool ari::TestDefMh::checkRequirements() const
 
 ari::M ari::TestDefMh::calcMn( const NS_CORE ChainArray& chains, const N& n, const NS_CORE InternalGearRatioValue& k, const double mIn0, const IFunction_p func )
 {
-	const double kpdB = SolveFunctionDiv::create()->calc( func, 0.9, 1.1 );
+	const double kpdB = SolveFunctionDiv::create()->calc( func, 0.8, 1.0 );
 	const double kpdA = 2 * kpdB - 1;
 	const double kpdAstep = pow( kpdA, -Function::sign( n.at( sun ) ) );
 	const double kpdBstep = pow( kpdB, -Function::sign( n.at( epy ) ) );
 
+	NS_CORE Log::showValue( "kpdA", kpdA );
+	NS_CORE Log::showValue( "kpdB", kpdB );
+
 	NS_CORE MappedSystem_p systemMn = MappedSystemTest::createMhTest( chains, mIn0, k, kpdAstep, kpdBstep );
 	NS_CORE Gaus::solve( systemMn );
 	M mn = systemMn->getSolution();
+
+	//check
+	const double torque1 = mn.at( sun ) * kpdAstep + mn.at( epy ) * kpdBstep + mn.at( car );
+	NS_CORE Log::warning( abs( torque1 ) > 0.0002, "Failed. torque1kpd = " + std::to_string( torque1 ), NS_CORE Log::NON_CRITICAL, HERE );
+
+	const double torque2 = k.getValue() * mn.at( sun ) * kpdAstep + mn.at( epy ) * kpdBstep;
+	NS_CORE Log::warning( abs( torque2 ) > 0.0002, "Failed. torque2kpd = " + std::to_string( torque2 ), NS_CORE Log::NON_CRITICAL, HERE );
+
 
 	return mn;
 }
@@ -159,7 +178,16 @@ void ari::TestDefMh::doTest( const NS_CORE TLinkArray& links, const NS_CORE Inte
 
 	//check
 	const double delta = func->getKpdSum() - factKpd;
-	NS_CORE Log::warning( abs( delta ) > 0.002, "Failed. Delta = " + std::to_string(delta), NS_CORE Log::NON_CRITICAL, HERE );
+	NS_CORE Log::warning( abs( delta ) > 0.0005, "Failed. Delta = " + std::to_string(delta), NS_CORE Log::NON_CRITICAL, HERE );
+
+	const double wyllys = wn.at( sun ) - wn.at( epy ) *k.getValue() + wn.at( car )*( k.getValue() - 1.0f );
+	NS_CORE Log::warning( abs( wyllys ) > 0.0002, "Failed. Wyllys = " + std::to_string( wyllys ), NS_CORE Log::NON_CRITICAL, HERE );
+
+	const double torque1 = m.at( sun ) + m.at( epy ) + m.at( car );
+	NS_CORE Log::warning( abs( torque1 ) > 0.0002, "Failed. torque1 = " + std::to_string( torque1 ), NS_CORE Log::NON_CRITICAL, HERE );
+
+	const double torque2 = k.getValue() * m.at( sun ) + m.at( epy );
+	NS_CORE Log::warning( abs( torque2 ) > 0.0002, "Failed. torque2 = " + std::to_string( torque2 ), NS_CORE Log::NON_CRITICAL, HERE );
 }
 
 double ari::TestDefMh::calcKpd( const N& n, const M& m )
@@ -175,11 +203,20 @@ double ari::TestDefMh::calcKpd( const N& n, const M& m )
 	const double mC = m.at( car );
 
 	if ( signA * signB > 0 && signA * signH < 0 )
+	{
 		kpd = pow( mA + mB, signA ) * pow( mC, signH );
+		NS_CORE Log::log( "verifyed type AD" );
+	}
 	else if ( signA * signH > 0 && signA * signB < 0 )
+	{
 		kpd = pow( mA + mC, signA ) * pow( mB, signB );
+		NS_CORE Log::log( "verifyed type BE" );
+	}
 	else if ( signB * signH > 0 && signA * signB < 0 )
+	{
 		kpd = pow( mB + mC, signB ) * pow( mA, signA );
+		NS_CORE Log::log( "verifyed type CF" );
+	}
 	else
 		NS_CORE Log::warning( true, "Cant calculate KPD", NS_CORE Log::CRITICAL, HERE );
 

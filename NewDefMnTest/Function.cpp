@@ -89,8 +89,8 @@ ari::Function_p ari::Function::createCF( const NS_CORE InternalGearRatioValue& k
  		) * ( ksi_a_c + ksi_b_c );
  
 	ret->m_a = k.getValue() * w.at( epy );
-	ret->m_b = pow( ret->m_kpdSum, -ret->m_na ) * ( k.getValue() * w.at( epy ) + w.at( car ) *( 1 - k.getValue() ) );
-	ret->m_c = - w.at( car ) * ( 1 - k.getValue() );
+	ret->m_b = pow( -ret->m_kpdSum, -ret->m_na ) * ( k.getValue() * w.at( epy ) + w.at( car ) *( 1 - k.getValue() ) );
+	ret->m_c = w.at( car ) * ( 1 - k.getValue() );
 
 	NS_CORE Log::showValue( "kpdSum", ret->m_kpdSum );
 	NS_CORE Log::log( "created type CF" );

@@ -1,6 +1,7 @@
 #include "../Libraries/Singletons.h"
 #include "../Libraries/Log.h"
 
+#include"Types.h"
 #include "MappedSystem.h"
 
 NS_ARI_USING
@@ -175,10 +176,6 @@ NS_CORE MappedSystem_p MappedSystemTest::createWTest( const NS_CORE ChainArray& 
 
 NS_CORE MappedSystem_p ari::MappedSystemTest::createMhTest( const NS_CORE ChainArray& chains, const double &mIn0, const NS_CORE InternalGearRatioValue& k, const double kpdAstep, const double kpdBstep )
 {
-	const NS_CORE GearSetNumber setN( 1 );
-	const NS_CORE Element sun = NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, setN );
-	const NS_CORE Element epy = NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, setN );
-
 	NS_CORE InternalGearRatioValueArray ratios;
 	ratios.emplace_back( k );
 
