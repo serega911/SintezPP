@@ -11,7 +11,7 @@ ari::SolveFunctionDiv_p ari::SolveFunctionDiv::create()
 
 double ari::SolveFunctionDiv::calc( const IFunction_p func, const double intervalBeg, const double intervalEnd )
 {
-	const double eps = 0.001;
+	const double eps = 0.00001;
 
 	double a = intervalBeg;
 	double b = intervalEnd;
@@ -34,7 +34,7 @@ double ari::SolveFunctionDiv::calc( const IFunction_p func, const double interva
 			NS_CORE Log::warning( true, "Cant solve", NS_CORE Log::NON_CRITICAL, HERE );
 			return 0;
 		}
-	} while ( b-a > eps );
+	} while ( abs(func->calc( ( a + b ) / 2 )) > eps );
 
 	return ( a + b ) / 2;
 }

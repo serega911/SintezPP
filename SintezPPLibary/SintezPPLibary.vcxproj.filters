@@ -311,6 +311,7 @@
     <ClInclude Include="..\Libraries\IMappedSystem.h">
       <Filter>StaticLib\helpers\TGaus</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\KinCharacteristicsTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\UIGeneralData.h">

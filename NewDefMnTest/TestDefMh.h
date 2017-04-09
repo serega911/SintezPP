@@ -22,7 +22,7 @@ private:
 
 	M											calcMn( const NS_CORE ChainArray& chains, const N& n, const NS_CORE InternalGearRatioValue& k, const double mIn0, const IFunction_p func );
 
-	double										calcKpd( const N& n, const M& m );
+	double										calcKpd( const N& n, const M& m, const W& w );
 
 	void										doTest( const NS_CORE TLinkArray& links, const NS_CORE InternalGearRatioValue& k, const W& w, const double mIn );
 

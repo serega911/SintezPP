@@ -8,11 +8,12 @@
 
 #include "GearBoxWithChangerSpecialFrictionProcess.h"
 #include "CalcKinCharacteristics.h"
-
+#include "Function.h"
+#include "SolveFunctionDiv.h"
 
 NS_ARI_USING
 
-void ari::CalcKinCharacteristics::run()
+void CalcKinCharacteristics::run()
 {
 	showParams();
 
@@ -31,6 +32,9 @@ void ari::CalcKinCharacteristics::run()
 		ch._torque = calcM( code, k );
 		ch._angVelocity = calcW( code, k );
 		ch._power = calcN( ch._angVelocity, ch._torque );
+		ch._kpdZacStepen = calcKpdZacStepen( k, ch._angVelocity, ch._power );
+		ch._kpdTorque = calcMh( code, k, ch._kpdZacStepen );
+
 
 		printCharacteristics( code, ch );
 
@@ -38,7 +42,7 @@ void ari::CalcKinCharacteristics::run()
 	}
 }
 
-bool ari::CalcKinCharacteristics::checkRequirements() const
+bool CalcKinCharacteristics::checkRequirements() const
 {
 	if ( !NS_CORE Singletons::getInstance()->getIOFileManager()->isFileExists( NS_CORE IOFileManager::eOutputFileType::KIN_SLOW ) )
 		return false;
@@ -78,13 +82,13 @@ bool ari::CalcKinCharacteristics::checkRequirements() const
 	return true;
 }
 
-ari::CalcKinCharacteristics::Z ari::CalcKinCharacteristics::calcZHelper( const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN )
+NS_CORE Z CalcKinCharacteristics::calcZHelper( const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN )
 {
 	const int Zmin = 14;
 	const int Zmax = 100;
 	const double M_PI = 3.14159;
 
-	Z ret;
+	NS_CORE Z ret;
 
 	size_t Nsat = M_PI / asin( ( intRatio.getAbs().getValue() - 1 + ( 8.0 / Zmin ) ) / ( intRatio.getAbs().getValue() + 1 ) );//округляем в меньшую сторону - отбрасываем дробныю часть
 	double Gamma = 14.0 * ( intRatio.getAbs().getValue() - 1 ) / Nsat;
@@ -114,9 +118,9 @@ ari::CalcKinCharacteristics::Z ari::CalcKinCharacteristics::calcZHelper( const N
 	return ret;
 }
 
-std::vector<ari::CalcKinCharacteristics::Z> ari::CalcKinCharacteristics::calcZ( const NS_CORE InternalGearRatios& intRatios )
+std::vector<NS_CORE Z> CalcKinCharacteristics::calcZ( const NS_CORE InternalGearRatios& intRatios )
 {
-	std::vector<Z> ret;
+	std::vector<NS_CORE Z> ret;
 
 	for ( size_t i = 0; i < intRatios.size(); i++ ){
 		ret.push_back( calcZHelper( intRatios[i], NS_CORE GearSetNumber( i + 1 ) ) );
@@ -130,9 +134,9 @@ std::vector<ari::CalcKinCharacteristics::Z> ari::CalcKinCharacteristics::calcZ( 
 	return ret;
 }
 
-std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
+std::vector<NS_CORE M> ari::CalcKinCharacteristics::calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
 {
-	std::vector<ari::CalcKinCharacteristics::M> ret;
+	std::vector<NS_CORE M> ret;
 
 	GearBoxWithChangerSpecialFrictionProcess gb( code );
 	gb.createChains();
@@ -150,10 +154,62 @@ std::vector<ari::CalcKinCharacteristics::M> ari::CalcKinCharacteristics::calcM( 
 	return ret;
 }
 
-std::vector<ari::CalcKinCharacteristics::W> ari::CalcKinCharacteristics::calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
+
+std::vector<NS_CORE KpdZac> CalcKinCharacteristics::calcKpdZacStepen( const NS_CORE InternalGearRatios& intRatios, const std::vector<NS_CORE W>& w, const std::vector<NS_CORE N>& n )
+{
+	std::vector<NS_CORE KpdZac> ret;
+
+	NS_CORE Log::warning( w.size() != n.size(), "Wrong size", NS_CORE Log::eWarningImportance::CRITICAL, HERE );
+
+	const int size = w.size();
+	ret.resize( size );	
+
+	for ( int i = 0; i < size; i++ )
+	{
+		for ( NS_CORE GearSetNumber gearSet( 1 ); gearSet.getValue() <= NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears; gearSet++ )
+		{
+			NS_CORE Element sun( NS_CORE eMainElement::SUN_GEAR, gearSet );
+			NS_CORE Element epy( NS_CORE eMainElement::EPICYCLIC_GEAR, gearSet );
+
+			IFunction_p func = Function::create( intRatios[gearSet.getValue()-1], w[i], n[i], gearSet);
+			const double kpdB = SolveFunctionDiv::create()->calc( func, 0.8, 1.0 );
+			const double kpdA = 2 * kpdB - 1;
+			ret[i][gearSet]._kpdA = pow( kpdA, -Function::sign( n[i].at( sun ) ) );
+			ret[i][gearSet]._kpdB = pow( kpdB, -Function::sign( n[i].at( epy ) ) );
+		}
+	}
+
+	return ret;
+}
+
+std::vector<NS_CORE M> CalcKinCharacteristics::calcMh( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios, std::vector<NS_CORE KpdZac> kpdZacStepen )
+{
+	std::vector<NS_CORE M> ret;
+
+	GearBoxWithChangerSpecialFrictionProcess gb( code );
+	gb.createChains();
+	
+	NS_CORE GearNumber gear(0);
+
+	do
+	{
+		NS_CORE MappedSystem_p systemM = NS_CORE MappedSystem::createMKpd( gb.getChainsForCurrentGear(), intRatios, kpdZacStepen[gear.getValue()] );
+		NS_CORE Gaus::solve( systemM );
+
+		ret.push_back( systemM->getSolution() );
+
+		gear++;
+
+	} while ( gb.turnOnNextGear() );
+
+
+	return ret;
+}
+
+std::vector<NS_CORE W> CalcKinCharacteristics::calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
 {
 	const auto n = intRatios.size();
-	std::vector<ari::CalcKinCharacteristics::M> ret;
+	std::vector<NS_CORE M> ret;
 
 	GearBoxWithChangerSpecialFrictionProcess gb( code );
 	gb.createChains();
@@ -180,9 +236,9 @@ std::vector<ari::CalcKinCharacteristics::W> ari::CalcKinCharacteristics::calcW( 
 	return ret;
 }
 
-std::vector<CalcKinCharacteristics::N> ari::CalcKinCharacteristics::calcN( const std::vector<W>& w, const std::vector<M>& m )
+std::vector<NS_CORE N> CalcKinCharacteristics::calcN( const std::vector<NS_CORE W>& w, const std::vector<NS_CORE M>& m )
 {
-	std::vector<ari::CalcKinCharacteristics::N> ret;
+	std::vector<NS_CORE N> ret;
 	NS_CORE Log::warning( w.size() != m.size(), "wrpng size", NS_CORE Log::CRITICAL, HERE );
 
 	const auto gearsCount = w.size();
@@ -235,6 +291,12 @@ void ari::CalcKinCharacteristics::printCharacteristics( const NS_CORE Code code,
 
 	NS_CORE Log::log( "N:", true, NS_CORE eColor::AQUA );
 	for ( const auto& z : ch._power )
+	{
+		printCharacteristicsLine( z );
+	}
+
+	NS_CORE Log::log( "M_KPD:", true, NS_CORE eColor::AQUA );
+	for ( const auto& z : ch._kpdTorque )
 	{
 		printCharacteristicsLine( z );
 	}

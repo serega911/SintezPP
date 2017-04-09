@@ -173,7 +173,7 @@ void ari::TestDefMh::doTest( const NS_CORE TLinkArray& links, const NS_CORE Inte
 	NS_CORE Log::log( "mn:", true, NS_CORE eColor::AQUA );
 	printCharacteristicsLine( mn );
 
-	const double factKpd = calcKpd( n, mn );
+	const double factKpd = calcKpd( n, mn, wn );
 	NS_CORE Log::showValue( "KPD fact: ", factKpd );
 
 	//check
@@ -190,7 +190,7 @@ void ari::TestDefMh::doTest( const NS_CORE TLinkArray& links, const NS_CORE Inte
 	NS_CORE Log::warning( abs( torque2 ) > 0.0002, "Failed. torque2 = " + std::to_string( torque2 ), NS_CORE Log::NON_CRITICAL, HERE );
 }
 
-double ari::TestDefMh::calcKpd( const N& n, const M& m )
+double ari::TestDefMh::calcKpd( const N& n, const M& m, const W& w )
 {
 	const int signA = Function::sign( n.at( sun ) );
 	const int signB = Function::sign( n.at( epy ) );
@@ -198,23 +198,23 @@ double ari::TestDefMh::calcKpd( const N& n, const M& m )
 
 	double kpd = 0;
 
-	const double mA = m.at( sun );
-	const double mB = m.at( epy );
-	const double mC = m.at( car );
+	const double nA = m.at( sun ) * w.at( sun );
+	const double nB = m.at( epy ) * w.at( epy );
+	const double nC = m.at( car ) * w.at( car );
 
 	if ( signA * signB > 0 && signA * signH < 0 )
 	{
-		kpd = pow( mA + mB, signA ) * pow( mC, signH );
+		kpd = pow( nA + nB, signA ) * pow( nC, signH );
 		NS_CORE Log::log( "verifyed type AD" );
 	}
 	else if ( signA * signH > 0 && signA * signB < 0 )
 	{
-		kpd = pow( mA + mC, signA ) * pow( mB, signB );
+		kpd = pow( nA + nC, signA ) * pow( nB, signB );
 		NS_CORE Log::log( "verifyed type BE" );
 	}
 	else if ( signB * signH > 0 && signA * signB < 0 )
 	{
-		kpd = pow( mB + mC, signB ) * pow( mA, signA );
+		kpd = pow( nB + nC, signB ) * pow( nA, signA );
 		NS_CORE Log::log( "verifyed type CF" );
 	}
 	else

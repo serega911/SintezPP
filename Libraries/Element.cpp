@@ -70,6 +70,12 @@ void Element::print() const
 	Log::log( std::to_string( m_gearSetN.getValue() ), false );
 }
 
+void core::Element::print( const eColor& color ) const
+{
+	Log::log( std::string( 1, convernToSymbol( m_elemN ) ), false, color );
+	Log::log( std::to_string( m_gearSetN.getValue() ), false, color );
+}
+
 void Element::writeTofile( std::ostream& file ) const
 {
 	file << convernToSymbol( m_elemN ) << m_gearSetN.getValue();

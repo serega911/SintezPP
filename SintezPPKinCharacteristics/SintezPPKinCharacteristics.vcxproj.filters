@@ -4,9 +4,36 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CalcKinCharacteristics.cpp" />
     <ClCompile Include="GearBoxWithChangerSpecialFrictionProcess.cpp" />
+    <ClCompile Include="Function.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="SolveFunctionDiv.cpp">
+      <Filter>Solve</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcKinCharacteristics.h" />
     <ClInclude Include="GearBoxWithChangerSpecialFrictionProcess.h" />
+    <ClInclude Include="Function.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="IFunction.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="ISolveFunction.h">
+      <Filter>Solve</Filter>
+    </ClInclude>
+    <ClInclude Include="SolveFunctionDiv.h">
+      <Filter>Solve</Filter>
+    </ClInclude>
+    <ClInclude Include="KinCharacteristicsTypes.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Function">
+      <UniqueIdentifier>{bb279adb-b74c-4a61-a43f-523cd8dc10da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Solve">
+      <UniqueIdentifier>{c4b317c4-cd09-48c1-b994-548b1bc7ca37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

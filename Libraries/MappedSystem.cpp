@@ -43,6 +43,27 @@ MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS
 	return ret;
 }
 
+core::MappedSystem_p core::MappedSystem::createMKpd( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const double mIn /*= 1000 */ )
+{
+	MappedSystem_p ret = createM( chains, k, mIn );
+
+	for ( const auto& it : kpdZacStepen )
+	{
+		NS_CORE Element sun( NS_CORE eMainElement::SUN_GEAR, it.first );
+		NS_CORE Element epy( NS_CORE eMainElement::EPICYCLIC_GEAR, it.first );
+
+		const int equationNum = ( it.first.getValue() - 1 ) * 2;
+
+		ret->m_system[equationNum][sun] *= it.second._kpdA;
+		ret->m_system[equationNum][epy] *= it.second._kpdB;
+
+		ret->m_system[equationNum + 1][sun] *= it.second._kpdA;
+		ret->m_system[equationNum + 1][epy] *= it.second._kpdB;
+	}
+
+	return ret;
+}
+
 NS_CORE MappedSystem::MappedSystem()
 {
 
