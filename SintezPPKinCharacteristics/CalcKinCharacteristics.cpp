@@ -170,12 +170,56 @@ std::vector<NS_CORE KpdZac> CalcKinCharacteristics::calcKpdZacStepen( const NS_C
 		{
 			NS_CORE Element sun( NS_CORE eMainElement::SUN_GEAR, gearSet );
 			NS_CORE Element epy( NS_CORE eMainElement::EPICYCLIC_GEAR, gearSet );
+			NS_CORE Element car( NS_CORE eMainElement::CARRIER, gearSet );
 
-			IFunction_p func = Function::create( intRatios[gearSet.getValue()-1], w[i], n[i], gearSet);
-			const double kpdB = SolveFunctionDiv::create()->calc( func, 0.8, 1.0 );
-			const double kpdA = 2 * kpdB - 1;
-			ret[i][gearSet]._kpdA = pow( kpdA, -Function::sign( n[i].at( sun ) ) );
-			ret[i][gearSet]._kpdB = pow( kpdB, -Function::sign( n[i].at( epy ) ) );
+			double kpdA = 1;
+			double kpdB = 1;
+			const double ksi_a_c = 0.02;
+			const double ksi_b_c = 0.01;
+			const auto k = intRatios[gearSet.getValue() - 1];
+
+			if ( n[i].at( sun ) == '0' && n[i].at( epy ) == '0' && n[i].at( car ) == '0' )
+			{
+				kpdA = 1;
+				kpdB = 1;
+			}
+			else if ( w[i].at( sun ) && w[i].at( epy ) && w[i].at( car ) )
+			{
+				NS_CORE Element sun( NS_CORE eMainElement::SUN_GEAR, gearSet );
+				NS_CORE Element epy( NS_CORE eMainElement::EPICYCLIC_GEAR, gearSet );
+
+				IFunction_p func = Function::create( k, w[i], n[i], gearSet );
+				kpdB = SolveFunctionDiv::create()->calc( func, 0.8, 1.0 );
+				kpdA = 2 * kpdB - 1;
+				kpdA = pow( kpdA, -Function::sign( n[i].at( sun ) ) );
+				kpdB = pow( kpdB, -Function::sign( n[i].at( epy ) ) );
+			}
+			else if ( !w[i].at( sun ) && w[i].at( epy ) && w[i].at( car ) )
+			{
+				double kpdSum = 1 - 1.0 / ( 1 + k.getValue() ) * ( ksi_a_c + ksi_b_c );
+				kpdA = 1 / kpdSum;
+				kpdB = pow( kpdSum, -Function::sign( n[i].at( epy ) ) );
+			}
+			else if ( w[i].at( sun ) && !w[i].at( epy ) && w[i].at( car ) )
+			{
+				double kpdSum = 1 - k.getValue() / ( 1.0 + k.getValue() ) * ( ksi_a_c + ksi_b_c );
+				kpdA = pow( kpdSum, -Function::sign( n[i].at( sun ) ) );
+				kpdB = 1 / kpdSum;
+			}
+			else if ( w[i].at( sun ) && w[i].at( epy ) && !w[i].at( car ) )
+			{
+				kpdA = 1 - ksi_a_c;
+				kpdB = 1 - ksi_b_c;
+				kpdA = pow( kpdA, -Function::sign( n[i].at( sun ) ) );
+				kpdB = pow( kpdB, -Function::sign( n[i].at( epy ) ) );
+			}
+			else
+			{
+				NS_CORE Log::warning( true, "Can't calculate KPD", NS_CORE Log::CRITICAL, HERE );
+			}
+
+			ret[i][gearSet]._kpdA = kpdA;
+			ret[i][gearSet]._kpdB = kpdB;
 		}
 	}
 

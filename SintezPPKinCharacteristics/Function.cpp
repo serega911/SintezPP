@@ -41,11 +41,7 @@ ari::Function_p ari::Function::create( const NS_CORE InternalGearRatioValue& k, 
 	if ( signB * signH > 0 && signA * signB < 0 )
 		return createCF( k, w, n, gearSet );
 	else
-	{
-		//NS_CORE Log::warning( true, "Cant create function", NS_CORE Log::NON_CRITICAL, HERE );
-		return createPassive( k, w, n, gearSet );
-	}
-
+		NS_CORE Log::warning( true, "Cant create function", NS_CORE Log::NON_CRITICAL, HERE );
 }
 
 Function_p Function::createAD( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet )
@@ -68,26 +64,6 @@ Function_p Function::createAD( const NS_CORE InternalGearRatioValue& k, const NS
 
 	NS_CORE Log::showValue( "kpdSum", ret->m_kpdSum );
 	NS_CORE Log::log( "created type AD" );
-
-	return ret;
-}
-
-ari::Function_p ari::Function::createPassive( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet )
-{
-
-	Function_p ret( new Function( n, gearSet ) );
-
-	ret->m_kpdSum = 1;
-
-	ret->m_a = 1;
-	ret->m_b = 0;
-	ret->m_c = -1;
-
-	ret->m_na = 0;
-	ret->m_nb = 1;
-	ret->m_nh = 0;
-
-	NS_CORE Log::log( "created type PASSIVE" );
 
 	return ret;
 }
@@ -138,11 +114,6 @@ ari::Function_p ari::Function::createCF( const NS_CORE InternalGearRatioValue& k
 	NS_CORE Log::log( "created type CF" );
 
 	return ret;
-}
-
-double ari::Function::getKpdSum()
-{
-	return m_kpdSum;
 }
 
 double Function::calc( double kpdb ) const

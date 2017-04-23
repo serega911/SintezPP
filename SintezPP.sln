@@ -18,8 +18,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPSchemeBuild", "Sint
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SintezPPKinCharacteristics", "SintezPPKinCharacteristics\SintezPPKinCharacteristics.vcxproj", "{FF5FE3B3-E57B-4601-B143-5932B5772CEE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NewDefMnTest", "NewDefMnTest\NewDefMnTest.vcxproj", "{1E8E7CE4-59FC-4D62-AA85-461CC6ECA14B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -50,10 +48,6 @@ Global
 		{FF5FE3B3-E57B-4601-B143-5932B5772CEE}.Debug|Win32.Build.0 = Debug|Win32
 		{FF5FE3B3-E57B-4601-B143-5932B5772CEE}.Release|Win32.ActiveCfg = Release|Win32
 		{FF5FE3B3-E57B-4601-B143-5932B5772CEE}.Release|Win32.Build.0 = Release|Win32
-		{1E8E7CE4-59FC-4D62-AA85-461CC6ECA14B}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1E8E7CE4-59FC-4D62-AA85-461CC6ECA14B}.Debug|Win32.Build.0 = Debug|Win32
-		{1E8E7CE4-59FC-4D62-AA85-461CC6ECA14B}.Release|Win32.ActiveCfg = Release|Win32
-		{1E8E7CE4-59FC-4D62-AA85-461CC6ECA14B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -31,16 +31,12 @@ private:
 	static Function_p							createAD( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet );
 	static Function_p							createBE( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet );
 	static Function_p							createCF( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet );
-	static Function_p							createPassive( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet );
 
 public:
 
 	static int									sign( char c );
 
-	
 	static Function_p							create( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet );
-
-	double										getKpdSum();
 
 	virtual double								calc( double ) const override;
 
