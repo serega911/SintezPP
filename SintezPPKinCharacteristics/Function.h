@@ -35,9 +35,7 @@ private:
 public:
 
 	static int									sign( char c );
-
 	static Function_p							create( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet );
-
 	virtual double								calc( double ) const override;
 
 };

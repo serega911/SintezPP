@@ -34,7 +34,7 @@ void CalcKinCharacteristics::run()
 		ch._power = calcN( ch._angVelocity, ch._torque );
 		ch._kpdZacStepen = calcKpdZacStepen( k, ch._angVelocity, ch._power );
 		ch._kpdTorque = calcMh( code, k, ch._kpdZacStepen );
-
+		ch._qualityCriterias = calcQualityCriterias( ch._kpdTorque, ch._angVelocity );
 
 		printCharacteristics( code, ch );
 
@@ -246,6 +246,103 @@ std::vector<NS_CORE M> CalcKinCharacteristics::calcMh( const NS_CORE Code code, 
 
 	} while ( gb.turnOnNextGear() );
 
+
+	return ret;
+}
+
+std::map<CalcKinCharacteristics::eQualityCriteria, float> ari::CalcKinCharacteristics::calcQualityCriterias( const std::vector<NS_CORE M> & mKpd, std::vector<NS_CORE W> angVel )
+{
+	std::map<CalcKinCharacteristics::eQualityCriteria, float> ret;
+
+	// find maximum power
+
+	double nMaxForward = 0;
+	double nMaxBackward = 0;
+	const double nIn = mKpd[0].at( NS_CORE Element::INPUT ) * angVel[0].at( NS_CORE Element::INPUT );
+	for ( int i = 0; i < mKpd.size(); i++ )
+	{
+		const double nOut = mKpd[i].at( NS_CORE Element::OUTPUT ) * angVel[i].at( NS_CORE Element::OUTPUT );
+		for ( const auto & it : mKpd[i] )
+		{
+			if ( isCentralElement( it.first.getElemN() ) )
+			{
+				const double n = abs( it.second * angVel[i].at( it.first ) );
+				if ( nOut > 0 && n > nMaxForward )
+					nMaxForward = n;
+				else if ( nOut < 0 && n > nMaxBackward )
+					nMaxBackward = n;
+			}
+		}	
+	}
+
+	ret[eQualityCriteria::K1] = nMaxForward / nIn;
+	ret[eQualityCriteria::K2] = nMaxBackward / nIn;
+
+	double torqueFrictionMax = 0;
+	double torqueBrakeMax = 0;
+	int gear = 0;
+	const double mIn = mKpd[0].at( NS_CORE Element::INPUT );
+	for ( int i = 0; i < mKpd.size(); i++ )
+	{
+		for ( const auto & it : mKpd[i] )
+		{
+			const auto elem = it.first.getElemN();
+			const auto m = abs( it.second );
+			if ( elem == NS_CORE eMainElement::FRICTION && m > torqueFrictionMax )
+				torqueFrictionMax = m;
+			else if ( elem == NS_CORE eMainElement::BRAKE && m > torqueBrakeMax )
+			{
+				gear = i;
+				torqueBrakeMax = m;
+			}
+		}
+	}
+
+	ret[eQualityCriteria::K3] = torqueFrictionMax / mIn;
+	ret[eQualityCriteria::K4] = torqueBrakeMax / mIn;// abs( angVel[gear].at( NS_CORE Element::OUTPUT ) / angVel[gear].at( NS_CORE Element::INPUT ) );
+
+	double wSatMaxLoaded = 0;
+	double wSatMaxUnloaded = 0;
+	const double wIn = angVel[0].at( NS_CORE Element::INPUT );
+	for ( int i = 0; i < angVel.size(); i++ )
+	{
+		for ( const auto & it : angVel[i] )
+		{
+			if ( it.first.getElemN() == NS_CORE eMainElement::SATTELITE )
+			{
+				const double mSun = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, it.first.getGearSetN() ) );
+				const double mEpy = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, it.first.getGearSetN() ) );
+				const double mCar = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::CARRIER, it.first.getGearSetN() ) );
+
+				const double w = it.second;
+
+				if ( abs( mSun + mEpy + mCar ) < 0.001 )
+					if ( w > wSatMaxUnloaded )
+						wSatMaxUnloaded = w;
+				else
+					if ( w > wSatMaxLoaded )
+						wSatMaxLoaded = w;
+			}
+		}
+	}
+
+	ret[eQualityCriteria::K5_1] = wSatMaxLoaded / wIn;
+	ret[eQualityCriteria::K5_2] = wSatMaxUnloaded / wIn;
+
+	double wBrakeFrictionMaxUnloaded = 0;
+	for ( int i = 0; i < angVel.size(); i++ )
+	{
+		for ( const auto & it : angVel[i] )
+		{
+			if ( it.first.getElemN() == NS_CORE eMainElement::FRICTION || it.first.getElemN() == NS_CORE eMainElement::BRAKE )
+			{
+				const double w = it.second;
+				if ( w > wBrakeFrictionMaxUnloaded )
+					wBrakeFrictionMaxUnloaded = w;
+			}
+		}
+	}
+	ret[eQualityCriteria::K6] = wBrakeFrictionMaxUnloaded / wIn;
 
 	return ret;
 }
