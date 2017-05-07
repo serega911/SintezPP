@@ -48,6 +48,7 @@
     <ClInclude Include="..\Libraries\ApplicationBase.h" />
     <ClInclude Include="..\Libraries\IIOItem.h" />
     <ClInclude Include="..\Libraries\IMappedSystem.h" />
+    <ClInclude Include="..\Libraries\KinCharacteristicsTypes.h" />
     <ClInclude Include="..\Libraries\KinematicSchemeData.h" />
     <ClInclude Include="..\Libraries\Chain.h" />
     <ClInclude Include="..\Libraries\ChainArray.h" />

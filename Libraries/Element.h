@@ -7,6 +7,8 @@
 #include "GlobalDefines.h"
 #include "GearSetNumber.h"
 
+#include "eColor.h"
+
 NS_CORE_START
 
 class Element
@@ -24,6 +26,7 @@ public:
 	
 
 	void										print() const;
+	void										print( const eColor& color ) const;
 	void										writeTofile( std::ostream& file ) const;
 	bool										loadFromFile( std::istream& file );
 

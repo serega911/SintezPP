@@ -4,11 +4,14 @@
 #include <vector>
 #include <memory>
 
-#include "../Libraries/GlobalDefines.h"
-#include "../Libraries/Element.h"
-#include "../Libraries/ChainArray.h"
-#include "../Libraries/InternalGearRatios.h"
-#include "../Libraries/IMappedSystem.h"
+#include "GlobalDefines.h"
+#include "Element.h"
+#include "ChainArray.h"
+#include "InternalGearRatios.h"
+#include "IMappedSystem.h"
+#include "RatioValue.h"
+#include "RatioValue.h"
+#include "KinCharacteristicsTypes.h"
 
 NS_CORE_START
 
@@ -21,17 +24,18 @@ class MappedSystem : public NS_CORE IMappedSystem
 	typedef std::map<NS_CORE Element, NS_CORE IMappedSystem::Value> Vector;
 	typedef std::vector<Vector> System;
 
-private:
+protected:
 
+	MappedSystem();
+	
 	System										m_system;
 	Vector										m_solution;
 
-	MappedSystem();
-
 public:
 
-	static MappedSystem_p						createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k );
-	static MappedSystem_p						createW( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k );
+	static MappedSystem_p						createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const double mIn = 1000 );
+	static MappedSystem_p						createMKpd( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const double mIn = 1000 );
+	static MappedSystem_p						createW( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const NS_CORE RatioValue wIn = NS_CORE RatioValue(100) );
 
 	virtual void								setSolution( const NS_CORE IMappedSystem::Vector& solution ) override;
 	virtual NS_CORE IMappedSystem::Matrix		getMatrix() override;

@@ -17,12 +17,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CalcKinCharacteristics.cpp" />
+    <ClCompile Include="Function.cpp" />
     <ClCompile Include="GearBoxWithChangerSpecialFrictionProcess.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SolveFunctionDiv.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcKinCharacteristics.h" />
+    <ClInclude Include="Function.h" />
     <ClInclude Include="GearBoxWithChangerSpecialFrictionProcess.h" />
+    <ClInclude Include="IFunction.h" />
+    <ClInclude Include="ISolveFunction.h" />
+    <ClInclude Include="KinCharacteristicsTypes.h" />
+    <ClInclude Include="SolveFunctionDiv.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FF5FE3B3-E57B-4601-B143-5932B5772CEE}</ProjectGuid>

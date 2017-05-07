@@ -5,7 +5,7 @@
 
 NS_CORE_USING
 
-MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k )
+MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const double mIn )
 {
 	MappedSystem_p ret( new MappedSystem );
 
@@ -37,15 +37,36 @@ MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS
 	}
 
 	ret->m_system[i][NS_CORE Element::INPUT] = 1;
-	ret->m_system[i][NS_CORE Element::EMPTY] = 1000;	// Riht parts
+	ret->m_system[i][NS_CORE Element::EMPTY] = mIn;	// Riht parts
 	ret->m_solution[NS_CORE Element::EMPTY] = 0;
 
 	return ret;
 }
 
-MappedSystem::MappedSystem()
+core::MappedSystem_p core::MappedSystem::createMKpd( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const double mIn /*= 1000 */ )
 {
-	
+	MappedSystem_p ret = createM( chains, k, mIn );
+
+	for ( const auto& it : kpdZacStepen )
+	{
+		NS_CORE Element sun( NS_CORE eMainElement::SUN_GEAR, it.first );
+		NS_CORE Element epy( NS_CORE eMainElement::EPICYCLIC_GEAR, it.first );
+
+		const int equationNum = ( it.first.getValue() - 1 ) * 2;
+
+		ret->m_system[equationNum][sun] *= it.second._kpdA;
+		ret->m_system[equationNum][epy] *= it.second._kpdB;
+
+		ret->m_system[equationNum + 1][sun] *= it.second._kpdA;
+		ret->m_system[equationNum + 1][epy] *= it.second._kpdB;
+	}
+
+	return ret;
+}
+
+NS_CORE MappedSystem::MappedSystem()
+{
+
 }
 
 NS_CORE IMappedSystem::Matrix MappedSystem::getMatrix()
@@ -91,7 +112,7 @@ void MappedSystem::setSolution( const NS_CORE IMappedSystem::Vector& solution )
 	}
 }
 
-MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k )
+MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const NS_CORE RatioValue wIn )
 {
 	MappedSystem_p ret( new MappedSystem );
 
@@ -136,7 +157,7 @@ MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS
 
 	Vector inEquation;
 	inEquation[NS_CORE Element::INPUT] = 1;
-	inEquation[NS_CORE Element::EMPTY] = 100;	// Riht parts
+	inEquation[NS_CORE Element::EMPTY] = wIn.getValue();	// Riht parts
 	ret->m_system.emplace_back( inEquation );
 	ret->m_solution[NS_CORE Element::EMPTY] = 0;
 
@@ -150,7 +171,6 @@ MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS
 
 	return ret;
 }
-
 const MappedSystem::Vector& MappedSystem::getSolution() const
 {
 	return m_solution;
