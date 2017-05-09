@@ -13,7 +13,7 @@ NS_CORE ChainArray ari::GearBoxWithChangerSpecialFrictionProcess::getChainsForCu
 	for ( size_t i = 0; i < drivElemSize; i++ )
 	{
 		const NS_CORE Link& elem = drivingElements[i];
-		
+
 		if ( elem.getElem2() != NS_CORE Element::BRAKE )
 		{
 			frictionNumber++;
@@ -23,7 +23,7 @@ NS_CORE ChainArray ari::GearBoxWithChangerSpecialFrictionProcess::getChainsForCu
 				if ( it.find( elem.getElem1() ) )
 				{
 					frictionSubNumber++;
-					NS_CORE Link link( elem.getElem1(), NS_CORE Element( NS_CORE eMainElement::FRICTION, NS_CORE GearSetNumber(frictionNumber * 10 + frictionSubNumber) ) );
+					NS_CORE Link link( elem.getElem1(), NS_CORE Element( NS_CORE eMainElement::FRICTION, NS_CORE GearSetNumber( frictionNumber * 10 + frictionSubNumber ) ) );
 					it.addLinkToChain( link );
 				}
 				if ( it.find( elem.getElem2() ) )
@@ -47,7 +47,7 @@ NS_CORE ChainArray ari::GearBoxWithChangerSpecialFrictionProcess::getChainsForCu
 	}
 
 	chains.reserve( chainsSize + frictionNumber );
-	for ( size_t i = 0; i < frictionNumber; i++ )
+	for ( int i = 0; i < frictionNumber; i++ )
 	{
 		NS_CORE Chain ch;
 		ch.addLinkToChain( NS_CORE Link(
@@ -60,7 +60,7 @@ NS_CORE ChainArray ari::GearBoxWithChangerSpecialFrictionProcess::getChainsForCu
 }
 
 ari::GearBoxWithChangerSpecialFrictionProcess::GearBoxWithChangerSpecialFrictionProcess( const NS_CORE Code& code )
-	: GearBoxWithChanger(code)
+	: GearBoxWithChanger( code )
 {
 
 }

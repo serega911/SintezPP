@@ -37,6 +37,6 @@ int Log::getColorNum( const eColor color )
 
 void Log::SetColor( const eColor background, const eColor text )
 {
-		HANDLE hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
-		SetConsoleTextAttribute( hStdOut, (WORD)( ( getColorNum( background ) << 4 ) | getColorNum( text ) ) );
+	HANDLE hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
+	SetConsoleTextAttribute( hStdOut, (WORD)( ( getColorNum( background ) << 4 ) | getColorNum( text ) ) );
 }

@@ -10,7 +10,7 @@ struct KinematicSchemeData
 	size_t	_axialRoads;
 
 	KinematicSchemeData( const size_t radial, const size_t axial )
-		: _radialRoads(radial), _axialRoads(axial) {}
+		: _radialRoads( radial ), _axialRoads( axial ) {}
 
 	KinematicSchemeData()
 		: _radialRoads( 0 ), _axialRoads( 0 ) {}

@@ -40,21 +40,21 @@ public:
 
 	static std::string							getFolder();
 
-	void										writeToFile(const eOutputFileType type, const IIOItem & container);
-	bool										loadFromFile(const eOutputFileType type, IIOItem & container);
-		
+	void										writeToFile( const eOutputFileType type, const IIOItem & container );
+	bool										loadFromFile( const eOutputFileType type, IIOItem & container );
+
 	void										writeSolutionData();
 
 	void										cleanFiles();
 	bool										isFileExists( const eOutputFileType type );
 
-private:	
-		
+private:
+
 	std::map<eOutputFileType, std::string>		m_fileNames;
 
 	IOFileManager();
 	IOFileManager( const IOFileManager& ) = delete;
-	IOFileManager&								operator=(IOFileManager&) = delete;
+	IOFileManager&								operator=( IOFileManager& ) = delete;
 
 
 	static const std::string					s_resultsFolder;
@@ -64,7 +64,7 @@ private:
 	std::string									m_containingFolder;
 	std::map<eOutputFileType, std::ofstream*>	m_oFiles;
 	std::map<eOutputFileType, std::ifstream*>	m_iFiles;
-		
+
 };
 
 NS_CORE_END

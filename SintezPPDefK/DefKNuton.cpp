@@ -24,11 +24,11 @@ NS_CORE InternalGearRatioArray DefKNuton::calculate( const NS_CORE Code& code )
 
 		if ( k.size() > 0 )
 		{
-			ans.emplace_back(k);
+			ans.emplace_back( k );
 			//if ( k.check() )
-				//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, k );
+			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::DONE_K_NUTON, k );
 		}
-			
+
 		return true;
 	};
 
@@ -36,7 +36,7 @@ NS_CORE InternalGearRatioArray DefKNuton::calculate( const NS_CORE Code& code )
 	{
 		initial = init;
 		CheckAllPossibilities::checkAllRatiosPermutations( calcFuncPrenum );
-		
+
 		return true;
 	};
 
@@ -68,7 +68,7 @@ NS_CORE InternalGearRatios DefKNuton::findK( const NS_CORE Code& code, const NS_
 Jacobi DefKNuton::createJacobian( const System & system )
 {
 	Jacobi det;
-	
+
 	auto undefinedVar = system.getUnknownVariables();
 
 	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
@@ -104,9 +104,9 @@ Jacobi DefKNuton::createJacobian( const System & system )
 	return det;
 }
 
-double DefKNuton::calcNorm( const MatrixLine& delta )
+float DefKNuton::calcNorm( const MatrixLine& delta )
 {
-	double norm = abs( delta[0] );
+	float norm = abs( delta[0] );
 
 	for ( size_t i = 0; i < delta.size(); i++ )
 	{
@@ -121,9 +121,9 @@ double DefKNuton::calcNorm( const MatrixLine& delta )
 
 NS_CORE InternalGearRatios DefKNuton::solveNuton( const Jacobi& jacobian, System& system )
 {
-	const double eps = 0.001;
+	const float eps = 0.001f;
 	const int maxIterCount = 100;
-	double norm;
+	float norm;
 	int iterCount = 0;
 	bool notFinded = false;
 
@@ -174,7 +174,7 @@ NS_CORE InternalGearRatios DefKNuton::geInternalGearRatioValuesFromSystem( const
 	{
 		kValues.push_back( NS_CORE InternalGearRatioValue( system.getUnknownVariables()[i].getValue() ) );
 	}
-	
+
 	NS_CORE InternalGearRatios ret;
 	ret.setValues( kValues );
 
@@ -200,12 +200,12 @@ MatrixLine DefKNuton::createRightParts( const System & system )
 Matrix DefKNuton::createMatrix( const Jacobi& jacobian, const System & system )
 {
 	auto size = jacobian.size();
-	
+
 	Matrix ret( size );
 	auto undefinedVar = system.getUnknownVariables();
 
 	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
-	
+
 	for ( size_t i = 0; i < initialData._numberOfGears; i++ )
 	{
 		for ( size_t j = 0; j < initialData._numberOfPlanetaryGears; j++ )

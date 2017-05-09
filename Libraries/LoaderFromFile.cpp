@@ -16,7 +16,7 @@ LoaderFromFile* LoaderFromFile::getInstance()
 
 bool LoaderFromFile::load( std::vector<IIOItem*> & conteiners, const IOFileManager::eOutputFileType & file )
 {
-	for ( const auto& it: conteiners )
+	for ( const auto& it : conteiners )
 	{
 		if ( !core::Singletons::getInstance()->getIOFileManager()->loadFromFile( file, *it ) )
 			return false;

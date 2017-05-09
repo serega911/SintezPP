@@ -8,7 +8,7 @@
 
 NS_ARI_START
 
-class GearSet: public ISchemeElement
+class GearSet : public ISchemeElement
 {
 private:
 
@@ -24,7 +24,7 @@ private:
 	void										addCord( const Cordinate& cord, NS_CORE Element elem );
 
 public:
-	
+
 	virtual const Cordinates&					getCordsWorldSpace() const override;
 
 	~GearSet();

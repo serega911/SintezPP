@@ -16,8 +16,8 @@ bool ari::TestDefK::start()
 	NS_CORE UISpecialData special;
 	special._ranges = { { -5, -2 }, { 2, 5 } };
 	special._i = { 2, 3 };
-	NS_ARI StartAppCommand_p command = StartAppCommandFactory::create( "SintezPPDefK.exe", getGeneralData() , special );
-		
+	NS_ARI StartAppCommand_p command = StartAppCommandFactory::create( "SintezPPDefK.exe", getGeneralData(), special );
+
 	command->execute();
 
 	return false;

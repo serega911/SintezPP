@@ -59,31 +59,31 @@ void Singletons::setGlobalParameters( const size_t w, const size_t n, const size
 	switch ( w )
 	{
 	case 2:
-		{	
-			m_generalData._numberOfFrictions = 1;
-			m_generalData._numberOfBrakes = d - m_generalData._numberOfFrictions;
+	{
+		m_generalData._numberOfFrictions = 1;
+		m_generalData._numberOfBrakes = d - m_generalData._numberOfFrictions;
 
-			m_initialData._numberOfGears = m_generalData._numberOfFrictions + m_generalData._numberOfBrakes;
-		}
-		break;
+		m_initialData._numberOfGears = m_generalData._numberOfFrictions + m_generalData._numberOfBrakes;
+	}
+	break;
 	case 3:
-		{
-			m_generalData._numberOfFrictions = 2;
-			m_generalData._numberOfBrakes = d - m_generalData._numberOfFrictions;
+	{
+		m_generalData._numberOfFrictions = 2;
+		m_generalData._numberOfBrakes = d - m_generalData._numberOfFrictions;
 
-			const auto& settings = getSettings()->getGeneralSettings();
-			m_initialData._numberOfGears = m_generalData._numberOfFrictions * m_generalData._numberOfBrakes;
-			if ( settings._gearChangerUseTwoFrictions )
-				m_initialData._numberOfGears++;
-			if ( settings._gearChangerUseTwoBrakes )
-				m_initialData._numberOfGears += getCombinatorics()->getSubsetsCount( m_generalData._numberOfBrakes, m_generalData._numberOfActuatedDrivingElements );
-		}
-		break;
+		const auto& settings = getSettings()->getGeneralSettings();
+		m_initialData._numberOfGears = m_generalData._numberOfFrictions * m_generalData._numberOfBrakes;
+		if ( settings._gearChangerUseTwoFrictions )
+			m_initialData._numberOfGears++;
+		if ( settings._gearChangerUseTwoBrakes )
+			m_initialData._numberOfGears += getCombinatorics()->getSubsetsCount( m_generalData._numberOfBrakes, m_generalData._numberOfActuatedDrivingElements );
+	}
+	break;
 	default:
-		{
-			Log::warning( true, "Ошибка: Некорректное количество степеней свободы!", Log::CRITICAL, HERE );
-		}
-		break;
+	{
+		Log::warning( true, "Ошибка: Некорректное количество степеней свободы!", Log::CRITICAL, HERE );
+	}
+	break;
 	}
 
 	getIOFileManager()->init();
@@ -94,9 +94,9 @@ void Singletons::addRangeK( const Range& range )
 	m_initialData._ranges.push_back( range );
 }
 
-void Singletons::addGearRatio( const double& i )
+void Singletons::addGearRatio( const float& i )
 {
-	if (i != 0 )
+	if ( i != 0 )
 		m_initialData._realNumberOfGears++;
-	m_initialData._i.push_back( RatioValue(i) );
+	m_initialData._i.push_back( RatioValue( i ) );
 }

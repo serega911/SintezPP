@@ -4,7 +4,7 @@
 NS_ARI_USING
 
 GearBox::GearBox( const NS_CORE Code& code )
-	: Parent( code )
+: Parent( code )
 {
 }
 
@@ -86,7 +86,7 @@ bool GearBox::checkFree() const
 
 	for ( const auto& elem : { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER } )
 	{
-		for ( NS_CORE GearSetNumber i( 1 ); i <= N; i++ )
+		for ( NS_CORE GearSetNumber i( 1 ); i <= N; ++i )
 		{
 			size_t count = 0;
 			if ( !getCode().isContain( NS_CORE Element( elem, i ) ) )

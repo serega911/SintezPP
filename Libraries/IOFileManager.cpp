@@ -20,29 +20,29 @@ const std::string& IOFileManager::getFolder( const eOutputFileType type )
 
 void IOFileManager::writeToFile( const eOutputFileType type, const IIOItem & container )
 {
-	auto file = m_oFiles.find(type);
-	if (file != m_oFiles.end())
+	auto file = m_oFiles.find( type );
+	if ( file != m_oFiles.end() )
 	{
-		*(file->second) << std::endl;
-		container.writeToFile(*(file->second));
+		*( file->second ) << std::endl;
+		container.writeToFile( *( file->second ) );
 	}
 	else
 	{
 		std::ofstream* out = new std::ofstream;
-		std::string fullName = getFolder(type) + "\\" + m_fileNames.at( type );
-		out->open(fullName.c_str(), std::ofstream::out);
-		m_oFiles.insert({type, out});
-		container.writeToFile(*out);
+		std::string fullName = getFolder( type ) + "\\" + m_fileNames.at( type );
+		out->open( fullName.c_str(), std::ofstream::out );
+		m_oFiles.insert( { type, out } );
+		container.writeToFile( *out );
 	}
 }
 
 
-bool IOFileManager::loadFromFile(const eOutputFileType type, IIOItem & container)
+bool IOFileManager::loadFromFile( const eOutputFileType type, IIOItem & container )
 {
 	bool result;
 
-	auto file = m_iFiles.find(type);
-	if (file != m_iFiles.end())
+	auto file = m_iFiles.find( type );
+	if ( file != m_iFiles.end() )
 	{
 		result = container.loadFromFile( *( file->second ) );
 	}
@@ -66,11 +66,11 @@ bool IOFileManager::loadFromFile(const eOutputFileType type, IIOItem & container
 
 void IOFileManager::writeSolutionData()
 {
- 	const auto& initialData = Singletons::getInstance()->getInitialData();
+	const auto& initialData = Singletons::getInstance()->getInitialData();
 
 	writeToFile( IOFileManager::eOutputFileType::INITIAL_DATA, initialData._i );
 
-	for (const auto& range : initialData._ranges)
+	for ( const auto& range : initialData._ranges )
 		writeToFile( IOFileManager::eOutputFileType::INITIAL_DATA, range );
 }
 
@@ -103,7 +103,7 @@ void core::IOFileManager::cleanFiles()
 {
 	_rmdir( m_containingFolder.c_str() );
 	_mkdir( m_containingFolder.c_str() );
-	
+
 
 	m_oFiles.clear();
 	m_iFiles.clear();
@@ -122,10 +122,10 @@ IOFileManager* IOFileManager::getInstance()
 
 IOFileManager::~IOFileManager()
 {
-	for (auto& it : m_oFiles)
+	for ( auto& it : m_oFiles )
 		it.second->close();
-	for (auto& it : m_oFiles)
-		delete (it.second);
+	for ( auto& it : m_oFiles )
+		delete ( it.second );
 	m_oFiles.clear();
 }
 
@@ -154,6 +154,6 @@ void IOFileManager::init()
 
 	m_containingFolder = s_resultsFolder + "\\" + folder;
 
-	_mkdir(s_resultsFolder.c_str());
-	_mkdir(m_containingFolder.c_str());
+	_mkdir( s_resultsFolder.c_str() );
+	_mkdir( m_containingFolder.c_str() );
 }

@@ -3,10 +3,10 @@
 
 NS_CORE_USING
 
-const Element Element::INPUT =		Element(eMainElement::INPUT, GearSetNumber(0));
-const Element Element::OUTPUT =		Element( eMainElement::OUTPUT, GearSetNumber( 0 ) );
-const Element Element::BRAKE =		Element( eMainElement::BRAKE, GearSetNumber( 0 ) );
-const Element Element::EMPTY =		Element( eMainElement::EMPTY, GearSetNumber( 0 ) );
+const Element Element::INPUT = Element( eMainElement::INPUT, GearSetNumber( 0 ) );
+const Element Element::OUTPUT = Element( eMainElement::OUTPUT, GearSetNumber( 0 ) );
+const Element Element::BRAKE = Element( eMainElement::BRAKE, GearSetNumber( 0 ) );
+const Element Element::EMPTY = Element( eMainElement::EMPTY, GearSetNumber( 0 ) );
 
 bool core::Element::isAdditional() const
 {
@@ -25,7 +25,7 @@ Element::Element( const eMainElement& elemN, const GearSetNumber& gearSetN )
 }
 
 Element::Element()
-	: Element( eMainElement::EMPTY, GearSetNumber(0) )
+	: Element( eMainElement::EMPTY, GearSetNumber( 0 ) )
 {
 }
 
@@ -50,9 +50,9 @@ bool NS_CORE operator<( const Element& elem1, const Element& elem2 )
 bool NS_CORE operator==( const Element& elem1, const Element& elem2 )
 {
 	bool res;
-	if ( elem1.getElemN() == eMainElement::BRAKE && elem2.getElemN() == eMainElement::BRAKE && 
+	if ( elem1.getElemN() == eMainElement::BRAKE && elem2.getElemN() == eMainElement::BRAKE &&
 		( elem1.getGearSetN() == GearSetNumber( 0 ) || elem2.getGearSetN() == GearSetNumber( 0 ) ) )
-			res = true;
+		res = true;
 	else
 		res = elem1.getGearSetN() == elem2.getGearSetN() && elem1.getElemN() == elem2.getElemN();
 
@@ -61,7 +61,7 @@ bool NS_CORE operator==( const Element& elem1, const Element& elem2 )
 
 bool NS_CORE operator!=( const Element& elem1, const Element& elem2 )
 {
-	return !(elem1 == elem2);
+	return !( elem1 == elem2 );
 }
 
 void Element::print() const

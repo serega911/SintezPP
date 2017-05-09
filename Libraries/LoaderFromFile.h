@@ -21,7 +21,7 @@ public:
 
 	static LoaderFromFile*						getInstance();
 	bool										load( std::vector<IIOItem*> & conteiners, const IOFileManager::eOutputFileType & file );
-	
+
 };
 
 NS_CORE_END

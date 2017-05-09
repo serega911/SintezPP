@@ -20,7 +20,7 @@ public:
 	static void									parseOptions( int argc, char* argv[], NS_CORE UISpecialData_p sData, NS_CORE UIGeneralData_p gData );
 
 	virtual void								run() = 0;
-	virtual bool								checkRequirements() const  = 0;
+	virtual bool								checkRequirements() const = 0;
 
 };
 

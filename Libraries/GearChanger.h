@@ -12,7 +12,7 @@ class GearChanger
 {
 private:
 
-	
+
 	struct DrivingElementPosition
 	{
 		enum eType { BRAKE, FRICTION };
@@ -33,7 +33,7 @@ private:
 public:
 
 	GearChanger() = delete;
-	GearChanger(const Code& code);
+	GearChanger( const Code& code );
 
 	TLinkArray									getDrivingElementsForGear() const;
 	bool										next();

@@ -14,7 +14,7 @@ PathBuilderLee_p PathBuilderLee::create()
 	return PathBuilderLee_p( new PathBuilderLee );
 }
 
-void PathBuilderLee::init(  const size_t width, const size_t height )
+void PathBuilderLee::init( const size_t width, const size_t height )
 {
 	m_width = width;
 	m_height = height;
@@ -27,7 +27,7 @@ void PathBuilderLee::init(  const size_t width, const size_t height )
 	for ( int y = -1; y <= m_height; y++ )
 	{
 		fieldAt( Cordinate( -1, y ) )._status = WALL;
-		fieldAt( Cordinate(m_width, y ) )._status = WALL;
+		fieldAt( Cordinate( m_width, y ) )._status = WALL;
 	}
 	for ( int x = 0; x < m_width; x++ )
 	{
@@ -59,7 +59,7 @@ std::vector<Cordinate> PathBuilderLee::run( const std::vector<ISchemeElement_p>&
 		bool isNeedToAdd = false;
 
 		Cell& neighborCell = fieldAt( neighbor );
-		int newValue = fieldAt( waveCell )._value + neighborCell._cost;
+		size_t newValue = fieldAt( waveCell )._value + neighborCell._cost;
 
 
 		const PathBuilderLee::Cell& startCell = fieldAt( m_startCord );
@@ -115,7 +115,7 @@ void PathBuilderLee::fillField( const std::vector<ISchemeElement_p>& elements, c
 
 	int maxCost = 0;
 
-	const PrepareWaveFunction prepareFunc = [&](Wave& wave)
+	const PrepareWaveFunction prepareFunc = [&]( Wave& wave )
 	{
 		for ( const auto& it : m_field )
 		{
@@ -195,7 +195,7 @@ std::vector<Cordinate> PathBuilderLee::findPath()
 	path.emplace_back( current );
 	eDirection direction = eDirection::UP;
 
-	while ( fieldAt(current)._status != FINISH )
+	while ( fieldAt( current )._status != FINISH )
 	{
 		auto neighbors = current.get4Neighbors();
 
@@ -224,7 +224,7 @@ std::vector<Cordinate> PathBuilderLee::findPath()
 		path.emplace_back( current );
 		//printRoute( path );
 	}
-	
+
 	return path;
 }
 
@@ -233,7 +233,7 @@ bool PathBuilderLee::verifyCord( const Cordinate& cord )
 	return cord.m_x >= 0 && cord.m_x < m_width && cord.m_y >= 0 && cord.m_y < m_height;
 }
 
-bool ari::PathBuilderLee::canIFill( const Cell& cord, const int value )
+bool ari::PathBuilderLee::canIFill( const Cell& cord, const size_t value )
 {
 	return cord._value == 0 || value < cord._value;
 }
@@ -276,7 +276,7 @@ void PathBuilderLee::printRoute( const std::vector<Cordinate> & route )
 	IDisplay_p disp = Display::create();
 	disp->setColors( NS_CORE eColor::WHITE, NS_CORE eColor::BLACK );
 	for ( const auto& it : route )
-		if (it.m_x >= 0 && it.m_y >= 0)
+		if ( it.m_x >= 0 && it.m_y >= 0 )
 			disp->print( it, '#' );
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
@@ -289,7 +289,7 @@ void PathBuilderLee::printWave( const Wave & wave )
 	disp->setColors( NS_CORE eColor::WHITE, NS_CORE eColor::BLACK );
 	for ( const auto& it : wave )
 		if ( it.m_x >= 0 && it.m_y >= 0 )
-			disp->print( it, fieldAt(it)._cost % 10 + '0' );
+			disp->print( it, fieldAt( it )._cost % 10 + '0' );
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
 	//system( "pause" );

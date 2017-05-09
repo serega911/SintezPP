@@ -7,7 +7,7 @@
 NS_CORE_USING
 
 GearBox::GearBox( const Code& code )
-	: m_code( code )
+: m_code( code )
 {
 }
 
@@ -50,7 +50,7 @@ void GearBox::makeChains( ChainArray &chains ) const
 }
 
 void GearBox::createChains()
- {
+{
 	const auto& links = m_code.getLinks();
 	const auto in = m_code.getIn();
 	const auto out = m_code.getOut();
@@ -60,21 +60,21 @@ void GearBox::createChains()
 
 	//Создаем начальные цепочки (каждая связь делается цепочкой)
 	m_chains.clear();
-	m_chains.resize( linksSize + 2);
+	m_chains.resize( linksSize + 2 );
 	m_chains[0].addLinkToChain( in );
 	m_chains[1].addLinkToChain( out );
 	for ( size_t i = 0; i < linksSize; i++ )
 	{
-		m_chains[i+2].addLinkToChain(links[i]);
+		m_chains[i + 2].addLinkToChain( links[i] );
 	}
 
 	//поиск элементов, свободных от связей и создание цепочек, которые их содержат
-	const GearSetNumber N(Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears);
-	
-	
+	const GearSetNumber N( Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
+
+
 	for ( const auto& elem : { eMainElement::SUN_GEAR, eMainElement::EPICYCLIC_GEAR, eMainElement::CARRIER } )
 	{
-		for ( GearSetNumber i(1); i <= N; ++i )
+		for ( GearSetNumber i( 1 ); i <= N; ++i )
 		{
 			size_t b = 0;
 			Element element( elem, i );

@@ -3,7 +3,7 @@
 NS_ARI_USING
 
 StartAppCommand::StartAppCommand( const std::string appName )
-	: m_command( appName )
+: m_command( appName )
 {
 }
 

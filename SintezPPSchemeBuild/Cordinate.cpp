@@ -3,8 +3,8 @@
 NS_ARI_USING
 
 Cordinate::Cordinate( int x, int y )
-	: m_x( x )
-	, m_y( y )
+: m_x( x )
+, m_y( y )
 {
 }
 
@@ -17,17 +17,17 @@ Cordinate Cordinate::getLeftNeighbor() const
 	return Cordinate( m_x - 1, m_y );
 }
 
-Cordinate Cordinate::getRightNeighbor( ) const
+Cordinate Cordinate::getRightNeighbor() const
 {
 	return Cordinate( m_x + 1, m_y );
 }
 
-Cordinate Cordinate::getTopNeighbor( ) const
+Cordinate Cordinate::getTopNeighbor() const
 {
 	return Cordinate( m_x, m_y + 1 );
 }
 
-Cordinate Cordinate::getBottomNeighbor( ) const
+Cordinate Cordinate::getBottomNeighbor() const
 {
 	return Cordinate( m_x, m_y - 1 );
 }
@@ -36,10 +36,10 @@ Cordinate::Neighbors Cordinate::get4Neighbors() const
 {
 	Neighbors neighbors;
 
-	neighbors[eDirection::LEFT] =  getLeftNeighbor( );
-	neighbors[eDirection::RIGHT] = getRightNeighbor( );
-	neighbors[eDirection::UP] = getTopNeighbor( );
-	neighbors[eDirection::DOWN] = getBottomNeighbor( );
+	neighbors[eDirection::LEFT] = getLeftNeighbor();
+	neighbors[eDirection::RIGHT] = getRightNeighbor();
+	neighbors[eDirection::UP] = getTopNeighbor();
+	neighbors[eDirection::DOWN] = getBottomNeighbor();
 
 	return neighbors;
 }
@@ -61,7 +61,7 @@ Cordinate::Neighbors ari::Cordinate::get8Neighbors() const
 
 bool NS_ARI operator<( const Cordinate & cord1, const Cordinate& cord2 )
 {
-	return cord1.m_x == cord2.m_x ? cord1.m_y < cord2.m_y : cord1.m_x < cord2.m_x;	
+	return cord1.m_x == cord2.m_x ? cord1.m_y < cord2.m_y : cord1.m_x < cord2.m_x;
 }
 
 Cordinate NS_ARI operator+( const Cordinate & cord1, const Cordinate& cord2 )

@@ -22,7 +22,7 @@ NS_CORE InternalGearRatioArray	 DefKSimple::calculate( const NS_CORE Code& code 
 	auto calcFunc = [&]( const NS_CORE Ratios& curI ) -> bool
 	{
 		NS_CORE InternalGearRatios k = findK( code, initial, curI );
-		 
+
 		if ( k.size() != 0 )
 		{
 			ans.emplace_back( k );
@@ -30,7 +30,7 @@ NS_CORE InternalGearRatioArray	 DefKSimple::calculate( const NS_CORE Code& code 
 
 		return true;// !k.check();
 	};
-	
+
 	CheckAllPossibilities::checkAllRatiosPermutations( calcFunc );
 
 	return ans;
@@ -60,10 +60,10 @@ NS_CORE InternalGearRatios DefKSimple::findK( const NS_CORE Code& code, const NS
 	return solveSimple( system );
 }
 
-std::vector<NS_CORE eMainElement> findOneUndefElem(const VariablesSet& set)
+std::vector<NS_CORE eMainElement> findOneUndefElem( const VariablesSet& set )
 {
 	std::vector<NS_CORE eMainElement> ans;
-	
+
 	static const auto elements = { NS_CORE eMainElement::SUN_GEAR, NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE eMainElement::CARRIER, NS_CORE eMainElement::EMPTY };
 	ans.reserve( elements.size() );
 
@@ -72,7 +72,7 @@ std::vector<NS_CORE eMainElement> findOneUndefElem(const VariablesSet& set)
 	{
 		if ( set[elem].getDefined() == false )
 		{
-			ans.emplace_back(elem);
+			ans.emplace_back( elem );
 		}
 	}
 
@@ -111,7 +111,7 @@ NS_CORE InternalGearRatios DefKSimple::solveSimple( System& system )
 
 					//отмечаем как известное
 					for ( auto& unknown : unknowns )
-						if ( unknown.findElementInListeners( NS_CORE Element( undefElements[0], NS_CORE GearSetNumber(j + 1) ), NS_CORE GearNumber( i + 1 ) ) )
+						if ( unknown.findElementInListeners( NS_CORE Element( undefElements[0], NS_CORE GearSetNumber( j + 1 ) ), NS_CORE GearNumber( i + 1 ) ) )
 							unknown.setLastValue( value );
 
 					//проверяем всё ли мы нашли

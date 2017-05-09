@@ -12,7 +12,8 @@ enum class eGearSetType
 	TYPE_N_REVERSE,
 	TYPE_U,
 	TYPE_U_REVERSE,
-	TYPE_DEFAULT
+	TYPE_DEFAULT,
+	TYPE_WRONG
 };
 
 inline std::string convernToString( const eGearSetType& e )
@@ -35,16 +36,17 @@ inline eGearSetType convernToGearSetType( const std::string& str )
 {
 	if ( str == "W" )
 		return eGearSetType::TYPE_N;
-	else if (str == "N_R")
+	else if ( str == "N_R" )
 		return eGearSetType::TYPE_N_REVERSE;
-	else if (str == "U")
+	else if ( str == "U" )
 		return eGearSetType::TYPE_U;
 	else if ( str == "U_R" )
 		return eGearSetType::TYPE_U_REVERSE;
-	else if (str == "D")
+	else if ( str == "D" )
 		return eGearSetType::TYPE_DEFAULT;
 	else
 		Log::warning( true, "wrong type:" + str, Log::eWarningImportance::CRITICAL, HERE );
+	return eGearSetType::TYPE_WRONG;
 }
 
 NS_CORE_END

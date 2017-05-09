@@ -24,7 +24,7 @@ private:
 
 public:
 
-	Link(const Element& elem1, const Element& elem2);
+	Link( const Element& elem1, const Element& elem2 );
 	Link( const Link& link );
 	Link();
 

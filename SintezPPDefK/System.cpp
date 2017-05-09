@@ -125,7 +125,7 @@ void System::init( const NS_CORE InternalGearRatios& initialKValues )
 		{
 			unknown.addListener( &( m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY] ) );
 			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setDefined( false );
-			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE Element( NS_CORE eMainElement::EMPTY, NS_CORE GearSetNumber(planetaryGear + 1) ), NS_CORE GearNumber( gear + 1 ) );
+			m_sets[gear].at( planetaryGear )[NS_CORE eMainElement::EMPTY].setElement( NS_CORE Element( NS_CORE eMainElement::EMPTY, NS_CORE GearSetNumber( planetaryGear + 1 ) ), NS_CORE GearNumber( gear + 1 ) );
 		}
 	}
 }

@@ -17,7 +17,7 @@ public:
 
 	static StartAppCommand_p					create( const std::string& appName );
 	static StartAppCommand_p					create( const std::string& appName, const NS_CORE UIGeneralData& generalData );
-	static StartAppCommand_p					create( const std::string& appName, const NS_CORE UIGeneralData& generalData, const NS_CORE UISpecialData& specialData);
+	static StartAppCommand_p					create( const std::string& appName, const NS_CORE UIGeneralData& generalData, const NS_CORE UISpecialData& specialData );
 
 };
 

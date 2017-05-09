@@ -7,7 +7,7 @@ class GearBoxWithChangerSpecialFrictionProcess :
 	public NS_CORE GearBoxWithChanger
 {
 public:
-	
+
 	GearBoxWithChangerSpecialFrictionProcess( const NS_CORE Code& code );
 
 	virtual NS_CORE ChainArray					getChainsForCurrentGear() const override;

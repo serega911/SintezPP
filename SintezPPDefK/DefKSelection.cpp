@@ -9,7 +9,7 @@ NS_ARI_USING
 
 NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Code )
 {
-	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.1 ) );
+	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.1f ) );
 	NS_CORE InternalGearRatioArray	 ans;
 	bool isSolutionExist = false;
 	size_t failedCount = 0;
@@ -31,7 +31,7 @@ NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Co
 			else
 				break;
 		}
-		
+
 	} while ( K.next() );
 
 	return ans;
@@ -42,24 +42,24 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 	NS_CORE GearBoxWithChanger gb( code );
 	gb.createChains();
 
-	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.001 ) );	//вектор для полученных передаточных отношений при данном наборе K
+	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.001f ) );	//вектор для полученных передаточных отношений при данном наборе K
 	do
 	{
 		auto system = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), k );
 		NS_CORE Gaus::solve( system );
 		const auto& solution = system->getSolution();
 
-		if (solution.size() != 0 )
+		if ( solution.size() != 0 )
 		{
-			const auto calculatedW = solution.at(NS_CORE Element::OUTPUT);
+			const auto calculatedW = solution.at( NS_CORE Element::OUTPUT );
 
-			if ( abs( calculatedW ) > 0.001 && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( 1.0 / calculatedW ) ) )
+			if ( abs( calculatedW ) > 0.001f && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( 1.0f / calculatedW ) ) )
 			{
-				tmpI.push_back( NS_CORE RatioValue( 1.0 / calculatedW ) );
+				tmpI.push_back( NS_CORE RatioValue( 1.0f / calculatedW ) );
 			}
 		}
 
-		
+
 
 	} while ( gb.turnOnNextGear() );
 

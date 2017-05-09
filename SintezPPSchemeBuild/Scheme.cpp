@@ -17,9 +17,9 @@ const int Scheme::s_height = 13;
 void ari::Scheme::mergeLinks()
 {
 	const int size = m_links.size();
-	
+
 	bool flag = false;
-	do 
+	do
 	{
 		flag = false;
 		for ( int i = 0; i < size; i++ )
@@ -37,8 +37,8 @@ void ari::Scheme::mergeLinks()
 				}
 			}
 		}
-	} while (flag);
-	
+	} while ( flag );
+
 }
 
 Scheme::Scheme()
@@ -58,7 +58,7 @@ Scheme::Scheme()
 	Link_p brake = Link::create();
 	brake->addElem( NS_CORE Element::BRAKE );
 	for ( int i = 0; i < m_width; i++ )
-	{	
+	{
 		brake->addCord( Cordinate( i, 0 ) );
 	}
 	m_staticElements.emplace_back( brake );
@@ -107,7 +107,7 @@ void ari::Scheme::addLink( const std::vector<Cordinate>& trace, const NS_CORE Li
 	for ( const auto& it : trace )
 		newLink->addCord( it );
 
-	if ( link.getElem2() != NS_CORE Element::BRAKE)
+	if ( link.getElem2() != NS_CORE Element::BRAKE )
 		newLink->addLink( link );
 	else
 		newLink->addElem( link.getElem1() );
@@ -128,7 +128,7 @@ void ari::Scheme::addFriction( const std::vector<Cordinate>& trace, const NS_COR
 
 	const int size = trace.size();
 	int i = 0;
-	for ( ; i < size/2; i++ )
+	for ( ; i < size / 2; i++ )
 		firstHalf->addCord( trace[i] );
 	for ( ; i < size; i++ )
 		secondHalf->addCord( trace[i] );
@@ -149,7 +149,7 @@ void ari::Scheme::print( const IDisplay_p& disp, const std::string & message ) c
 	{
 		uniqueChains.emplace_back( it->getElements() );
 	}
-	
+
 	std::vector<NS_CORE Chain, std::allocator<NS_CORE Chain>>::iterator it;
 	it = std::unique( uniqueChains.begin(), uniqueChains.end() );
 	uniqueChains.erase( it, uniqueChains.end() );
@@ -162,7 +162,7 @@ void ari::Scheme::print( const IDisplay_p& disp, const std::string & message ) c
 
 	for ( const auto & it : m_links )
 	{
-		int i = 1;
+		size_t i = 1;
 		for ( i = 1; i < uniqueChains.size() && i < NS_CORE colorsCount - 1; i++ )
 		{
 			if ( it->getElements() == uniqueChains[i] )

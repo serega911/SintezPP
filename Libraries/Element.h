@@ -23,7 +23,7 @@ public:
 
 	eMainElement								getElemN() const;
 	GearSetNumber								getGearSetN() const;
-	
+
 
 	void										print() const;
 	void										print( const eColor& color ) const;

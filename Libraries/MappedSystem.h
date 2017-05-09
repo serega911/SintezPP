@@ -27,15 +27,15 @@ class MappedSystem : public NS_CORE IMappedSystem
 protected:
 
 	MappedSystem();
-	
+
 	System										m_system;
 	Vector										m_solution;
 
 public:
 
-	static MappedSystem_p						createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const double mIn = 1000 );
-	static MappedSystem_p						createMKpd( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const double mIn = 1000 );
-	static MappedSystem_p						createW( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const NS_CORE RatioValue wIn = NS_CORE RatioValue(100) );
+	static MappedSystem_p						createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const float mIn = 1000 );
+	static MappedSystem_p						createMKpd( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const float mIn = 1000 );
+	static MappedSystem_p						createW( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const NS_CORE RatioValue wIn = NS_CORE RatioValue( 100 ) );
 
 	virtual void								setSolution( const NS_CORE IMappedSystem::Vector& solution ) override;
 	virtual NS_CORE IMappedSystem::Matrix		getMatrix() override;

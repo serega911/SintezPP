@@ -60,7 +60,7 @@ public:
 
 	void										setGlobalParameters( const size_t w, const size_t n, const size_t d );
 	void										addRangeK( const Range& range );
-	void										addGearRatio( const double& i );
+	void										addGearRatio( const float& i );
 
 };
 

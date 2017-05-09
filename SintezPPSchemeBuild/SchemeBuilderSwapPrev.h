@@ -8,7 +8,7 @@ class SchemeBuilderSwapPrev;
 
 typedef std::shared_ptr<SchemeBuilderSwapPrev> SchemeBuilderSwapPrev_p;
 
-class SchemeBuilderSwapPrev: public ISchemeBuildStartegy
+class SchemeBuilderSwapPrev : public ISchemeBuildStartegy
 {
 	SchemeBuilderSwapPrev();
 

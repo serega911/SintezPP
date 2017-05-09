@@ -4,8 +4,8 @@
 NS_ARI_USING
 
 UnknownVariable::UnknownVariable( const VariableValue & value )
-	: m_value( value )
-	, m_isDefined( false )
+: m_value( value )
+, m_isDefined( false )
 {
 }
 
@@ -55,7 +55,7 @@ void ari::UnknownVariable::setLastValue( const VariableValue & value )
 {
 	setValue( value );
 	m_isDefined = true;
-	for ( auto& it: m_listeners )
+	for ( auto& it : m_listeners )
 	{
 		it->setDefined( true );
 	}

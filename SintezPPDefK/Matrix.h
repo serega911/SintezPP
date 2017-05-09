@@ -13,7 +13,7 @@ private:
 
 	MatrixTable									m_matrix;
 
-	
+
 
 public:
 

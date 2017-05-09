@@ -5,7 +5,7 @@
 
 NS_CORE_USING
 
-MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const double mIn )
+MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const float mIn )
 {
 	MappedSystem_p ret( new MappedSystem );
 
@@ -14,7 +14,7 @@ MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS
 	ret->m_system.clear();
 	ret->m_system.resize( chains.size() + n * 2 + 1 );
 
-	int i;
+	size_t i;
 	for ( i = 0; i < n; i++ )
 	{
 		ret->m_system[2 * i][NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = 1;
@@ -43,7 +43,7 @@ MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS
 	return ret;
 }
 
-core::MappedSystem_p core::MappedSystem::createMKpd( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const double mIn /*= 1000 */ )
+core::MappedSystem_p core::MappedSystem::createMKpd( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const float mIn /*= 1000 */ )
 {
 	MappedSystem_p ret = createM( chains, k, mIn );
 
@@ -79,7 +79,7 @@ NS_CORE IMappedSystem::Matrix MappedSystem::getMatrix()
 
 	ret.resize( n );
 
-	for ( int i = 0; i < n; i++ )
+	for ( size_t i = 0; i < n; i++ )
 	{
 		ret[i].resize( n + 1 );
 
@@ -121,7 +121,7 @@ MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS
 	ret->m_system.clear();
 
 	ret->m_system.resize( n );
-	for ( int i = 0; i < n; i++ )
+	for ( size_t i = 0; i < n; i++ )
 	{
 		ret->m_system[i][NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = 1;
 		ret->m_system[i][NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, NS_CORE GearSetNumber( i + 1 ) )] = -k[i].getValue();
@@ -134,7 +134,7 @@ MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS
 	{
 		bool isFirst = true;
 		NS_CORE Element prev;
-		
+
 		for ( const auto& elem : chain.getElements() )
 		{
 			if ( elem.getElemN() == NS_CORE eMainElement::BRAKE )
@@ -152,7 +152,7 @@ MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS
 			prev = elem;
 			ret->m_solution[elem] = 0;
 		}
-		
+
 	}
 
 	Vector inEquation;

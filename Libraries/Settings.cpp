@@ -27,7 +27,7 @@ bool strToBool( const std::string& str )
 
 int strToInt( const std::string& str )
 {
-	return std::stoi(str);
+	return std::stoi( str );
 }
 
 std::string intToStr( const int iVal )
@@ -96,7 +96,7 @@ void Settings::generateDefaultSettings()
 	saveSettingsToFile();
 
 	Log::log( "Default settings file was created. Please? check it and run application again." );
-	system("pause");
+	system( "pause" );
 	exit( 0 );
 }
 

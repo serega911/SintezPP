@@ -41,7 +41,7 @@ public:
 	virtual size_t								getWidth() const override;
 	virtual size_t								getHeight() const override;
 
-	virtual std::vector<ISchemeElement_p>		getAllElements() const override; 
+	virtual std::vector<ISchemeElement_p>		getAllElements() const override;
 
 };
 

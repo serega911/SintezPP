@@ -18,10 +18,10 @@ void ApplicationBase::readUIGeneralData()
 	size_t d;
 
 	NS_CORE Log::log( "\t\t\tИсходные данные." );
-	NS_CORE Log::askForValue("Число степеней свободы:", w);
-	NS_CORE Log::askForValue("Количество ПМ:", n);
-	NS_CORE Log::askForValue("Количество элементов управления:", d);
-	
+	NS_CORE Log::askForValue( "Число степеней свободы:", w );
+	NS_CORE Log::askForValue( "Количество ПМ:", n );
+	NS_CORE Log::askForValue( "Количество элементов управления:", d );
+
 	NS_CORE Singletons::getInstance()->setGlobalParameters( w, n, d );
 }
 
@@ -47,7 +47,7 @@ void core::ApplicationBase::parseOptions( int argc, char* argv[], NS_CORE UISpec
 			sData->_i.push_back( std::stof( val ) );
 		else
 			NS_CORE Log::warning( true, "Wrong argument: " + key, NS_CORE Log::CRITICAL, HERE );
-		}
+	}
 }
 
 void core::ApplicationBase::readUISpecialData()
@@ -57,8 +57,8 @@ void core::ApplicationBase::readUISpecialData()
 
 	for ( int i = 0; i < countIntervals; i++ )
 	{
- 		double beg, end;
-		NS_CORE Log::askFor2Value("Диапазон # " + std::to_string(i+1), "Начало:", "Конец:", beg, end);
+		float beg, end;
+		NS_CORE Log::askFor2Value( "Диапазон # " + std::to_string( i + 1 ), "Начало:", "Конец:", beg, end );
 		NS_CORE Singletons::getInstance()->addRangeK( NS_CORE Range( NS_CORE InternalGearRatioValue( beg ), NS_CORE InternalGearRatioValue( end ) ) );
 	}
 
@@ -68,8 +68,8 @@ void core::ApplicationBase::readUISpecialData()
 	NS_CORE Log::log( "Передаточные отношения: " );
 	for ( size_t i = 0; i < numberOfGears; i++ )
 	{
-		double ratio = 0;
-		NS_CORE Log::askForValue( std::to_string(i+1) + " передача:", ratio );
+		float ratio = 0;
+		NS_CORE Log::askForValue( std::to_string( i + 1 ) + " передача:", ratio );
 		if ( ratio != 0 )
 			NS_CORE Singletons::getInstance()->addGearRatio( ratio );
 		else
@@ -83,7 +83,7 @@ void core::ApplicationBase::readUISpecialData()
 
 void core::ApplicationBase::setUISpecialData( const UISpecialData_p& data )
 {
-	for ( int i = 0; i < data->_ranges.size(); i++ )
+	for ( size_t i = 0; i < data->_ranges.size(); i++ )
 		NS_CORE Singletons::getInstance()->addRangeK( NS_CORE Range( NS_CORE InternalGearRatioValue( data->_ranges[i].first ), NS_CORE InternalGearRatioValue( data->_ranges[i].second ) ) );
 
 	const size_t numberOfGears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
@@ -103,15 +103,15 @@ void core::ApplicationBase::showParams()
 
 	NS_CORE Log::showValue( "Количество степеней свободы:", initialData._w );
 	NS_CORE Log::showValue( "Количество ПМ:", initialData._numberOfPlanetaryGears );
-	
+
 	NS_CORE Log::showValue( "Количество связей:", generalData._numberOfLinks );
 	NS_CORE Log::showValue( "Количество фрикционов:", generalData._numberOfFrictions );
 	NS_CORE Log::showValue( "Количество тормозов:", generalData._numberOfBrakes );
 
-	for ( int i = 0; i < initialData._ranges.size(); i++ )
-		NS_CORE Log::show2Value( "Диапазон #" + std::to_string( i+1 ), " .. ", initialData._ranges[i].getBegin().getValue(), initialData._ranges[i].getEnd().getValue() );
+	for ( size_t i = 0; i < initialData._ranges.size(); i++ )
+		NS_CORE Log::show2Value( "Диапазон #" + std::to_string( i + 1 ), " .. ", initialData._ranges[i].getBegin().getValue(), initialData._ranges[i].getEnd().getValue() );
 
-	for ( int i = 0; i < initialData._i.size(); i++ )
+	for ( size_t i = 0; i < initialData._i.size(); i++ )
 		NS_CORE Log::showValue( "i" + std::to_string( i + 1 ) + ":", initialData._i[i].getValue() );
 }
 

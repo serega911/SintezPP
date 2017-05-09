@@ -10,5 +10,5 @@ Variable& VariablesSet::operator[]( const NS_CORE eMainElement & element )
 
 const Variable& VariablesSet::operator[]( const NS_CORE eMainElement & element ) const
 {
-	return m_set.at(element);
+	return m_set.at( element );
 }

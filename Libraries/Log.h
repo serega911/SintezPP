@@ -19,10 +19,10 @@ public:
 	enum eWarningImportance
 	{
 		NON_CRITICAL
-		,CRITICAL
+		, CRITICAL
 	};
 
-	
+
 
 	template<class T>
 	static void log( const T& message, const bool isEndlNedded = true, const eColor font = eColor::WHITE, const eColor back = eColor::BLACK )
@@ -31,11 +31,11 @@ public:
 		if ( back != s_defaultBackColor || font != s_defaultFontColor )
 			change = true;
 
-		if (change)
+		if ( change )
 			SetColor( back, font );
 
 		std::cout << message;
-		
+
 		if ( change )
 			SetColor( s_defaultBackColor, s_defaultFontColor );
 
@@ -62,7 +62,7 @@ public:
 
 		std::cout.width( promptWidth );
 		std::cout << std::left << prompt << std::endl;
-		
+
 		std::cout.width( promptWidth );
 		std::cout << std::left << val1comment;
 		std::cin >> value1;
@@ -92,7 +92,7 @@ public:
 		std::cout << value1 << delimiter << value2 << std::endl;
 	}
 
-	static void									warning( const bool condition, const std::string& message, eWarningImportance importance,  const std::string& senderName = "Unknown" );
+	static void									warning( const bool condition, const std::string& message, eWarningImportance importance, const std::string& senderName = "Unknown" );
 
 private:
 
