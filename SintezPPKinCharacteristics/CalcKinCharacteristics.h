@@ -42,7 +42,7 @@ private:
 		std::map<eQualityCriteria, float>	_qualityCriterias;
 	};
 
-	
+
 	std::vector<Characteristics>				m_characteristics;
 
 	void										printCharacteristics( const NS_CORE Code code, const Characteristics& ch );
@@ -54,7 +54,7 @@ private:
 		{
 			if ( elem.first != NS_CORE Element::EMPTY )
 			{
-				elem.first.print(NS_CORE eColor::GREEN);
+				elem.first.print( NS_CORE eColor::GREEN );
 				std::cout << "      ";
 			}
 		}
@@ -80,7 +80,7 @@ private:
 	std::vector<NS_CORE N>						calcN( const std::vector<NS_CORE W>& w, const std::vector<NS_CORE M>& m );
 	std::vector<NS_CORE KpdZac>					calcKpdZacStepen( const NS_CORE InternalGearRatios& intRatios, const std::vector<NS_CORE W>& w, const std::vector<NS_CORE N>& n );
 	std::vector<NS_CORE M>						calcMh( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios, std::vector<NS_CORE KpdZac> kpdZacStepen );
-	std::map<eQualityCriteria, float>			calcQualityCriterias( const std::vector<NS_CORE M> & mKpd, std::vector<NS_CORE W> angVel);
+	std::map<eQualityCriteria, float>			calcQualityCriterias( const std::vector<NS_CORE M> & mKpd, std::vector<NS_CORE W> angVel );
 
 
 public:
