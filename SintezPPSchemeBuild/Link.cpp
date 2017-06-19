@@ -28,12 +28,12 @@ Link_p ari::Link::create()
 	return Link_p( new Link );
 }
 
-const NS_CORE Chain& ari::Link::getElements() const
+const NS_CORE MultiLink& ari::Link::getElements() const
 {
 	return m_elements;
 }
 
-void ari::Link::addChain( const NS_CORE Chain& chain )
+void ari::Link::addChain( const NS_CORE MultiLink& chain )
 {
 	m_elements.addChainToChain( chain );
 }

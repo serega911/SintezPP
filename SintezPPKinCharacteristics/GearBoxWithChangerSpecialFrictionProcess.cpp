@@ -2,7 +2,7 @@
 #include "GearBoxWithChangerSpecialFrictionProcess.h"
 
 
-NS_CORE ChainArray ari::GearBoxWithChangerSpecialFrictionProcess::getChainsForCurrentGear() const
+NS_CORE MultiLinkArray ari::GearBoxWithChangerSpecialFrictionProcess::getChainsForCurrentGear() const
 {
 	auto chains = getChains();
 	auto drivingElements = m_gearChanger.getDrivingElementsForGear();
@@ -49,7 +49,7 @@ NS_CORE ChainArray ari::GearBoxWithChangerSpecialFrictionProcess::getChainsForCu
 	chains.reserve( chainsSize + frictionNumber );
 	for ( int i = 0; i < frictionNumber; i++ )
 	{
-		NS_CORE Chain ch;
+		NS_CORE MultiLink ch;
 		ch.addLinkToChain( NS_CORE Link(
 			NS_CORE Element( NS_CORE eMainElement::FRICTION, NS_CORE GearSetNumber( ( i + 1 ) * 10 + 1 ) ),
 			NS_CORE Element( NS_CORE eMainElement::FRICTION, NS_CORE GearSetNumber( ( i + 1 ) * 10 + 2 ) ) ) );

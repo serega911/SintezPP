@@ -1,19 +1,19 @@
-#include "Chain.h"
+#include "MultiLink.h"
 #include "Singletons.h"
 #include <algorithm>
 
-core::Chain::Chain( const Element& element )
+core::MultiLink::MultiLink( const Element& element )
 {
 	addElementToChain( element );
 }
 
 NS_CORE_USING
 
-Chain::Chain()
+MultiLink::MultiLink()
 {
 }
 
-void Chain::addLinkToChain( const Link & link )
+void MultiLink::addLinkToChain( const Link & link )
 {
 	const auto& elem1 = link.getElem1();
 	const auto& elem2 = link.getElem2();
@@ -25,7 +25,7 @@ void Chain::addLinkToChain( const Link & link )
 	m_elements.insert( elem2 );
 }
 
-void Chain::addElementToChain( const Element & elem )
+void MultiLink::addElementToChain( const Element & elem )
 {
 	const bool condition = m_elements.size() != 0;
 	Log::warning( condition, "Chains is not mpty!", Log::CRITICAL, "TChain::addElementToChain()" );
@@ -33,7 +33,7 @@ void Chain::addElementToChain( const Element & elem )
 	m_elements.insert( elem );
 }
 
-void Chain::addChainToChain( const Chain & chain )
+void MultiLink::addChainToChain( const MultiLink & chain )
 {
 	const bool condition = !intersect( chain );
 	Log::warning( condition, "Chains dont't contain one ofelements!", Log::CRITICAL, "TChain::addChainToChain()" );
@@ -42,17 +42,17 @@ void Chain::addChainToChain( const Chain & chain )
 		m_elements.insert( it );
 }
 
-void Chain::clear()
+void MultiLink::clear()
 {
 	m_elements.clear();
 }
 
-bool Chain::find( const Element & element ) const
+bool MultiLink::find( const Element & element ) const
 {
 	return m_elements.find( element ) != m_elements.end();
 }
 
-bool Chain::checkElemByOnePlanetarySet() const
+bool MultiLink::checkElemByOnePlanetarySet() const
 {
 	const GearSetNumber N( Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
 	for ( GearSetNumber i( 1 ); i <= N; ++i )
@@ -71,7 +71,7 @@ bool Chain::checkElemByOnePlanetarySet() const
 	return true;
 }
 
-bool core::Chain::checkIsChainCorrect() const
+bool core::MultiLink::checkIsChainCorrect() const
 {
 	if ( find( NS_CORE Element::INPUT ) && find( NS_CORE Element::BRAKE ) )
 		return false;
@@ -81,7 +81,7 @@ bool core::Chain::checkIsChainCorrect() const
 	return true;
 }
 
-const Element& Chain::getSomeElement() const
+const Element& MultiLink::getSomeElement() const
 {
 	for ( const auto& it : m_elements )
 	{
@@ -94,12 +94,12 @@ const Element& Chain::getSomeElement() const
 	return *( m_elements.begin() );
 }
 
-size_t Chain::size() const
+size_t MultiLink::size() const
 {
 	return m_elements.size();
 }
 
-bool Chain::intersect( const Chain& chain ) const
+bool MultiLink::intersect( const MultiLink& chain ) const
 {
 	for ( auto& it : m_elements )
 	{
@@ -109,22 +109,22 @@ bool Chain::intersect( const Chain& chain ) const
 	return false;
 }
 
-const std::set<Element>& Chain::getElements() const
+const std::set<Element>& MultiLink::getElements() const
 {
 	return m_elements;
 }
 
-bool NS_CORE operator==( const Chain& chain1, const Chain& chain2 )
+bool NS_CORE operator==( const MultiLink& chain1, const MultiLink& chain2 )
 {
 	return chain1.m_elements == chain2.m_elements;
 }
 
-bool NS_CORE operator!=( const Chain& chain1, const Chain& chain2 )
+bool NS_CORE operator!=( const MultiLink& chain1, const MultiLink& chain2 )
 {
 	return chain1.m_elements != chain2.m_elements;
 }
 
-bool NS_CORE operator<( const Chain& chain1, const Chain& chain2 )
+bool NS_CORE operator<( const MultiLink& chain1, const MultiLink& chain2 )
 {
 	return chain1.m_elements < chain2.m_elements;
 }

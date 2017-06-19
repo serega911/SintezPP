@@ -4,7 +4,7 @@
 
 #include "GearBox.h"
 #include "../Libraries/Link.h"
-#include "../Libraries/ChainsContainer.h"
+#include "../Libraries/MultiLinkContainer.h"
 #include "../Libraries/GlobalDefines.h"
 #include "../Libraries/ApplicationBase.h"
 #include "../Libraries/eMainElementArray.h"
@@ -20,7 +20,7 @@ private:
 	static const NS_CORE eMainElementArray	s_elements;
 
 	NS_CORE TLinkArray							m_allLinks;
-	NS_CORE ChainsContainer						m_existingSchemes;
+	NS_CORE MultiLinkContainer						m_existingSchemes;
 
 
 	void										generateInOut();

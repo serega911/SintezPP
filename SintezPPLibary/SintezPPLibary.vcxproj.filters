@@ -37,9 +37,6 @@
     <Filter Include="StaticLib\TGearBox">
       <UniqueIdentifier>{d40f7cf8-4111-4d3c-9e34-6b1460331784}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StaticLib\TGearBox\TChain">
-      <UniqueIdentifier>{691b7ca8-b2a6-414c-a568-5e46bc234f32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StaticLib\TGearBox\TCode">
       <UniqueIdentifier>{40847248-2770-494c-9321-5321e9a913d5}</UniqueIdentifier>
     </Filter>
@@ -85,6 +82,9 @@
     <Filter Include="StaticLib\ApplicationBase">
       <UniqueIdentifier>{7b534499-f692-4e07-9147-c81797d09da3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StaticLib\TGearBox\MultiLink">
+      <UniqueIdentifier>{691b7ca8-b2a6-414c-a568-5e46bc234f32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Libraries\ApplicationBase.cpp">
@@ -104,12 +104,6 @@
     </ClCompile>
     <ClCompile Include="..\Libraries\Log.cpp">
       <Filter>StaticLib\helpers\TLog</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\ChainsContainer.cpp">
-      <Filter>StaticLib\TChainsContainer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Chain.cpp">
-      <Filter>StaticLib\TGearBox\TChain</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\Code.cpp">
       <Filter>StaticLib\TGearBox\TCode</Filter>
@@ -160,6 +154,12 @@
     <ClCompile Include="..\Libraries\MappedSystem.cpp">
       <Filter>StaticLib\helpers\TGaus</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\MultiLink.cpp">
+      <Filter>StaticLib\TGearBox\MultiLink</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\MultiLinkContainer.cpp">
+      <Filter>StaticLib\TChainsContainer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\eMainElement.h">
@@ -194,12 +194,6 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\Log.h">
       <Filter>StaticLib\helpers\TLog</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\ChainsContainer.h">
-      <Filter>StaticLib\TChainsContainer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Chain.h">
-      <Filter>StaticLib\TGearBox\TChain</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\Code.h">
       <Filter>StaticLib\TGearBox\TCode</Filter>
@@ -236,9 +230,6 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\Singletons.h">
       <Filter>StaticLib\TSingletons</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\ChainArray.h">
-      <Filter>StaticLib\types</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\CombinatoricsValueArray.h">
       <Filter>StaticLib\types</Filter>
@@ -300,6 +291,15 @@
       <Filter>StaticLib\helpers\TGaus</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\KinCharacteristicsTypes.h" />
+    <ClInclude Include="..\Libraries\MultiLink.h">
+      <Filter>StaticLib\TGearBox\MultiLink</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\MultiLinkArray.h">
+      <Filter>StaticLib\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\MultiLinkContainer.h">
+      <Filter>StaticLib\TChainsContainer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\UIGeneralData.h">

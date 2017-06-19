@@ -6,7 +6,7 @@
 
 NS_CORE_START
 
-class Chain
+class MultiLink
 {
 private:
 
@@ -14,12 +14,12 @@ private:
 
 public:
 
-	Chain( const Element& element );
-	Chain();
+	MultiLink( const Element& element );
+	MultiLink();
 
 	void										addLinkToChain( const Link & link );
 	void										addElementToChain( const Element & elem );
-	void										addChainToChain( const Chain & chain );
+	void										addChainToChain( const MultiLink & chain );
 
 	void										clear();
 
@@ -31,13 +31,13 @@ public:
 
 	size_t										size() const;
 
-	bool										intersect( const Chain& chain ) const;
+	bool										intersect( const MultiLink& chain ) const;
 
 	const std::set<Element>&					getElements() const;
 
-	friend bool operator<( const Chain& chain1, const Chain& chain2 );
-	friend bool operator==( const Chain& chain1, const Chain& chain2 );
-	friend bool operator!=( const Chain& chain1, const Chain& chain2 );
+	friend bool operator<( const MultiLink& chain1, const MultiLink& chain2 );
+	friend bool operator==( const MultiLink& chain1, const MultiLink& chain2 );
+	friend bool operator!=( const MultiLink& chain1, const MultiLink& chain2 );
 };
 
 NS_CORE_END

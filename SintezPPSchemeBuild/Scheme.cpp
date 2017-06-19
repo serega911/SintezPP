@@ -144,13 +144,13 @@ void ari::Scheme::print( const IDisplay_p& disp, const std::string & message ) c
 {
 	system( "cls" );
 
-	std::vector<NS_CORE Chain> uniqueChains;
+	std::vector<NS_CORE MultiLink> uniqueChains;
 	for ( const auto & it : m_links )
 	{
 		uniqueChains.emplace_back( it->getElements() );
 	}
 
-	std::vector<NS_CORE Chain, std::allocator<NS_CORE Chain>>::iterator it;
+	std::vector<NS_CORE MultiLink, std::allocator<NS_CORE MultiLink>>::iterator it;
 	it = std::unique( uniqueChains.begin(), uniqueChains.end() );
 	uniqueChains.erase( it, uniqueChains.end() );
 

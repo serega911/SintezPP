@@ -5,7 +5,7 @@
 NS_ARI_USING
 
 
-void System::addDefinedChain( const NS_CORE Chain& chain, const VariableValue & value, const NS_CORE GearNumber& gear )
+void System::addDefinedChain( const NS_CORE MultiLink& chain, const VariableValue & value, const NS_CORE GearNumber& gear )
 {
 	const auto & elements = chain.getElements();
 
@@ -21,7 +21,7 @@ void System::addDefinedChain( const NS_CORE Chain& chain, const VariableValue & 
 	}
 }
 
-void System::addUndefinedChain( const NS_CORE Chain& chain, const VariableValue & value, const NS_CORE GearNumber& gear )
+void System::addUndefinedChain( const NS_CORE MultiLink& chain, const VariableValue & value, const NS_CORE GearNumber& gear )
 {
 	m_unknowns.emplace_back( UnknownVariable( value ) );
 	auto& unknown = m_unknowns[m_unknowns.size() - 1];
@@ -44,7 +44,7 @@ System::System()
 {
 }
 
-bool System::addGearChains( const NS_CORE ChainArray& chains, const NS_CORE GearNumber& gear, const NS_CORE RatioValue i )
+bool System::addGearChains( const NS_CORE MultiLinkArray& chains, const NS_CORE GearNumber& gear, const NS_CORE RatioValue i )
 {
 	for ( auto& chain : chains )
 	{

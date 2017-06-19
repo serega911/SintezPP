@@ -19,7 +19,7 @@ public:
 
 	GearBoxWithChanger( const NS_CORE Code& code );
 
-	virtual NS_CORE ChainArray					getChainsForCurrentGear() const;
+	virtual NS_CORE MultiLinkArray					getChainsForCurrentGear() const;
 
 	bool										turnOnNextGear();
 

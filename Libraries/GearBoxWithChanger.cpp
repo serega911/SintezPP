@@ -7,7 +7,7 @@ GearBoxWithChanger::GearBoxWithChanger( const NS_CORE Code& code )
 {
 }
 
-NS_CORE ChainArray GearBoxWithChanger::getChainsForCurrentGear() const
+NS_CORE MultiLinkArray GearBoxWithChanger::getChainsForCurrentGear() const
 {
 	auto chains = getChains();
 	auto drivingElements = m_gearChanger.getDrivingElementsForGear();

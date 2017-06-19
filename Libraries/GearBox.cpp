@@ -21,13 +21,13 @@ Code& GearBox::getRefferenceToCode()
 	return m_code;
 }
 
-const ChainArray& GearBox::getChains() const
+const MultiLinkArray& GearBox::getChains() const
 {
 	Log::warning( m_chains.size() == 0, "There is no chains!", Log::CRITICAL, HERE );
 	return m_chains;
 }
 
-void GearBox::makeChains( ChainArray &chains ) const
+void GearBox::makeChains( MultiLinkArray &chains ) const
 {
 	const size_t chainsSize = chains.size();
 	//поиск цепочек связей
@@ -43,7 +43,7 @@ void GearBox::makeChains( ChainArray &chains ) const
 		}
 	}
 	//удаление пустых цепочек
-	const NS_CORE Chain emptyChain;
+	const NS_CORE MultiLink emptyChain;
 	chains.erase( remove( chains.begin(), chains.end(), emptyChain ), chains.end() );
 	//упорядочиваем
 	std::sort( chains.begin(), chains.end() );

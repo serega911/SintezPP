@@ -3,10 +3,10 @@
 
 #include "GlobalDefines.h"
 #include "Code.h"
-#include "Chain.h"
+#include "MultiLink.h"
 
 #include "GearNumber.h"
-#include "ChainArray.h"
+#include "MultiLinkArray.h"
 
 NS_CORE_START
 
@@ -15,11 +15,11 @@ class GearBox
 private:
 
 	Code										m_code;
-	ChainArray									m_chains;
+	MultiLinkArray									m_chains;
 
 protected:
 
-	void										makeChains( ChainArray &chains ) const;
+	void										makeChains( MultiLinkArray &chains ) const;
 	Code&										getRefferenceToCode();
 
 public:
@@ -29,7 +29,7 @@ public:
 	void										createChains();
 
 	const Code&									getCode() const;
-	const ChainArray&							getChains() const;
+	const MultiLinkArray&							getChains() const;
 
 };
 

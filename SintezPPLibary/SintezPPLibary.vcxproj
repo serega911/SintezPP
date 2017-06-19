@@ -12,9 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Libraries\ApplicationBase.cpp" />
-    <ClCompile Include="..\Libraries\Chain.cpp" />
+    <ClCompile Include="..\Libraries\MultiLink.cpp" />
     <ClCompile Include="..\Libraries\Code.cpp" />
-    <ClCompile Include="..\Libraries\ChainsContainer.cpp" />
+    <ClCompile Include="..\Libraries\MultiLinkContainer.cpp" />
     <ClCompile Include="..\Libraries\Combinatorics.cpp" />
     <ClCompile Include="..\Libraries\Element.cpp" />
     <ClCompile Include="..\Libraries\Gaus.cpp" />
@@ -50,10 +50,10 @@
     <ClInclude Include="..\Libraries\IMappedSystem.h" />
     <ClInclude Include="..\Libraries\KinCharacteristicsTypes.h" />
     <ClInclude Include="..\Libraries\KinematicSchemeData.h" />
-    <ClInclude Include="..\Libraries\Chain.h" />
-    <ClInclude Include="..\Libraries\ChainArray.h" />
+    <ClInclude Include="..\Libraries\MultiLink.h" />
+    <ClInclude Include="..\Libraries\MultiLinkArray.h" />
     <ClInclude Include="..\Libraries\Code.h" />
-    <ClInclude Include="..\Libraries\ChainsContainer.h" />
+    <ClInclude Include="..\Libraries\MultiLinkContainer.h" />
     <ClInclude Include="..\Libraries\Combinatorics.h" />
     <ClInclude Include="..\Libraries\CombinatoricsValueArray.h" />
     <ClInclude Include="..\Libraries\Element.h" />

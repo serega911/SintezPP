@@ -5,7 +5,7 @@
 
 NS_CORE_USING
 
-MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const float mIn )
+MappedSystem_p MappedSystem::createM( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const float mIn )
 {
 	MappedSystem_p ret( new MappedSystem );
 
@@ -43,7 +43,7 @@ MappedSystem_p MappedSystem::createM( const NS_CORE ChainArray& chains, const NS
 	return ret;
 }
 
-core::MappedSystem_p core::MappedSystem::createMKpd( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const float mIn /*= 1000 */ )
+core::MappedSystem_p core::MappedSystem::createMKpd( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const float mIn /*= 1000 */ )
 {
 	MappedSystem_p ret = createM( chains, k, mIn );
 
@@ -112,7 +112,7 @@ void MappedSystem::setSolution( const NS_CORE IMappedSystem::Vector& solution )
 	}
 }
 
-MappedSystem_p MappedSystem::createW( const NS_CORE ChainArray& chains, const NS_CORE InternalGearRatios& k, const NS_CORE RatioValue wIn )
+MappedSystem_p MappedSystem::createW( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const NS_CORE RatioValue wIn )
 {
 	MappedSystem_p ret( new MappedSystem );
 
