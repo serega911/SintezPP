@@ -8,7 +8,7 @@ NS_CORE_USING
 std::vector<std::vector<GearChanger::DrivingElementPosition>> core::GearChanger::m_driveElemPostions = {};
 
 GearChanger::GearChanger( const Code& code )
-: m_gear( 0 )
+	: m_gear( 0 )
 {
 	if ( m_driveElemPostions.size() == 0 )
 	{
@@ -49,13 +49,13 @@ void GearChanger::initDriveElemPositions()
 	else if ( initialData._w == 3 )
 	{
 		// friction + brake
-		for ( int frict = 0; frict < generalData._numberOfFrictions; frict++ )
+		for ( size_t frict = 0; frict < generalData._numberOfFrictions; frict++ )
 		{
-			for ( int brake = 0; brake < generalData._numberOfBrakes; brake++ )
+			for ( size_t brake = 0; brake < generalData._numberOfBrakes; brake++ )
 			{
-				m_driveElemPostions.push_back( { 
+				m_driveElemPostions.push_back( {
 					DrivingElementPosition( DrivingElementPosition::eType::FRICTION, frict ),
-					DrivingElementPosition( DrivingElementPosition::eType::BRAKE, brake ) 
+					DrivingElementPosition( DrivingElementPosition::eType::BRAKE, brake )
 				} );
 			}
 
@@ -63,9 +63,9 @@ void GearChanger::initDriveElemPositions()
 		// friction + friction
 		if ( settings._gearChangerUseTwoFrictions )
 			m_driveElemPostions.push_back( {
-				DrivingElementPosition( DrivingElementPosition::eType::FRICTION, 0 ),
-				DrivingElementPosition( DrivingElementPosition::eType::FRICTION, 1 )
-			} );
+			DrivingElementPosition( DrivingElementPosition::eType::FRICTION, 0 ),
+			DrivingElementPosition( DrivingElementPosition::eType::FRICTION, 1 )
+		} );
 		// brake + brake
 		if ( settings._gearChangerUseTwoBrakes )
 		{
@@ -89,7 +89,7 @@ void GearChanger::initDriveElemPositions()
 
 TLinkArray GearChanger::getDrivingElementsForGear() const
 {
-	return m_drivingElementsForAllGears.at(m_gear);
+	return m_drivingElementsForAllGears.at( m_gear );
 }
 
 bool GearChanger::next()

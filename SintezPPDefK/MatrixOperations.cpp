@@ -9,16 +9,16 @@ CellType MatrixOperations::determinant( const Matrix& matrix )
 	if ( size == 1 ) return matrix[0][0];
 	else
 	{
-		double res = 0;
+		float res = 0;
 		for ( size_t i = 0; i < size; i++ )
 		{
-			res += matrix[i][0] * ( determinant( minor( matrix, i, 0 )  ) )	*( i % 2 == 0 ? -1.0 : 1.0 );
+			res += matrix[i][0] * ( determinant( minor( matrix, i, 0 ) ) )	*( i % 2 == 0 ? -1.0f : 1.0f );
 		}
 		return res;
 	}
 }
 
-MatrixLine operator*( const MatrixLine & line, const double & k )
+MatrixLine operator*( const MatrixLine & line, const float & k )
 {
 	MatrixLine ret = line;
 	for ( auto& cell : ret )
@@ -65,9 +65,9 @@ MatrixLine MatrixOperations::solveGaus( const Matrix& systemMatrix, const Matrix
 	auto system = systemMatrix.getMatrix();
 	auto right = rightParts;
 
-	const int n = system.size( );
+	const int n = system.size();
 
-	for ( int i = 0; i < n; ++i ) 
+	for ( int i = 0; i < n; ++i )
 	{
 		int k = i;
 
@@ -85,20 +85,20 @@ MatrixLine MatrixOperations::solveGaus( const Matrix& systemMatrix, const Matrix
 			std::swap( right[i], right[k] );
 		}
 
-		if ( abs(system[i][i]) > 0.0001 )
+		if ( abs( system[i][i] ) > 0.0001 )
 		{
 			for ( int j = i + 1; j < n; ++j )
-			{ 
+			{
 				system[i][j] /= system[i][i];
 			}
 			right[i] /= system[i][i];
 		}
 		else
 		{
-			right.clear( );
+			right.clear();
 			return right;
 		}
-			
+
 		for ( int j = 0; j < n; ++j )
 		{
 			if ( j != i )
@@ -177,12 +177,12 @@ Matrix MatrixOperations::inverse( const Matrix& matrix )
 		ret[i].resize( size, 0 );
 	}
 
-	double d = determinant( matrix );
+	float d = determinant( matrix );
 	for ( size_t i = 0; i < size; i++ )
 	{
 		for ( size_t j = 0; j < size; j++ )
 		{
-			ret[i][j] = determinant( minor( matrix, j, i ) ) / d*( ( i + j ) % 2 == 0 ? -1.0 : 1.0 );
+			ret[i][j] = determinant( minor( matrix, j, i ) ) / d*( ( i + j ) % 2 == 0 ? -1.0f : 1.0f );
 		}
 	}
 	return Matrix( ret );
@@ -196,7 +196,7 @@ MatrixLine MatrixOperations::multiple( const Matrix& matrix, const MatrixLine& v
 		MatrixLine ret( size );
 		for ( size_t i = 0; i < size; i++ )
 		{
-			double val = 0;
+			float val = 0;
 			for ( size_t j = 0; j < size; j++ )
 			{
 				val += matrix[i][j] * vector[j];
@@ -223,7 +223,7 @@ Matrix MatrixOperations::multiple( const Matrix& matrix1, const Matrix& matrix2 
 		{
 			for ( size_t j = 0; j < size; j++ )
 			{
-				double val = 0;
+				float val = 0;
 				for ( size_t k = 0; k < size; k++ )
 				{
 					val += matrix1[k][i] * matrix2[j][k];

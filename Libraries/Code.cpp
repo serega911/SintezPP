@@ -17,14 +17,14 @@ Code::~Code()
 {
 }
 
-void Code::setIn(const Element & in)
+void Code::setIn( const Element & in )
 {
-	m_input = Link(in, Element::INPUT);
+	m_input = Link( in, Element::INPUT );
 }
 
-void Code::setOut(const Element & out)
+void Code::setOut( const Element & out )
 {
-	m_output = Link(out, Element::OUTPUT);
+	m_output = Link( out, Element::OUTPUT );
 }
 
 void Code::setLinks( const TLinkArray& links )
@@ -79,10 +79,10 @@ bool isArrayContain( const T& array, const Element& elem )
 
 bool core::Code::isContain( const Element& elem ) const
 {
-	return m_input.isContain( elem ) 
-		|| m_output.isContain( elem ) 
-		|| isArrayContain( m_links, elem ) 
-		|| isArrayContain( m_frictions, elem ) 
+	return m_input.isContain( elem )
+		|| m_output.isContain( elem )
+		|| isArrayContain( m_links, elem )
+		|| isArrayContain( m_frictions, elem )
 		|| isArrayContain( m_brakes, elem );
 }
 
@@ -116,7 +116,7 @@ void Code::print() const
 	Log::log( "\n--------------------------------------------------" );
 }
 
-void Code::writeToFile(std::ostream& file) const
+void Code::writeToFile( std::ostream& file ) const
 {
 	m_input.writeTofile( file );
 	file << ' ';
@@ -137,10 +137,10 @@ void Code::writeToFile(std::ostream& file) const
 		it.writeTofile( file );
 		file << ' ';
 	}
-	
+
 }
 
-bool Code::loadFromFile(std::istream& file)
+bool Code::loadFromFile( std::istream& file )
 {
 	const auto& generalData = Singletons::getInstance()->getGeneralData();
 
@@ -152,7 +152,7 @@ bool Code::loadFromFile(std::istream& file)
 
 	ret = ret && m_input.loadFromFile( file );
 	ret = ret && m_output.loadFromFile( file );
-	for (auto& it : m_links)
+	for ( auto& it : m_links )
 		ret = ret && it.loadFromFile( file );
 	for ( auto& it : m_frictions )
 		ret = ret && it.loadFromFile( file );

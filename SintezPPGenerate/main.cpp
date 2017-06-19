@@ -8,7 +8,7 @@
 
 NS_ARI_USING
 
-int main(int argc, char* argv[])
+int main( int argc, char* argv[] )
 {
 	setlocale( LC_ALL, "Russian" );
 	NS_CORE Log::log( "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n" );
@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 	{
 		generator.readUIGeneralData();
 	}
-	else 
+	else
 	{
 		NS_CORE UIGeneralData_p gData = NS_CORE UIGeneralData::create();
 
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 
 	if ( !generator.checkRequirements() )
 		return 1;
-	
+
 	generator.run();
 
 	NS_CORE Singletons::getInstance()->getIOFileManager()->writeSolutionData();

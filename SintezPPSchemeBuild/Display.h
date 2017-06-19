@@ -10,7 +10,7 @@ class Display;
 
 typedef std::shared_ptr<Display> Display_p;
 
-class Display: public IDisplay
+class Display : public IDisplay
 {
 private:
 

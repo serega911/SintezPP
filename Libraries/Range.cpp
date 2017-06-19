@@ -2,7 +2,7 @@
 
 NS_CORE_USING
 
-const Range::T core::Range::s_eps = T( 0.0001 );
+const Range::T core::Range::s_eps = T( 0.0001f );
 
 Range::Range( const T beg, const T end )
 	: m_begin( beg )
@@ -37,10 +37,10 @@ bool core::Range::operator==( const Range& obj ) const
 
 bool core::Range::loadFromFile( std::istream& file )
 {
-	if(file.eof())
+	if ( file.eof() )
 		return false;
 
-	double begin, end;
+	float begin, end;
 
 	file >> begin >> end;
 

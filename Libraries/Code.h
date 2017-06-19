@@ -9,7 +9,7 @@ NS_CORE_START
 
 
 
-class Code: public IIOItem
+class Code : public IIOItem
 {
 private:
 
@@ -24,8 +24,8 @@ public:
 	Code();
 	~Code();
 
-	void										setIn(const Element & in);								//	Установка звена, связанного со входом
-	void										setOut(const Element & out);							//	Установка звена, связанного со выходом
+	void										setIn( const Element & in );								//	Установка звена, связанного со входом
+	void										setOut( const Element & out );							//	Установка звена, связанного со выходом
 	void										setLinks( const TLinkArray& links );					//	Установка связей
 	void										setFrictions( const TLinkWithFrictionArray& frictions );//	Установка фрикционов
 	void										setBrakes( const TLinkArray& brakes );					//	Установка тормозов
@@ -36,10 +36,10 @@ public:
 	const TLinkWithFrictionArray&				getFrictions() const;
 	const TLinkArray&							getBrakes() const;
 
-	bool										isContain( const Element& elem ) const ;
+	bool										isContain( const Element& elem ) const;
 
 	void										print() const;											//	Вывод объекта на экран
-		
+
 	// IIOItem
 	void										writeToFile( std::ostream& ) const override;
 	bool										loadFromFile( std::istream& ) override;

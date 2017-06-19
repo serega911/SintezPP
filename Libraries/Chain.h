@@ -17,13 +17,13 @@ public:
 	Chain( const Element& element );
 	Chain();
 
-	void										addLinkToChain(const Link & link);
-	void										addElementToChain(const Element & elem);
-	void										addChainToChain(const Chain & chain);
+	void										addLinkToChain( const Link & link );
+	void										addElementToChain( const Element & elem );
+	void										addChainToChain( const Chain & chain );
 
 	void										clear();
 
-	bool										find(const Element & element) const;
+	bool										find( const Element & element ) const;
 
 	bool										checkElemByOnePlanetarySet() const;
 	bool										checkIsChainCorrect() const;
@@ -31,11 +31,11 @@ public:
 
 	size_t										size() const;
 
-	bool										intersect(const Chain& chain) const;
+	bool										intersect( const Chain& chain ) const;
 
 	const std::set<Element>&					getElements() const;
 
-	friend bool operator<(const Chain& chain1, const Chain& chain2);
+	friend bool operator<( const Chain& chain1, const Chain& chain2 );
 	friend bool operator==( const Chain& chain1, const Chain& chain2 );
 	friend bool operator!=( const Chain& chain1, const Chain& chain2 );
 };

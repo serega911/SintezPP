@@ -11,7 +11,7 @@
 
 NS_ARI_USING
 
-const std::string prefix =  "";
+const std::string prefix = "";
 
 void ari::AppManager::run()
 {

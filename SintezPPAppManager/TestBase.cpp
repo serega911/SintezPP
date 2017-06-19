@@ -5,7 +5,7 @@ const std::string ari::TestBase::s_pethToResults = "../Results/";
 NS_ARI_USING
 
 TestBase::TestBase( const NS_CORE UIGeneralData& data )
-	: m_data( data ) 
+: m_data( data )
 {
 	const std::string folderName = "w" + std::to_string( m_data._w ) + "n" + std::to_string( m_data._n ) + "d" + std::to_string( m_data._d );
 	m_ethalonFolderPath = s_pethToResults + "Ethalon/" + folderName + "/";

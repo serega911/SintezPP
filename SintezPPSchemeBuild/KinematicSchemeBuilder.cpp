@@ -29,8 +29,8 @@ void KinematicSchemeBuilder::run()
 
 	while ( core::Singletons::getInstance()->getLoaderFromFile()->load( containers, core::IOFileManager::eOutputFileType::DONE_K ) )
 	{
-		facory->init(k);
-		do 
+		facory->init( k );
+		do
 		{
 			IScheme_p scheme = Scheme::create();
 			ITraceStrategy_p pathBuilder = PathBuilderLee::create();

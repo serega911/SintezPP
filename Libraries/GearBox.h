@@ -16,7 +16,7 @@ private:
 
 	Code										m_code;
 	ChainArray									m_chains;
-	
+
 protected:
 
 	void										makeChains( ChainArray &chains ) const;

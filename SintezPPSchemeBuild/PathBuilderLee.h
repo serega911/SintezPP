@@ -12,10 +12,10 @@ class PathBuilderLee;
 
 typedef std::shared_ptr<PathBuilderLee> PathBuilderLee_p;
 
-class PathBuilderLee: public ITraceStrategy
+class PathBuilderLee : public ITraceStrategy
 {
 private:
-			
+
 	enum eCellStatus
 	{
 		EMPTY,
@@ -39,18 +39,18 @@ private:
 	Field										m_field;
 	int											m_width;
 	int											m_height;
-	
+
 	Cordinate									m_startCord;
 	bool										isStartAchieved;
 
 	PathBuilderLee();
 
 	void										printField();
-	void										printRoute( const std::vector<Cordinate> & route);
+	void										printRoute( const std::vector<Cordinate> & route );
 	void										printWave( const Wave & route );
 
 	bool										verifyCord( const Cordinate& cord );
-	bool										canIFill( const Cell& cord, const int value );
+	bool										canIFill( const Cell& cord, const size_t value );
 	Cell&										fieldAt( const Cordinate& cord );
 	bool										isFieldConsist( const Cordinate& cord );
 
@@ -59,7 +59,7 @@ private:
 
 	bool										processWaveCell( const Cordinate& waveCell, const Cordinate& neighbor );
 	void										prepareWave( Wave &currentWave );
-	
+
 
 	std::vector<Cordinate>						findPath();
 

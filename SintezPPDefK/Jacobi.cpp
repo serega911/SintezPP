@@ -21,7 +21,7 @@ void Jacobi::setSize( size_t size )
 			eq = Equations::empty;
 		}
 	}
-		
+
 }
 
 void Jacobi::setEquation( size_t i, size_t j, const Equation & eq )

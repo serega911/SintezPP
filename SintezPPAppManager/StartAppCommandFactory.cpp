@@ -22,13 +22,13 @@ ari::StartAppCommand_p ari::StartAppCommandFactory::create( const std::string& a
 {
 	StartAppCommand_p command = create( appName, generalData );
 
-	for ( int i = 0; i < specialData._ranges.size(); i++ )
+	for ( size_t i = 0; i < specialData._ranges.size(); i++ )
 	{
 		command->addParam( rangeBeginKey, std::to_string( specialData._ranges[i].first ) );
 		command->addParam( rangeEndKey, std::to_string( specialData._ranges[i].second ) );
 	}
 
-	for ( int i = 0; i < specialData._i.size(); i++ )
+	for ( size_t i = 0; i < specialData._i.size(); i++ )
 	{
 		if ( specialData._i[i] != 0 )
 			command->addParam( iKey, std::to_string( specialData._i[i] ) );

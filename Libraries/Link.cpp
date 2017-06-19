@@ -4,8 +4,8 @@
 NS_CORE_USING
 
 Link::Link( const Element& elem1, const Element& elem2 )
-	: m_elem1( elem1 )
-	, m_elem2( elem2 )
+: m_elem1( elem1 )
+, m_elem2( elem2 )
 {
 }
 
@@ -27,7 +27,7 @@ const Element& Link::getElem1() const
 
 const Element& Link::getElem2() const
 {
-	return m_elem2; 
+	return m_elem2;
 }
 
 bool Link::isContain( const Element& elem ) const
@@ -43,7 +43,7 @@ void Link::writeTofile( std::ostream& file ) const
 
 bool Link::loadFromFile( std::istream& file )
 {
-	return m_elem1.loadFromFile( file ) &&	m_elem2.loadFromFile( file );
+	return m_elem1.loadFromFile( file ) && m_elem2.loadFromFile( file );
 }
 
 void Link::print() const
@@ -60,7 +60,7 @@ core::LinkWithFriction::LinkWithFriction( const Element& elem1, const Element& e
 }
 
 core::LinkWithFriction::LinkWithFriction()
-	: LinkWithFriction( Element::EMPTY, Element::EMPTY, 0)
+	: LinkWithFriction( Element::EMPTY, Element::EMPTY, 0 )
 {
 
 }

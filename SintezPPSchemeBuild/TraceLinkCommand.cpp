@@ -19,7 +19,7 @@ bool ari::TraceLinkCommand::execute()
 	m_traceStrategy->init( m_scheme->getWidth(), m_scheme->getHeight() );
 	m_trace = m_traceStrategy->run( m_scheme->getAllElements(), m_link.getElem1(), m_link.getElem2() );
 
-	return m_trace.size();
+	return m_trace.size() > 0;
 }
 
 bool ari::TraceLinkCommand::apply()

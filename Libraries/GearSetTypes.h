@@ -9,7 +9,7 @@
 
 NS_CORE_START
 
-class GearSetTypes: public IIOItem
+class GearSetTypes : public IIOItem
 {
 private:
 

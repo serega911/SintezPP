@@ -9,7 +9,7 @@ NS_ARI_START
 class DefK
 	: public NS_CORE ApplicationBase
 {
-private:	
+private:
 
 public:
 

@@ -19,7 +19,7 @@ public:																																			\
 	inline friend bool			operator<=( const typeName& obj1, const typeName& obj2 )	{ return !(obj1 > obj2); }							\
 	inline friend bool			operator>=( const typeName& obj1, const typeName& obj2 )	{ return !(obj1 < obj2); }							\
 	inline friend bool			operator!=( const typeName& obj1, const typeName& obj2 )	{ return !(obj1 == obj2); }							\
-	inline typeName				getAbs() const												{ return typeName( abs( m_value ) ); }				\
+	inline buildInType			getAbs() const												{ return abs( m_value ); }				\
 	inline const typeName&		operator=( const buildInType& value )						{ m_value = value; return *this; }					\
 	inline const typeName&		operator=( const typeName& obj2 )							{ m_value = obj2.m_value; return *this; }			\
 	inline const typeName&		operator++( )												{ m_value++; return *this; }						\
@@ -43,7 +43,7 @@ public:																																			\
 	inline friend bool			operator<=( const typeName& obj1, const typeName& obj2 )	{ return !(obj1 > obj2); }							\
 	inline friend bool			operator>=( const typeName& obj1, const typeName& obj2 )	{ return !(obj1 < obj2); }							\
 	inline friend bool			operator!=( const typeName& obj1, const typeName& obj2 )	{ return !(obj1 == obj2); }							\
-	inline typeName				getAbs() const												{ return typeName( abs( m_value ) ); }				\
+	inline buildInType			getAbs() const												{ return abs( m_value ); }							\
 	inline const typeName&		operator=( const buildInType& value )						{ m_value = value; return *this; }					\
 	inline const typeName&		operator=( const typeName& obj2 )							{ m_value = obj2.m_value; return *this; }			\
 };

@@ -13,9 +13,9 @@ NS_ARI_START
 class ITraceStrategy
 {
 public:
-	
+
 	virtual void								init( const size_t width, const size_t height ) = 0;
-	
+
 	virtual std::vector<Cordinate>				run( const std::vector<ISchemeElement_p>& elements, const NS_CORE Element& start, const NS_CORE Element& finish ) = 0;
 
 };

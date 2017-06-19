@@ -13,17 +13,17 @@ class Function;
 
 typedef std::shared_ptr<Function> Function_p;
 
-class Function: public IFunction
+class Function : public IFunction
 {
 private:
 
 	int											m_na;
 	int											m_nb;
 	int											m_nh;
-	double										m_a;
-	double										m_b;
-	double										m_c;
-	double										m_kpdSum;
+	float										m_a;
+	float										m_b;
+	float										m_c;
+	float										m_kpdSum;
 
 	Function() = delete;
 	Function( const NS_CORE N& n, const NS_CORE GearSetNumber gearSet );
@@ -35,10 +35,8 @@ private:
 public:
 
 	static int									sign( char c );
-
 	static Function_p							create( const NS_CORE InternalGearRatioValue& k, const NS_CORE W& w, const NS_CORE N& n, const NS_CORE GearSetNumber gearSet );
-
-	virtual double								calc( double ) const override;
+	virtual float								calc( float ) const override;
 
 };
 

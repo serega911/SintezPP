@@ -33,7 +33,7 @@ public:
 	virtual bool								loadFromFile( std::istream& file ) override;
 
 	bool										operator==( const Range& obj ) const;
-	
+
 };
 
 NS_CORE_END

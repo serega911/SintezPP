@@ -6,7 +6,7 @@
 
 NS_CORE_USING
 
-RatioValue Ratios::m_eps = RatioValue( 0.01 );
+RatioValue Ratios::m_eps = RatioValue( 0.01f );
 
 Ratios::Ratios( const RatioValueArray& i, RatioValue eps )
 	: m_i( i )
@@ -29,9 +29,9 @@ bool core::Ratios::loadFromFile( std::istream& file )
 	file >> n;
 	m_i.resize( n );
 
-	for ( size_t i = 0; i < n; i++ )
+	for ( int i = 0; i < n; i++ )
 	{
-		double value;
+		float value;
 		file >> value;
 		m_i[i] = RatioValue( value );
 	}
@@ -77,7 +77,7 @@ bool Ratios::findIn( RatioValue value ) const
 	{
 		for ( auto& it : m_i )
 		{
-			if ( ( it - value ).getAbs() <= m_eps )
+			if ( ( it - value ).getAbs() <= m_eps.getValue() )
 				return true;
 		}
 		return false;
@@ -98,7 +98,7 @@ bool Ratios::operator==( const Ratios& obj ) const
 			bool finded = false;
 			for ( auto& jt : obj.m_i )
 			{
-				if ( ( it - jt ).getAbs() <= m_eps )
+				if ( ( it - jt ).getAbs() <= m_eps.getValue() )
 				{
 					finded = true;
 					break;
@@ -116,7 +116,7 @@ bool Ratios::operator==( const Ratios& obj ) const
 			bool finded = false;
 			for ( auto& jt : m_i )
 			{
-				if ( ( it - jt ).getAbs() <= m_eps )
+				if ( ( it - jt ).getAbs() <= m_eps.getValue() )
 					finded = true;
 			}
 			if ( finded == false )

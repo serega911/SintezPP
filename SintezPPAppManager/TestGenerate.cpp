@@ -31,7 +31,7 @@ bool ari::TestGenerate::start()
 
 	ethalonFile.close();
 	workingFile.close();
-	
+
 	return res;
 }
 
@@ -42,7 +42,7 @@ TestGenerate* ari::TestGenerate::create( const  NS_CORE UIGeneralData& data )
 }
 
 ari::TestGenerate::TestGenerate( const  NS_CORE UIGeneralData& data )
-	: TestBase(data)
+	: TestBase( data )
 {
 
 }

@@ -4,7 +4,7 @@
 NS_CORE_USING
 
 SettingsItem::SettingsItem( const std::string & key, const std::string & val )
-	:m_value( val ), m_key( key )
+:m_value( val ), m_key( key )
 {
 
 }
@@ -37,7 +37,7 @@ bool SettingsItem::loadFromFile( std::istream& file )
 
 	std::string buf;
 	file >> buf;
-	*this = Parser::parse(buf);
+	*this = Parser::parse( buf );
 	return true;
 }
 

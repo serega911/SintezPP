@@ -6,7 +6,7 @@
 NS_ARI_USING
 
 InternalGearRatios::InternalGearRatios( NS_CORE InternalGearRatioValue dK )
-	: core::InternalGearRatios( 0 )
+: core::InternalGearRatios( 0 )
 {
 	m_dK = dK;
 	m_currentOrderedSample = 0;
@@ -16,7 +16,7 @@ InternalGearRatios::InternalGearRatios( NS_CORE InternalGearRatioValue dK )
 		const auto end = range.getEnd();
 		for ( NS_CORE InternalGearRatioValue value = range.getBegin(); value <= end; value = m_dK + value )
 		{
-			m_kValues.push_back(value);
+			m_kValues.push_back( value );
 		}
 	}
 	m_K.resize( core::Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears, m_kValues[0] );

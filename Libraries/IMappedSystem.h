@@ -16,7 +16,7 @@ class IMappedSystem
 
 public:
 
-	typedef double Value;
+	typedef float Value;
 	typedef std::vector<Value> Vector;
 	typedef std::vector<Vector> Matrix;
 

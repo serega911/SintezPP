@@ -23,8 +23,8 @@ public:
 	Ratios( const RatioValueArray& i, RatioValue eps );
 
 	const RatioValue &							operator[]( size_t i ) const;
-	bool										operator==(const Ratios& obj) const;
-	void										operator=(const Ratios& obj);
+	bool										operator==( const Ratios& obj ) const;
+	void										operator=( const Ratios& obj );
 
 	void										push_back( RatioValue value );
 

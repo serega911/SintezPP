@@ -3,7 +3,7 @@
 NS_ARI_USING
 
 ari::GearSetCell::GearSetCell( const Cordinate& cord, NS_CORE Element elem )
-	: m_cord( cord ), m_element( elem )
+: m_cord( cord ), m_element( elem )
 {
 }
 

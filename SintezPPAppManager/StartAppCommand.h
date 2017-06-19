@@ -11,7 +11,7 @@ class StartAppCommand;
 
 typedef std::shared_ptr<StartAppCommand> StartAppCommand_p;
 
-class StartAppCommand: public ICommand
+class StartAppCommand : public ICommand
 {
 private:
 
@@ -23,7 +23,7 @@ public:
 
 	void										addParam( const std::string& param, const std::string& value );
 	virtual int									execute() const override;
-	
+
 };
 
 

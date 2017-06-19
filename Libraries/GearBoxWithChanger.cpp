@@ -3,7 +3,7 @@
 NS_CORE_USING
 
 GearBoxWithChanger::GearBoxWithChanger( const NS_CORE Code& code )
-	: Parent( code ), m_gearChanger( code )
+: Parent( code ), m_gearChanger( code )
 {
 }
 

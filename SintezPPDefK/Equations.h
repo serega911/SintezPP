@@ -21,7 +21,7 @@ private:
 	static FunctionValue						dfDw3( const VariablesSet & set );
 
 	static void									setStatusFail();
-	static void									processBadCondition(const bool condition, const std::string & message = "" );
+	static void									processBadCondition( const bool condition, const std::string & message = "" );
 
 public:
 

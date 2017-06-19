@@ -40,7 +40,7 @@ bool ari::SchemeBuilderMoveFirst::run( IScheme_p & scheme, ITraceStrategy_p & st
 		return ret;
 	};
 
-	for ( int i = 0, swapCount = 0; i < size; i++ )
+	for ( size_t i = 0, swapCount = 0; i < size; i++ )
 	{
 		if ( i == 0 )
 		{
@@ -53,7 +53,7 @@ bool ari::SchemeBuilderMoveFirst::run( IScheme_p & scheme, ITraceStrategy_p & st
 			commands[i]->apply();
 			//scheme->print( display, "Executed and applied" );
 		}
-		else if ( (swapCount > 0 && compareWithInitial()) || swapCount > 100 )
+		else if ( ( swapCount > 0 && compareWithInitial() ) || swapCount > 100 )
 		{
 			return false;
 		}

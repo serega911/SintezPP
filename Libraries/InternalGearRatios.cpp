@@ -8,7 +8,7 @@
 NS_CORE_USING
 
 InternalGearRatios::InternalGearRatios( const InternalGearRatioValueArray& k )
-	: m_K(k)
+: m_K( k )
 {
 }
 
@@ -23,7 +23,7 @@ core::InternalGearRatios::InternalGearRatios( const size_t size )
 
 const InternalGearRatioValue InternalGearRatios::operator[]( size_t i ) const
 {
-	return m_K.at(i);
+	return m_K.at( i );
 }
 
 void InternalGearRatios::print() const
@@ -40,9 +40,9 @@ size_t InternalGearRatios::size() const
 	return m_K.size();
 }
 
-void InternalGearRatios::writeToFile(std::ostream& file) const
+void InternalGearRatios::writeToFile( std::ostream& file ) const
 {
-	for (auto& it : m_K)
+	for ( auto& it : m_K )
 		file << it.getValue() << ' ';
 }
 
@@ -75,16 +75,16 @@ bool InternalGearRatios::check() const
 		}
 	}
 
-	return kSize;
+	return kSize > 0;
 }
-bool InternalGearRatios::loadFromFile(std::istream& in)
+bool InternalGearRatios::loadFromFile( std::istream& in )
 {
 	const size_t kSize = Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 	m_K.resize( kSize );
 
 	for ( size_t i = 0; i < kSize; i++ )
 	{
-		double value;
+		float value;
 		in >> value;
 		m_K[i] = InternalGearRatioValue( value );
 	}

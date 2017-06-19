@@ -4,7 +4,7 @@
 NS_ARI_USING
 
 ari::GearSet::GearSet( const Cordinate& anchor )
-	: m_anchor(anchor)
+: m_anchor( anchor )
 {
 }
 

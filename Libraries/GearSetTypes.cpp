@@ -7,7 +7,7 @@ NS_CORE_USING
 void core::GearSetTypes::writeToFile( std::ostream& file ) const
 {
 	for ( auto& it : m_types )
-		file << ' ' << convernToString(it.second);
+		file << ' ' << convernToString( it.second );
 }
 
 bool core::GearSetTypes::loadFromFile( std::istream& file )

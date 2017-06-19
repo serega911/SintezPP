@@ -32,7 +32,7 @@ public:
 		m_iterator = m_container.begin();
 	}
 
-	const Type&									get() const 
+	const Type&									get() const
 	{
 		return *m_iterator;
 	}

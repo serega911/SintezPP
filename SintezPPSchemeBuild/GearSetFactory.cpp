@@ -10,7 +10,7 @@ NS_ARI_USING
 	^ - y
 	*/
 
-GearSetFactory_p& ari::GearSetFactory::getInstance()
+	GearSetFactory_p& ari::GearSetFactory::getInstance()
 {
 	static  GearSetFactory_p ret( new GearSetFactory );
 	return ret;
@@ -22,7 +22,7 @@ void ari::GearSetFactory::init( const NS_CORE InternalGearRatios ratio )
 	m_options.clear();
 	for ( int i = 0; i < size; i++ )
 	{
-		if ( ratio[i].getAbs().getValue() < 2 )
+		if ( ratio[i].getAbs() < 2 )
 		{
 			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_N );
 			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_N_REVERSE );
@@ -38,7 +38,7 @@ void ari::GearSetFactory::init( const NS_CORE InternalGearRatios ratio )
 
 bool ari::GearSetFactory::next()
 {
-	for ( NS_CORE GearSetNumber i(NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears); i.getValue() > 0; i-- )
+	for ( NS_CORE GearSetNumber i( NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears ); i.getValue() > 0; --i )
 	{
 		if ( m_options[i].next() )
 			return true;
@@ -58,7 +58,7 @@ GearSet_p GearSetFactory::createGearSet( const NS_CORE GearSetNumber & num, cons
 	case NS_CORE eGearSetType::TYPE_U:			return createCustom( anchor, num, false, true );	break;
 	case NS_CORE eGearSetType::TYPE_U_REVERSE:	return createCustom( anchor, num, true, true );		break;
 	case NS_CORE eGearSetType::TYPE_DEFAULT:	return createStandart( anchor, num );				break;
-	default:																				break;
+	default:									return nullptr;										break;
 	}
 }
 
@@ -84,7 +84,7 @@ GearSet_p GearSetFactory::createStandart( const Cordinate& anchor, const NS_CORE
 
 	set->addCord( Cordinate( 0, 2 ), NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, num ) );
 	set->addCord( Cordinate( 0, -2 ), NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, num ) );
-	
+
 	//for ( int x = -1; x <= 1; x++ )
 	//	set->addCord( Cordinate( x, 0 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
 	set->addCord( Cordinate( 0, 0 ), NS_CORE Element( NS_CORE eMainElement::CARRIER, num ) );
@@ -114,6 +114,6 @@ GearSet_p GearSetFactory::createCustom( const Cordinate& anchor, const NS_CORE G
 		set->addCord( Cordinate( -1, y ), NS_CORE Element( NS_CORE eMainElement::EMPTY, num ) );
 		set->addCord( Cordinate( 1, y ), NS_CORE Element( NS_CORE eMainElement::EMPTY, num ) );
 	}
-	
+
 	return set;
 }

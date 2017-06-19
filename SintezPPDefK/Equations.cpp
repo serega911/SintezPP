@@ -5,20 +5,20 @@ NS_ARI_USING
 
 bool Equations::s_statusOK = true;
 
- FunctionValue Equations::wyllys( const VariablesSet & set )
- {
-	 return set[NS_CORE eMainElement::SUN_GEAR].getValue()
-		 - set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
-		 + set[NS_CORE eMainElement::CARRIER].getValue() *			( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f );
- }
- 
- FunctionValue Equations::empty( const VariablesSet & set )
- {
-	return 0.0f;
- }
+FunctionValue Equations::wyllys( const VariablesSet & set )
+{
+	return set[NS_CORE eMainElement::SUN_GEAR].getValue()
+		- set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
+		+ set[NS_CORE eMainElement::CARRIER].getValue() *			( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f );
+}
 
- const Equation Equations::getEquation( const NS_CORE eMainElement & elem )
- {
+FunctionValue Equations::empty( const VariablesSet & set )
+{
+	return 0.0f;
+}
+
+const Equation Equations::getEquation( const NS_CORE eMainElement & elem )
+{
 	switch ( elem )
 	{
 	case NS_CORE eMainElement::SUN_GEAR:
@@ -35,116 +35,118 @@ bool Equations::s_statusOK = true;
 		break;
 	default:
 		NS_CORE Log::warning( true, "wrong eMainElement value", NS_CORE Log::CRITICAL, HERE );
+		return nullptr;
 		break;
 	}
- }
+}
 
- void Equations::resetStatusOK()
- {
-	 s_statusOK = true;
- }
+void Equations::resetStatusOK()
+{
+	s_statusOK = true;
+}
 
- bool Equations::getStatusOK()
- {
-	 return s_statusOK;
- }
+bool Equations::getStatusOK()
+{
+	return s_statusOK;
+}
 
- void Equations::setStatusFail()
- {
-	 s_statusOK = false;
- }
+void Equations::setStatusFail()
+{
+	s_statusOK = false;
+}
 
- void ari::Equations::processBadCondition( const bool condition, const std::string & message /*= "" */ )
- {
-	 if ( condition )
-	 {
-		 //NS_CORE Log::warning( condition, message, NS_CORE Log::NON_CRITICAL, HERE );
-		 setStatusFail();
-	 }
- }
+void ari::Equations::processBadCondition( const bool condition, const std::string & message /*= "" */ )
+{
+	if ( condition )
+	{
+		//NS_CORE Log::warning( condition, message, NS_CORE Log::NON_CRITICAL, HERE );
+		setStatusFail();
+	}
+}
 
- FunctionValue Equations::dfDk( const VariablesSet & set )
- {
-	 return -set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() + set[NS_CORE eMainElement::CARRIER].getValue();
- }
+FunctionValue Equations::dfDk( const VariablesSet & set )
+{
+	return -set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() + set[NS_CORE eMainElement::CARRIER].getValue();
+}
 
- FunctionValue Equations::dfDw1( const VariablesSet & set )
- {
-	 return 1.0f;
- }
+FunctionValue Equations::dfDw1( const VariablesSet & set )
+{
+	return 1.0f;
+}
 
- FunctionValue Equations::dfDw2( const VariablesSet & set )
- {
-	 return -set[NS_CORE eMainElement::EMPTY].getValue();
- }
+FunctionValue Equations::dfDw2( const VariablesSet & set )
+{
+	return -set[NS_CORE eMainElement::EMPTY].getValue();
+}
 
- FunctionValue Equations::dfDw3( const VariablesSet & set )
- {
-	 return set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
- }
+FunctionValue Equations::dfDw3( const VariablesSet & set )
+{
+	return set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
+}
 
- FunctionValue Equations::calcWEpicyclic( const VariablesSet & set )
- {
-	 const auto z = set[NS_CORE eMainElement::EMPTY].getValue();
+FunctionValue Equations::calcWEpicyclic( const VariablesSet & set )
+{
+	const auto z = set[NS_CORE eMainElement::EMPTY].getValue();
 
-	 processBadCondition( z == 0, "division by ZERO" );
+	processBadCondition( z == 0, "division by ZERO" );
 
-	 return (
-		 set[NS_CORE eMainElement::SUN_GEAR].getValue() +
-		 set[NS_CORE eMainElement::CARRIER].getValue() * ( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f )
-		 ) / z;
- }
+	return (
+		set[NS_CORE eMainElement::SUN_GEAR].getValue() +
+		set[NS_CORE eMainElement::CARRIER].getValue() * ( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f )
+		) / z;
+}
 
- FunctionValue Equations::calcWSun( const VariablesSet & set )
- {
-	 return set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
-		 - set[NS_CORE eMainElement::CARRIER].getValue() *		( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f );
- }
+FunctionValue Equations::calcWSun( const VariablesSet & set )
+{
+	return set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
+		- set[NS_CORE eMainElement::CARRIER].getValue() *		( set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f );
+}
 
- FunctionValue Equations::calcWCarrirer( const VariablesSet & set )
- {
-	 const auto z = set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
+FunctionValue Equations::calcWCarrirer( const VariablesSet & set )
+{
+	const auto z = set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
 
-	 processBadCondition( z == 0, "division by ZERO" );
-	 
-	 return (
-		 -set[NS_CORE eMainElement::SUN_GEAR].getValue()
-		 + set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
-		 ) / z;
- }
+	processBadCondition( z == 0, "division by ZERO" );
 
- FunctionValue Equations::calcKValue( const VariablesSet & set )
- {
-	 const auto z = set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() ;
+	return (
+		-set[NS_CORE eMainElement::SUN_GEAR].getValue()
+		+ set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue() *	set[NS_CORE eMainElement::EMPTY].getValue()
+		) / z;
+}
 
-	 processBadCondition( z == 0, "division by ZERO");
+FunctionValue Equations::calcKValue( const VariablesSet & set )
+{
+	const auto z = set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::EPICYCLIC_GEAR].getValue();
 
-	 return ( set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::SUN_GEAR].getValue() ) / z;
- }
+	processBadCondition( z == 0, "division by ZERO" );
 
- bool ari::Equations::check( const VariablesSet & set )
- {
-	 return abs( set[NS_CORE eMainElement::EMPTY].getValue() ) > 0.0001 && abs( wyllys( set ) ) < 0.0001;
- }
+	return ( set[NS_CORE eMainElement::CARRIER].getValue() - set[NS_CORE eMainElement::SUN_GEAR].getValue() ) / z;
+}
 
- ari::FunctionValue ari::Equations::calcOne( const NS_CORE eMainElement elem, const VariablesSet & set )
- {
-	 switch ( elem )
-	 {
-	 case NS_CORE eMainElement::SUN_GEAR:
-		 return calcWSun( set );
-		 break;
-	 case NS_CORE eMainElement::EPICYCLIC_GEAR:
-		 return calcWEpicyclic( set );
-		 break;
-	 case NS_CORE eMainElement::CARRIER:
-		 return calcWCarrirer( set );
-		 break;
-	 case NS_CORE eMainElement::EMPTY:
-		 return calcKValue( set );
-		 break;
-	 default:
-		 NS_CORE Log::warning( true, "wrong eMainElement value", NS_CORE Log::CRITICAL, HERE );
-		 break;
-	 }
- }
+bool ari::Equations::check( const VariablesSet & set )
+{
+	return abs( set[NS_CORE eMainElement::EMPTY].getValue() ) > 0.0001 && abs( wyllys( set ) ) < 0.0001;
+}
+
+ari::FunctionValue ari::Equations::calcOne( const NS_CORE eMainElement elem, const VariablesSet & set )
+{
+	switch ( elem )
+	{
+	case NS_CORE eMainElement::SUN_GEAR:
+		return calcWSun( set );
+		break;
+	case NS_CORE eMainElement::EPICYCLIC_GEAR:
+		return calcWEpicyclic( set );
+		break;
+	case NS_CORE eMainElement::CARRIER:
+		return calcWCarrirer( set );
+		break;
+	case NS_CORE eMainElement::EMPTY:
+		return calcKValue( set );
+		break;
+	default:
+		NS_CORE Log::warning( true, "wrong eMainElement value", NS_CORE Log::CRITICAL, HERE );
+		return FunctionValue( 0 );
+		break;
+	}
+}

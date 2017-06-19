@@ -11,8 +11,8 @@ class Gaus
 {
 private:
 
-	std::vector<std::vector<double>>			m_system;
-	std::vector<double>							m_solution;
+	std::vector<std::vector<float>>			m_system;
+	std::vector<float>							m_solution;
 
 public:
 
@@ -20,10 +20,10 @@ public:
 
 	static bool									solve( IMappedSystem_p mappedSystem );
 
-// 	void										createSystem( const Code & Code, const InternalGearRatios &k );
-// 	void										createSystemDrivers( const TLinkArray& drivers );
-// 
-// 	const std::vector<double>&					getSolution() const;
+	// 	void										createSystem( const Code & Code, const InternalGearRatios &k );
+	// 	void										createSystemDrivers( const TLinkArray& drivers );
+	// 
+	// 	const std::vector<float>&					getSolution() const;
 
 };
 

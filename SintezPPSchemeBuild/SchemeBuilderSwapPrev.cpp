@@ -24,7 +24,7 @@ bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & str
 
 	commands.emplace_back( TraceLinkCommand::create( scheme, strategy, code.getIn() ) );
 	commands.emplace_back( TraceLinkCommand::create( scheme, strategy, code.getOut() ) );
-	for ( const auto& link: code.getLinks() )
+	for ( const auto& link : code.getLinks() )
 		commands.emplace_back( TraceLinkCommand::create( scheme, strategy, link ) );
 	for ( const auto& frict : code.getFrictions() )
 		commands.emplace_back( TraceFrictionCommand::create( scheme, strategy, frict ) );
@@ -33,7 +33,7 @@ bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & str
 
 	const auto size = commands.size();
 
-	for ( int i = 0, swapCount = 0; i < size; i++ )
+	for ( int i = 0, swapCount = 0; i < int( size ); i++ )
 	{
 		if ( i == 0 )
 		{
@@ -68,10 +68,10 @@ bool ari::SchemeBuilderSwapPrev::run( IScheme_p & scheme, ITraceStrategy_p & str
 
 	scheme->print( display, "Done" );
 	code.print();
-	system("pause");
+	system( "pause" );
 
 	return true;
-	
+
 }
 
 ari::SchemeBuilderSwapPrev_p ari::SchemeBuilderSwapPrev::create()

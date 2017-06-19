@@ -13,7 +13,7 @@ private:
 
 	TestGenerate( const NS_CORE UIGeneralData& data );
 
-	
+
 	bool										compareFiles( std::fstream& ethalon, std::fstream& working );
 
 public:
