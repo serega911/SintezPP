@@ -347,9 +347,13 @@ std::vector<NS_CORE W> CalcKinCharacteristics::calcW( const NS_CORE Code code, c
 
 		for ( NS_CORE GearSetNumber set( 1 ); set <= NS_CORE GearSetNumber( n ); ++set )
 		{
-			solution[NS_CORE Element( NS_CORE eMainElement::SATTELITE, set )] =
-				2.0f * ( solution[NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, set )] - solution[NS_CORE Element( NS_CORE eMainElement::CARRIER, set )] )
-				/ ( intRatios[set.getValue() - 1].getValue() + 1 );
+			const auto k = intRatios[set.getValue() - 1].getValue();
+			const auto w3 = solution[NS_CORE Element(NS_CORE eMainElement::CARRIER, set)];
+			const auto w1 = solution[NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, set)];
+			if (k > 0)
+				solution[NS_CORE Element(NS_CORE eMainElement::SATTELITE, set)] = 2.0f * (w3 - w1) / (k - 1);
+			else
+				solution[NS_CORE Element(NS_CORE eMainElement::SATTELITE, set)] = 2.0f * (w1 - w3) / (k + 1);
 		}
 
 		ret.push_back( solution );
