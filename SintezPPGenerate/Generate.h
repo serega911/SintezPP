@@ -20,7 +20,7 @@ private:
 	static const NS_CORE eMainElementArray	s_elements;
 
 	NS_CORE TLinkArray							m_allLinks;
-	NS_CORE MultiLinkContainer						m_existingSchemes;
+	NS_CORE MultiLinkContainer					m_existingSchemes;
 
 
 	void										generateInOut();

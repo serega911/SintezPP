@@ -33,7 +33,7 @@ private:
 
 	struct Characteristics
 	{
-		std::vector<NS_CORE Z>				_tooth;
+		NS_CORE Z							_tooth;
 		std::vector<NS_CORE W>				_angVelocity;
 		std::vector<NS_CORE M>				_torque;
 		std::vector<NS_CORE N>				_power;
@@ -72,11 +72,11 @@ private:
 	}
 
 
-	std::vector<NS_CORE Z>						calcZ( const NS_CORE InternalGearRatios& intRatios );
+	NS_CORE Z									calcZ(const NS_CORE InternalGearRatios& intRatios);
 	NS_CORE Z									calcZHelper( const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN );
 
 	std::vector<NS_CORE M>						calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
-	std::vector<NS_CORE W>						calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
+	std::vector<NS_CORE W>						calcW(const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios, const NS_CORE Z& tooth);
 	std::vector<NS_CORE N>						calcN( const std::vector<NS_CORE W>& w, const std::vector<NS_CORE M>& m );
 	std::vector<NS_CORE KpdZac>					calcKpdZacStepen( const NS_CORE InternalGearRatios& intRatios, const std::vector<NS_CORE W>& w, const std::vector<NS_CORE N>& n );
 	std::vector<NS_CORE M>						calcMh( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios, std::vector<NS_CORE KpdZac> kpdZacStepen );

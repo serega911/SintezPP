@@ -30,7 +30,7 @@ void CalcKinCharacteristics::run()
 		Characteristics ch;
 		ch._tooth = calcZ( k );
 		ch._torque = calcM( code, k );
-		ch._angVelocity = calcW( code, k );
+		ch._angVelocity = calcW( code, k, ch._tooth );
 		ch._power = calcN( ch._angVelocity, ch._torque );
 		ch._kpdZacStepen = calcKpdZacStepen( k, ch._angVelocity, ch._power );
 		ch._kpdTorque = calcMh( code, k, ch._kpdZacStepen );
@@ -118,17 +118,23 @@ NS_CORE Z CalcKinCharacteristics::calcZHelper( const NS_CORE InternalGearRatioVa
 	return ret;
 }
 
-std::vector<NS_CORE Z> CalcKinCharacteristics::calcZ( const NS_CORE InternalGearRatios& intRatios )
+NS_CORE Z CalcKinCharacteristics::calcZ(const NS_CORE InternalGearRatios& intRatios)
 {
-	std::vector<NS_CORE Z> ret;
+	NS_CORE Z ret;
+	const int n = intRatios.size();
 
-	for ( size_t i = 0; i < intRatios.size(); i++ ){
-		ret.push_back( calcZHelper( intRatios[i], NS_CORE GearSetNumber( i + 1 ) ) );
-	}
+	for (NS_CORE GearSetNumber set(1); set <= NS_CORE GearSetNumber(n); set++){
+		NS_CORE Z local = calcZHelper(intRatios[set.getValue() - 1], set);
 
-	for ( size_t i = 0; i < ret.size(); i++ ){
-		if ( ret[i].size() != 3 )
+		if (local.size() != 3)
+		{
 			ret.clear();
+			break;
+		}
+		else
+		{
+			ret.insert(local.begin(), local.end());
+		}
 	}
 
 	return ret;
@@ -330,7 +336,7 @@ std::map<CalcKinCharacteristics::eQualityCriteria, float> ari::CalcKinCharacteri
 	return ret;
 }
 
-std::vector<NS_CORE W> CalcKinCharacteristics::calcW( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios )
+std::vector<NS_CORE W> CalcKinCharacteristics::calcW(const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios, const NS_CORE Z& tooth)
 {
 	const auto n = intRatios.size();
 	std::vector<NS_CORE M> ret;
@@ -347,13 +353,16 @@ std::vector<NS_CORE W> CalcKinCharacteristics::calcW( const NS_CORE Code code, c
 
 		for ( NS_CORE GearSetNumber set( 1 ); set <= NS_CORE GearSetNumber( n ); ++set )
 		{
-			const auto k = intRatios[set.getValue() - 1].getValue();
-			const auto w3 = solution[NS_CORE Element(NS_CORE eMainElement::CARRIER, set)];
-			const auto w1 = solution[NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, set)];
-			if (k > 0)
-				solution[NS_CORE Element(NS_CORE eMainElement::SATTELITE, set)] = 2.0f * (w3 - w1) / (k - 1);
-			else
-				solution[NS_CORE Element(NS_CORE eMainElement::SATTELITE, set)] = 2.0f * (w1 - w3) / (k + 1);
+			if (tooth.size() > 0)
+			{
+				const auto k = intRatios[set.getValue() - 1].getValue();
+				const auto z1 = tooth.at(NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, set));
+				const auto z4 = tooth.at(NS_CORE Element(NS_CORE eMainElement::SATTELITE, set));
+				const auto w3 = solution[NS_CORE Element(NS_CORE eMainElement::CARRIER, set)];
+				const auto w1 = solution[NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, set)];
+
+				solution[NS_CORE Element(NS_CORE eMainElement::SATTELITE, set)] = z1 * (w3 - w1) / z4;
+			}
 		}
 
 		ret.push_back( solution );
@@ -400,10 +409,7 @@ void ari::CalcKinCharacteristics::printCharacteristics( const NS_CORE Code code,
 	code.print();
 
 	NS_CORE Log::log( "Z:", true, NS_CORE eColor::AQUA );
-	for ( const auto& z : ch._tooth )
-	{
-		printCharacteristicsLine( z );
-	}
+	printCharacteristicsLine(ch._tooth);
 
 	NS_CORE Log::log( "M:", true, NS_CORE eColor::AQUA );
 	for ( const auto& z : ch._torque )

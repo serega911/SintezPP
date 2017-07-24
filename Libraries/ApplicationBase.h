@@ -21,7 +21,6 @@ public:
 
 	virtual void								run() = 0;
 	virtual bool								checkRequirements() const = 0;
-
 };
 
 NS_CORE_END
