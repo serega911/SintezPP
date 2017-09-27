@@ -50,7 +50,7 @@ void executeTests()
 
 int main()
 {
-	setlocale( LC_ALL, "Russian" );
+	setlocale( LC_CTYPE, "Russian" );
 
 	while ( true )
 	{

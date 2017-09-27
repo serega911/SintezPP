@@ -7,7 +7,8 @@
 
 int main( int argc, char* argv[] )
 {
-	setlocale( LC_ALL, "Russian" );
+	setlocale(LC_CTYPE, "Russian");
+
 	NS_CORE Log::log( "==  —интез планетарных передач с трем€ степен€ми свободы. ќпределение кинематических характеристик.  ==" );
 
 	NS_ARI CalcKinCharacteristics ckc;

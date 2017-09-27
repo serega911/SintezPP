@@ -10,7 +10,8 @@ NS_ARI_USING
 
 int main( int argc, char* argv[] )
 {
-	setlocale( LC_ALL, "Russian" );
+	setlocale(LC_CTYPE, "Russian");
+
 	NS_CORE Log::log( "====  Синтез планетарных передач с тремя степенями свободы. Генерация.  ====\n\n" );
 
 	Generate generator;
