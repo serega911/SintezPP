@@ -4,13 +4,13 @@
 NS_CORE_USING
 
 
-void core::GearSetTypes::writeToFile( std::ostream& file ) const
+void GearSetTypes::writeToFile( std::ostream& file ) const
 {
 	for ( auto& it : m_types )
 		file << ' ' << convernToString( it.second );
 }
 
-bool core::GearSetTypes::loadFromFile( std::istream& file )
+bool GearSetTypes::loadFromFile( std::istream& file )
 {
 	const int count = Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
 
@@ -24,8 +24,12 @@ bool core::GearSetTypes::loadFromFile( std::istream& file )
 	return !file.eof();
 }
 
-void core::GearSetTypes::add( const GearSetNumber& gearSetN, const eGearSetType& type )
+void GearSetTypes::add( const GearSetNumber& gearSetN, const eGearSetType& type )
 {
 	m_types[gearSetN] = type;
 }
 
+const eGearSetType&	GearSetTypes::get(const GearSetNumber& set) const
+{
+	return m_types.at(set);
+}

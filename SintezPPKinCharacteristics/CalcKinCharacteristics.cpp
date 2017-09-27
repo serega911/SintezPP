@@ -28,7 +28,7 @@ void CalcKinCharacteristics::run()
 	while ( core::Singletons::getInstance()->getLoaderFromFile()->load( containers, core::IOFileManager::eOutputFileType::KIN_SLOW ) )
 	{
 		Characteristics ch;
-		ch._tooth = calcZ( k );
+		ch._tooth = calcZ(k, types);
 		ch._torque = calcM( code, k );
 		ch._angVelocity = calcW( code, k, ch._tooth );
 		ch._power = calcN( ch._angVelocity, ch._torque );
@@ -82,49 +82,51 @@ bool CalcKinCharacteristics::checkRequirements() const
 	return true;
 }
 
-NS_CORE Z CalcKinCharacteristics::calcZHelper( const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN )
+NS_CORE Z CalcKinCharacteristics::calcZHelper(const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN, const NS_CORE eGearSetType& type)
 {
-	const int Zmin = 14;
-	const int Zmax = 100;
-	const float M_PI = 3.14159f;
-
 	NS_CORE Z ret;
 
-	size_t Nsat = size_t( M_PI / asin( ( intRatio.getAbs() - 1 + ( 8.0 / Zmin ) ) / ( intRatio.getAbs() + 1 ) ) );//округляем в меньшую сторону - отбрасываем дробныю часть
-	float Gamma = 14.0f * ( intRatio.getAbs() - 1 ) / Nsat;
-	float z1 = 0.123f;
-	float z2 = 0.123f;
-	float z4 = 0.123f;
-
-	const auto check = [&]( float z )
+	if (intRatio.getValue() < 0 && type == NS_CORE eGearSetType::TYPE_DEFAULT)
 	{
-		return ( z - (int)z != 0 ) || (int)z < Zmin;
-	};
+		const int Zmin = 14;
+		const int Zmax = 100;
+		const float M_PI = 3.14159f;
 
-	for ( size_t i = (size_t)Gamma; check( z1 ) || check( z2 ) || check( z4 ); i++ )
-	{
-		z1 = Nsat*i / ( intRatio.getAbs() + 1 );
-		z2 = z1 * intRatio.getAbs();
-		z4 = ( z2 - z1 ) / 2;
+		size_t Nsat = size_t(M_PI / asin((intRatio.getAbs() - 1 + (8.0 / Zmin)) / (intRatio.getAbs() + 1)));//округляем в меньшую сторону - отбрасываем дробныю часть
+		float Gamma = 14.0f * (intRatio.getAbs() - 1) / Nsat;
+		float z1 = 0.123f;
+		float z2 = 0.123f;
+		float z4 = 0.123f;
 
-		if ( z1 > Zmax )
-			return ret;
+		const auto check = [&](float z)
+		{
+			return (z - (int)z != 0) || (int)z < Zmin;
+		};
+
+		for (size_t i = (size_t)Gamma; check(z1) || check(z2) || check(z4); i++)
+		{
+			z1 = Nsat*i / (intRatio.getAbs() + 1);
+			z2 = z1 * intRatio.getAbs();
+			z4 = (z2 - z1) / 2;
+
+			if (z1 > Zmax)
+				return ret;
+		}
+
+		ret[NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, gearSetN)] = (int)z1;
+		ret[NS_CORE Element(NS_CORE eMainElement::EPICYCLIC_GEAR, gearSetN)] = (int)z2;
+		ret[NS_CORE Element(NS_CORE eMainElement::SATTELITE, gearSetN)] = (int)z4;
 	}
-
-	ret[NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, gearSetN )] = (int)z1;
-	ret[NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, gearSetN )] = (int)z2;
-	ret[NS_CORE Element( NS_CORE eMainElement::SATTELITE, gearSetN )] = (int)z4;
-
 	return ret;
 }
 
-NS_CORE Z CalcKinCharacteristics::calcZ(const NS_CORE InternalGearRatios& intRatios)
+NS_CORE Z CalcKinCharacteristics::calcZ(const NS_CORE InternalGearRatios& intRatios, const NS_CORE GearSetTypes& types)
 {
 	NS_CORE Z ret;
 	const int n = intRatios.size();
 
 	for (NS_CORE GearSetNumber set(1); set <= NS_CORE GearSetNumber(n); set++){
-		NS_CORE Z local = calcZHelper(intRatios[set.getValue() - 1], set);
+		NS_CORE Z local = calcZHelper(intRatios[set.getValue() - 1], set, types.get(set));
 
 		if (local.size() != 3)
 		{
@@ -339,7 +341,7 @@ std::map<CalcKinCharacteristics::eQualityCriteria, float> ari::CalcKinCharacteri
 std::vector<NS_CORE W> CalcKinCharacteristics::calcW(const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios, const NS_CORE Z& tooth)
 {
 	const auto n = intRatios.size();
-	std::vector<NS_CORE M> ret;
+	std::vector<NS_CORE W> ret;
 
 	GearBoxWithChangerSpecialFrictionProcess gb( code );
 	gb.createChains();
@@ -353,16 +355,13 @@ std::vector<NS_CORE W> CalcKinCharacteristics::calcW(const NS_CORE Code code, co
 
 		for ( NS_CORE GearSetNumber set( 1 ); set <= NS_CORE GearSetNumber( n ); ++set )
 		{
-			if (tooth.size() > 0)
-			{
-				const auto k = intRatios[set.getValue() - 1].getValue();
-				const auto z1 = tooth.at(NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, set));
-				const auto z4 = tooth.at(NS_CORE Element(NS_CORE eMainElement::SATTELITE, set));
-				const auto w3 = solution[NS_CORE Element(NS_CORE eMainElement::CARRIER, set)];
-				const auto w1 = solution[NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, set)];
-
-				solution[NS_CORE Element(NS_CORE eMainElement::SATTELITE, set)] = z1 * (w3 - w1) / z4;
-			}
+			const auto k = intRatios[set.getValue() - 1].getValue();
+			const auto w3 = solution[NS_CORE Element(NS_CORE eMainElement::CARRIER, set)];
+			const auto w1 = solution[NS_CORE Element(NS_CORE eMainElement::SUN_GEAR, set)];
+			if (k < 0)
+				solution[NS_CORE Element(NS_CORE eMainElement::SATTELITE, set)] = 2.0f * (w1 - w3) / (k + 1);
+			else
+				solution[NS_CORE Element(NS_CORE eMainElement::SATTELITE, set)] = 0;
 		}
 
 		ret.push_back( solution );

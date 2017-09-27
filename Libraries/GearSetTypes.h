@@ -22,6 +22,7 @@ public:
 	void										writeToFile( std::ostream& file ) const override;
 	bool										loadFromFile( std::istream& file ) override;
 
+	const eGearSetType&							get(const GearSetNumber& set) const;
 };
 
 

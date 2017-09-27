@@ -8,6 +8,7 @@
 #include "../Libraries/Code.h"
 #include "../Libraries/InternalGearRatios.h"
 #include "../Libraries/KinCharacteristicsTypes.h"
+#include "../Libraries/GearSetTypes.h"
 
 NS_ARI_START
 
@@ -72,8 +73,8 @@ private:
 	}
 
 
-	NS_CORE Z									calcZ(const NS_CORE InternalGearRatios& intRatios);
-	NS_CORE Z									calcZHelper( const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN );
+	NS_CORE Z									calcZ(const NS_CORE InternalGearRatios& intRatios, const NS_CORE GearSetTypes& types);
+	NS_CORE Z									calcZHelper(const NS_CORE InternalGearRatioValue& intRatio, const NS_CORE GearSetNumber& gearSetN, const NS_CORE eGearSetType& type);
 
 	std::vector<NS_CORE M>						calcM( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios );
 	std::vector<NS_CORE W>						calcW(const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios, const NS_CORE Z& tooth);
