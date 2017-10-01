@@ -72,6 +72,7 @@ void Generate::generateLinks( const GearBox & gearBox )
 	size_t i = 0;
 	size_t allLinksSize = m_allLinks.size();
 	size_t countOfLinks = NS_CORE Singletons::getInstance()->getGeneralData()._numberOfLinks;
+	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
 	while ( NS_CORE Singletons::getInstance()->getCombinatorics()->getSubset( allLinksSize, countOfLinks, i++, linksCombi ) )
 	{
@@ -84,9 +85,13 @@ void Generate::generateLinks( const GearBox & gearBox )
 		gearBoxWithLinks.createChains();
 		if ( gearBoxWithLinks.check( GearBox::ALL ) )
 		{
-			if ( m_existingSchemes.findIn( gearBoxWithLinks.getChains() ) )
+			if ( gearBoxWithLinks.getChains().size() != initialData._numberOfPlanetaryGears + initialData._w )
 			{
-				//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_REPETTION, gearBoxWithLinks.getCode() );
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::FAIL_N, gearBoxWithLinks.getCode() );
+			}
+			else if ( m_existingSchemes.findIn( gearBoxWithLinks.getChains() ) )
+			{
+				NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::FAIL_REPETTION, gearBoxWithLinks.getCode() );
 			}
 			else
 			{
@@ -107,9 +112,7 @@ void Generate::generateFrictions( const GearBox & gearBox )
 	NS_CORE ElementArray vect_all_FB = gearBox.getElementsForFrictions();
 
 	const auto& generalData = NS_CORE Singletons::getInstance()->getGeneralData();
-
-	// 	if ( vect_all_FB.size() == generalData._numberOfBrakes + generalData._numberOfFrictions + 2 )
-	// 	{
+		
 	NS_CORE TLinkArray vect_all_frict;							//	Вектор всех возможных фрикционов
 	NS_CORE CombinatoricsValueArray vect_combi_frict;			//	Вектор сочетаний фрикционов
 	NS_CORE TLinkWithFrictionArray vect_frict;								//	Вектор фрикционов
@@ -138,11 +141,6 @@ void Generate::generateFrictions( const GearBox & gearBox )
 		}
 
 	}
-	// 	}
-	// 	else
-	// 	{
-	// 		NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_N, gearBox.getCode() );
-	// 	}
 }
 
 void Generate::generateBrakes( const GearBox & gearBox )
