@@ -20,25 +20,41 @@ void ari::DefK::calcExample()
 	NS_CORE Log::showValue( "Количество передач:", NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears );
 
 	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
-
-	const size_t testKSize = NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._testsCount;
-	std::vector<NS_CORE InternalGearRatioValueArray> kValues( testKSize );
-	for ( size_t i = 0; i < initialData._numberOfPlanetaryGears; i++ )
+	const auto& ranges = NS_CORE Singletons::getInstance()->getInitialData()._ranges;
+	const size_t testKSize = NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._testsCount-1;
+	
+	// Generate all possible k values
+	std::vector<NS_CORE InternalGearRatioValue> allKValues;
+	for ( const auto& range : ranges )
 	{
-		for ( size_t j = 0; j < testKSize; j++ )
-			kValues[j].emplace_back( NS_CORE InternalGearRatioValue( ( rand() % 30 ) / 10.0f + 2 ) );
+		const NS_CORE InternalGearRatioValue step( ( range.getEnd() - range.getBegin() ).getValue() / testKSize );
+		for ( NS_CORE InternalGearRatioValue k( range.getBegin() ); k <= NS_CORE InternalGearRatioValue( range.getEnd() ); k = k + step )
+		{
+			allKValues.emplace_back( k );
+		}
 	}
 
-	std::vector<ari::InternalGearRatios> initialK;
-	for ( size_t j = 0; j < testKSize; j++ )
-		initialK.emplace_back( NS_CORE InternalGearRatios( kValues[j] ) );
+	// Get all ordered samples
+	const auto size = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
+	const auto combinator = NS_CORE Singletons::getInstance()->getCombinatorics();
+	std::vector<ari::InternalGearRatios> kValues;
+	size_t combiNum = 0;
+	NS_CORE CombinatoricsValueArray combi;
+	combinator->getOrderedSample( allKValues.size(), initialData._numberOfPlanetaryGears, combiNum++, combi );
+	do{
+		NS_CORE InternalGearRatioValueArray initialK;
+		const  size_t combiSize = combi.size();
+		for ( size_t i = 0; i < combiSize; i++ )
+			initialK.push_back( allKValues[combi[i]] );
+		kValues.emplace_back( NS_CORE InternalGearRatios( initialK ) );
+	} while ( combinator->getOrderedSample( allKValues.size(), size, combiNum++, combi ) );
 
 	NS_CORE Code code;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
 	{
 		bool isWrited = false;
 
-		for ( const auto &k : initialK )
+		for ( const auto &k : kValues )
 		{
 			auto realI = DefKSelection::podModul( code, k );
 
