@@ -43,7 +43,8 @@ private:
 		std::map<eQualityCriteria, float>	_qualityCriterias;
 	};
 
-
+	static const float							s_inTorque;
+	static const NS_CORE RatioValue				s_inVelocity;
 	std::vector<Characteristics>				m_characteristics;
 
 	void										printCharacteristics( const NS_CORE Code code, const Characteristics& ch );

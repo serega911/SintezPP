@@ -39,13 +39,14 @@ NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Co
 
 NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const InternalGearRatios &k )
 {
+	const NS_CORE RatioValue inVelocity = NS_CORE RatioValue( 100 );
 	NS_CORE GearBoxWithChanger gb( code );
 	gb.createChains();
 
 	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.001f ) );	//вектор для полученных передаточных отношений при данном наборе K
 	do
 	{
-		auto system = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), k );
+		auto system = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), k, inVelocity );
 		NS_CORE Gaus::solve( system );
 		const auto& solution = system->getSolution();
 
@@ -53,9 +54,9 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 		{
 			const auto calculatedW = solution.at( NS_CORE Element::OUTPUT );
 
-			if ( abs( calculatedW ) > 0.001f && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( 1.0f / calculatedW ) ) )
+			if ( abs( calculatedW ) > 0.001f && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( inVelocity.getValue() / calculatedW ) ) )
 			{
-				tmpI.push_back( NS_CORE RatioValue( 1.0f / calculatedW ) );
+				tmpI.push_back( NS_CORE RatioValue( inVelocity.getValue() / calculatedW ) );
 			}
 		}
 

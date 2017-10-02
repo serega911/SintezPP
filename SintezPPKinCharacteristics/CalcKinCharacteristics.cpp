@@ -13,6 +13,9 @@
 
 NS_ARI_USING
 
+const float ari::CalcKinCharacteristics::s_inTorque = 1000;
+const NS_CORE RatioValue ari::CalcKinCharacteristics::s_inVelocity = NS_CORE RatioValue(100);
+
 void CalcKinCharacteristics::run()
 {
 	showParams();
@@ -120,7 +123,7 @@ NS_CORE Z CalcKinCharacteristics::calcZHelper(const NS_CORE InternalGearRatioVal
 	return ret;
 }
 
-NS_CORE Z CalcKinCharacteristics::calcZ(const NS_CORE InternalGearRatios& intRatios, const NS_CORE GearSetTypes& types)
+NS_CORE Z CalcKinCharacteristics::calcZ( const NS_CORE InternalGearRatios& intRatios, const NS_CORE GearSetTypes& types )
 {
 	NS_CORE Z ret;
 	const int n = intRatios.size();
@@ -151,7 +154,7 @@ std::vector<NS_CORE M> ari::CalcKinCharacteristics::calcM( const NS_CORE Code co
 
 	do
 	{
-		NS_CORE MappedSystem_p systemM = NS_CORE MappedSystem::createM( gb.getChainsForCurrentGear(), intRatios );
+		NS_CORE MappedSystem_p systemM = NS_CORE MappedSystem::createM( gb.getChainsForCurrentGear(), intRatios, s_inTorque );
 		NS_CORE Gaus::solve( systemM );
 
 		ret.push_back( systemM->getSolution() );
@@ -246,7 +249,7 @@ std::vector<NS_CORE M> CalcKinCharacteristics::calcMh( const NS_CORE Code code, 
 
 	do
 	{
-		NS_CORE MappedSystem_p systemM = NS_CORE MappedSystem::createMKpd( gb.getChainsForCurrentGear(), intRatios, kpdZacStepen[gear.getValue()] );
+		NS_CORE MappedSystem_p systemM = NS_CORE MappedSystem::createMKpd( gb.getChainsForCurrentGear(), intRatios, kpdZacStepen[gear.getValue()], s_inTorque );
 		NS_CORE Gaus::solve( systemM );
 
 		ret.push_back( systemM->getSolution() );
@@ -348,7 +351,7 @@ std::vector<NS_CORE W> CalcKinCharacteristics::calcW(const NS_CORE Code code, co
 
 	do
 	{
-		NS_CORE MappedSystem_p systemW = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), intRatios );
+		NS_CORE MappedSystem_p systemW = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), intRatios, s_inVelocity );
 		NS_CORE Gaus::solve( systemW );
 
 		auto solution = systemW->getSolution();
