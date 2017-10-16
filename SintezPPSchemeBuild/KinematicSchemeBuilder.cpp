@@ -2,7 +2,6 @@
 
 #include "../Libraries/SchemeCharacteristics.h"
 #include "../Libraries/Singletons.h"
-#include "../Libraries/CombinatoricsValueArray.h"
 #include "../Libraries/Code.h"
 #include "../Libraries/InternalGearRatios.h"
 #include "../Libraries/IIOItem.h"

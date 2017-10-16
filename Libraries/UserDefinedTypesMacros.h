@@ -50,3 +50,4 @@ public:																																			\
 
 #define USER_DEFINED_TYPE_VECTOR( typeName, containerType, buildInType )																		\
 class typeName : public containerType<buildInType>{};
+//typedef	containerType<buildInType> typeName;

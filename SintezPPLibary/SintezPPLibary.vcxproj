@@ -15,7 +15,6 @@
     <ClCompile Include="..\Libraries\MultiLink.cpp" />
     <ClCompile Include="..\Libraries\Code.cpp" />
     <ClCompile Include="..\Libraries\MultiLinkContainer.cpp" />
-    <ClCompile Include="..\Libraries\Combinatorics.cpp" />
     <ClCompile Include="..\Libraries\Element.cpp" />
     <ClCompile Include="..\Libraries\Gaus.cpp" />
     <ClCompile Include="..\Libraries\GearBox.cpp" />
@@ -38,6 +37,7 @@
     <ClCompile Include="..\Libraries\Singletons.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Libraries\Combinatorics.h" />
     <ClInclude Include="..\Libraries\eColor.h" />
     <ClInclude Include="..\Libraries\eGearSetType.h" />
     <ClInclude Include="..\Libraries\eMainElement.h" />
@@ -54,8 +54,6 @@
     <ClInclude Include="..\Libraries\MultiLinkArray.h" />
     <ClInclude Include="..\Libraries\Code.h" />
     <ClInclude Include="..\Libraries\MultiLinkContainer.h" />
-    <ClInclude Include="..\Libraries\Combinatorics.h" />
-    <ClInclude Include="..\Libraries\CombinatoricsValueArray.h" />
     <ClInclude Include="..\Libraries\Element.h" />
     <ClInclude Include="..\Libraries\ElementArray.h" />
     <ClInclude Include="..\Libraries\Gaus.h" />
@@ -64,6 +62,8 @@
     <ClInclude Include="..\Libraries\GearNumber.h" />
     <ClInclude Include="..\Libraries\GearSetNumber.h" />
     <ClInclude Include="..\Libraries\MappedSystem.h" />
+    <ClInclude Include="..\Libraries\OrderedSample.h" />
+    <ClInclude Include="..\Libraries\Permutation.h" />
     <ClInclude Include="..\Libraries\Ratios.h" />
     <ClInclude Include="..\Libraries\RatiosArray.h" />
     <ClInclude Include="..\Libraries\IOFileManager.h" />
@@ -83,6 +83,7 @@
     <ClInclude Include="..\Libraries\Settings.h" />
     <ClInclude Include="..\Libraries\SettingsItem.h" />
     <ClInclude Include="..\Libraries\Singletons.h" />
+    <ClInclude Include="..\Libraries\Subset.h" />
     <ClInclude Include="..\Libraries\TestGlue.h" />
     <ClInclude Include="..\Libraries\UISpecialData.h" />
     <ClInclude Include="..\Libraries\UserDefinedTypesMacros.h" />

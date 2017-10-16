@@ -5,22 +5,29 @@
 
 NS_ARI_USING
 
-InternalGearRatios::InternalGearRatios( NS_CORE InternalGearRatioValue dK )
-: core::InternalGearRatios( 0 )
+InternalGearRatios::InternalGearRatios( const NS_CORE InternalGearRatioValue dK )
+: core::InternalGearRatios(0)
 {
-	m_dK = dK;
-	m_currentOrderedSample = 0;
+	NS_CORE InternalGearRatioValueArray kValues;
 
 	for ( const auto& range : core::Singletons::getInstance()->getInitialData()._ranges )
 	{
 		const auto end = range.getEnd();
-		for ( NS_CORE InternalGearRatioValue value = range.getBegin(); value <= end; value = m_dK + value )
+		for ( NS_CORE InternalGearRatioValue value = range.getBegin(); value <= end; value = dK + value )
 		{
-			m_kValues.push_back( value );
+			kValues.push_back( value );
 		}
 	}
-	m_K.resize( core::Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears, m_kValues[0] );
-	m_combi.resize( core::Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears, 0 );
+
+	m_combi.init( kValues, core::Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears );
+	m_K = m_combi.get();
+
+}
+
+ari::InternalGearRatios::InternalGearRatios( const NS_CORE InternalGearRatioValueArray& k )
+	: core::InternalGearRatios( k )
+{
+
 }
 
 ari::InternalGearRatios::InternalGearRatios( NS_CORE InternalGearRatios& k )
@@ -30,13 +37,9 @@ ari::InternalGearRatios::InternalGearRatios( NS_CORE InternalGearRatios& k )
 
 bool InternalGearRatios::next()
 {
-	m_currentOrderedSample++;
-	const size_t combiSize = m_combi.size();
-
-	if ( NS_CORE Singletons::getInstance()->getCombinatorics()->getOrderedSample( m_kValues.size(), combiSize, m_currentOrderedSample, m_combi ) )
+	if ( m_combi.next() )
 	{
-		for ( size_t i = 0; i < combiSize; i++ )
-			m_K[i] = m_kValues[m_combi[i]];
+		m_K = m_combi.get();
 		return true;
 	}
 	return false;

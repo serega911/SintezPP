@@ -2,6 +2,7 @@
 
 #include "Singletons.h"
 #include "Log.h"
+#include "Subset.h"
 
 NS_CORE_USING
 
@@ -27,11 +28,6 @@ IOFileManager* Singletons::getIOFileManager()
 LoaderFromFile* Singletons::getLoaderFromFile()
 {
 	return LoaderFromFile::getInstance();
-}
-
-Combinatorics* Singletons::getCombinatorics()
-{
-	return Combinatorics::getInstance();
 }
 
 Settings* core::Singletons::getSettings()
@@ -76,7 +72,9 @@ void Singletons::setGlobalParameters( const size_t w, const size_t n, const size
 		if ( settings._gearChangerUseTwoFrictions )
 			m_initialData._numberOfGears++;
 		if ( settings._gearChangerUseTwoBrakes )
-			m_initialData._numberOfGears += getCombinatorics()->getSubsetsCount( m_generalData._numberOfBrakes, m_generalData._numberOfActuatedDrivingElements );
+		{
+			m_initialData._numberOfGears += Subset<std::vector<int>>::getCount( m_generalData._numberOfBrakes, m_generalData._numberOfActuatedDrivingElements );
+		}
 	}
 	break;
 	default:

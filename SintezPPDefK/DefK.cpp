@@ -7,7 +7,7 @@
 
 #include "../Libraries/Singletons.h"
 #include "../Libraries/Log.h"
-#include "../Libraries/Log.h"
+#include "../Libraries/OrderedSample.h"
 
 NS_ARI_USING
 
@@ -24,7 +24,7 @@ void ari::DefK::calcExample()
 	const size_t testKSize = NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._testsCount-1;
 	
 	// Generate all possible k values
-	std::vector<NS_CORE InternalGearRatioValue> allKValues;
+	NS_CORE InternalGearRatioValueArray allKValues;
 	for ( const auto& range : ranges )
 	{
 		const NS_CORE InternalGearRatioValue step( ( range.getEnd() - range.getBegin() ).getValue() / testKSize );
@@ -35,19 +35,11 @@ void ari::DefK::calcExample()
 	}
 
 	// Get all ordered samples
-	const auto size = NS_CORE Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears;
-	const auto combinator = NS_CORE Singletons::getInstance()->getCombinatorics();
-	std::vector<ari::InternalGearRatios> kValues;
-	size_t combiNum = 0;
-	NS_CORE CombinatoricsValueArray combi;
-	combinator->getOrderedSample( allKValues.size(), initialData._numberOfPlanetaryGears, combiNum++, combi );
+	std::vector<NS_CORE InternalGearRatioValueArray> kValues;
+	NS_CORE OrderedSample<NS_CORE InternalGearRatioValueArray> orderedSample( allKValues, initialData._numberOfPlanetaryGears );
 	do{
-		NS_CORE InternalGearRatioValueArray initialK;
-		const  size_t combiSize = combi.size();
-		for ( size_t i = 0; i < combiSize; i++ )
-			initialK.push_back( allKValues[combi[i]] );
-		kValues.emplace_back( NS_CORE InternalGearRatios( initialK ) );
-	} while ( combinator->getOrderedSample( allKValues.size(), size, combiNum++, combi ) );
+		kValues.emplace_back( orderedSample.get() );
+	} while ( orderedSample.next() );
 
 	NS_CORE Code code;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
@@ -56,7 +48,8 @@ void ari::DefK::calcExample()
 
 		for ( const auto &k : kValues )
 		{
-			auto realI = DefKSelection::podModul( code, k );
+			const ari::InternalGearRatios internalGearsRatios( k );
+			auto realI = DefKSelection::podModul( code, internalGearsRatios );
 
 			const size_t iSize = realI.size();
 			if ( iSize > 0 )
@@ -91,7 +84,7 @@ void ari::DefK::calcExample()
 						isWrited = true;
 					}
 					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, realI );
-					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, k );
+					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, internalGearsRatios );
 				}
 			}
 		}

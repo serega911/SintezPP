@@ -9,7 +9,7 @@ NS_ARI_USING
 
 NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Code )
 {
-	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.1f ) );
+	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.5f ) );
 	NS_CORE InternalGearRatioArray	 ans;
 	bool isSolutionExist = false;
 	size_t failedCount = 0;

@@ -63,6 +63,11 @@ void Ratios::push_back( RatioValue value )
 	m_i.push_back( value );
 }
 
+const RatioValueArray& Ratios::get() const
+{
+	return m_i;
+}
+
 void Ratios::print() const
 {
 	Log::log( "eps = " + std::to_string( m_eps.getValue() ) );

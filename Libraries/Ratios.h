@@ -29,6 +29,8 @@ public:
 
 	void										push_back( RatioValue value );
 
+	const RatioValueArray&						get() const;
+
 	void										print() const;
 
 	bool										findIn( RatioValue value ) const;

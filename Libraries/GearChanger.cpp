@@ -1,6 +1,6 @@
 #include "GearChanger.h"
 #include "Singletons.h"
-#include "CombinatoricsValueArray.h"
+#include "Subset.h"
 
 
 NS_CORE_USING
@@ -69,16 +69,16 @@ void GearChanger::initDriveElemPositions()
 		// brake + brake
 		if ( settings._gearChangerUseTwoBrakes )
 		{
-			size_t i = 0;
-			CombinatoricsValueArray combi;
-			while ( NS_CORE Singletons::getInstance()->getCombinatorics()->getSubset( generalData._numberOfBrakes, generalData._numberOfActuatedDrivingElements, i++, combi ) )
+			std::vector<DrivingElementPosition> brakesPositions;
+			for ( size_t i = 0; i < generalData._numberOfBrakes; i++ )
+				brakesPositions.push_back( DrivingElementPosition( DrivingElementPosition::eType::BRAKE, i ) );
+
+			Subset<std::vector<DrivingElementPosition>> subset( brakesPositions, generalData._numberOfActuatedDrivingElements );
+
+			do
 			{
-				std::vector<DrivingElementPosition> brakesPos;
-				const size_t combiSize = combi.size();
-				for ( size_t i = 0; i < combiSize; i++ )
-					brakesPos.push_back( DrivingElementPosition( DrivingElementPosition::eType::BRAKE, combi[i] ) );
-				m_driveElemPostions.push_back( brakesPos );
-			}
+				m_driveElemPostions.push_back( subset.get() );
+			} while ( subset.next() );
 		}
 	}
 	else

@@ -52,7 +52,6 @@ public:
 
 	IOFileManager*								getIOFileManager();
 	LoaderFromFile*								getLoaderFromFile();
-	Combinatorics*								getCombinatorics();
 	Settings*									getSettings();
 
 	const GeneralData&							getGeneralData() const;

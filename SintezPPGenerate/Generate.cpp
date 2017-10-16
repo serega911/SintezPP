@@ -1,6 +1,7 @@
 #include "Generate.h"
 #include "../Libraries/Singletons.h"
 #include "../Libraries/Log.h"
+#include "../Libraries/Subset.h"
 
 
 NS_ARI_USING
@@ -67,21 +68,16 @@ void Generate::generateInOut()
 
 void Generate::generateLinks( const GearBox & gearBox )
 {
-	NS_CORE CombinatoricsValueArray linksCombi;		//	Вектор сочетаний связей
-
-	size_t i = 0;
-	size_t allLinksSize = m_allLinks.size();
 	size_t countOfLinks = NS_CORE Singletons::getInstance()->getGeneralData()._numberOfLinks;
+
+	NS_CORE Subset<NS_CORE TLinkArray> subset( m_allLinks, countOfLinks );
+
 	const auto& initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
-	while ( NS_CORE Singletons::getInstance()->getCombinatorics()->getSubset( allLinksSize, countOfLinks, i++, linksCombi ) )
+	do
 	{
 		GearBox gearBoxWithLinks( gearBox );
-		//	Заполняем вектор связей с учетом сгенерированного сочетания
-		NS_CORE TLinkArray links;			//	Вектор связей
-		for ( size_t i = 0; i < linksCombi.size(); i++ )
-			links.push_back( m_allLinks[linksCombi[i]] );
-		gearBoxWithLinks.setLinksToCode( links );
+		gearBoxWithLinks.setLinksToCode( subset.get() );
 		gearBoxWithLinks.createChains();
 		if ( gearBoxWithLinks.check( GearBox::ALL ) )
 		{
@@ -103,36 +99,34 @@ void Generate::generateLinks( const GearBox & gearBox )
 		{
 			NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::FAIL_0, gearBoxWithLinks.getCode() );
 		}
-	}
+	} while ( subset.next() );
 }
 
 void Generate::generateFrictions( const GearBox & gearBox )
 {
 	//	Определяем элементы, на которых будет установлен фрикцион
 	NS_CORE ElementArray vect_all_FB = gearBox.getElementsForFrictions();
-
+	size_t countOfFrictions = NS_CORE Singletons::getInstance()->getGeneralData()._numberOfFrictions;
 	const auto& generalData = NS_CORE Singletons::getInstance()->getGeneralData();
 		
 	NS_CORE TLinkArray vect_all_frict;							//	Вектор всех возможных фрикционов
-	NS_CORE CombinatoricsValueArray vect_combi_frict;			//	Вектор сочетаний фрикционов
-	NS_CORE TLinkWithFrictionArray vect_frict;								//	Вектор фрикционов
+
 	for ( size_t i = 0; i < vect_all_FB.size(); i++ )
 		for ( size_t j = i + 1; j < vect_all_FB.size(); j++ )
-			vect_all_frict.push_back( NS_CORE Link( vect_all_FB[i], vect_all_FB[j] ) );
+			vect_all_frict.emplace_back( vect_all_FB[i], vect_all_FB[j] );
+
+	NS_CORE Subset<NS_CORE TLinkArray> subset( vect_all_frict, countOfFrictions );
 	//	Создаем первое сочетание фрикционов из связей по Count_F (количество фрикционов) без повторений: 0,1...
 	//	В цикле генерируем все возможные сочетания фрикционов
 
-	size_t i = 0;
-	size_t allFrictSize = vect_all_frict.size();
-	size_t countOfFrictions = NS_CORE Singletons::getInstance()->getGeneralData()._numberOfFrictions;
-
-	while ( NS_CORE Singletons::getInstance()->getCombinatorics()->getSubset( allFrictSize, countOfFrictions, i++, vect_combi_frict ) )
+	do
 	{
 		GearBox gearBoxWithFrictions( gearBox );
 		//	Заполняем вектор фрикционов с учетом сгенерированного сочетания
-		vect_frict.clear();
-		for ( size_t i = 0; i < vect_combi_frict.size(); i++ )
-			vect_frict.emplace_back( NS_CORE LinkWithFriction( vect_all_frict[vect_combi_frict[i]], i + 1 ) );
+		NS_CORE TLinkWithFrictionArray vect_frict;								//	Вектор фрикционов
+		const auto frictions = subset.get();
+		for ( size_t i = 0; i < frictions.size(); i++ )
+			vect_frict.emplace_back( NS_CORE LinkWithFriction( frictions[i], i + 1 ) );
 		gearBoxWithFrictions.setFrictionsToCode( vect_frict );
 
 		if ( gearBoxWithFrictions.check( GearBox::ALL ) )
@@ -140,35 +134,37 @@ void Generate::generateFrictions( const GearBox & gearBox )
 			generateBrakes( gearBoxWithFrictions );
 		}
 
-	}
+	} while ( subset.next() );
 }
 
 void Generate::generateBrakes( const GearBox & gearBox )
 {
 	NS_CORE ElementArray vect_all_FB = gearBox.getElementsForBrakes();
-	NS_CORE CombinatoricsValueArray vect_combi_brakes;		//	Вектор сочетаний тормозов
+	size_t countOfBrakes = NS_CORE Singletons::getInstance()->getGeneralData()._numberOfBrakes;
+	NS_CORE Subset<NS_CORE ElementArray> subset( vect_all_FB, countOfBrakes );
 	//	Создаем первое сочетание тормозов из всех возможных по Count_B
 
 	size_t i = 0;
 	size_t allBrakesSize = vect_all_FB.size();
-	size_t countOfBrakes = NS_CORE Singletons::getInstance()->getGeneralData()._numberOfBrakes;
+	
 
-	while ( NS_CORE Singletons::getInstance()->getCombinatorics()->getSubset( allBrakesSize, countOfBrakes, i++, vect_combi_brakes ) )
+	do
 	{
 		GearBox gearBoxWithBrakes( gearBox );
 		NS_CORE TLinkArray vect_brakes;	//	Вектор тормозов
+		const auto brakes = subset.get();
 		//	Заполняем вектор тормозов с учетом сгенерированного сочетания
-		for ( size_t i = 0; i < vect_combi_brakes.size(); i++ )
-			vect_brakes.push_back( NS_CORE Link( vect_all_FB[vect_combi_brakes[i]], NS_CORE Element( NS_CORE eMainElement::BRAKE, NS_CORE GearSetNumber( i + 1 ) ) ) );
+		for ( size_t i = 0; i < brakes.size(); i++ )
+			vect_brakes.push_back( NS_CORE Link( brakes[i], NS_CORE Element( NS_CORE eMainElement::BRAKE, NS_CORE GearSetNumber( i + 1 ) ) ) );
 		gearBoxWithBrakes.setBrakesToCode( vect_brakes );
-		//C.print();
+
 		if ( gearBoxWithBrakes.checkFree() )
 			NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DONE, gearBoxWithBrakes.getCode() );
 		else
 		{
 			//NS_CORE TSingletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE TIOFileManager::eOutputFileType::FAIL_FREE, gearBoxWithBrakes.getCode() );
 		}
-	}
+	} while ( subset.next() );
 }
 
 

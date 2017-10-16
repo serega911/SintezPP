@@ -1,46 +1,61 @@
 #pragma once
-
-#include <map>
-#include <functional>
+#include <vector>
 
 #include "GlobalDefines.h"
-#include "CombinatoricsValueArray.h"
 
 NS_CORE_START
 
+template <typename T>
 class Combinatorics
 {
-private:
+protected:
 
-	Combinatorics( const Combinatorics& obj ) = delete;
-	Combinatorics();
+	typedef std::vector<size_t> Combinations;
 
-	std::map<size_t, std::vector<CombinatoricsValueArray>>		m_premutations;
-	std::map<std::pair<size_t, size_t>, std::vector<CombinatoricsValueArray>>		m_subsets;
-	std::map<std::pair<size_t, size_t>, std::vector<CombinatoricsValueArray>>		m_orderedSamples;
+	T											m_values;
+	Combinations								m_indexes;
 
-	bool										nextSubset( const size_t n, CombinatoricsValueArray & mas );
-	bool										nextOrderedSample( const size_t n, CombinatoricsValueArray & mas );
+	static long factorial( const int n )
+	{
+		long ans = ((n == 0) ? 0 : 1);
 
-	void										createSubset( const std::pair<size_t, size_t> key );
-	void										createPremutation( const size_t n );
-	void										createOrderedSample( const std::pair<size_t, size_t> key );
+		for ( int i = 1; i < n; i++ )
+			ans *= i;
 
+		return ans;
+	}
 
 public:
 
-	static Combinatorics*						getInstance();
+	virtual bool								next() = 0;
+	virtual int									getCount() = 0;
 
-	bool										getPremutation( const size_t n, const size_t i, CombinatoricsValueArray & mas );						//перестановки
-	bool										getSubset( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas );			//сочетания
-	bool										getOrderedSample( const size_t n, const size_t k, const size_t i, CombinatoricsValueArray & mas );		//размещения с повторениями
+	Combinatorics()
+	{
+	}
 
-	size_t										getPremutationsCount( const size_t n );
-	size_t										getSubsetsCount( const size_t n, const size_t k );
-	size_t										getOrderedSamplesCount( const size_t n, const size_t k );
+	Combinatorics( const T& values, const size_t k )
+	{
+		init( values, k );
+	}
 
+	virtual void init( const T& values, const size_t k )
+	{
+		m_values = values;
 
-	~Combinatorics();
+		m_indexes.resize( k );
+		for ( size_t i = 0; i < k; i++ )
+			m_indexes[i] = i;
+	}
+
+	T get() const
+	{
+		T ans;
+		for ( const auto &it : m_indexes )
+			ans.emplace_back( m_values.at( it ) );
+		return ans;
+	}
+
 };
 
 NS_CORE_END

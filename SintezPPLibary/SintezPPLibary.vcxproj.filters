@@ -129,9 +129,6 @@
     <ClCompile Include="..\Libraries\SettingsItem.cpp">
       <Filter>StaticLib\TSettingsItem</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\Combinatorics.cpp">
-      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
-    </ClCompile>
     <ClCompile Include="..\Libraries\Settings.cpp">
       <Filter>StaticLib\TSingletons\TSettings</Filter>
     </ClCompile>
@@ -222,17 +219,11 @@
     <ClInclude Include="..\Libraries\SettingsItem.h">
       <Filter>StaticLib\TSettingsItem</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\Combinatorics.h">
-      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\Settings.h">
       <Filter>StaticLib\TSingletons\TSettings</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\Singletons.h">
       <Filter>StaticLib\TSingletons</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\CombinatoricsValueArray.h">
-      <Filter>StaticLib\types</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\ElementArray.h">
       <Filter>StaticLib\types</Filter>
@@ -299,6 +290,18 @@
     </ClInclude>
     <ClInclude Include="..\Libraries\MultiLinkContainer.h">
       <Filter>StaticLib\TChainsContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Combinatorics.h">
+      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\OrderedSample.h">
+      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Permutation.h">
+      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Subset.h">
+      <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
