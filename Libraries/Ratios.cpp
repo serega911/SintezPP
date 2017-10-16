@@ -73,19 +73,14 @@ void Ratios::print() const
 
 bool Ratios::findIn( RatioValue value ) const
 {
-	if ( m_i.size() == Singletons::getInstance()->getInitialData()._numberOfPlanetaryGears )
+	for ( auto& it : m_i )
 	{
-		for ( auto& it : m_i )
-		{
-			if ( ( it - value ).getAbs() <= m_eps.getValue() )
-				return true;
-		}
-		return false;
+		if ( ( it - value ).getAbs() <= m_eps.getValue() )
+			return true;
 	}
-	else
-		return true;
+	return false;
 }
-
+/*
 bool Ratios::operator==( const Ratios& obj ) const
 {
 	if ( m_i.size() == 0 || obj.size() == 0 )
@@ -124,4 +119,18 @@ bool Ratios::operator==( const Ratios& obj ) const
 		}
 		return true;
 	}
+}
+*/
+
+bool Ratios::isContain(const Ratios& obj) const
+{
+	if (m_i.size() < obj.size())
+		return false;
+
+	for (auto& it : m_i)
+	{
+		if (!obj.findIn(it))
+			return false;
+	}
+	return true;
 }

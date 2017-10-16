@@ -20,17 +20,17 @@ NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Co
 
 	do{
 		auto ret = podModul( Code, K );
-		if ( NS_CORE Singletons::getInstance()->getInitialData()._i == ret )
+		if ( NS_CORE Singletons::getInstance()->getInitialData()._i.isContain( ret ) )
 		{
 			ans.emplace_back( K );
 		}
-		else if ( gearsCount > countOfDifferent( ret ) )
-		{
-			if ( failedCount < failedLimit )
-				failedCount++;
-			else
-				break;
-		}
+		//else if ( gearsCount > countOfDifferent( ret ) )
+		//{
+		//	if ( failedCount < failedLimit )
+		//		failedCount++;
+		//	else
+		//		break;
+		//}
 
 	} while ( K.next() );
 
@@ -43,7 +43,7 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 	NS_CORE GearBoxWithChanger gb( code );
 	gb.createChains();
 
-	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.001f ) );	//вектор для полученных передаточных отношений при данном наборе K
+	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.01f ) );	//вектор для полученных передаточных отношений при данном наборе K
 	do
 	{
 		auto system = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), k, inVelocity );
@@ -59,9 +59,6 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 				tmpI.push_back( NS_CORE RatioValue( inVelocity.getValue() / calculatedW ) );
 			}
 		}
-
-
-
 	} while ( gb.turnOnNextGear() );
 
 	return tmpI;
