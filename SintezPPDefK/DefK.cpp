@@ -11,9 +11,6 @@
 
 NS_ARI_USING
 
-
-
-
 void ari::DefK::calcExample()
 {
 
@@ -52,7 +49,7 @@ void ari::DefK::calcExample()
 			auto realI = DefKSelection::podModul( code, internalGearsRatios );
 
 			const size_t iSize = realI.size();
-			if ( iSize > 0 )
+			if (iSize >= initialData._numberOfGears)
 			{
 				int unique = 1;
 				for ( size_t i = 0; i < iSize - 1; i++ )
@@ -62,7 +59,7 @@ void ari::DefK::calcExample()
 						bool finded = false;
 						for ( size_t j = i + 1; j < iSize; j++ )
 						{
-							if ( realI[i] == realI[j] )
+							if ( abs(realI[i].getValue() - realI[j].getValue()) < 0.1 )
 							{
 								finded = true;
 								break;
@@ -102,12 +99,15 @@ void DefK::run()
 	}
 
 	NS_CORE Code code;
-
+	int i = 0;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
 	{
+		i++;
 		DefKSimple solveSimple;
+		NS_CORE Log::log("<", false);
+		NS_CORE Log::log(i, false);
 		NS_CORE InternalGearRatioArray	 ans = solveSimple.calculate( code );
-		NS_CORE Log::log( ".", false );
+		
 
 		if ( !NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._calcKQuick && ans.size() == 0 )
 		{
@@ -116,6 +116,7 @@ void DefK::run()
 			ans = solveSelection.calculate( code );
 		}
 
+		NS_CORE Log::log(">", false);
 
 		bool isWrited = false;
 		const size_t ansSize = ans.size();

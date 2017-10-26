@@ -78,6 +78,10 @@ void Ratios::print() const
 
 bool Ratios::findIn( RatioValue value ) const
 {
+	//ignore rayios while doung test
+	if (Singletons::getInstance()->getSettings()->getDefKSettings()._doTest)
+		return true;
+
 	for ( auto& it : m_i )
 	{
 		if ( ( it - value ).getAbs() <= m_eps.getValue() )
