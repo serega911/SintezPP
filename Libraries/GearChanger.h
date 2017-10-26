@@ -24,7 +24,6 @@ private:
 
 	TLinkArray									m_drivingElements;
 	std::vector<TLinkArray>						m_drivingElementsForAllGears;
-	size_t										m_gear;
 
 	static std::vector<std::vector<DrivingElementPosition>>		m_driveElemPostions;
 
@@ -35,8 +34,7 @@ public:
 	GearChanger() = delete;
 	GearChanger( const Code& code );
 
-	TLinkArray									getDrivingElementsForGear() const;
-	bool										next();
+	TLinkArray									getDrivingElementsForGear( const size_t gear ) const;
 
 };
 

@@ -10,7 +10,7 @@ const std::string								Settings::s_doTest = "do_test";
 const std::string								Settings::s_calcKQuick = "calc_k_quick";
 const std::string								Settings::s_twoFrictions = "use2frict";
 const std::string								Settings::s_twoBrakes = "use2brakes";
-const std::string								Settings::s_testsCount = "tests_count";
+const std::string								Settings::s_testStep = "test_step";
 
 std::string boolTostr( const bool bVal )
 {
@@ -30,9 +30,19 @@ int strToInt( const std::string& str )
 	return std::stoi( str );
 }
 
+float strToFloat( const std::string& str )
+{
+	return std::stof( str );
+}
+
 std::string intToStr( const int iVal )
 {
 	return std::to_string( iVal );
+}
+
+std::string floatToStr( const float fVal )
+{
+	return std::to_string( fVal );
 }
 
 bool Settings::loadSettingsFromFile()
@@ -62,9 +72,9 @@ bool Settings::loadSettingsFromFile()
 		{
 			m_generalSettings._gearChangerUseTwoBrakes = strToBool( val );
 		}
-		else if ( s_testsCount == key )
+		else if ( s_testStep == key )
 		{
-			m_defKSettings._testsCount = strToInt( val );
+			m_defKSettings._testStep = strToFloat( val );
 		}
 		loadedCount++;
 	}
@@ -77,7 +87,7 @@ void Settings::saveSettingsToFile()
 	auto fm = Singletons::getInstance()->getIOFileManager();
 
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_doTest, boolTostr( m_defKSettings._doTest ) ) );
-	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_testsCount, intToStr( m_defKSettings._testsCount ) ) );
+	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_testStep, floatToStr( m_defKSettings._testStep ) ) );
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_calcKQuick, boolTostr( m_defKSettings._calcKQuick ) ) );
 
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_twoFrictions, boolTostr( m_generalSettings._gearChangerUseTwoFrictions ) ) );
@@ -88,7 +98,7 @@ void Settings::generateDefaultSettings()
 {
 	m_defKSettings._calcKQuick = true;
 	m_defKSettings._doTest = false;
-	m_defKSettings._testsCount = 5;
+	m_defKSettings._testStep = 0.5;
 
 	m_generalSettings._gearChangerUseTwoFrictions = false;
 	m_generalSettings._gearChangerUseTwoBrakes = false;

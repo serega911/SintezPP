@@ -8,7 +8,6 @@ NS_CORE_USING
 std::vector<std::vector<GearChanger::DrivingElementPosition>> core::GearChanger::m_driveElemPostions = {};
 
 GearChanger::GearChanger( const Code& code )
-	: m_gear( 0 )
 {
 	if ( m_driveElemPostions.size() == 0 )
 	{
@@ -87,14 +86,9 @@ void GearChanger::initDriveElemPositions()
 	}
 }
 
-TLinkArray GearChanger::getDrivingElementsForGear() const
+TLinkArray GearChanger::getDrivingElementsForGear( const size_t gear ) const
 {
-	return m_drivingElementsForAllGears.at( m_gear );
-}
+	Log::warning( gear == Singletons::getInstance()->getInitialData()._numberOfGears, "Wrong gear", Log::CRITICAL, HERE );
 
-bool GearChanger::next()
-{
-	m_gear++;
-
-	return m_gear < Singletons::getInstance()->getInitialData()._numberOfGears;
+	return m_drivingElementsForAllGears.at( gear );
 }

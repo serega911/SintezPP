@@ -5,7 +5,7 @@
 NS_CORE MultiLinkArray ari::GearBoxWithChangerSpecialFrictionProcess::getChainsForCurrentGear() const
 {
 	auto chains = getChains();
-	auto drivingElements = m_gearChanger.getDrivingElementsForGear();
+	auto drivingElements = m_gearChanger.getDrivingElementsForGear(m_gear);
 	const size_t drivElemSize = drivingElements.size();
 	const size_t chainsSize = chains.size();
 

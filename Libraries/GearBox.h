@@ -15,7 +15,7 @@ class GearBox
 private:
 
 	Code										m_code;
-	MultiLinkArray									m_chains;
+	MultiLinkArray								m_chains;
 
 protected:
 
@@ -26,10 +26,11 @@ public:
 
 	GearBox( const Code& code );
 
+	bool										isChainsCreatd() const;
 	void										createChains();
 
 	const Code&									getCode() const;
-	const MultiLinkArray&							getChains() const;
+	const MultiLinkArray&						getChains() const;
 
 };
 

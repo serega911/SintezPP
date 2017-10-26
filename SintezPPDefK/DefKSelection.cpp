@@ -10,16 +10,12 @@ NS_ARI_USING
 NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Code )
 {
 	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.1f ) );
-	NS_CORE InternalGearRatioArray	 ans;
-	bool isSolutionExist = false;
-	size_t failedCount = 0;
-	const size_t failedLimit = 5;
-	size_t calculated = 0;
-
+	NS_CORE InternalGearRatioArray ans;
 	const size_t gearsCount = NS_CORE Singletons::getInstance()->getInitialData()._realNumberOfGears;
+	NS_CORE GearBoxWithChanger gb( Code );
 
 	do{
-		auto ret = podModul( Code, K );
+		auto ret = podModul( gb, K );
 
 		if ( NS_CORE Singletons::getInstance()->getInitialData()._i.isContain( ret ) )
 		{
@@ -31,12 +27,10 @@ NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Co
 	return ans;
 }
 
-NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const InternalGearRatios &k )
+NS_CORE Ratios DefKSelection::podModul( NS_CORE GearBoxWithChanger & gb, const InternalGearRatios &k )
 {
 	const NS_CORE RatioValue inVelocity = NS_CORE RatioValue( 100 );
-	NS_CORE GearBoxWithChanger gb( code );
-	gb.createChains();
-	
+	gb.reset();
 
 	const auto generalData = NS_CORE Singletons::getInstance()->getInitialData();
 	int countOfSkipped = 0;
@@ -67,7 +61,7 @@ NS_CORE Ratios DefKSelection::podModul( const NS_CORE Code & code, const Interna
 	return tmpI;
 }
 
-size_t ari::DefKSelection::countOfDifferent( const NS_CORE Ratios& calculatedI )
+size_t ari::DefKSelection::countOfDifferent( const NS_CORE Ratios& calculatedI, const float eps )
 {
 	size_t ret = 0;
 	bool isUnique = true;
@@ -81,7 +75,7 @@ size_t ari::DefKSelection::countOfDifferent( const NS_CORE Ratios& calculatedI )
 			const int calcISize = calculatedI.size();
 			for ( int j = i + 1; j < calcISize; j++ )
 			{
-				if ( calculatedI[i] == calculatedI[j] )
+				if ( abs (calculatedI[i].getValue() - calculatedI[j].getValue() ) < eps )
 				{
 					isUnique = false;
 					break;

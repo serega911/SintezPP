@@ -14,7 +14,7 @@ public:
 	{
 		bool				_calcKQuick;
 		bool				_doTest;
-		size_t				_testsCount;
+		float				_testStep;
 	};
 
 	struct GeneralSettings
@@ -29,7 +29,7 @@ private:
 	static const std::string					s_doTest;
 	static const std::string					s_twoFrictions;
 	static const std::string					s_twoBrakes;
-	static const std::string					s_testsCount;
+	static const std::string					s_testStep;
 
 	bool										loadSettingsFromFile();
 	void										saveSettingsToFile();

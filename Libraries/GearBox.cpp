@@ -11,6 +11,11 @@ GearBox::GearBox( const Code& code )
 {
 }
 
+bool core::GearBox::isChainsCreatd() const
+{
+	return m_chains.size() > 0;
+}
+
 const Code& GearBox::getCode() const
 {
 	return m_code;
