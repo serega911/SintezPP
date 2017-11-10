@@ -42,7 +42,7 @@ NS_CORE InternalGearRatios DefKSimple::findK( const NS_CORE Code& code, const NS
 	system.init( initialKValues );
 
 	NS_CORE GearBoxWithChanger gb( code );
-	gb.createChains();
+	gb.reset();
 
 	int i = 0;
 	int gear = 0;
