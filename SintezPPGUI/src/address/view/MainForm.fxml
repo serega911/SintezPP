@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane dividerPositions="0.19659442724458204" prefHeight="801.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="address.view.MainFormController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+         <children>
+            <TabPane prefHeight="398.0" prefWidth="175.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="Исходные данные">
+                     <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <bottom>
+                              <Button mnemonicParsing="false" onAction="#buttonTest" prefHeight="83.0" prefWidth="222.0" text="Загрузить" BorderPane.alignment="CENTER" />
+                           </bottom>
+                           <center>
+                              <VBox prefHeight="770.0" prefWidth="251.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <ComboBox editable="true" prefWidth="150.0" promptText="Кол-во степеней свободы" />
+                                    <ComboBox editable="true" layoutX="10.0" layoutY="10.0" prefWidth="150.0" promptText="Кол-во эл-тов управления" />
+                                    <Label text="Передаточные отношения" />
+                                    <TextArea layoutX="11.0" layoutY="57.0" prefHeight="114.0" prefWidth="139.0" />
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox alignment="BASELINE_CENTER" spacing="10.0">
+                                             <children>
+                                                <TextField />
+                                                <Label text="-" />
+                                                <TextField />
+                                             </children>
+                                          </HBox>
+                                          <Button mnemonicParsing="false" text="Add" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </center>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </BorderPane>
+                     </content>
+                </Tab>
+                <Tab text="Дополнительно">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <SplitPane dividerPositions="0.7241045498547919" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <SplitPane dividerPositions="0.29797979797979796" layoutX="39.0" layoutY="124.0" orientation="VERTICAL" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="178.0" prefWidth="251.0">
+                                 <children>
+                                    <Canvas layoutX="26.0" layoutY="-43.0" mouseTransparent="true" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children></AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TabPane layoutX="53.0" layoutY="26.0" prefHeight="327.0" prefWidth="374.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <tabs>
+                                        <Tab text="Общие">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label fx:id="testLabel" layoutX="137.0" layoutY="246.0" prefHeight="17.0" prefWidth="210.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children></AnchorPane>
+                                          </content>
+                                        </Tab>
+                                        <Tab text="Угловые скорости">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TableView fx:id="angVelocityTable" layoutX="158.0" layoutY="83.0" prefHeight="526.0" prefWidth="743.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children></AnchorPane>
+                                          </content>
+                                        </Tab>
+                                          <Tab text="Направления потоков мощности">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                             </content>
+                                          </Tab>
+                                          <Tab text="Крутящие моменты">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                             </content>
+                                          </Tab>
+                                          <Tab text="Крутящие моменты с учетом КПД">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                             </content>
+                                          </Tab>
+                                          <Tab text="Критерии качества">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                          </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children></AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <TableView fx:id="schemeTable" layoutX="14.0" layoutY="67.0" prefHeight="472.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Полученные схеммы" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children></AnchorPane>
+              </items>
+            </SplitPane>
+         </children></AnchorPane>
+  </items>
+</SplitPane>
