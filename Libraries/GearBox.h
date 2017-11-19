@@ -31,7 +31,6 @@ public:
 
 	const Code&									getCode() const;
 	const MultiLinkArray&						getChains() const;
-
 };
 
 NS_CORE_END

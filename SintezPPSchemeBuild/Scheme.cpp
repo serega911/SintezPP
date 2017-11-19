@@ -29,7 +29,8 @@ void ari::Scheme::mergeLinks()
 				const auto& elems1 = m_links[i]->getElements();
 				const auto& elems2 = m_links[j]->getElements();
 
-				if ( i != j && elems1 != elems2 && elems1.intersect( elems2 ) )
+				if ( i != j && elems1 != elems2 && elems1.intersect( elems2 ) &&
+					m_links[i]->getMergable() && m_links[j]->getMergable() )
 				{
 					m_links[i]->addChain( elems2 );
 					m_links[j]->addChain( m_links[i]->getElements() );
@@ -74,6 +75,40 @@ Scheme::Scheme()
 	m_staticElements.emplace_back( output );
 }
 
+bool ari::Scheme::loadFromFile( std::istream& )
+{
+	NS_CORE Log::warning( true, "NOT IMPLEMENTED", NS_CORE Log::CRITICAL, HERE );
+	return false;
+}
+
+void ari::Scheme::writeToFile( std::ostream& file) const
+{
+	for ( const auto& it : m_links )
+	{
+		it->getElements().writeToFile( file );
+		file << ": ";
+
+		const auto & trace = it->getCordsWorldSpace();
+
+		file << trace[0]->getCord().m_x << ',' << trace[0]->getCord().m_y;
+		for ( int i = 1; i < trace.size() - 1; i++ )
+		{
+			const auto & prevCord = trace[i - 1]->getCord();
+			const auto & currCord = trace[i]->getCord();
+			const auto & nextCord = trace[i + 1]->getCord();
+
+			if ( ( currCord - prevCord ) != ( nextCord - currCord ) )
+			{
+				file << ' ';
+				file << currCord.m_x << ',' << currCord.m_y;
+			}
+		}
+		file << ' ';
+		file << trace[trace.size() - 1]->getCord().m_x << ',' << trace[trace.size() - 1]->getCord().m_y;
+		file << "; ";
+	}
+}
+
 size_t ari::Scheme::getHeight() const
 {
 	return s_height;
@@ -107,16 +142,31 @@ void ari::Scheme::addLink( const std::vector<Cordinate>& trace, const NS_CORE Li
 	for ( const auto& it : trace )
 		newLink->addCord( it );
 
-	if ( link.getElem2() != NS_CORE Element::BRAKE )
+	//if ( link.getElem2() != NS_CORE Element::BRAKE )
 		newLink->addLink( link );
-	else
-		newLink->addElem( link.getElem1() );
+	//else
+	//	newLink->addElem( link.getElem1() );
+
+	newLink->setMergable( true );
 
 	mergeLinks();
 }
 
 void ari::Scheme::addFriction( const std::vector<Cordinate>& trace, const NS_CORE Link& link )
 {
+	Link_p newLink = Link::create();
+	m_links.emplace_back( newLink );
+
+	for ( const auto& it : trace )
+		newLink->addCord( it );
+
+	//if ( link.getElem2() != NS_CORE Element::BRAKE )
+		newLink->addLink( link );
+	//else
+	//	newLink->addElem( link.getElem1() );
+
+	newLink->setMergable( false );
+	/*
 	Link_p firstHalf = Link::create();
 	Link_p secondHalf = Link::create();
 
@@ -133,6 +183,8 @@ void ari::Scheme::addFriction( const std::vector<Cordinate>& trace, const NS_COR
 	for ( ; i < size; i++ )
 		secondHalf->addCord( trace[i] );
 
+	mergeLinks();
+	*/
 }
 
 void ari::Scheme::clear()
@@ -154,11 +206,7 @@ void ari::Scheme::print( const IDisplay_p& disp, const std::string & message ) c
 	it = std::unique( uniqueChains.begin(), uniqueChains.end() );
 	uniqueChains.erase( it, uniqueChains.end() );
 
-	disp->setColors( NS_CORE eColor::YELLOW, NS_CORE eColor::BLACK );
-	for ( const auto & it : m_staticElements )
-	{
-		disp->printStatic( it );
-	}
+
 
 	for ( const auto & it : m_links )
 	{
@@ -174,9 +222,15 @@ void ari::Scheme::print( const IDisplay_p& disp, const std::string & message ) c
 		disp->printLink( it );
 	}
 
+	disp->setColors( NS_CORE eColor::YELLOW, NS_CORE eColor::BLACK );
+	for ( const auto & it : m_staticElements )
+	{
+		disp->printStatic( it );
+	}
+
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
 	NS_CORE Log::log( message );
 
-	//system( "pause" );
+	//NS_CORE Log::pause();
 }

@@ -114,6 +114,20 @@ const std::set<Element>& MultiLink::getElements() const
 	return m_elements;
 }
 
+bool core::MultiLink::loadFromFile( std::istream& )
+{
+	NS_CORE Log::warning( true, "NOT IMPLEMENTED", NS_CORE Log::CRITICAL, HERE );
+	return false;
+}
+
+void core::MultiLink::writeToFile( std::ostream& file) const
+{
+	for ( const auto & elem : m_elements )
+	{
+		elem.writeTofile( file );
+	}
+}
+
 bool NS_CORE operator==( const MultiLink& chain1, const MultiLink& chain2 )
 {
 	return chain1.m_elements == chain2.m_elements;

@@ -42,3 +42,13 @@ void ari::Link::addLink( const NS_CORE Link& link )
 {
 	m_elements.addLinkToChain( link );
 }
+
+void ari::Link::setMergable( bool isMergable )
+{
+	m_isMergable = isMergable;
+}
+
+bool ari::Link::getMergable() const
+{
+	return m_isMergable;
+}

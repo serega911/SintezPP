@@ -15,10 +15,16 @@ void Log::warning( const bool condition, const std::string& message, eWarningImp
 		if ( eWarningImportance::CRITICAL == importance )
 		{
 			std::cout << "This is a critical exception. The Programm will be aborted.\n";
-			system( "pause" );
+			pause();
 			exit( 0 );
 		}
 	}
+}
+
+void core::Log::pause( bool ignoreSettings /*= false*/ )
+{
+	//if (!ignoreSettings)
+		system("pause");
 }
 
 int Log::getColorNum( const eColor color )

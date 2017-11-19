@@ -106,7 +106,7 @@ void Settings::generateDefaultSettings()
 	saveSettingsToFile();
 
 	Log::log( "Default settings file was created. Please? check it and run application again." );
-	system( "pause" );
+	NS_CORE Log::pause();
 	exit( 0 );
 }
 

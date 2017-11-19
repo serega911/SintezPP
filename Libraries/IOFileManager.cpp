@@ -147,6 +147,7 @@ void IOFileManager::init()
 	m_fileNames[eOutputFileType::K_TEST] = "done_test.pkp";
 	m_fileNames[eOutputFileType::DEF_K_LOG] = "done_test_log.pkp";
 	m_fileNames[eOutputFileType::SETTINGS] = "settings.txt";
+	m_fileNames[eOutputFileType::RESULT] = "result.pkp";
 
 	const auto& initialData = Singletons::getInstance()->getInitialData();
 	const auto& generalData = Singletons::getInstance()->getGeneralData();

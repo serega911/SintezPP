@@ -32,7 +32,7 @@ private:
 		K_INTEGRAL
 	};
 
-	struct Characteristics
+	struct Characteristics: public NS_CORE IIOItem
 	{
 		NS_CORE Z							_tooth;
 		std::vector<NS_CORE W>				_angVelocity;
@@ -41,6 +41,62 @@ private:
 		std::vector<NS_CORE KpdZac>			_kpdZacStepen;
 		std::vector<NS_CORE M>				_kpdTorque;
 		std::map<eQualityCriteria, float>	_qualityCriterias;
+
+
+		template <class T>
+		void printCharacteristicsLine( std::map<NS_CORE Element, T> map, std::ostream & stream = std::cout ) const
+		{
+			for ( const auto& elem : map )
+			{
+				if ( elem.first != NS_CORE Element::EMPTY )
+				{
+					if ( &std::cout == &stream )
+						elem.first.print( NS_CORE eColor::GREEN );
+					else
+						elem.first.print( stream );
+					stream << "      ";
+				}
+			}
+			stream << std::endl;
+			for ( const auto& elem : map )
+			{
+				if ( elem.first != NS_CORE Element::EMPTY )
+				{
+					stream.width( 8 );
+					stream.precision( 5 );
+					stream << std::left << elem.second;
+				}
+			}
+			stream << std::endl;
+		}
+
+
+		virtual void						writeToFile( std::ostream& stream ) const
+		{
+			stream << "Z:" << std::endl;
+			printCharacteristicsLine( _tooth, stream );
+
+			stream << "M:" << std::endl;
+			for ( const auto& z : _torque )
+				printCharacteristicsLine( z, stream );
+
+			stream << "W:" << std::endl;
+			for ( const auto& z : _angVelocity )
+				printCharacteristicsLine( z, stream );
+
+			stream << "N:" << std::endl;
+			for ( const auto& z : _power )
+				printCharacteristicsLine( z, stream );
+
+			stream << "M_KPD:" << std::endl;
+			for ( const auto& z : _kpdTorque )
+				printCharacteristicsLine( z, stream );
+		}
+
+		virtual bool						loadFromFile( std::istream& )
+		{
+			return false;
+		};
 	};
 
 	static const float							s_inTorque;
@@ -48,30 +104,6 @@ private:
 	std::vector<Characteristics>				m_characteristics;
 
 	void										printCharacteristics( const NS_CORE Code code, const Characteristics& ch );
-
-	template <class T>
-	void printCharacteristicsLine( std::map<NS_CORE Element, T> map )
-	{
-		for ( const auto& elem : map )
-		{
-			if ( elem.first != NS_CORE Element::EMPTY )
-			{
-				elem.first.print( NS_CORE eColor::GREEN );
-				std::cout << "      ";
-			}
-		}
-		std::cout << std::endl;
-		for ( const auto& elem : map )
-		{
-			if ( elem.first != NS_CORE Element::EMPTY )
-			{
-				std::cout.width( 8 );
-				std::cout.precision( 5 );
-				std::cout << std::left << elem.second;
-			}
-		}
-		std::cout << std::endl;
-	}
 
 
 	NS_CORE Z									calcZ(const NS_CORE InternalGearRatios& intRatios, const NS_CORE GearSetTypes& types);

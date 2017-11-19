@@ -20,12 +20,16 @@ class Link : public ISchemeElement
 {
 private:
 
-	NS_CORE MultiLink								m_elements;
+	NS_CORE MultiLink							m_elements;
 	std::vector<ISchemeCell_p>					m_cells;
+	bool										m_isMergable = true;
 
 public:
 
 	static Link_p								create();
+
+	void										setMergable( bool isMergable );
+	bool										getMergable() const;
 
 	void										addCord( const Cordinate& cord );
 	void										addElem( const NS_CORE Element& elem );
@@ -34,7 +38,7 @@ public:
 
 	bool										isConsist( const NS_CORE Element& elem );
 
-	const NS_CORE MultiLink&						getElements() const;
+	const NS_CORE MultiLink&					getElements() const;
 	virtual const Cordinates&					getCordsWorldSpace() const override;
 
 };

@@ -70,6 +70,11 @@ void Element::print() const
 	Log::log( std::to_string( m_gearSetN.getValue() ), false );
 }
 
+void core::Element::print( std::ostream & stream ) const
+{
+	stream << std::string( 1, convernToSymbol( m_elemN ) ) << std::to_string( m_gearSetN.getValue() );
+}
+
 void core::Element::print( const eColor& color ) const
 {
 	Log::log( std::string( 1, convernToSymbol( m_elemN ) ), false, color );

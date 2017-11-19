@@ -71,7 +71,7 @@ bool ari::SchemeBuilderMoveFirst::run( IScheme_p & scheme, ITraceStrategy_p & st
 
 	scheme->print( display, "Done" );
 	code.print();
-	system( "pause" );
+	NS_CORE Log::pause();
 
 	return true;
 

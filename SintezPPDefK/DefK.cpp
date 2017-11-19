@@ -21,8 +21,12 @@ void ari::DefK::calcExample()
 	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
 	NS_CORE Code code;
+	int i = 0;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
 	{
+		i++;
+		NS_CORE Log::log( "<", false );
+		NS_CORE Log::log( i, false );
 		bool isWrited = false;
 		NS_CORE GearBoxWithChanger gb( code );
 
@@ -46,8 +50,9 @@ void ari::DefK::calcExample()
 					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, realI );
 					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, K );
 				}
-			}
+			}		
 		} while ( K.next() );
+		NS_CORE Log::log( ">", false );
 	}
 }
 
@@ -61,6 +66,7 @@ void DefK::run()
 		return;
 	}
 
+	const auto gears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
 	NS_CORE Code code;
 	int i = 0;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
@@ -71,6 +77,8 @@ void DefK::run()
 		NS_CORE Log::log(i, false);
 		NS_CORE InternalGearRatioArray	 ans = solveSimple.calculate( code );
 		
+		const auto size = ans.size();
+		NS_CORE Log::warning( size > gears, "Error", NS_CORE Log::CRITICAL, HERE );
 
 		if ( !NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._calcKQuick && ans.size() == 0 )
 		{
@@ -105,7 +113,7 @@ void DefK::run()
 		}
 
 	}
-	system( "pause" );
+	NS_CORE Log::pause();
 }
 
 bool ari::DefK::checkRequirements() const

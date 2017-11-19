@@ -13,6 +13,16 @@ NS_CORE MultiLinkArray GearBoxWithChanger::getChainsForCurrentGear() const
 	return m_gearsChains.at( m_gear );
 }
 
+void core::GearBoxWithChanger::createChainsForAllgears()
+{
+	int gear = m_gear;
+
+	reset();
+	while ( turnOnNextGear() ){};
+
+	m_gear = gear;
+}
+
 void core::GearBoxWithChanger::createGear()
 {
 	if ( m_gearsChains.find( m_gear ) == m_gearsChains.end() )
@@ -44,6 +54,26 @@ bool GearBoxWithChanger::turnOnNextGear()
 
 	createGear();
 	return true;
+}
+
+void core::GearBoxWithChanger::writeToFile( std::ostream& file) const
+{
+	auto writeLambda = [&](const NS_CORE MultiLinkArray ml)
+	{
+		for ( const auto & chain : ml )
+		{
+			chain.writeToFile( file );
+			file << ' ';
+		}
+	};
+	
+	const auto& chains = getChains();
+	writeLambda( chains );
+	for ( const auto & it : m_gearsChains )
+	{
+		file << std::endl;
+		writeLambda( it.second );
+	}
 }
 
 void core::GearBoxWithChanger::reset()

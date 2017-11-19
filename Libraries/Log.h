@@ -94,6 +94,8 @@ public:
 
 	static void									warning( const bool condition, const std::string& message, eWarningImportance importance, const std::string& senderName = "Unknown" );
 
+	static void									pause( bool ignoreSettings = false );
+
 private:
 
 	static const eColor							s_defaultFontColor;

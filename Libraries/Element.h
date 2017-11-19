@@ -27,6 +27,7 @@ public:
 
 	void										print() const;
 	void										print( const eColor& color ) const;
+	void										print( std::ostream & stream ) const;
 	void										writeTofile( std::ostream& file ) const;
 	bool										loadFromFile( std::istream& file );
 

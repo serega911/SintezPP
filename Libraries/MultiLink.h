@@ -1,12 +1,13 @@
 #pragma once
 #include "../Libraries/Element.h"
 #include "../Libraries/Link.h"
+#include "../Libraries/IIOItem.h"
 #include "GlobalDefines.h"
 #include <set>
 
 NS_CORE_START
 
-class MultiLink
+class MultiLink: public IIOItem
 {
 private:
 
@@ -34,6 +35,9 @@ public:
 	bool										intersect( const MultiLink& chain ) const;
 
 	const std::set<Element>&					getElements() const;
+
+	virtual void								writeToFile( std::ostream& ) const override;
+	virtual bool								loadFromFile( std::istream& ) override;
 
 	friend bool operator<( const MultiLink& chain1, const MultiLink& chain2 );
 	friend bool operator==( const MultiLink& chain1, const MultiLink& chain2 );

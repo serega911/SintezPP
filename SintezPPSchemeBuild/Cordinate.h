@@ -27,6 +27,8 @@ struct Cordinate
 	friend Cordinate							operator+( const Cordinate & cord1, const Cordinate& cord2 );
 	friend Cordinate							operator-( const Cordinate & cord1, const Cordinate& cord2 );
 	friend bool									operator<( const Cordinate & cord1, const Cordinate& cord2 );
+	friend bool									operator==( const Cordinate & cord1, const Cordinate& cord2 );
+	friend bool									operator!=( const Cordinate & cord1, const Cordinate& cord2 );
 };
 
 NS_ARI_END

@@ -9,7 +9,7 @@
 NS_CORE_START
 
 class GearBoxWithChanger
-	: public NS_CORE GearBox
+	: public NS_CORE GearBox, public IIOItem
 {
 private:
 
@@ -28,9 +28,13 @@ public:
 	GearBoxWithChanger( const NS_CORE Code& code );
 
 	virtual NS_CORE MultiLinkArray				getChainsForCurrentGear() const;
+	void										createChainsForAllgears();
 
 	bool										turnOnNextGear();
 	void										reset();
+
+	virtual void								writeToFile( std::ostream& ) const;
+	virtual bool								loadFromFile( std::istream& ){ return false; };
 
 };
 

@@ -23,10 +23,12 @@ void CalcKinCharacteristics::run()
 	core::Code code;
 	core::InternalGearRatios k;
 	core::GearSetTypes	types;
+	core::FakeItem	fake;
 	std::vector<core::IIOItem*> containers;
 	containers.push_back( &code );
 	containers.push_back( &k );
 	containers.push_back( &types );
+	containers.push_back( &fake );
 
 	while ( core::Singletons::getInstance()->getLoaderFromFile()->load( containers, core::IOFileManager::eOutputFileType::KIN_SLOW ) )
 	{
@@ -40,6 +42,17 @@ void CalcKinCharacteristics::run()
 		ch._qualityCriterias = calcQualityCriterias( ch._kpdTorque, ch._angVelocity );
 
 		printCharacteristics( code, ch );
+
+		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, code );
+
+		NS_CORE GearBoxWithChanger gb( code );
+		gb.createChainsForAllgears();
+		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, gb );
+
+		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, types );
+		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, fake );
+		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, k );
+		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, ch );
 
 		m_characteristics.push_back( ch );
 	}
@@ -411,31 +424,31 @@ void ari::CalcKinCharacteristics::printCharacteristics( const NS_CORE Code code,
 	code.print();
 
 	NS_CORE Log::log( "Z:", true, NS_CORE eColor::AQUA );
-	printCharacteristicsLine(ch._tooth);
+	ch.printCharacteristicsLine(ch._tooth);
 
 	NS_CORE Log::log( "M:", true, NS_CORE eColor::AQUA );
 	for ( const auto& z : ch._torque )
 	{
-		printCharacteristicsLine( z );
+		ch.printCharacteristicsLine( z );
 	}
 
 	NS_CORE Log::log( "W:", true, NS_CORE eColor::AQUA );
 	for ( const auto& z : ch._angVelocity )
 	{
-		printCharacteristicsLine( z );
+		ch.printCharacteristicsLine( z );
 	}
 
 	NS_CORE Log::log( "N:", true, NS_CORE eColor::AQUA );
 	for ( const auto& z : ch._power )
 	{
-		printCharacteristicsLine( z );
+		ch.printCharacteristicsLine( z );
 	}
 
 	NS_CORE Log::log( "M_KPD:", true, NS_CORE eColor::AQUA );
 	for ( const auto& z : ch._kpdTorque )
 	{
-		printCharacteristicsLine( z );
+		ch.printCharacteristicsLine( z );
 	}
 
-	system( "pause" );
+	NS_CORE Log::pause();
 }

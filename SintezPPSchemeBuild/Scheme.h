@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Libraries/GlobalDefines.h"
+#include "../Libraries/IIOItem.h"
 
 #include "IScheme.h"
 #include "GearSet.h"
@@ -12,7 +13,7 @@ class Scheme;
 
 typedef std::shared_ptr<Scheme> Scheme_p;
 
-class Scheme : public IScheme
+class Scheme : public IScheme, public NS_CORE IIOItem
 {
 private:
 
@@ -21,7 +22,6 @@ private:
 
 	int											m_width;
 	std::vector<Link_p>							m_links;
-	std::vector<Link_p>							m_ethLinks;
 	std::vector<ISchemeElement_p>				m_staticElements;
 
 	void										mergeLinks();
@@ -43,6 +43,8 @@ public:
 
 	virtual std::vector<ISchemeElement_p>		getAllElements() const override;
 
+	virtual void								writeToFile( std::ostream& ) const override;
+	virtual bool								loadFromFile( std::istream& ) override;
 };
 
 

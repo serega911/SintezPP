@@ -268,7 +268,7 @@ void PathBuilderLee::printField()
 
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
-	system( "pause" );
+	NS_CORE Log::pause();
 }
 
 void PathBuilderLee::printRoute( const std::vector<Cordinate> & route )
@@ -280,7 +280,7 @@ void PathBuilderLee::printRoute( const std::vector<Cordinate> & route )
 			disp->print( it, '#' );
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
-	//system( "pause" );
+	//NS_CORE Log::pause();
 }
 
 void PathBuilderLee::printWave( const Wave & wave )
@@ -292,5 +292,5 @@ void PathBuilderLee::printWave( const Wave & wave )
 			disp->print( it, fieldAt( it )._cost % 10 + '0' );
 	disp->resetColors();
 	disp->print( { 0, 20 }, '>' );
-	//system( "pause" );
+	//NS_CORE Log::pause();
 }
