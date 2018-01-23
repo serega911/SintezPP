@@ -2,16 +2,17 @@ package address.model;
 
 class Element
 {
-	private eElement elem;
-	private Integer  gearSet;
+	private eElement elem = null;
+	private Integer  gearSet = null;
 	
 	Element(eElement elem, Integer  gearSet)
 	{
 		this.elem =  elem;
 		this.gearSet = gearSet;
 	}
-	
-	Element(eElement elem) throws Exception
+
+	/*	
+	Element(final eElement elem) throws Exception
 	{
 		switch (elem)
 		{
@@ -25,4 +26,5 @@ class Element
 			throw new Exception();
 		}
 	}
+	*/
 }

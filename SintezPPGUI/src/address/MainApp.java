@@ -1,5 +1,7 @@
 package address;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
@@ -20,20 +22,26 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    public MainApp()
+    public MainApp() throws FileNotFoundException
     {
-    	for (int i = 0; i < 10; i++)
-    		getSchemes().add(new Scheme("test scheme " + i));
+    	boolean isLoaded = false;
+    	//Load schemes from file
+    	FileInputStream file = new FileInputStream("data_tmp/result.pkp");
+    	do {
+    		Scheme scheme = new Scheme("test scheme ");
+    		isLoaded = scheme.loadFromFile(file);
+    		if (isLoaded == true)
+    			getSchemes().add(scheme);
+    	} while (!isLoaded);
     }
     
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("SintezPPGUI");
 
         initRootLayout();
-
-        showPersonOverview();
+        showMainForm();
     }
 
     /**
@@ -59,7 +67,7 @@ public class MainApp extends Application {
     /**
      * Показывает в корневом макете сведения об адресатах.
      */
-    public void showPersonOverview() {
+    public void showMainForm() {
         try {
             // Загружаем сведения об адресатах.
             FXMLLoader loader = new FXMLLoader();
@@ -67,7 +75,7 @@ public class MainApp extends Application {
             // Помещаем сведения об адресатах в центр корневого макета.
             rootLayout.setCenter(loader.load());
             
-         // Даём контроллеру доступ к главному приложению.
+            // Даём контроллеру доступ к главному приложению.
             MainFormController controller = loader.getController();
             controller.setMainApp(this);
             
