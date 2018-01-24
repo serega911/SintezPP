@@ -5,12 +5,15 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.util.Set;
 
 import address.MainApp;
 import address.model.Scheme;
+import address.model.eType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 
 
@@ -38,7 +41,7 @@ public class MainFormController {
     }
 
     @FXML
-    private void buttonTest() throws FileNotFoundException
+    private void LoadSchemes() throws FileNotFoundException
     {
     	boolean isLoaded = false;
     	//Load schemes from file
@@ -50,19 +53,36 @@ public class MainFormController {
     		isLoaded = scheme.loadFromFile(br);
     		if (isLoaded == true)
     			mainApp.getSchemes().add(scheme);
-    	} while (isLoaded);
-    	/*
-    	mainApp.getSchemes().add(new Scheme());
-    	
+    	} while (isLoaded);   
+    }
+    
+    @FXML
+    private void addColumnTest() throws FileNotFoundException
+    {
     	TableColumn<Scheme, String> column = new TableColumn<Scheme, String>();
-    	//column.setText("1245");
+    	column.setText("1245");
     	angVelocityTable.getColumns().add(column);
-    	*/
+   
     }
     
     private void showSchemeDetails(Scheme scheme)
     {
     	testLabel.setText(scheme.codeProperty().get() + " selected");
+    	
+    	//TableRow<Integer> row = new TableRow<Integer>();
+    	//angVelocityTable.getRowFactory().
+    	
+    	Set<String> headers = scheme.getColumnHeaders(eType.TORQUE);
+    	
+    	angVelocityTable.getColumns().clear();
+    	for (String header: headers)
+    	{
+    		TableColumn<Scheme, String> column = new TableColumn<Scheme, String>();
+    		column.setText(header);
+    		//column.setCellValueFactory(cellData -> cellData.getValue().getValue(eType.TORQUE, 1, header));
+    		
+    		angVelocityTable.getColumns().add(column);
+    	}
     }
     
     public void setMainApp(MainApp mainApp) {

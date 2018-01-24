@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 
-import address.model.SchemeData.eType;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -105,6 +106,7 @@ public class Scheme {
 	            	}
 	            	else if (strLine.matches("end\\s*"))
 	            	{
+	            		System.out.println("+++++++++++++++++++++++++++++END+++++++++++++++++++++++++++");
 	            		return true;
 	            	}
 	            	
@@ -138,6 +140,15 @@ public class Scheme {
 	public StringProperty codeProperty()
 	{
 		return code;
+	}
+	
+	public Set<String> getColumnHeaders(eType type)
+	{
+		return data.getColumnHeaders(type);
+	}
+	public String getValue(eType type, Integer gear, String elem)
+	{
+		return data.getValue(type, gear, elem);
 	}
 	/*
 	public ObjectProperty<Chains> chainsProperty()

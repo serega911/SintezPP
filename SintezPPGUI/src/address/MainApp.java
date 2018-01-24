@@ -59,15 +59,10 @@ public class MainApp extends Application {
         }
     }
 
-    /**
-     * ѕоказывает в корневом макете сведени€ об адресатах.
-     */
     public void showMainForm() {
         try {
-            // «агружаем сведени€ об адресатах.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/MainForm.fxml"));
-            // ѕомещаем сведени€ об адресатах в центр корневого макета.
             rootLayout.setCenter(loader.load());
             
             // ƒаЄм контроллеру доступ к главному приложению.

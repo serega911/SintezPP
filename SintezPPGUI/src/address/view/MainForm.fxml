@@ -19,7 +19,7 @@
                      <content>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                            <bottom>
-                              <Button mnemonicParsing="false" onAction="#buttonTest" prefHeight="83.0" prefWidth="222.0" text="Загрузить" BorderPane.alignment="CENTER" />
+                              <Button mnemonicParsing="false" onAction="#LoadSchemes" prefHeight="83.0" prefWidth="222.0" text="Загрузить" BorderPane.alignment="CENTER" />
                            </bottom>
                            <center>
                               <VBox prefHeight="770.0" prefWidth="251.0" spacing="10.0" BorderPane.alignment="CENTER">
@@ -37,7 +37,7 @@
                                                 <TextField />
                                              </children>
                                           </HBox>
-                                          <Button mnemonicParsing="false" text="Add" />
+                                          <Button mnemonicParsing="false" onAction="#addColumnTest" text="Add" />
                                        </children>
                                     </VBox>
                                  </children>
