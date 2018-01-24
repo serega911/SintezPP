@@ -4,11 +4,15 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Scheme {
 
@@ -27,14 +31,14 @@ public class Scheme {
 		final String frictionRegex = "(" + elemRegex + elemRegex + "F[0-9])";
 		final String codeRegex = "(" + linkRegex + "\\s+)*(" + frictionRegex + "\\s+)+(" + linkRegex + "\\s+)*";
 		final String chainRegex = "(" + elemRegex + "+\\s*)+";
-		final String velocityRgex = "w:\\s*";
+		final String velocityRgex = "W:\\s*";
 		final String torqueRgex = "M:\\s*";
 		final String torqueKpdRgex = "M_KPD:\\s*";
 		final String powerRegex = "N:\\s*";
 		final String toothRgex = "Z:\\s*";
 		final String traceRegex = "((" + elemRegex + ")*:(\\s*\\d*,\\d*)*;\\s*)+";
 		final String gearSetsTypesRegex = "(\\s*[D|U|P|(U_R)|(P_R)]\\s*)+";
-		final String numericValuesRegex = "([-+]*\\d+\\.*\\d*\\s*)+";
+		final String numericValuesRegex = "([-+]*\\d+\\.*\\d*(e-)*\\d*\\s*)+";
 		final String powerValuesRegex = "([+-0]\\s*)+";
 		final String headerRegex = "(\\s*" + elemRegex + "[0-9]*\\s+)+";
 
@@ -109,27 +113,6 @@ public class Scheme {
 	            		System.out.println("+++++++++++++++++++++++++++++END+++++++++++++++++++++++++++");
 	            		return true;
 	            	}
-	            	
-	            	/*if (Pattern.matches(input, strLine)) {
-	                    Pattern p = Pattern.compile("'(.*?)'");
-	                    Matcher m = p.matcher(strLine);
-	                    while (m.find()) {
-	                        String b = m.group(1);
-	                        String c = b.toString() + ".*";
-	                        System.out.println(b);
-
-	                        if (Pattern.matches(c, strLine)) {
-	                            Pattern pat = Pattern.compile("<(.*?)>");
-	                            Matcher mat = pat.matcher(strLine);
-	                            while (mat.find()) {
-	                                System.out.println(m.group(1));
-
-	                            }
-	                        } else {
-	                            System.out.println("Not found");
-	                        }
-	                    }
-	                }*/
 	            }
 	        } catch (Exception e) {
 	            System.err.println("Error: " + e.getMessage());
@@ -146,10 +129,10 @@ public class Scheme {
 	{
 		return data.getColumnHeaders(type);
 	}
-	public String getValue(eType type, Integer gear, String elem)
-	{
-		return data.getValue(type, gear, elem);
-	}
+	
+    public ObservableList<Map> generateDataInMap(eType type) {
+        return data.getValue(type);
+    }
 	/*
 	public ObjectProperty<Chains> chainsProperty()
 	{

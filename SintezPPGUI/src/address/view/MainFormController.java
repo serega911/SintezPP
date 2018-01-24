@@ -5,16 +5,20 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import address.MainApp;
 import address.model.Scheme;
 import address.model.eType;
+import address.model.SchemeData.Data;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
 
 
 public class MainFormController {
@@ -26,7 +30,13 @@ public class MainFormController {
     @FXML
     private TableColumn<Scheme, String> nameColumn;
     @FXML
-    private TableView<Scheme> angVelocityTable;
+    private TableView<Map> angVelocityTable;
+    @FXML
+    private TableView<Map> powerTable;
+    @FXML
+    private TableView<Map> torqueKpdTable;
+    @FXML
+    private TableView<Map> torqueTable;
     @FXML   
     private Label testLabel;
     
@@ -59,30 +69,38 @@ public class MainFormController {
     @FXML
     private void addColumnTest() throws FileNotFoundException
     {
-    	TableColumn<Scheme, String> column = new TableColumn<Scheme, String>();
-    	column.setText("1245");
-    	angVelocityTable.getColumns().add(column);
+    	//TableColumn<TreeMap<String, Double>, String> column = new TableColumn<TreeMap<String, Double>, String>();
+    	//column.setText("1245");
+    	//angVelocityTable.getColumns().add(column);
    
     }
     
+
+
+    
     private void showSchemeDetails(Scheme scheme)
     {
-    	testLabel.setText(scheme.codeProperty().get() + " selected");
-    	
-    	//TableRow<Integer> row = new TableRow<Integer>();
-    	//angVelocityTable.getRowFactory().
-    	
-    	Set<String> headers = scheme.getColumnHeaders(eType.TORQUE);
-    	
-    	angVelocityTable.getColumns().clear();
-    	for (String header: headers)
+    	//https://docs.oracle.com/javafx/2/ui_controls/table-view.htm
+    	Map<eType, TableView<Map>> tables = new HashMap<eType, TableView<Map>>();
+    	tables.put(eType.ANG_VELOCITY, angVelocityTable);
+    	tables.put(eType.POWER, powerTable);
+    	tables.put(eType.TORQUE, torqueTable);
+    	tables.put(eType.TORQUE_KPD, torqueKpdTable);
+
+    	for (Entry<eType, TableView<Map>> entry : tables.entrySet())
     	{
-    		TableColumn<Scheme, String> column = new TableColumn<Scheme, String>();
-    		column.setText(header);
-    		//column.setCellValueFactory(cellData -> cellData.getValue().getValue(eType.TORQUE, 1, header));
-    		
-    		angVelocityTable.getColumns().add(column);
-    	}
+	    	Set<String> headers = scheme.getColumnHeaders(entry.getKey());
+	    	entry.getValue().getColumns().clear();
+	    	for (String header: headers)
+	    	{
+	    		TableColumn<Map, String> column = new TableColumn<>();
+	    		column.setText(header);	
+	    		column.setCellValueFactory(new MapValueFactory(header));
+	    		entry.getValue().getColumns().add(column);
+	    	}
+	    	entry.getValue().setItems(scheme.generateDataInMap(entry.getKey()));
+	    }
+    	
     }
     
     public void setMainApp(MainApp mainApp) {
