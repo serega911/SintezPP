@@ -1,8 +1,11 @@
 package address;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 
 import address.model.Scheme;
@@ -24,15 +27,7 @@ public class MainApp extends Application {
 
     public MainApp() throws FileNotFoundException
     {
-    	boolean isLoaded = false;
-    	//Load schemes from file
-    	FileInputStream file = new FileInputStream("data_tmp/result.pkp");
-    	do {
-    		Scheme scheme = new Scheme("test scheme ");
-    		isLoaded = scheme.loadFromFile(file);
-    		if (isLoaded == true)
-    			getSchemes().add(scheme);
-    	} while (!isLoaded);
+
     }
     
     @Override

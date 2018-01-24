@@ -5,8 +5,7 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import address.model.SchemeData.eType;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -16,18 +15,16 @@ public class Scheme {
 	private StringProperty         code = new SimpleStringProperty();
 	private SchemeData             data = new SchemeData();
 
-	public Scheme(final String code)
+	public Scheme()
 	{
-		this.code.set(code);
-		
 	}
 
-	public boolean loadFromFile(FileInputStream fstream)
+	public boolean loadFromFile(BufferedReader br)
 	{
 		final String elemRegex = "([a-zA-Z][0-9])";
-		final String linkRegex = elemRegex + elemRegex;
-		final String frictionRegex = elemRegex + elemRegex + "F[0-9]";
-		final String codeRegex = "(("+ linkRegex + "|" + frictionRegex + ")\\s*)+";
+		final String linkRegex = "(" + elemRegex + elemRegex + ")";
+		final String frictionRegex = "(" + elemRegex + elemRegex + "F[0-9])";
+		final String codeRegex = "(" + linkRegex + "\\s+)*(" + frictionRegex + "\\s+)+(" + linkRegex + "\\s+)*";
 		final String chainRegex = "(" + elemRegex + "+\\s*)+";
 		final String velocityRgex = "w:\\s*";
 		final String torqueRgex = "M:\\s*";
@@ -39,21 +36,24 @@ public class Scheme {
 		final String numericValuesRegex = "([-+]*\\d+\\.*\\d*\\s*)+";
 		final String powerValuesRegex = "([+-0]\\s*)+";
 		final String headerRegex = "(\\s*" + elemRegex + "[0-9]*\\s+)+";
-		
+
+		Integer gear = 0;
+		String header = "";
+		eType type = null;
 		
 		 try {
-	            DataInputStream in = new DataInputStream(fstream);
-	            BufferedReader br = new BufferedReader(new InputStreamReader(in));
 	            String strLine;
 	            while ((strLine = br.readLine()) != null) {
 	            	
 	            	System.out.print(strLine);
 	            	if(strLine.matches(codeRegex))
 	            	{
+	            		this.code.set(strLine);
 	            		System.out.println(" - code");
 	            	}
 	            	else if(strLine.matches(headerRegex))
 	            	{
+	            		header = strLine;
 	            		System.out.println(" - header");
 	            	}
 	            	else if(strLine.matches(chainRegex))
@@ -68,33 +68,44 @@ public class Scheme {
 	            	{
 	            		System.out.println(" - gear sets types");
 	            	}
-	            	else if(strLine.matches(numericValuesRegex))
+	            	else if(strLine.matches(numericValuesRegex) || strLine.matches(powerValuesRegex))
 	            	{
-	            		System.out.println(" - numeric values");
-	            	}
-	            	else if(strLine.matches(powerValuesRegex))
-	            	{
-	            		System.out.println(" - power values");
+	            		if (type != null)
+	            			data.add(header, strLine, ++gear, type);
+	            		System.out.println(" - data values");
 	            	}
 	            	else if(strLine.matches(velocityRgex))
 	            	{
+	            		gear = 0;
+	            		type = eType.ANG_VELOCITY;
 	            		System.out.println(" - velocity");
 	            	}
 	            	else if(strLine.matches(torqueRgex))
 	            	{
+	            		gear = 0;
+	            		type = eType.TORQUE;
 	            		System.out.println(" - torque");
 	            	}
 	            	else if(strLine.matches(torqueKpdRgex))
 	            	{
+	            		gear = 0;
+	            		type = eType.TORQUE_KPD;
 	            		System.out.println(" - torqueKpd");
 	            	}
 	            	else if(strLine.matches(powerRegex))
 	            	{
+	            		gear = 0;
+	            		type = eType.POWER;
 	            		System.out.println(" - power");
 	            	}
 	            	else if(strLine.matches(toothRgex))
 	            	{
+	            		type = null;
 	            		System.out.println(" - tooth");
+	            	}
+	            	else if (strLine.matches("end\\s*"))
+	            	{
+	            		return true;
 	            	}
 	            	
 	            	/*if (Pattern.matches(input, strLine)) {
@@ -121,7 +132,7 @@ public class Scheme {
 	        } catch (Exception e) {
 	            System.err.println("Error: " + e.getMessage());
 	        }
-		 return true;/*TODO*/
+		 return false;
 	}
 
 	public StringProperty codeProperty()

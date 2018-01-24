@@ -1,5 +1,11 @@
 package address.view;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+
 import address.MainApp;
 import address.model.Scheme;
 import javafx.fxml.FXML;
@@ -32,14 +38,26 @@ public class MainFormController {
     }
 
     @FXML
-    private void buttonTest()
+    private void buttonTest() throws FileNotFoundException
     {
-    	
-    	mainApp.getSchemes().add(new Scheme("added scheme"));
+    	boolean isLoaded = false;
+    	//Load schemes from file
+    	FileInputStream file = new FileInputStream("data_tmp/result.pkp");
+    	DataInputStream in = new DataInputStream(file);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+    	do {
+    		Scheme scheme = new Scheme();
+    		isLoaded = scheme.loadFromFile(br);
+    		if (isLoaded == true)
+    			mainApp.getSchemes().add(scheme);
+    	} while (isLoaded);
+    	/*
+    	mainApp.getSchemes().add(new Scheme());
     	
     	TableColumn<Scheme, String> column = new TableColumn<Scheme, String>();
     	//column.setText("1245");
     	angVelocityTable.getColumns().add(column);
+    	*/
     }
     
     private void showSchemeDetails(Scheme scheme)
