@@ -9,7 +9,8 @@ public class Scheme {
 
 	// private ObjectProperty<Chains> chains = new SimpleObjectProperty<Chains>();
 	private StringProperty code = new SimpleStringProperty();
-	private SchemeData data = new SchemeData();
+	private SchemeData schemeData = new SchemeData();
+	private DrawData drawData = new DrawData();
 
 	private static final String elemRegex = "([a-zA-Z][0-9])";
 	private static final String linkRegex = "(" + elemRegex + elemRegex + ")";
@@ -49,14 +50,14 @@ public class Scheme {
 				/* TODO */
 				System.out.println(" - chain");
 			} else if (strLine.matches(traceRegex)) {
-				/* TODO */
+				drawData.setTraces(strLine);
 				System.out.println(" - trace");
 			} else if (strLine.matches(gearSetsTypesRegex)) {
-				/* TODO */
+				drawData.setTypes(strLine);
 				System.out.println(" - gear sets types");
 			} else if (strLine.matches(numericValuesRegex) || strLine.matches(powerValuesRegex)) {
 				if (type != null)
-					data.add(header, strLine, type);
+					schemeData.add(header, strLine, type);
 				System.out.println(" - data values");
 			} else if (strLine.matches(velocityRgex)) {
 				type = eType.ANG_VELOCITY;
@@ -87,6 +88,6 @@ public class Scheme {
 	}
 
 	public final SchemeData getData() {
-		return data;
+		return schemeData;
 	}
 }

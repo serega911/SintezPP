@@ -19,9 +19,13 @@ public class SchemeData {
 		String[] parsedKeys = header.split("[ ]{1,}", 0);
 
 		if (parsedValues.length != parsedKeys.length)
-			throw new Exception("keys and values not matched");
+			throw new Exception("keys and values not matched \n" + header + "\n" + values);
 
 		Map<String, String> dataRow = new HashMap<>();
+
+		final Integer n = getValue(type).size() + 1;
+		dataRow.put("#Gear", n.toString());
+
 		for (Integer i = 0; i < parsedValues.length; i++)
 			dataRow.put(parsedKeys[i], parsedValues[i]);
 
