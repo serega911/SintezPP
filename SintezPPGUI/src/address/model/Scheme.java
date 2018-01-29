@@ -90,4 +90,8 @@ public class Scheme {
 	public final SchemeData getData() {
 		return schemeData;
 	}
+
+	public final DrawData getDrawData() {
+		return drawData;
+	}
 }

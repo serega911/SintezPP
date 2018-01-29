@@ -7,17 +7,19 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import address.MainApp;
 import address.model.Scheme;
+import address.model.SchemeDraw;
 import address.model.eType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 public class MainFormController {
 
@@ -37,6 +39,8 @@ public class MainFormController {
 	private TableView<Map<String, String>> torqueTable;
 	@FXML
 	private Label testLabel;
+	@FXML
+	private AnchorPane drawPane;
 
 	Map<eType, TableView<Map<String, String>>> tables = new HashMap<eType, TableView<Map<String, String>>>();
 
@@ -94,6 +98,9 @@ public class MainFormController {
 			}
 			entry.getValue().setItems(scheme.getData().getValue(entry.getKey()));
 		}
+
+		SchemeDraw draw = new SchemeDraw(drawPane, scheme.getDrawData());
+		draw.draw();
 	}
 
 	public void setMainApp(MainApp mainApp) {

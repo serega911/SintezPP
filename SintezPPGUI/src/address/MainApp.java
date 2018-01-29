@@ -69,15 +69,6 @@ public class MainApp extends Application {
 		}
 	}
 
-	/**
-	 * Возвращает главную сцену.
-	 * 
-	 * @return
-	 */
-	public Stage getPrimaryStage() {
-		return primaryStage;
-	}
-
 	public static void main(String[] args) {
 		launch(args);
 	}
