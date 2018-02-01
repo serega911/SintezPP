@@ -119,7 +119,7 @@ ari::Function_p ari::Function::createCF( const NS_CORE InternalGearRatioValue& k
 	return ret;
 }
 
-float Function::calc( float kpdb ) const
+double Function::calc(double kpdb) const
 {
 	return pow( kpdb, m_nb ) * m_a + pow( 2 * kpdb - 1, m_na ) * m_b + m_c;
 }

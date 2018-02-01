@@ -2,8 +2,10 @@ package address.view;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +20,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 
 public class MainFormController {
 
@@ -41,6 +45,8 @@ public class MainFormController {
 	private Label testLabel;
 	@FXML
 	private AnchorPane drawPane;
+	@FXML
+	private TextArea commonData;
 
 	Map<eType, TableView<Map<String, String>>> tables = new HashMap<eType, TableView<Map<String, String>>>();
 
@@ -61,9 +67,14 @@ public class MainFormController {
 
 	@FXML
 	private void LoadSchemes() throws FileNotFoundException {
+		load("data_tmp");
+	}
+	
+	private void load(final String pathToDir) throws FileNotFoundException
+	{
 		boolean isLoaded = false;
 		// Load schemes from file
-		FileInputStream file = new FileInputStream("data_tmp/result.pkp");
+		FileInputStream file = new FileInputStream(pathToDir + "/result.pkp");
 		DataInputStream in = new DataInputStream(file);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		do {
@@ -82,9 +93,40 @@ public class MainFormController {
 	}
 
 	@FXML
-	private void addColumnTest() throws FileNotFoundException {
+	private void addColumnTest() throws InterruptedException, IOException {
+/*
+		Runtime runtime = Runtime.getRuntime(); 
+
+		try
+		{
+			Process proc = runtime.exec("../Release/SintezPPGenerate.exe w=2 n=3 d=4");
+			proc.waitFor();   
+			proc = runtime.exec("../Release/SintezPPDefK.exe w=2 n=3 d=4 rb=-8 re=-2 rb=2 re=8 i=1 i=2 i=3 i=4");
+			proc.waitFor();  
+			proc = runtime.exec("../Release/SintezPPSchemeBuild.exe w=2 n=3 d=4 rb=-8 re=-2 rb=2 re=8 i=1 i=2 i=3 i=4");
+			proc.waitFor();
+			proc = runtime.exec("../Release/SintezPPKinCharacteristics.exe w=2 n=3 d=4 rb=-8 re=-2 rb=2 re=8 i=1 i=2 i=3 i=4");
+			proc.waitFor();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+*/
 	}
 
+	@FXML
+	private void openFolder() throws FileNotFoundException {
+		DirectoryChooser dc = new DirectoryChooser();
+		File dir = dc.showDialog(null);
+		
+		final String path = dir == null ? null : dir.getAbsolutePath();
+		
+		if (path != null)
+			load(path);
+
+	}
+	
 	private void showSchemeDetails(Scheme scheme) {
 		// https://docs.oracle.com/javafx/2/ui_controls/table-view.htm
 		for (Entry<eType, TableView<Map<String, String>>> entry : tables.entrySet()) {
@@ -101,6 +143,9 @@ public class MainFormController {
 
 		SchemeDraw draw = new SchemeDraw(drawPane, scheme.getDrawData());
 		draw.draw();
+		
+		commonData.setText("efsrbhrtfhb");
+		commonData.setText("efsrbhrtrfhfhb");
 	}
 
 	public void setMainApp(MainApp mainApp) {

@@ -53,6 +53,7 @@ void CalcKinCharacteristics::run()
 		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, fake );
 		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, k );
 		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::RESULT, ch );
+		NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile(NS_CORE IOFileManager::eOutputFileType::RESULT, NS_CORE IOFileManager::end);
 
 		m_characteristics.push_back( ch );
 	}

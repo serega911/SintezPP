@@ -26,7 +26,7 @@ public:
 	virtual bool								loadFromFile( std::istream& file) override
 	{
 		std::getline(file, m_str);
-		if ( m_str == "" );
+		if ( m_str == "" )
 			std::getline(file, m_str);
 		return !file.eof();
 	}

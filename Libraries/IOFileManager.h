@@ -34,6 +34,23 @@ public:
 		RESULT			// Final results
 	};
 
+	class End : public IIOItem
+	{
+	public:
+
+		virtual void writeToFile(std::ostream & stream) const override
+		{
+			stream << "end" << std::endl;
+		}
+
+		virtual bool loadFromFile(std::istream & stream) override
+		{
+			std::string str;
+			stream >> str;
+			return str == "end";
+		}
+	};
+
 	static IOFileManager*						getInstance();
 	~IOFileManager();
 
@@ -48,6 +65,8 @@ public:
 
 	void										cleanFiles();
 	bool										isFileExists( const eOutputFileType type );
+
+	static const End							end;
 
 private:
 

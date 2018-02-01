@@ -62,9 +62,9 @@ private:
 			{
 				if ( elem.first != NS_CORE Element::EMPTY )
 				{
-					stream.width( 8 );
-					stream.precision( 5 );
-					stream << std::left << elem.second;
+					stream.width( 7 );
+					stream.precision( 4 );
+					stream << std::left << elem.second << " ";
 				}
 			}
 			stream << std::endl;
@@ -91,6 +91,10 @@ private:
 			stream << "M_KPD:" << std::endl;
 			for ( const auto& z : _kpdTorque )
 				printCharacteristicsLine( z, stream );
+
+			//stream << "QK:" << std::endl;
+			//for (const auto& z : _qualityCriterias)
+			//	printCharacteristicsLine(z, stream);
 		}
 
 		virtual bool						loadFromFile( std::istream& )
