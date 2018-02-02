@@ -32,6 +32,26 @@ private:
 		K_INTEGRAL
 	};
 
+	static std::string qualityCriteriaToString(const eQualityCriteria qc)
+	{
+		switch (qc)
+		{
+		case eQualityCriteria::K1:			return "K1";
+		case eQualityCriteria::K2:			return "K2";
+		case eQualityCriteria::K3:			return "K3";
+		case eQualityCriteria::K4:			return "K4";
+		case eQualityCriteria::K5_1:		return "K5_1";
+		case eQualityCriteria::K5_2:		return "K5_2";
+		case eQualityCriteria::K6:			return "K6";
+		case eQualityCriteria::K7:			return "K7";
+		case eQualityCriteria::K8:			return "K8";
+		case eQualityCriteria::K9:			return "K9";
+		case eQualityCriteria::K_INTEGRAL:	return "K_INT";
+		default:							return "UNKNOWN";
+			break;
+		}
+	}
+
 	struct Characteristics: public NS_CORE IIOItem
 	{
 		NS_CORE Z							_tooth;
@@ -70,6 +90,24 @@ private:
 			stream << std::endl;
 		}
 
+		template <class T>
+		void printCharacteristicsLine(std::map<eQualityCriteria, T> map, std::ostream & stream = std::cout) const
+		{
+			for (const auto& elem : map)
+			{
+				stream.width(7);
+				stream.precision(4);
+				stream << qualityCriteriaToString(elem.first);
+			}
+			stream << std::endl;
+			for (const auto& elem : map)
+			{
+				stream.width(7);
+				stream.precision(4);
+				stream << std::left << elem.second << " ";
+			}
+			stream << std::endl;
+		}
 
 		virtual void						writeToFile( std::ostream& stream ) const
 		{
@@ -92,9 +130,8 @@ private:
 			for ( const auto& z : _kpdTorque )
 				printCharacteristicsLine( z, stream );
 
-			//stream << "QK:" << std::endl;
-			//for (const auto& z : _qualityCriterias)
-			//	printCharacteristicsLine(z, stream);
+			stream << "QK:" << std::endl;
+			printCharacteristicsLine(_qualityCriterias, stream);
 		}
 
 		virtual bool						loadFromFile( std::istream& )

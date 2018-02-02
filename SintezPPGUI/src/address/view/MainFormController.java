@@ -42,6 +42,8 @@ public class MainFormController {
 	@FXML
 	private TableView<Map<String, String>> torqueTable;
 	@FXML
+	private TableView<Map<String, String>> qcTable;
+	@FXML
 	private Label testLabel;
 	@FXML
 	private AnchorPane drawPane;
@@ -57,6 +59,7 @@ public class MainFormController {
 		tables.put(eType.POWER, powerTable);
 		tables.put(eType.TORQUE, torqueTable);
 		tables.put(eType.TORQUE_KPD, torqueKpdTable);
+		tables.put(eType.QC, qcTable);
 
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().codeProperty());
 
@@ -144,8 +147,9 @@ public class MainFormController {
 		SchemeDraw draw = new SchemeDraw(drawPane, scheme.getDrawData());
 		draw.draw();
 		
-		commonData.setText("efsrbhrtfhb");
-		commonData.setText("efsrbhrtrfhfhb");
+		commonData.setText("K:\n" + scheme.getData().getInternalRatios() + "\n"
+				+ "Chains:\n" + scheme.getData().getChains());
+		
 	}
 
 	public void setMainApp(MainApp mainApp) {
