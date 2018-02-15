@@ -57,7 +57,7 @@ void core::ApplicationBase::readUISpecialData()
 
 	for ( int i = 0; i < countIntervals; i++ )
 	{
-		float beg, end;
+		double beg, end;
 		NS_CORE Log::askFor2Value( "Диапазон # " + std::to_string( i + 1 ), "Начало:", "Конец:", beg, end );
 		NS_CORE Singletons::getInstance()->addRangeK( NS_CORE Range( NS_CORE InternalGearRatioValue( beg ), NS_CORE InternalGearRatioValue( end ) ) );
 	}
@@ -68,7 +68,7 @@ void core::ApplicationBase::readUISpecialData()
 	NS_CORE Log::log( "Передаточные отношения: " );
 	for ( size_t i = 0; i < numberOfGears; i++ )
 	{
-		float ratio = 0;
+		double ratio = 0;
 		NS_CORE Log::askForValue( std::to_string( i + 1 ) + " передача:", ratio );
 		if ( ratio != 0 )
 			NS_CORE Singletons::getInstance()->addGearRatio( ratio );

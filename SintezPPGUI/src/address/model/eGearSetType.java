@@ -1,7 +1,7 @@
 package address.model;
 
 enum eGearSetType {
-	TUPE_DEFAULT("D"), TYPE_U("U"), TYPE_U_REVERSE("U_R"), TYPE_P("P"), TYPE_P_REVERSE("P_R");
+	TUPE_DEFAULT("D"), TYPE_U("U"), TYPE_U_REVERSE("U_R"), TYPE_P("N"), TYPE_P_REVERSE("N_R");
 
 	private String text;
 

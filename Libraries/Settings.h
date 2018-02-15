@@ -14,7 +14,7 @@ public:
 	{
 		bool				_calcKQuick;
 		bool				_doTest;
-		float				_testStep;
+		double				_testStep;
 	};
 
 	struct GeneralSettings

@@ -25,7 +25,7 @@ public class Scheme {
 	private static final String toothRegex = "Z:\\s*";
 	private static final String qcRegex = "QK:\\s*";
 	private static final String traceRegex = "((" + elemRegex + ")*:(\\s*\\d*,\\d*)*;\\s*)+";
-	private static final String gearSetsTypesRegex = "(\\s*[D|U|P|(U_R)|(P_R)]\\s*)+";
+	private static final String gearSetsTypesRegex = "(\\s*[D|U|N|(U_R)|(N_R)]\\s*)+";
 	private static final String numericValuesRegex = "([-+]*\\d+\\.*\\d*(e-)*\\d*\\s*)+";
 	private static final String powerValuesRegex = "([+-0]\\s*)+";
 	private static final String headerRegex = "(\\s*" + elemRegex + "[0-9]*\\s+)+";

@@ -60,7 +60,7 @@ private:
 		std::vector<NS_CORE N>				_power;
 		std::vector<NS_CORE KpdZac>			_kpdZacStepen;
 		std::vector<NS_CORE M>				_kpdTorque;
-		std::map<eQualityCriteria, float>	_qualityCriterias;
+		std::map<eQualityCriteria, double>	_qualityCriterias;
 
 
 		template <class T>
@@ -140,7 +140,7 @@ private:
 		};
 	};
 
-	static const float							s_inTorque;
+	static const double							s_inTorque;
 	static const NS_CORE RatioValue				s_inVelocity;
 	std::vector<Characteristics>				m_characteristics;
 
@@ -155,7 +155,7 @@ private:
 	std::vector<NS_CORE N>						calcN( const std::vector<NS_CORE W>& w, const std::vector<NS_CORE M>& m );
 	std::vector<NS_CORE KpdZac>					calcKpdZacStepen( const NS_CORE InternalGearRatios& intRatios, const std::vector<NS_CORE W>& w, const std::vector<NS_CORE N>& n );
 	std::vector<NS_CORE M>						calcMh( const NS_CORE Code code, const NS_CORE InternalGearRatios& intRatios, std::vector<NS_CORE KpdZac> kpdZacStepen );
-	std::map<eQualityCriteria, float>			calcQualityCriterias( const std::vector<NS_CORE M> & mKpd, std::vector<NS_CORE W> angVel );
+	std::map<eQualityCriteria, double>			calcQualityCriterias( const std::vector<NS_CORE M> & mKpd, std::vector<NS_CORE W> angVel );
 
 
 public:

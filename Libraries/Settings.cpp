@@ -30,7 +30,7 @@ int strToInt( const std::string& str )
 	return std::stoi( str );
 }
 
-float strToFloat( const std::string& str )
+double strTodouble( const std::string& str )
 {
 	return std::stof( str );
 }
@@ -40,7 +40,7 @@ std::string intToStr( const int iVal )
 	return std::to_string( iVal );
 }
 
-std::string floatToStr( const float fVal )
+std::string doubleToStr( const double fVal )
 {
 	return std::to_string( fVal );
 }
@@ -74,7 +74,7 @@ bool Settings::loadSettingsFromFile()
 		}
 		else if ( s_testStep == key )
 		{
-			m_defKSettings._testStep = strToFloat( val );
+			m_defKSettings._testStep = strTodouble( val );
 		}
 		loadedCount++;
 	}
@@ -87,7 +87,7 @@ void Settings::saveSettingsToFile()
 	auto fm = Singletons::getInstance()->getIOFileManager();
 
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_doTest, boolTostr( m_defKSettings._doTest ) ) );
-	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_testStep, floatToStr( m_defKSettings._testStep ) ) );
+	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_testStep, doubleToStr( m_defKSettings._testStep ) ) );
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_calcKQuick, boolTostr( m_defKSettings._calcKQuick ) ) );
 
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_twoFrictions, boolTostr( m_generalSettings._gearChangerUseTwoFrictions ) ) );

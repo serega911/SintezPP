@@ -55,8 +55,8 @@ Function_p Function::createAD( const NS_CORE InternalGearRatioValue& k, const NS
 
 	Function_p ret( new Function( n, gearSet ) );
 
-	const float ksi_a_c = 0.02f;
-	const float ksi_b_c = 0.01f;
+	const double ksi_a_c = 0.02;
+	const double ksi_b_c = 0.01;
 	ret->m_kpdSum = 1 - abs(
 		( w.at( sun ) - w.at( car ) ) / ( ( k.getValue() - 1 ) * w.at( car ) )
 		) * ( ksi_a_c + ksi_b_c );
@@ -79,8 +79,8 @@ ari::Function_p ari::Function::createBE( const NS_CORE InternalGearRatioValue& k
 
 	Function_p ret( new Function( n, gearSet ) );
 
-	const float ksi_a_c = 0.02f;
-	const float ksi_b_c = 0.01f;
+	const double ksi_a_c = 0.02;
+	const double ksi_b_c = 0.01;
 	ret->m_kpdSum = 1 - abs(
 		( w.at( epy ) - w.at( car ) ) / w.at( epy )
 		) * ( ksi_a_c + ksi_b_c );
@@ -103,8 +103,8 @@ ari::Function_p ari::Function::createCF( const NS_CORE InternalGearRatioValue& k
 
 	Function_p ret( new Function( n, gearSet ) );
 
-	const float ksi_a_c = 0.02f;
-	const float ksi_b_c = 0.01f;
+	const double ksi_a_c = 0.02;
+	const double ksi_b_c = 0.01;
 	ret->m_kpdSum = 1 - abs(
 		( w.at( sun ) - w.at( car ) ) / w.at( sun )
 		) * ( ksi_a_c + ksi_b_c );

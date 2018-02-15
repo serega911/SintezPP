@@ -5,7 +5,7 @@
 
 NS_CORE_USING
 
-MappedSystem_p MappedSystem::createM( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const float mIn )
+MappedSystem_p MappedSystem::createM( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const double mIn )
 {
 	MappedSystem_p ret( new MappedSystem );
 
@@ -43,7 +43,7 @@ MappedSystem_p MappedSystem::createM( const NS_CORE MultiLinkArray& chains, cons
 	return ret;
 }
 
-core::MappedSystem_p core::MappedSystem::createMKpd( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const float mIn /*= 1000 */ )
+core::MappedSystem_p core::MappedSystem::createMKpd( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const double mIn /*= 1000 */ )
 {
 	MappedSystem_p ret = createM( chains, k, mIn );
 

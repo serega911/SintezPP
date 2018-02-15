@@ -9,7 +9,7 @@ ari::SolveFunctionDiv_p ari::SolveFunctionDiv::create()
 	return SolveFunctionDiv_p( new SolveFunctionDiv );
 }
 
-float ari::SolveFunctionDiv::calc( const IFunction_p func, const float intervalBeg, const float intervalEnd )
+double ari::SolveFunctionDiv::calc( const IFunction_p func, const double intervalBeg, const double intervalEnd )
 {
 	const double eps = 0.00001;
 

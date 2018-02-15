@@ -13,7 +13,7 @@
 
 NS_ARI_USING
 
-const float ari::CalcKinCharacteristics::s_inTorque = 1000;
+const double ari::CalcKinCharacteristics::s_inTorque = 1000;
 const NS_CORE RatioValue ari::CalcKinCharacteristics::s_inVelocity = NS_CORE RatioValue(100);
 
 void CalcKinCharacteristics::run()
@@ -67,8 +67,8 @@ bool CalcKinCharacteristics::checkRequirements() const
 	NS_CORE Ratios i;
 	NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::INITIAL_DATA, i );
 
-	if ( i.size() != NS_CORE Singletons::getInstance()->getInitialData()._i.size() )
-		return false;
+	//if ( i.size() != NS_CORE Singletons::getInstance()->getInitialData()._i.size() )
+	//	return false;
 
 	NS_CORE Range range( NS_CORE InternalGearRatioValue( 0 ), NS_CORE InternalGearRatioValue( 0 ) );
 	const auto& ranges = NS_CORE Singletons::getInstance()->getInitialData()._ranges;
@@ -107,15 +107,15 @@ NS_CORE Z CalcKinCharacteristics::calcZHelper(const NS_CORE InternalGearRatioVal
 	{
 		const int Zmin = 14;
 		const int Zmax = 100;
-		const float M_PI = 3.14159f;
+		const double M_PI = 3.14159;
 
 		size_t Nsat = size_t(M_PI / asin((intRatio.getAbs() - 1 + (8.0 / Zmin)) / (intRatio.getAbs() + 1)));//округляем в меньшую сторону - отбрасываем дробныю часть
-		float Gamma = 14.0f * (intRatio.getAbs() - 1) / Nsat;
-		float z1 = 0.123f;
-		float z2 = 0.123f;
-		float z4 = 0.123f;
+		double Gamma = 14.0f * (intRatio.getAbs() - 1) / Nsat;
+		double z1 = 0.123;
+		double z2 = 0.123;
+		double z4 = 0.123;
 
-		const auto check = [&](float z)
+		const auto check = [&](double z)
 		{
 			return (z - (int)z != 0) || (int)z < Zmin;
 		};
@@ -198,10 +198,10 @@ std::vector<NS_CORE KpdZac> CalcKinCharacteristics::calcKpdZacStepen( const NS_C
 			NS_CORE Element epy( NS_CORE eMainElement::EPICYCLIC_GEAR, gearSet );
 			NS_CORE Element car( NS_CORE eMainElement::CARRIER, gearSet );
 
-			float kpdA = 1;
-			float kpdB = 1;
-			const float ksi_a_c = 0.02f;
-			const float ksi_b_c = 0.01f;
+			double kpdA = 1;
+			double kpdB = 1;
+			const double ksi_a_c = 0.02;
+			const double ksi_b_c = 0.01;
 			const auto k = intRatios[gearSet.getValue() - 1];
 
 			if ( n[i].at( sun ) == '0' && n[i].at( epy ) == '0' && n[i].at( car ) == '0' )
@@ -222,13 +222,13 @@ std::vector<NS_CORE KpdZac> CalcKinCharacteristics::calcKpdZacStepen( const NS_C
 			}
 			else if ( !w[i].at( sun ) && w[i].at( epy ) && w[i].at( car ) )
 			{
-				float kpdSum = 1 - 1.0f / ( 1 + k.getValue() ) * ( ksi_a_c + ksi_b_c );
+				double kpdSum = 1 - 1.0f / ( 1 + k.getValue() ) * ( ksi_a_c + ksi_b_c );
 				kpdA = 1 / kpdSum;
 				kpdB = pow( kpdSum, -Function::sign( n[i].at( epy ) ) );
 			}
 			else if ( w[i].at( sun ) && !w[i].at( epy ) && w[i].at( car ) )
 			{
-				float kpdSum = 1 - k.getValue() / ( 1.0f + k.getValue() ) * ( ksi_a_c + ksi_b_c );
+				double kpdSum = 1 - k.getValue() / ( 1.0f + k.getValue() ) * ( ksi_a_c + ksi_b_c );
 				kpdA = pow( kpdSum, -Function::sign( n[i].at( sun ) ) );
 				kpdB = 1 / kpdSum;
 			}
@@ -238,6 +238,12 @@ std::vector<NS_CORE KpdZac> CalcKinCharacteristics::calcKpdZacStepen( const NS_C
 				kpdB = 1 - ksi_b_c;
 				kpdA = pow( kpdA, -Function::sign( n[i].at( sun ) ) );
 				kpdB = pow( kpdB, -Function::sign( n[i].at( epy ) ) );
+			}
+			else if (!w[i].at(sun) && !w[i].at(epy) && !w[i].at(car))
+			{
+				//empty gear
+				kpdA = 1;
+				kpdB = 1;
 			}
 			else
 			{
@@ -276,27 +282,27 @@ std::vector<NS_CORE M> CalcKinCharacteristics::calcMh( const NS_CORE Code code, 
 	return ret;
 }
 
-std::map<CalcKinCharacteristics::eQualityCriteria, float> ari::CalcKinCharacteristics::calcQualityCriterias( const std::vector<NS_CORE M> & mKpd, std::vector<NS_CORE W> angVel )
+std::map<CalcKinCharacteristics::eQualityCriteria, double> ari::CalcKinCharacteristics::calcQualityCriterias( const std::vector<NS_CORE M> & mKpd, std::vector<NS_CORE W> angVel )
 {
-	std::map<CalcKinCharacteristics::eQualityCriteria, float> ret;
+	std::map<CalcKinCharacteristics::eQualityCriteria, double> ret;
 
-	const float wIn = angVel[0].at( NS_CORE Element::INPUT );
-	const float mIn = mKpd[0].at( NS_CORE Element::INPUT );
-	const float nIn = mIn * wIn;
+	const double wIn = angVel[0].at( NS_CORE Element::INPUT );
+	const double mIn = mKpd[0].at( NS_CORE Element::INPUT );
+	const double nIn = mIn * wIn;
 
-	float nMaxForward = 0;
-	float nMaxBackward = 0;
-	float torqueFrictionMax = 0;
-	float torqueBrakeMax = 0;
-	float wSatMaxLoaded = 0;
-	float wSatMaxUnloaded = 0;
-	float wBrakeFrictionMaxUnloaded = 0;
+	double nMaxForward = 0;
+	double nMaxBackward = 0;
+	double torqueFrictionMax = 0;
+	double torqueBrakeMax = 0;
+	double wSatMaxLoaded = 0;
+	double wSatMaxUnloaded = 0;
+	double wBrakeFrictionMaxUnloaded = 0;
 	int gear = 0;
 
 
 	for ( size_t i = 0; i < mKpd.size(); i++ )
 	{
-		const float nOut = mKpd[i].at( NS_CORE Element::OUTPUT ) * angVel[i].at( NS_CORE Element::OUTPUT );
+		const double nOut = mKpd[i].at( NS_CORE Element::OUTPUT ) * angVel[i].at( NS_CORE Element::OUTPUT );
 		for ( const auto & it : mKpd[i] )
 		{
 			const auto m = it.second;
@@ -328,11 +334,11 @@ std::map<CalcKinCharacteristics::eQualityCriteria, float> ari::CalcKinCharacteri
 
 			if ( it.first.getElemN() == NS_CORE eMainElement::SATTELITE )
 			{
-				const float mSun = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, it.first.getGearSetN() ) );
-				const float mEpy = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, it.first.getGearSetN() ) );
-				const float mCar = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::CARRIER, it.first.getGearSetN() ) );
+				const double mSun = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::SUN_GEAR, it.first.getGearSetN() ) );
+				const double mEpy = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::EPICYCLIC_GEAR, it.first.getGearSetN() ) );
+				const double mCar = mKpd[i].at( NS_CORE Element( NS_CORE eMainElement::CARRIER, it.first.getGearSetN() ) );
 
-				const float w = it.second;
+				const double w = it.second;
 
 				if ( abs( mSun + mEpy + mCar ) < 0.001 )
 					if ( abs( w ) > abs( wSatMaxUnloaded ) )

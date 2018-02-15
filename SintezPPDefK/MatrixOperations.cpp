@@ -9,7 +9,7 @@ CellType MatrixOperations::determinant( const Matrix& matrix )
 	if ( size == 1 ) return matrix[0][0];
 	else
 	{
-		float res = 0;
+		double res = 0;
 		for ( size_t i = 0; i < size; i++ )
 		{
 			res += matrix[i][0] * ( determinant( minor( matrix, i, 0 ) ) )	*( i % 2 == 0 ? -1.0f : 1.0f );
@@ -18,7 +18,7 @@ CellType MatrixOperations::determinant( const Matrix& matrix )
 	}
 }
 
-MatrixLine operator*( const MatrixLine & line, const float & k )
+MatrixLine operator*( const MatrixLine & line, const double & k )
 {
 	MatrixLine ret = line;
 	for ( auto& cell : ret )
@@ -177,7 +177,7 @@ Matrix MatrixOperations::inverse( const Matrix& matrix )
 		ret[i].resize( size, 0 );
 	}
 
-	float d = determinant( matrix );
+	double d = determinant( matrix );
 	for ( size_t i = 0; i < size; i++ )
 	{
 		for ( size_t j = 0; j < size; j++ )
@@ -196,7 +196,7 @@ MatrixLine MatrixOperations::multiple( const Matrix& matrix, const MatrixLine& v
 		MatrixLine ret( size );
 		for ( size_t i = 0; i < size; i++ )
 		{
-			float val = 0;
+			double val = 0;
 			for ( size_t j = 0; j < size; j++ )
 			{
 				val += matrix[i][j] * vector[j];
@@ -223,7 +223,7 @@ Matrix MatrixOperations::multiple( const Matrix& matrix1, const Matrix& matrix2 
 		{
 			for ( size_t j = 0; j < size; j++ )
 			{
-				float val = 0;
+				double val = 0;
 				for ( size_t k = 0; k < size; k++ )
 				{
 					val += matrix1[k][i] * matrix2[j][k];

@@ -16,7 +16,7 @@ public:
 
 	static SolveFunctionDiv_p					create();
 
-	virtual float calc( const IFunction_p func, const float intervalBeg, const float intervalEnd ) override;
+	virtual double calc( const IFunction_p func, const double intervalBeg, const double intervalEnd ) override;
 };
 
 NS_ARI_END

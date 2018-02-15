@@ -31,7 +31,7 @@ bool core::Ratios::loadFromFile( std::istream& file )
 
 	for ( int i = 0; i < n; i++ )
 	{
-		float value;
+		double value;
 		file >> value;
 		m_i[i] = RatioValue( value );
 	}
@@ -78,7 +78,7 @@ void Ratios::print() const
 
 bool Ratios::findIn( RatioValue value ) const
 {
-	//ignore rayios while doung test
+	//ignore ratios while doung test
 	if (Singletons::getInstance()->getSettings()->getDefKSettings()._doTest)
 		return true;
 
@@ -136,9 +136,9 @@ bool Ratios::isContain(const Ratios& obj) const
 	if (m_i.size() < obj.size())
 		return false;
 
-	for (auto& it : m_i)
+	for (auto& it : obj.m_i)
 	{
-		if (!obj.findIn(it))
+		if (!findIn(it))
 			return false;
 	}
 	return true;

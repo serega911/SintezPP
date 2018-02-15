@@ -9,17 +9,28 @@ NS_ARI_USING
 
 NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Code )
 {
-	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.1f ) );
+	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.01f ) );
 	NS_CORE InternalGearRatioArray ans;
+	const auto generalData = NS_CORE Singletons::getInstance()->getInitialData();
 	const size_t gearsCount = NS_CORE Singletons::getInstance()->getInitialData()._realNumberOfGears;
 	NS_CORE GearBoxWithChanger gb( Code );
 
 	do{
+		//NS_CORE InternalGearRatioValueArray kValues;
+		//kValues.push_back(NS_CORE InternalGearRatioValue(-1.72));
+		//kValues.push_back(NS_CORE InternalGearRatioValue(-2.23));
+		//InternalGearRatios K(kValues);
 		auto ret = podModul( gb, K );
 
-		if ( NS_CORE Singletons::getInstance()->getInitialData()._i.isContain( ret ) )
+		if (ret.size() >= generalData._realNumberOfGears &&NS_CORE Singletons::getInstance()->getInitialData()._i.isContain(ret))
 		{
-			ans.emplace_back( K );
+			//bool isEqual = false;
+			//for (const auto& it : ans)
+			//	if (it == K)
+			//		isEqual = true;
+
+			//if (!isEqual)
+				ans.emplace_back( K );
 		}
 
 	} while ( K.next() );
@@ -34,7 +45,7 @@ NS_CORE Ratios DefKSelection::podModul( NS_CORE GearBoxWithChanger & gb, const I
 
 	const auto generalData = NS_CORE Singletons::getInstance()->getInitialData();
 	int countOfSkipped = 0;
-	const int diff = generalData._realNumberOfGears - generalData._realNumberOfGears;
+	const int diff = generalData._numberOfGears - generalData._realNumberOfGears;
 
 	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.01f ) );	//вектор для полученных передаточных отношений при данном наборе K
 	do
@@ -46,10 +57,11 @@ NS_CORE Ratios DefKSelection::podModul( NS_CORE GearBoxWithChanger & gb, const I
 		if ( solution.size() != 0 )
 		{
 			const auto calculatedW = solution.at( NS_CORE Element::OUTPUT );
+			const auto i = NS_CORE RatioValue(abs(calculatedW) > 0.001 ? inVelocity.getValue() / calculatedW : 0);
 
-			if ( abs( calculatedW ) > 0.001f && core::Singletons::getInstance()->getInitialData()._i.findIn( NS_CORE RatioValue( inVelocity.getValue() / calculatedW ) ) )
+			if ( i.getAbs() > 0.001 && core::Singletons::getInstance()->getInitialData()._i.findIn( i ) )
 			{
-				tmpI.push_back( NS_CORE RatioValue( inVelocity.getValue() / calculatedW ) );
+				tmpI.push_back( i );
 			}
 			else if ((++countOfSkipped) > diff)
 			{
@@ -61,7 +73,7 @@ NS_CORE Ratios DefKSelection::podModul( NS_CORE GearBoxWithChanger & gb, const I
 	return tmpI;
 }
 
-size_t ari::DefKSelection::countOfDifferent( const NS_CORE Ratios& calculatedI, const float eps )
+size_t ari::DefKSelection::countOfDifferent( const NS_CORE Ratios& calculatedI, const double eps )
 {
 	size_t ret = 0;
 	bool isUnique = true;

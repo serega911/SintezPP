@@ -33,6 +33,7 @@ public:
 	void										setValues( const InternalGearRatioValueArray& values );
 	bool										check() const;
 
+	bool										operator==(const InternalGearRatios&) const;
 };
 
 NS_CORE_END

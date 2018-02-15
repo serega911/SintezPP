@@ -3,6 +3,6 @@
 
 NS_CORE_START
 
-USER_DEFINED_TYPE_FLOATING( InternalGearRatioValue, float )
+USER_DEFINED_TYPE_doubleING( InternalGearRatioValue, double )
 
 NS_CORE_END

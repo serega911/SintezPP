@@ -33,8 +33,8 @@ protected:
 
 public:
 
-	static MappedSystem_p						createM( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const float mIn );
-	static MappedSystem_p						createMKpd( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const float mIn );
+	static MappedSystem_p						createM( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const double mIn );
+	static MappedSystem_p						createMKpd( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const KpdZac& kpdZacStepen, const double mIn );
 	static MappedSystem_p						createW( const NS_CORE MultiLinkArray& chains, const NS_CORE InternalGearRatios& k, const NS_CORE RatioValue wIn );
 
 	virtual void								setSolution( const NS_CORE IMappedSystem::Vector& solution ) override;
