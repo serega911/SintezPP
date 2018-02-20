@@ -9,7 +9,7 @@ NS_ARI_USING
 
 NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Code )
 {
-	InternalGearRatios K( NS_CORE InternalGearRatioValue( 0.01f ) );
+	InternalGearRatios K;
 	NS_CORE InternalGearRatioArray ans;
 	const auto generalData = NS_CORE Singletons::getInstance()->getInitialData();
 	const size_t gearsCount = NS_CORE Singletons::getInstance()->getInitialData()._realNumberOfGears;

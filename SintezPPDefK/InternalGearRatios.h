@@ -17,9 +17,8 @@ private:
 	//std::vector<NS_CORE InternalGearRatioValue>	m_k;
 
 public:
-	InternalGearRatios() = delete;
+	InternalGearRatios();
 	InternalGearRatios( const NS_CORE InternalGearRatioValueArray& k );
-	InternalGearRatios( const NS_CORE InternalGearRatioValue dK );
 	InternalGearRatios( NS_CORE InternalGearRatios& k );
 
 	const NS_CORE InternalGearRatioValue		operator[]( size_t i ) const;

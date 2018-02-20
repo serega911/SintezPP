@@ -11,6 +11,7 @@ const std::string								Settings::s_calcKQuick = "calc_k_quick";
 const std::string								Settings::s_twoFrictions = "use2frict";
 const std::string								Settings::s_twoBrakes = "use2brakes";
 const std::string								Settings::s_testStep = "test_step";
+const std::string								Settings::s_kStep = "k_step";
 
 std::string boolTostr( const bool bVal )
 {
@@ -32,7 +33,7 @@ int strToInt( const std::string& str )
 
 double strTodouble( const std::string& str )
 {
-	return std::stof( str );
+	return std::stod( str );
 }
 
 std::string intToStr( const int iVal )
@@ -76,6 +77,10 @@ bool Settings::loadSettingsFromFile()
 		{
 			m_defKSettings._testStep = strTodouble( val );
 		}
+		else if (s_kStep == key)
+		{
+			m_defKSettings._kStep = strTodouble(val);
+		}
 		loadedCount++;
 	}
 
@@ -88,6 +93,7 @@ void Settings::saveSettingsToFile()
 
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_doTest, boolTostr( m_defKSettings._doTest ) ) );
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_testStep, doubleToStr( m_defKSettings._testStep ) ) );
+	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_kStep, doubleToStr(m_defKSettings._kStep)));
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_calcKQuick, boolTostr( m_defKSettings._calcKQuick ) ) );
 
 	fm->writeToFile( IOFileManager::eOutputFileType::SETTINGS, SettingsItem( s_twoFrictions, boolTostr( m_generalSettings._gearChangerUseTwoFrictions ) ) );
@@ -99,13 +105,14 @@ void Settings::generateDefaultSettings()
 	m_defKSettings._calcKQuick = true;
 	m_defKSettings._doTest = false;
 	m_defKSettings._testStep = 0.5;
+	m_defKSettings._kStep = 0.1;
 
-	m_generalSettings._gearChangerUseTwoFrictions = false;
+	m_generalSettings._gearChangerUseTwoFrictions = true;
 	m_generalSettings._gearChangerUseTwoBrakes = false;
 
 	saveSettingsToFile();
 
-	Log::log( "Default settings file was created. Please? check it and run application again." );
+	Log::log( "Default settings file was created. Please, check it and run application again." );
 	NS_CORE Log::pause();
 	exit( 0 );
 }

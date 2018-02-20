@@ -16,8 +16,7 @@ void ari::DefK::calcExample()
 {
 	NS_CORE Log::showValue( "Количество передач:", NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears );
 
-	const double testStep = NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._testStep;
-	InternalGearRatios K( NS_CORE InternalGearRatioValue( (double)testStep ) );
+	InternalGearRatios K;
 	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
 	NS_CORE Code code;
