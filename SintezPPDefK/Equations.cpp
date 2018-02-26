@@ -14,7 +14,7 @@ FunctionValue Equations::wyllys( const VariablesSet & set )
 
 FunctionValue Equations::empty( const VariablesSet & set )
 {
-	return 0.0f;
+	return 0.0;
 }
 
 const Equation Equations::getEquation( const NS_CORE eMainElement & elem )
@@ -71,7 +71,7 @@ FunctionValue Equations::dfDk( const VariablesSet & set )
 
 FunctionValue Equations::dfDw1( const VariablesSet & set )
 {
-	return 1.0f;
+	return 1.0;
 }
 
 FunctionValue Equations::dfDw2( const VariablesSet & set )
@@ -81,7 +81,7 @@ FunctionValue Equations::dfDw2( const VariablesSet & set )
 
 FunctionValue Equations::dfDw3( const VariablesSet & set )
 {
-	return set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
+	return set[NS_CORE eMainElement::EMPTY].getValue() - 1.0;
 }
 
 FunctionValue Equations::calcWEpicyclic( const VariablesSet & set )
@@ -104,7 +104,7 @@ FunctionValue Equations::calcWSun( const VariablesSet & set )
 
 FunctionValue Equations::calcWCarrirer( const VariablesSet & set )
 {
-	const auto z = set[NS_CORE eMainElement::EMPTY].getValue() - 1.0f;
+	const auto z = set[NS_CORE eMainElement::EMPTY].getValue() - 1.0;
 
 	processBadCondition( z == 0, "division by ZERO" );
 

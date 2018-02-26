@@ -53,7 +53,7 @@ bool core::Gaus::solve( IMappedSystem_p mappedSystem )
 					system[j][k] -= system[i][k] * system[j][i];
 	}
 
-	std::vector<float> solution;
+	std::vector<double> solution;
 	for ( int i = 0; i < n; ++i )
 		solution.push_back( system[i][n] );
 	mappedSystem->setSolution( solution );
@@ -115,7 +115,7 @@ bool core::Gaus::solve( IMappedSystem_p mappedSystem )
 // 	}
 // }
 
-// const std::vector<float>& Gaus::getSolution() const
+// const std::vector<double>& Gaus::getSolution() const
 // {
 // 	return m_solution;
 // }

@@ -16,8 +16,7 @@ void ari::DefK::calcExample()
 {
 	NS_CORE Log::showValue( "Количество передач:", NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears );
 
-	const float testStep = NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._testStep;
-	InternalGearRatios K( NS_CORE InternalGearRatioValue( (float)testStep ) );
+	InternalGearRatios K;
 	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
 
 	NS_CORE Code code;
@@ -58,6 +57,7 @@ void ari::DefK::calcExample()
 
 void DefK::run()
 {
+	const auto &initialData = NS_CORE Singletons::getInstance()->getInitialData();
 	showParams();
 
 	if ( NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._doTest )
@@ -66,7 +66,6 @@ void DefK::run()
 		return;
 	}
 
-	const auto gears = NS_CORE Singletons::getInstance()->getInitialData()._numberOfGears;
 	NS_CORE Code code;
 	int i = 0;
 	while ( NS_CORE Singletons::getInstance()->getIOFileManager()->loadFromFile( NS_CORE IOFileManager::eOutputFileType::DONE, code ) )
@@ -76,9 +75,6 @@ void DefK::run()
 		NS_CORE Log::log("<", false);
 		NS_CORE Log::log(i, false);
 		NS_CORE InternalGearRatioArray	 ans = solveSimple.calculate( code );
-		
-		const auto size = ans.size();
-		NS_CORE Log::warning( size > gears, "Error", NS_CORE Log::CRITICAL, HERE );
 
 		if ( !NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._calcKQuick && ans.size() == 0 )
 		{
@@ -96,7 +92,7 @@ void DefK::run()
 		{
 			auto realI = DefKSelection::podModul( NS_CORE GearBoxWithChanger( code ), ans[i] );
 
-			if ( ans[i].check() )
+			if (ans[i].check() && DefKSelection::countOfDifferent(realI, 0.1) >= initialData._realNumberOfGears)
 			{
 				if ( !isWrited )
 				{

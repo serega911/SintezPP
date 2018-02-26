@@ -26,7 +26,7 @@ public:																																			\
 	inline const typeName&		operator--( )												{ m_value--; return *this; }						\
 };
 
-#define USER_DEFINED_TYPE_FLOATING( typeName, buildInType)																						\
+#define USER_DEFINED_TYPE_doubleING( typeName, buildInType)																						\
 class typeName																																	\
 {																																				\
 private:																																		\

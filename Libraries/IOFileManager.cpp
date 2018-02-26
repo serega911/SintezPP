@@ -6,6 +6,7 @@
 
 NS_CORE_USING
 
+const IOFileManager::End						IOFileManager::end;
 const std::string								IOFileManager::s_resultsFolder = "..\\Results";
 
 std::string IOFileManager::getFolder()

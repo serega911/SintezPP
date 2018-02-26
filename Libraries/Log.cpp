@@ -24,7 +24,7 @@ void Log::warning( const bool condition, const std::string& message, eWarningImp
 void core::Log::pause( bool ignoreSettings /*= false*/ )
 {
 	//if (!ignoreSettings)
-		system("pause");
+		//system("pause");
 }
 
 int Log::getColorNum( const eColor color )

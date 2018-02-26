@@ -34,7 +34,7 @@ inline std::string convernToString( const eGearSetType& e )
 
 inline eGearSetType convernToGearSetType( const std::string& str )
 {
-	if ( str == "W" )
+	if ( str == "N" )
 		return eGearSetType::TYPE_N;
 	else if ( str == "N_R" )
 		return eGearSetType::TYPE_N_REVERSE;

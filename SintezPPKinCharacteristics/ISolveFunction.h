@@ -13,7 +13,7 @@ typedef std::shared_ptr<ISolveFunction> ISolveFunction_p;
 class ISolveFunction
 {
 public:
-	virtual float calc( const IFunction_p func, const float intervalBeg, const float intervalEnd ) = 0;
+	virtual double calc( const IFunction_p func, const double intervalBeg, const double intervalEnd ) = 0;
 };
 
 NS_ARI_END

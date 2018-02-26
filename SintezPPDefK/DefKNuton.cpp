@@ -104,9 +104,9 @@ Jacobi DefKNuton::createJacobian( const System & system )
 	return det;
 }
 
-float DefKNuton::calcNorm( const MatrixLine& delta )
+double DefKNuton::calcNorm( const MatrixLine& delta )
 {
-	float norm = abs( delta[0] );
+	double norm = abs( delta[0] );
 
 	for ( size_t i = 0; i < delta.size(); i++ )
 	{
@@ -121,9 +121,9 @@ float DefKNuton::calcNorm( const MatrixLine& delta )
 
 NS_CORE InternalGearRatios DefKNuton::solveNuton( const Jacobi& jacobian, System& system )
 {
-	const float eps = 0.001f;
+	const double eps = 0.001;
 	const int maxIterCount = 100;
-	float norm;
+	double norm;
 	int iterCount = 0;
 	bool notFinded = false;
 

@@ -8,11 +8,11 @@
 
 NS_ARI_START
 
-typedef float VariableValue;
-typedef float FunctionValue;
+typedef double VariableValue;
+typedef double FunctionValue;
 typedef std::function<FunctionValue( const VariablesSet & )> Equation;
 
-typedef float								CellType;
+typedef double								CellType;
 typedef std::vector<CellType>				MatrixLine;
 typedef std::vector<MatrixLine>				MatrixTable;
 

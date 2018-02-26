@@ -9,21 +9,21 @@ ari::SolveFunctionDiv_p ari::SolveFunctionDiv::create()
 	return SolveFunctionDiv_p( new SolveFunctionDiv );
 }
 
-float ari::SolveFunctionDiv::calc( const IFunction_p func, const float intervalBeg, const float intervalEnd )
+double ari::SolveFunctionDiv::calc( const IFunction_p func, const double intervalBeg, const double intervalEnd )
 {
-	const float eps = 0.00001f;
+	const double eps = 0.00001;
 
-	float a = intervalBeg;
-	float b = intervalEnd;
-	float mid;
+	double a = intervalBeg;
+	double b = intervalEnd;
+	double mid;
 
 	do
 	{
 		mid = ( a + b ) / 2;
 
-		float fa = func->calc( a );
-		float fb = func->calc( b );
-		float fm = func->calc( mid );
+		double fa = func->calc(a);
+		double fb = func->calc(b);
+		double fm = func->calc(mid);
 
 		if ( fa*fm < 0 )
 			b = mid;

@@ -11,7 +11,7 @@ typedef std::shared_ptr<IFunction> IFunction_p;
 class IFunction
 {
 public:
-	virtual float calc( float ) const = 0;
+	virtual double calc(double) const = 0;
 };
 
 NS_ARI_END

@@ -18,7 +18,7 @@ public:
 
 	NS_CORE InternalGearRatioArray				calculate( const NS_CORE Code& code );
 	static NS_CORE Ratios						podModul( NS_CORE GearBoxWithChanger & gb, const NS_ARI InternalGearRatios &k );
-	static size_t								countOfDifferent( const NS_CORE Ratios& i, const float eps );
+	static size_t								countOfDifferent( const NS_CORE Ratios& i, const double eps );
 
 };
 

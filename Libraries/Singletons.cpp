@@ -92,7 +92,7 @@ void Singletons::addRangeK( const Range& range )
 	m_initialData._ranges.push_back( range );
 }
 
-void Singletons::addGearRatio( const float& i )
+void Singletons::addGearRatio( const double& i )
 {
 	if ( i != 0 )
 		m_initialData._realNumberOfGears++;

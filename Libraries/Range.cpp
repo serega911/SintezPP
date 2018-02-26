@@ -40,7 +40,7 @@ bool core::Range::loadFromFile( std::istream& file )
 	if ( file.eof() )
 		return false;
 
-	float begin, end;
+	double begin, end;
 
 	file >> begin >> end;
 

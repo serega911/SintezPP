@@ -84,7 +84,7 @@ bool InternalGearRatios::loadFromFile( std::istream& in )
 
 	for ( size_t i = 0; i < kSize; i++ )
 	{
-		float value;
+		double value;
 		in >> value;
 		m_K[i] = InternalGearRatioValue( value );
 	}
@@ -92,3 +92,19 @@ bool InternalGearRatios::loadFromFile( std::istream& in )
 	return true;
 }
 
+bool InternalGearRatios::operator==(const InternalGearRatios& obj) const
+{
+	const double delta = 0.1;
+	const int size = this->size();
+
+	if (size != obj.size())
+		return false;
+
+	for (int i = 0; i < size; i++)
+	{
+		if ((m_K[i] - obj.m_K[i]).getAbs() > delta)
+			return false;
+	}
+
+	return true;
+}

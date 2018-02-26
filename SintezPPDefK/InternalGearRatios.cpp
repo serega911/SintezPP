@@ -5,9 +5,12 @@
 
 NS_ARI_USING
 
-InternalGearRatios::InternalGearRatios( const NS_CORE InternalGearRatioValue dK )
+InternalGearRatios::InternalGearRatios()
 : core::InternalGearRatios(0)
 {
+	const auto settings = core::Singletons::getInstance()->getSettings()->getDefKSettings();
+
+	const NS_CORE InternalGearRatioValue dK(settings._doTest ? settings._testStep : settings._kStep);
 	NS_CORE InternalGearRatioValueArray kValues;
 
 	for ( const auto& range : core::Singletons::getInstance()->getInitialData()._ranges )
