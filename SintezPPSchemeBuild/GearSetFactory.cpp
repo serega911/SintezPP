@@ -22,16 +22,16 @@ void ari::GearSetFactory::init( const NS_CORE InternalGearRatios ratio )
 	m_options.clear();
 	for ( int i = 0; i < size; i++ )
 	{
-		if ( ratio[i].getAbs() < 2 )
+		if ( ratio[i].getAbs() > 1.5 )
 		{
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_N );
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_N_REVERSE );
+			m_options[NS_CORE GearSetNumber(i + 1)].add(NS_CORE eGearSetType::TYPE_DEFAULT);
 		}
 		else
 		{
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_DEFAULT );
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_U );
-			m_options[NS_CORE GearSetNumber( i + 1 )].add( NS_CORE eGearSetType::TYPE_U_REVERSE );
+			m_options[NS_CORE GearSetNumber(i + 1)].add(NS_CORE eGearSetType::TYPE_N);
+			m_options[NS_CORE GearSetNumber(i + 1)].add(NS_CORE eGearSetType::TYPE_N_REVERSE);
+			m_options[NS_CORE GearSetNumber(i + 1)].add(NS_CORE eGearSetType::TYPE_U);
+			m_options[NS_CORE GearSetNumber(i + 1)].add(NS_CORE eGearSetType::TYPE_U_REVERSE);
 		}
 	}
 }
