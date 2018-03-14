@@ -15,7 +15,7 @@ class Ratios : public IIOItem
 private:
 
 	RatioValueArray								m_i;
-	static RatioValue							m_eps;
+	const static RatioValue						m_eps;
 
 public:
 

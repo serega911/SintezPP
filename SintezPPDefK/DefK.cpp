@@ -92,7 +92,7 @@ void DefK::run()
 		{
 			auto realI = DefKSelection::podModul( NS_CORE GearBoxWithChanger( code ), ans[i] );
 
-			if (ans[i].check() && DefKSelection::countOfDifferent(realI, 0.1) >= initialData._realNumberOfGears)
+			if (ans[i].check() && DefKSelection::countOfDifferent(realI, 0.01) >= initialData._realNumberOfGears)
 			{
 				if ( !isWrited )
 				{

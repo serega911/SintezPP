@@ -6,7 +6,7 @@
 
 NS_CORE_USING
 
-RatioValue Ratios::m_eps = RatioValue( 0.01f );
+const RatioValue Ratios::m_eps = RatioValue( 0.01f );
 
 Ratios::Ratios( const RatioValueArray& i, RatioValue eps )
 	: m_i( i )
@@ -55,7 +55,6 @@ const RatioValue & Ratios::operator[]( size_t i ) const
 void Ratios::operator=( const Ratios& obj )
 {
 	m_i = obj.m_i;
-	m_eps = obj.m_eps;
 }
 
 void Ratios::push_back( RatioValue value )

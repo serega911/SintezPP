@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Settings.h"
 #include "Singletons.h"
 #include "SettingsItem.h"
@@ -23,27 +25,34 @@ std::string boolTostr( const bool bVal )
 
 bool strToBool( const std::string& str )
 {
-	return str == "yes";
+	bool ret = str == "yes";
+	return ret;
 }
 
 int strToInt( const std::string& str )
 {
-	return std::stoi( str );
+	int ret = std::stoi(str);
+	return ret;
 }
 
 double strTodouble( const std::string& str )
 {
-	return std::stod( str );
+	std::string tmp = str;
+	std::replace(tmp.begin(), tmp.end(), '.', ',');
+	double ret = std::stof(tmp);
+	return ret;
 }
 
 std::string intToStr( const int iVal )
 {
-	return std::to_string( iVal );
+	std::string ret = std::to_string( iVal );
+	return ret;
 }
 
 std::string doubleToStr( const double fVal )
 {
-	return std::to_string( fVal );
+	std::string ret = std::to_string(fVal);
+	return ret;
 }
 
 bool Settings::loadSettingsFromFile()

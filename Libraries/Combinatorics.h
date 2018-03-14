@@ -19,7 +19,7 @@ protected:
 	{
 		long ans = ((n == 0) ? 0 : 1);
 
-		for ( int i = 1; i < n; i++ )
+		for ( int i = 1; i <= n; i++ )
 			ans *= i;
 
 		return ans;
