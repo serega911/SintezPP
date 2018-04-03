@@ -22,6 +22,7 @@
     <ClCompile Include="..\Libraries\GearChanger.cpp" />
     <ClCompile Include="..\Libraries\GearSetTypes.cpp" />
     <ClCompile Include="..\Libraries\MappedSystem.cpp" />
+    <ClCompile Include="..\Libraries\Now.cpp" />
     <ClCompile Include="..\Libraries\Ratios.cpp" />
     <ClCompile Include="..\Libraries\IOFileManager.cpp" />
     <ClCompile Include="..\Libraries\InternalGearRatios.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="..\Libraries\GearNumber.h" />
     <ClInclude Include="..\Libraries\GearSetNumber.h" />
     <ClInclude Include="..\Libraries\MappedSystem.h" />
+    <ClInclude Include="..\Libraries\Now.h" />
     <ClInclude Include="..\Libraries\OrderedSample.h" />
     <ClInclude Include="..\Libraries\Permutation.h" />
     <ClInclude Include="..\Libraries\Ratios.h" />

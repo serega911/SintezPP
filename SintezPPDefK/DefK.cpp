@@ -34,17 +34,18 @@ void ari::DefK::calcExample()
 			auto realI = DefKSelection::podModul( gb, K );
 
 			const size_t iSize = realI.size();
-			if (iSize >= initialData._numberOfGears)
+			if (iSize >= initialData._realNumberOfGears)
 			{
-				int unique = DefKSelection::countOfDifferent(realI, 0.1);
+				int unique = DefKSelection::countOfDifferent(realI, 0.01);
 
-				if ( unique >= initialData._numberOfGears )
+				if (unique >= initialData._realNumberOfGears)
 				{
 					if ( !isWrited )
 					{
 						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::K_TEST, code );
 						NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, code );
 						isWrited = true;
+						break;
 					}
 					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, realI );
 					NS_CORE Singletons::getInstance()->getIOFileManager()->writeToFile( NS_CORE IOFileManager::eOutputFileType::DEF_K_LOG, K );
@@ -74,14 +75,14 @@ void DefK::run()
 		DefKSimple solveSimple;
 		NS_CORE Log::log("<", false);
 		NS_CORE Log::log(i, false);
-		NS_CORE InternalGearRatioArray	 ans = solveSimple.calculate( code );
+		NS_CORE InternalGearRatioArray	 ans;// = solveSimple.calculate(code);
 
-		if ( !NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._calcKQuick && ans.size() == 0 )
-		{
+		//if ( !NS_CORE Singletons::getInstance()->getSettings()->getDefKSettings()._calcKQuick && ans.size() == 0 )
+		//{
 			NS_CORE Log::log( "#", false );
 			DefKSelection solveSelection;
 			ans = solveSelection.calculate( code );
-		}
+		//}
 
 		NS_CORE Log::log(">", false);
 

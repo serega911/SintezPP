@@ -17,7 +17,7 @@ protected:
 
 	static long factorial( const int n )
 	{
-		long ans = ((n == 0) ? 0 : 1);
+		long ans = 1;
 
 		for ( int i = 1; i <= n; i++ )
 			ans *= i;

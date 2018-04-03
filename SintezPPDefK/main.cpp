@@ -33,9 +33,9 @@ int main( int argc, char* argv[] )
 	if ( !DK.checkRequirements() )
 		return 1;
 
-	DK.run();
-
 	NS_CORE Singletons::getInstance()->getIOFileManager()->writeSolutionData();
+
+	DK.run();
 
 	return 0;
 }

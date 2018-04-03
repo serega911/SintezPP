@@ -157,6 +157,7 @@
     <ClCompile Include="..\Libraries\MultiLinkContainer.cpp">
       <Filter>StaticLib\TChainsContainer</Filter>
     </ClCompile>
+    <ClCompile Include="..\Libraries\Now.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\eMainElement.h">
@@ -303,6 +304,7 @@
     <ClInclude Include="..\Libraries\Subset.h">
       <Filter>StaticLib\TSingletons\TCombinatorics</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\Now.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\UIGeneralData.h">

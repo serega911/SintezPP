@@ -3,6 +3,7 @@
 
 #include "IOFileManager.h"
 #include "Singletons.h"
+#include "Now.h"
 
 NS_CORE_USING
 
@@ -73,6 +74,8 @@ void IOFileManager::writeSolutionData()
 
 	for ( const auto& range : initialData._ranges )
 		writeToFile( IOFileManager::eOutputFileType::INITIAL_DATA, range );
+
+	writeToFile(IOFileManager::eOutputFileType::INITIAL_DATA, Now::START_TIME);
 }
 
 bool core::IOFileManager::isFileExists( const eOutputFileType type )
@@ -123,6 +126,7 @@ IOFileManager* IOFileManager::getInstance()
 
 IOFileManager::~IOFileManager()
 {
+	writeToFile(IOFileManager::eOutputFileType::INITIAL_DATA, Now::FINISH_TIME);
 	for ( auto& it : m_oFiles )
 		it.second->close();
 	for ( auto& it : m_oFiles )

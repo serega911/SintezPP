@@ -17,8 +17,9 @@ NS_CORE InternalGearRatioArray	 DefKSelection::calculate( const NS_CORE Code& Co
 
 	do{
 		//NS_CORE InternalGearRatioValueArray kValues;
-		//kValues.push_back(NS_CORE InternalGearRatioValue(-1.72));
-		//kValues.push_back(NS_CORE InternalGearRatioValue(-2.23));
+		//kValues.push_back(NS_CORE InternalGearRatioValue(2.5));
+		//kValues.push_back(NS_CORE InternalGearRatioValue(-1.8));
+		//kValues.push_back(NS_CORE InternalGearRatioValue(-2.14));
 		//InternalGearRatios K(kValues);
 		auto ret = podModul( gb, K );
 
@@ -50,6 +51,7 @@ NS_CORE Ratios DefKSelection::podModul( NS_CORE GearBoxWithChanger & gb, const I
 	NS_CORE Ratios tmpI( NS_CORE RatioValueArray(), NS_CORE RatioValue( 0.01f ) );	//вектор для полученных передаточных отношений при данном наборе K
 	do
 	{
+
 		auto system = NS_CORE MappedSystem::createW( gb.getChainsForCurrentGear(), k, inVelocity );
 		NS_CORE Gaus::solve( system );
 		const auto& solution = system->getSolution();
