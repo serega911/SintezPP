@@ -51,7 +51,8 @@ NS_CORE ElementArray GearBox::getElementsForFrictions() const
 		const auto & chains = getChains();
 		for ( size_t i = 0; i < chains.size(); i++ )
 		{
-			vect.push_back( chains[i].getSomeElement() );
+			if ( !chains[i].find( NS_CORE Element::OUTPUT ) )
+				vect.push_back( chains[i].getSomeElement() );
 		}
 	}
 	return vect;
